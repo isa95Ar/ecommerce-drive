@@ -5,7 +5,7 @@ export default function Nav() {
 
 
     return (
-        <nav className="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent">
+        <nav className="navbar navbar-expand-lg top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent">
             <div className="container">
                 <a className="navbar-brand  text-white " href="https://demos.creative-tim.com/material-kit/presentation"  title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank"  rel="noreferrer">
                     Material Kit 2
