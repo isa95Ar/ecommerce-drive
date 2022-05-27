@@ -11,9 +11,7 @@ export default function Home() {
                 Using UseState
             </div>
             <div className='card-body'>
-                <p>
-                  alñsdkj flskjd lfksjd lfkjs
-                </p>
+                <input type={"text"} className='form-control' />
             </div>
             <div className='card-footer'>
                 <button className='btn btn-info'>Probar</button>
