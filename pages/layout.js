@@ -21,6 +21,8 @@ export default function Layout({ children }) {
                 {children}
             </div>
 
+            <script src="./js/material-kit.js"></script>
+            <script src="./js/core/bootstrap.min.js" type="text/javascript"></script>
         </>
     );
 }
