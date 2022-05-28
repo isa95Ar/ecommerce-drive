@@ -4,17 +4,20 @@ import Layout from './layout'
 export default function Home() {
   return (
     <Layout>
-      <div className='container'>
+      <div className='container mt-4'>
         <div className='col-12'>
           <div className='card'>
             <div className='card-header'>
-                Using UseState
+              Using UseState
             </div>
             <div className='card-body'>
-                <input type={"text"} className='form-control' />
+              <div className="input-group input-group-static">
+                <label>First Name</label>
+                <input className="form-control" placeholder="eg. Kurt Shelby" type="text" />
+              </div>
             </div>
             <div className='card-footer'>
-                <button className='btn btn-info'>Probar</button>
+              <button className='btn btn-info'>Probar</button>
             </div>
           </div>
         </div>
