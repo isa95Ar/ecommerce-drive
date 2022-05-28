@@ -13,16 +13,17 @@ export default function Layout({ children }) {
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
                 <link href="./css/material-kit.css?v=3.0.0" rel="stylesheet" />
+
+                <script src="./js/material-kit.js"></script>
+                <script src="./js/core/bootstrap.min.js" type="text/javascript"></script>
             </Head>
 
             <Nav />
             <div>
-                
+
                 {children}
             </div>
 
-            <script src="./js/material-kit.js"></script>
-            <script src="./js/core/bootstrap.min.js" type="text/javascript"></script>
         </>
     );
 }
