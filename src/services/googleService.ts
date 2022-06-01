@@ -1,4 +1,4 @@
-import { google } from "googleapis";
+import { google, sheets_v4 } from "googleapis";
 import config from '../../constans/config';
 import ApiException from "../exceptions/ApiExeption";
 import { singleton } from "tsyringe";
@@ -8,6 +8,7 @@ import { singleton } from "tsyringe";
 class googleService {
 
     googleAuth;
+    googleSheets:sheets_v4.Sheets;
 
     async initConnection() {
         return new Promise((resolve, reject) => {
@@ -21,8 +22,8 @@ class googleService {
 
                 //creating client instance
                 auth.getClient().then((client) => {
-                    const googleSheets = google.sheets({ version: 'v4', auth: client });
-                    resolve(googleSheets);
+                    this.googleSheets = google.sheets({ version: 'v4', auth: client });
+                    resolve(true);
                 }).catch(e => {
                     reject('Error getting google client!');
                 });
@@ -36,11 +37,11 @@ class googleService {
 
     async getGoogleSheetData({ module }) {
         try {
-            const googleSheet = await this.initConnection();
+             await this.initConnection();
 
             const sheetName = this.getSheetName(module);
 
-            const rows = await googleSheet.spreadsheets.values.get({
+            const rows = await this.googleSheets.spreadsheets.values.get({
                 auth: this.googleAuth,
                 spreadsheetId: config.gapi.SPREADSHEET_ID,
                 range: sheetName
