@@ -14,7 +14,7 @@ class googleService {
         return new Promise((resolve, reject) => {
             try {
                 const auth = new google.auth.GoogleAuth({
-                    keyFile: "/google-credentials.json",
+                    keyFile: "../../google-credentials.json",
                     scopes: config.gapi.SCOPES
                 });
 
