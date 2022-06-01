@@ -25,7 +25,7 @@ class googleService {
                     this.googleSheets = google.sheets({ version: 'v4', auth: client });
                     resolve(true);
                 }).catch(e => {
-                    reject('Error getting google client!');
+                    reject(e);
                 });
 
             } catch (e) {
