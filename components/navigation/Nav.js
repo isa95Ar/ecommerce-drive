@@ -5,7 +5,7 @@ export default function Nav() {
 
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-warning z-index-3 py-3">
+        <nav className="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
             <div className="container">
                 <a className="navbar-brand  text-white " href="https://demos.creative-tim.com/material-kit/presentation"  title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank"  rel="noreferrer">
                     AlMargen
