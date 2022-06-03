@@ -1,4 +1,5 @@
 
+import InputCustom from '../components/InputCustom'
 import Layout from './layout'
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
             <div className='card-body'>
               <div className="input-group input-group-static">
                 <label>First Name</label>
-                <input className="form-control" placeholder="eg. Kurt Shelby" type="text" />
+                <InputCustom onChange={(e) => console.log(e)} />
               </div>
             </div>
             <div className='card-footer'>

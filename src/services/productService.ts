@@ -1,16 +1,12 @@
 import type { NextApiRequest } from 'next';
 import googleService from './googleService';
+import {googleServiceInterface} from './googleService.d';
 import { singleton, container } from "tsyringe";
-import ApiException from '../exceptions/ApiExeption';
 
 @singleton()
 class productService {
 
-    googleServices;
-
-    constructor() {
-
-    }
+    googleServices:googleServiceInterface;
 
     async getProducts(req: NextApiRequest) {
         const googleSheetService = container.resolve(googleService);
@@ -19,7 +15,7 @@ class productService {
         return products;
     }
 
-    
+
 }
 
 export default productService;

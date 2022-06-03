@@ -1,20 +1,26 @@
 import { google, sheets_v4 } from "googleapis";
 import config from '../../constans/config';
 import ApiException from "../exceptions/ApiExeption";
+import { GoogleAuth } from "google-auth-library";
 import { singleton } from "tsyringe";
 
+type googleSheetDataOptions = {
+    module:string,
+    rows?:number
+}
 
 @singleton()
 class googleService {
 
-    googleAuth;
+    googleAuth:GoogleAuth;
     googleSheets:sheets_v4.Sheets;
 
-    async initConnection() {
+
+    async initConnection():Promise<boolean> {
         return new Promise((resolve, reject) => {
             try {
-                const auth = new google.auth.GoogleAuth({
-                    keyFile: "../../google-credentials.json",
+                const auth = new GoogleAuth({
+                    keyFile: "./google-credentials.json",
                     scopes: config.gapi.SCOPES
                 });
 
@@ -29,17 +35,17 @@ class googleService {
                 });
 
             } catch (e) {
-                reject('Troubles with google credentials!');
+                reject(e);
             }
         });
 
     }
 
-    async getGoogleSheetData({ module }) {
+    async getGoogleSheetData(opts: googleSheetDataOptions):Promise<object> {
         try {
-             await this.initConnection();
+            await this.initConnection();
 
-            const sheetName = this.getSheetName(module);
+            const sheetName = this.getSheetName(opts.module);
 
             const rows = await this.googleSheets.spreadsheets.values.get({
                 auth: this.googleAuth,
@@ -54,7 +60,7 @@ class googleService {
         }    
     }
 
-    getSheetName(module) {
+    getSheetName(module):string {
         let sheetName;
         switch (module) {
             case "products":

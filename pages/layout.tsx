@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Nav from "../components/navigation/Nav";
 
-
-export default function Layout({ children }) {
+type Props = {
+    children: React.ReactNode
+}
+  const Layout:React.FC<Props> = ({ children }) => {
     return (
         <>
             <Head>
                 <title>Compras Cooperativas!</title>
-                <meta charset="utf-8" />
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
                 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
@@ -27,3 +28,5 @@ export default function Layout({ children }) {
         </>
     );
 }
+
+export default Layout;
