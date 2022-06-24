@@ -12,9 +12,9 @@ export default function Home() {
               Using UseState
             </div>
             <div className='card-body'>
-              <div className="input-group input-group-static">
-                <label>First Name</label>
-                <InputCustom onChange={(e) => console.log(e)} />
+              <div className="input-group input-group-outline my-3">
+                <label className="form-label">Email</label>
+                <input type="email" className="form-control" />
               </div>
             </div>
             <div className='card-footer'>
