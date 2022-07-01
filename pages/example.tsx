@@ -8,17 +8,13 @@ export default function Example() {
         <div className='container'>
             <div className='row'>
                 <div className='col-12 mt-4'>
-                    <h1 className={styles.title}>Descubre nuestros productos!</h1>
+                    <h1>Descubre nuestros productos!</h1>
                 </div>
             </div>
             <div className='row'>
                 <div className='col-12'>
                     <div  className={'card'}>
-                       <style jsx>
-                           {`.card-header {
-                               background-color:blue;
-                           }`}
-                       </style>
+                    
                         <div className='card-header'>
                             <div className='row'>
                                 <div className='col-3'>
