@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Nav from "../components/navigation/Nav";
 
+
 type Props = {
     children: React.ReactNode
 }
@@ -13,18 +14,21 @@ type Props = {
                 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-                <link href="./css/material-kit.css?v=3.0.0" rel="stylesheet" />
-
+                
                 <script src="./js/material-kit.js"></script>
                 <script src="./js/core/bootstrap.min.js" type="text/javascript"></script>
             </Head>
 
             <Nav />
+            <style global jsx>
+                {`body {
+                    background-color: yellow;
+                }`}
+            </style>
             <div>
 
                 {children}
             </div>
-
         </>
     );
 }

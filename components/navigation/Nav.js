@@ -1,13 +1,14 @@
 
 import Image from "next/image";
+import variables from "../../styles/scss/variables.module.scss";
 
 export default function Nav() {
 
 
     return (
-        <nav className="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+        <nav className="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style={{backgroundImage:variables.gradientPrimary}}>
             <div className="container">
-                <a className="navbar-brand  text-white " href="https://demos.creative-tim.com/material-kit/presentation"  title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank"  rel="noreferrer">
+                <a className="navbar-brand" href="https://demos.creative-tim.com/material-kit/presentation"  title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank"  rel="noreferrer">
                     AlMargen
                 </a>
                 <button className="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
