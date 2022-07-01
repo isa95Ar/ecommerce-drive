@@ -6,7 +6,7 @@ export default function Nav() {
 
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white z-index-3 py-3" style={{backgroundImage:variables.gradientPrimary}}>
+        <nav className="navbar navbar-expand-lg navbar-light z-index-3 py-3" style={{backgroundImage:variables.gradientPrimary}}>
             <div className="container">
                 <a className="navbar-brand" href="https://demos.creative-tim.com/material-kit/presentation"  title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank"  rel="noreferrer">
                     AlMargen

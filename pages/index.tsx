@@ -1,5 +1,4 @@
 
-import InputCustom from '../components/InputCustom'
 import Layout from './layout'
 
 export default function Home() {

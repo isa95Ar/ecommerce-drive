@@ -108,5 +108,5 @@ $theme-gradient-colors: (
 $gradient-primary : linear-gradient(to right,$primary-gradient,$primary-gradient-state);
 
 :export {
-    gradientPrimary: $gradient-primary
+    gradientPrimary: $gradient-primary,
 }

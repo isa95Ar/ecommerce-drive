@@ -1,5 +1,9 @@
 @import "variables.module.scss";
 
-.title {
-    color: $info
+.header{
+    background-color: $primary;
+    border-top-left-radius:  10px;
+    border-top-right-radius:  10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }

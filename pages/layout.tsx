@@ -20,7 +20,11 @@ type Props = {
             </Head>
 
             <Nav />
-           
+           <style global jsx>
+                {`body{
+                    background-color:black;
+                }`}
+           </style>
             <div>
 
                 {children}
