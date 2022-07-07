@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { container } from "tsyringe";
-import productService from '../../src/services/productService';
+import ProductService from '../../src/services/ProductService';
 import Cors from 'cors';
 import ApiException from "../../src/exceptions/ApiExeption";
 
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     try {
         req = await runMiddleware(req, res, cors)
 
-        const service = container.resolve(productService);
+        const service = container.resolve(ProductService);
 
         const products = await service.getProducts(req);
        

@@ -9,8 +9,9 @@ type googleSheetDataOptions = {
     rows?:number
 }
 
+
 @singleton()
-class googleService {
+class GoogleService {
 
     googleAuth:GoogleAuth;
     googleSheets:sheets_v4.Sheets;
@@ -41,7 +42,7 @@ class googleService {
 
     }
 
-    async getGoogleSheetData(opts: googleSheetDataOptions):Promise<object> {
+    async getGoogleSheetData(opts: googleSheetDataOptions):Promise<Array<Array<string>>> {
         try {
             await this.initConnection();
 
@@ -53,7 +54,7 @@ class googleService {
                 range: sheetName
             })
 
-            return rows.data;
+            return rows.data.values;
 
         }catch(error){
             throw new ApiException(error);
@@ -79,4 +80,5 @@ class googleService {
     //animus-compras@testisa-f771a.iam.gserviceaccount.com
 }
 
-export default googleService;
+export default GoogleService;
+

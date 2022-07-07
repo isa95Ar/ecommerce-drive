@@ -1,7 +1,10 @@
 export default {
     gapi : {
-        SPREADSHEET_ID:'1nRSbZLZ31virKXftHQGnUfqSt-G4njp5qdJ5lhoI8f4',
+        SPREADSHEET_ID:'1TWtQUwrYNQ0I4TY36UnLkhOCiqWVBeWgWiPO8wxJlSY',
         SCOPES:'https://www.googleapis.com/auth/spreadsheets',
-        PRODUCT_SHEET_NAME: 'Lista de precios vigente'
+        PRODUCT_SHEET_NAME: 'products'
+    },
+    redis : {
+        client : "redis://localhost:6379"
     }
 }
