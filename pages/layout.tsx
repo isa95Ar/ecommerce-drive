@@ -14,7 +14,7 @@ type Props = {
             </Head>
 
             <Nav />
-           <style global jsx>
+           <style>
                 {`body{
                     background-color:black;
                 }`}
