@@ -1,6 +1,8 @@
 
 import Layout from './layout'
-
+import TestDropdown from '../components/dropdowns/TestDropdown'
+import SelectorDropdown from '../components/dropdowns/SelectorDropdown'
+import CardExample from '../components/cards/CardExamples'
 export default function Home() {
   return (
     <Layout>
@@ -21,6 +23,16 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+      <div><p>
+      <div color='white'>Pruebas--------------------------------</div>
+      </p>
+      <p>Dropdown Clasico</p>
+          <TestDropdown/>
+      <p>Dropdown Con Selector</p>
+          <SelectorDropdown/>
+          <p>Ejemplos de las cards basicos</p>
+          <CardExample/>
       </div>
     </Layout>
   )
