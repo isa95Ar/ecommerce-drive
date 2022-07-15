@@ -1,6 +1,8 @@
 import type { NextApiRequest } from 'next';
 import { productRepository } from '../schemas/Repositories';
-import { singleton } from "tsyringe";
+import GoogleService from './GoogleService';
+import { singleton,container } from "tsyringe";
+
 
 @singleton()
 class ProductService {
@@ -8,8 +10,10 @@ class ProductService {
     async getProducts(req: NextApiRequest) {
         try{
             console.log('dsd');
-        const products = await productRepository.search().return.all();
-                
+
+        const googleServ = container.resolve(GoogleService);
+        const products = await googleServ.getGoogleSheetData({module:'products'});
+               
         return products;
 
         }catch(e){
