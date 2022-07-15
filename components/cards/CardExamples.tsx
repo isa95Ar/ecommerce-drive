@@ -13,7 +13,7 @@ export default function CardExample() {
       <Grid xs={4}>
         <Card variant="flat">
           <Card.Body>
-            <Text>Flat card.</Text>
+            <Text >Flat card. Centered Text</Text>
           </Card.Body>
         </Card>
       </Grid>
