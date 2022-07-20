@@ -9,7 +9,7 @@ type Props = {
     return (
         <>
             <Head>
-                <title>Compras Cooperativas!</title>
+                <title>AlMargen</title>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
             </Head>
 

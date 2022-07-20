@@ -45,7 +45,7 @@ export default function LoginCard() {
                         <Spacer y={1.2} />
                         <Card.Divider />
                         <Text>
-                            Developer options
+                             **-----------Developer options-----------**
                         </Text>
                         <Spacer y={0.5} />
                         <Button size="lg" color="success" bordered ghost>
