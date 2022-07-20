@@ -9,6 +9,7 @@ export default function LandingCerrado() {
         imgStyle: {
             backgroundImage: `url(${bgImg1.src})`,
             height: '100vh',
+            backgroundPosition:"center"
         },
         linkStyle: {
             color: "white"
@@ -36,8 +37,10 @@ export default function LandingCerrado() {
     else {
         style = altStyle
     }
+
     return (
-        <Container fluid style={style.imgStyle}>
+        <div style={style.imgStyle}>
+        <Container fluid>
             <Card css={{ height: "40vh", background: "none" /*Tarjeta para el espaciado */ }}> </Card>
             <AvisoCarrito innerStyle={style.avisoStyle.color} />
             <Spacer y={3} />
@@ -45,5 +48,6 @@ export default function LandingCerrado() {
             <Spacer y={1} />
             <Link block href='#' css={{ color: style.linkStyle.color, background: "none" }} underline> Unite a la comunidad</Link>
         </Container>
+        </div>
     );
 }

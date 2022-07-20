@@ -1,65 +1,32 @@
 import { Card, Grid, Text, Input, Spacer, Container, Button } from "@nextui-org/react";
+import bgImg from '../../public/img/placeholder/placeholderImg.png'
 export default function LoginCard() {
+    const style = {
+        backgroundImage: `url(${bgImg.src})`,
+        backgroundPosition:"center"
+    }
     return (
-        <Grid.Container justify="center">
-            <Grid xs={6}>
-                <Card variant="flat">
-                    <Card.Header>
-                        <Text h1
-                            css={{
-                                textAlign: "center",
-                                width: '100%',
-                            }}
-                        > Accede con tu cuenta de Google
-                        </Text>
-                    </Card.Header>
-                    <Card.Divider />
-                    <Card.Body>
-                        <Container>
-                        <Spacer y={1} />
-                        <Text>
-                            <Input
-                                size="xl"
-                                clearable
-                                underlined
-                                labelPlaceholder="Acceder"
-                                initialValue="Ejemplo@gmail.com"
-                            />
-                        </Text>
-                        <Spacer y={1.2} />
-                        <Text>
-                            <Input.Password
-                                size="xl"
-                                underlined
-                                labelPlaceholder="Contraseña"
-                            />
-                        </Text>
-                        <Spacer y={0.5} />
-                        <Grid.Container justify="flex-end">
-                        <Grid xs={3}>
-                        <Button size="lg" color="primary" bordered ghost>
-                            Acceder
-                        </Button>
-                        </Grid>
-                        </Grid.Container>                    
-                        <Spacer y={1.2} />
-                        <Card.Divider />
-                        <Text>
-                             **-----------Developer options-----------**
-                        </Text>
-                        <Spacer y={0.5} />
-                        <Button size="lg" color="success" bordered ghost>
-                            Force Success
-                        </Button>
-                        <Spacer y={0.5} />
-                        <Button size="lg" color="error" bordered ghost>
-                            Force Error
-                        </Button>
-                        </Container>
-                    </Card.Body>
-
-                </Card>
+      <div style={style}>
+        <Container alignItems="center" css={{height:'100vh'}}>
+            
+            <Grid.Container justify="center">
+                <Grid >
+            <Card css={{ background: 'none' }}>
+                <Card.Header>
+                    
+                </Card.Header>
+                <Spacer y={5}/>
+                <Card.Body css={{minHeight:'20vh'}}>
+                Aqui ira el logo
+                </Card.Body>
+                <Spacer y={2}/>
+                <Card.Footer>
+                    <Button size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>Ingresa con google</Button>
+                </Card.Footer>
+            </Card>
             </Grid>
-        </Grid.Container>
+            </Grid.Container>
+        </Container>
+    </div> 
     );
 }
