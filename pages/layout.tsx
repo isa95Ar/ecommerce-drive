@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Nav from "../components/navigation/Nav";
-
+import colores from "../constans/colores";
 
 type Props = {
     children: React.ReactNode
@@ -16,7 +16,7 @@ type Props = {
             <Nav />
            <style>
                 {`body{
-                    background-color:black;
+                    background-color: ${colores.colorMain};
                 }`}
            </style>
             <div>
