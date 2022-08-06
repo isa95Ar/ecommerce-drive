@@ -1,12 +1,10 @@
 # Al Margen E-Commerce
 
-Este E-commerce usa la api de google para traer productos de un excel y los mete en un redis.
+Este E-commerce usa la api de google para traer productos de un excel y los mete en un mongo.
 
-## Link para instalarse redis.
+## Link para instalarse mongo.
 
-https://redis.io/docs/stack/get-started/install/linux/
-
-(Con windows si o si hay que ponerse el wsl2)
+https://www.mongodb.com/try/download/community
 
 ## Para ejecutar el proyecto hay que tener typescript y ts-node
 
