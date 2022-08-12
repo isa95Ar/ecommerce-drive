@@ -20,7 +20,7 @@ export default function LandingCerrado() {
         }
 
     }
-    const altStyle = {// paleta de colores e imagen de "android small 3" de la maqueta en figma (usestyle = 2)
+    const altStyle = {
         imgStyle: {
             backgroundImage: `url(${bgImg2.src})`,
             height: '100vh',
