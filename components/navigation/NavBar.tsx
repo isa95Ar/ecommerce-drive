@@ -9,7 +9,7 @@ export default function NavBar() {
         }
     }
     return (
-        <Container fluid css={{backgroundColor:style.navStyle.primary,height:"8vh",display:"flex",position:"fixed", zIndex:"1",alignItems:"center",justifyContent:"space-between",padding:"2px 8px 2px 8px"}}>
+        <Container css={{backgroundColor:style.navStyle.primary,height:"8vh",position:"fixed",display:"flex", zIndex:"1",alignItems:"center",justifyContent:"space-between",padding:"2px 8px 2px 8px",width:"100%",margin:"0px 0px 0px 0px"}}>
             casi
             <Button css={{alignSelf:"right",backgroundColor:style.navStyle.accent}} size={"sm"}>Cerrar Sesión</Button>
         </Container>

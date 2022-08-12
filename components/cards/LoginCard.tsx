@@ -1,5 +1,6 @@
 import { Card, Grid, Text, Input, Spacer, Container, Button } from "@nextui-org/react";
-import bgImg from '../../public/img/BgImgLogin.jpg'
+import bgImg from '../../public/img/BgImgLogin.jpg';
+import loginLogo from '../../public/img/loginLogo.png';
 export default function LoginCard() {
     const style = {
         backgroundImage: `url(${bgImg.src})`,
@@ -14,16 +15,18 @@ export default function LoginCard() {
             <Grid.Container justify="center">
                 <Grid >
             <Card css={{ background: 'none' }}>
-                <Card.Header>
-                    
+                <Card.Header css={{paddingTop:"15vh"}}>
+                    <Card.Image
+                    src={loginLogo.src}
+                    objectFit="cover"
+                    width="100%"
+                    height={"auto"}
+                    alt="AlMargen Logo"
+                    />
                 </Card.Header>
-                <Spacer y={5}/>
-                <Card.Body css={{minHeight:'20vh'}}>
-                    
-                </Card.Body>
                 <Spacer y={2}/>
                 <Card.Footer>
-                    <Button size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>G Ingresa con google</Button>
+                    <Button size='lg' css={{marginLeft:"auto", marginRight:"auto", background:'White', color:'Black',textAlign:"center"}}>G Ingresa con google</Button>
                 </Card.Footer>
             </Card>
             </Grid>
