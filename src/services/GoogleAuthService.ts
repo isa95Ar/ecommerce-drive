@@ -1,8 +1,6 @@
 import config from "../../constans/config";
 import {
-    GoogleAuth,
-    OAuth2Client,
-    UserRefreshClient,
+    GoogleAuth
 } from "google-auth-library";
 import {singleton} from "tsyringe";
 
@@ -11,20 +9,15 @@ class GoogleAuthService {
     public GoogleClient;
     public GoogleAuth;
 
-    constructor() {
-        this.start();
-    }
+    async startGoogleAuthentification() {
+        try {
+            const connection = await this.initConnection();
+            this.GoogleClient = connection.googleClient;
+            this.GoogleAuth = connection.googleAuth;
 
-    async start() {
-        const connection: Promise<any> = this.initConnection();
-        connection
-            .then((result) => {
-                this.GoogleClient = result.googleClient;
-                this.GoogleAuth = result.googleAuth;
-            })
-            .catch((e) => {
-                throw new Error(`Client Google error ${e}`);
-            });
+        } catch (e) {
+            throw new Error(`Client Google error ${e}`);
+        }
     }
 
     async initConnection(): Promise<any> {

@@ -1,6 +1,6 @@
 import { connection, connect } from "mongoose";
 
-const isDbConnected = false;
+let isDbConnected = false;
 
 const connectMongo = async () => {
   if (isDbConnected) return;

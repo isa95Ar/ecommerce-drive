@@ -24,8 +24,8 @@ class GoogleSheetService
 
     async getGoogleSheetData(): Promise<Array<Array<string>>> {
         try {
+            await this.startGoogleAuthentification();
             const sheetName = this.getSheetName();
-
             const rows = await this.googleSheetsImplements.spreadsheets.values.get({
                 auth: this.GoogleAuth,
                 spreadsheetId: config.gapi.SPREADSHEET_ID,

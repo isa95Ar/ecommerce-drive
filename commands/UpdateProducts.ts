@@ -39,6 +39,8 @@ async function saveProductsOnMongo(
 ): Promise<object> {
   try {
     await mongoConnection();
+
+    // @ts-ignore
     products.map(async (product) => await Product.create(product));
 
     console.log("finish success!");
@@ -65,4 +67,3 @@ export async function updateProducts(): Promise<object> {
   }
 }
 
-updateProducts();
