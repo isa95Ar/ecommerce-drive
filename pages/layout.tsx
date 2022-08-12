@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Nav from "../components/navigation/Nav";
+import NavBar from "../components/navigation/NavBar";
 
 
 type Props = {
@@ -9,17 +9,11 @@ type Props = {
     return (
         <>
             <Head>
-                <title>Compras Cooperativas!</title>
+                <title>AlMargen | Del otro lado de tu mesa</title>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
             </Head>
-
-            <Nav />
-           <style>
-                {`body{
-                    background-color:black;
-                }`}
-           </style>
-            <div>
+            <div>  
+                <NavBar></NavBar>
 
                 {children}
             </div>
