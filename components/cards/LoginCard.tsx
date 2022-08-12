@@ -1,9 +1,11 @@
 import { Card, Grid, Text, Input, Spacer, Container, Button } from "@nextui-org/react";
-import bgImg from '../../public/img/placeholder/placeholderImg.png'
+import bgImg from '../../public/img/BgImgLogin.jpg'
 export default function LoginCard() {
     const style = {
         backgroundImage: `url(${bgImg.src})`,
-        backgroundPosition:"center"
+        backgroundPosition:"center",
+        backgroundRepeat:"no-repeat",
+        backgroundSize:"cover"
     }
     return (
       <div style={style}>
