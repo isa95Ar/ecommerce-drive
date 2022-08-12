@@ -1,8 +1,7 @@
 import "reflect-metadata";
-import GoogleServices from "../src/services/GoogleService";
-import { container } from "tsyringe";
 import Product from "../src/schemas/Product";
 import mongoConnection from "../src/utils/mongoConnection";
+import GoogleSheetService from "../src/services/GoogleSheetService";
 
 type productType = {
   stock: boolean;
@@ -13,7 +12,6 @@ type productType = {
   category: string;
 };
 
-const googleServices = container.resolve(GoogleServices);
 
 function serializingProducts(
   products: Array<Array<string>>
@@ -53,8 +51,8 @@ async function saveProductsOnMongo(
 
 export async function updateProducts(): Promise<object> {
   try {
-    const products: Array<Array<string>> =
-      await googleServices.getGoogleSheetData({ module: "products" });
+    const googleSheetInstance = new GoogleSheetService("products");
+    const products: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
 
     const productsFormated: Array<productType> = serializingProducts(products);
 

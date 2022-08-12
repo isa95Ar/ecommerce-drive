@@ -1,8 +1,7 @@
-
 import Image from "next/image";
+import config from "../../constans/config";
 
 export default function Nav() {
-
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light z-index-3 py-3" >
@@ -45,6 +44,7 @@ export default function Nav() {
                                 <Image src="/img/down-arrow-dark.svg" alt="down-arrow" width="5" height="5" className="arrow ms-auto ms-md-2 d-lg-none d-block" />
                             </a>
                         </li>
+                        <button >Iniciar Sesion con google</button>
                     </ul>
                 </div>
             </div>
