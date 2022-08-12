@@ -19,11 +19,11 @@ export default function LoginCard() {
                 </Card.Header>
                 <Spacer y={5}/>
                 <Card.Body css={{minHeight:'20vh'}}>
-                Aqui ira el logo
+                    
                 </Card.Body>
                 <Spacer y={2}/>
                 <Card.Footer>
-                    <Button size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>Ingresa con google</Button>
+                    <Button size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>G Ingresa con google</Button>
                 </Card.Footer>
             </Card>
             </Grid>
