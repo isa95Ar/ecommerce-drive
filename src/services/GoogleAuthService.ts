@@ -1,4 +1,4 @@
-import config from "../../constans/config";
+import config from "../../constants/config";
 import {
     GoogleAuth
 } from "google-auth-library";

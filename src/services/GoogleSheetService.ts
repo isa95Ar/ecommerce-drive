@@ -1,4 +1,4 @@
-import config from "../../constans/config";
+import config from "../../constants/config";
 import GoogleAuthService from "./GoogleAuthService";
 import {google, sheets_v4} from "googleapis";
 
