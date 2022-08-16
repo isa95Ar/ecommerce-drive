@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700&display=swap');
+
+
+$font:        		 'Roboto', sans-serif;
+$titlefont:          'Roboto', sans-serif;
+
+
+$space:                 2.6rem;
+
+// mixins
+// -------------------------
+
+
+@mixin gradient ($origin: left, $color01: #000, $color02: #eee) {
+    background-color: $color01;
+    background-image: -webkit-linear-gradient($origin, $color01, $color02);
+    background-image: -moz-linear-gradient($origin, $color01, $color02);
+    background-image: -o-linear-gradient($origin, $color01, $color02);
+    background-image: -ms-linear-gradient($origin, $color01, $color02);
+    background-image: linear-gradient(to $origin, $color01, $color02);
+}
+@mixin gradient-transparent ($origin: left, $color: #000) {
+    background-color: transparent;
+    background-image: -webkit-linear-gradient($origin, $color, rgba($color, 0));
+    background-image: -moz-linear-gradient($origin, $color, rgba($color, 0));
+    background-image: -o-linear-gradient($origin, $color, rgba($color, 0));
+    background-image: -ms-linear-gradient($origin, $color, rgba($color, 0));
+    background-image: linear-gradient(to $origin, $color, rgba($color, 0));
+}
+
+@mixin box-shadow ($x: 0px, $y: 5px, $blur: 10px, $alpha: 0.1) {
+    -webkit-box-shadow: $x $y $blur rgba(0, 0, 0, $alpha);
+    -moz-box-shadow: $x $y $blur rgba(0, 0, 0, $alpha);
+    box-shadow: $x $y $blur rgba(0, 0, 0, $alpha);
+}
+
+@mixin border-radius ($radius: 0.4rem) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+@mixin border-radii($topleft, $topright, $bottomright, $bottomleft) {
+    border-top-left-radius: $topleft;
+    border-top-right-radius: $topright;
+    border-bottom-right-radius: $bottomright;
+    border-bottom-left-radius: $bottomleft;
+    -webkit-border-top-left-radius: $topleft;
+    -webkit-border-top-right-radius: $topright;
+    -webkit-border-bottom-right-radius: $bottomright;
+    -webkit-border-bottom-left-radius: $bottomleft;
+    -moz-border-radius-topleft: $topleft;
+    -moz-border-radius-topright: $topright;
+    -moz-border-radius-bottomright: $bottomright;
+    -moz-border-radius-bottomleft: $bottomleft;
+}
