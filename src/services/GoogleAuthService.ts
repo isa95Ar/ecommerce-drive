@@ -17,7 +17,8 @@ class GoogleAuthService {
         this.oAuth2Client = new OAuth2Client(
             config.gapi.OAUTH_CLIENT_ID,
             config.gapi.OAUTH_CLIENT_KEY,
-            config.gapi.OAUTH_REDIRECT_URL
+            config.gapi.OAUTH_REDIRECT_URL,
+
         )
     }
 
@@ -54,7 +55,7 @@ class GoogleAuthService {
                 // Generate the url that will be used for the consent dialog.
                 const authorizeUrl = this.oAuth2Client.generateAuthUrl({
                     access_type: 'offline',
-                    scope: 'https://www.googleapis.com/auth/userinfo.profile',
+                    scope: ['https://www.googleapis.com/auth/userinfo.profile','https://www.googleapis.com/auth/userinfo.email'],
                 });
 
                 resolve(authorizeUrl);
@@ -95,6 +96,7 @@ class GoogleAuthService {
 
             oauth2.userinfo.get((err,res) => {
                 if (!err) {
+                    
                     const profileData:Schema$Userinfo = res.data;
                     resolve(profileData);
                 }else {

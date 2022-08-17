@@ -18,7 +18,7 @@ export default async function oauthCallback(req, res) {
         }
         const clientCredentials:Credentials = await googleAuth.getUserTokens(code);
 
-        //const profile:Schema$Userinfo = await googleAuth.getProfileInfo(clientCredentials);
+        const profile:Schema$Userinfo = await googleAuth.getProfileInfo(clientCredentials);
 
         const cookies = new Cookies(req, res);
         cookies.set("google_credentials", JSON.stringify(clientCredentials), {
@@ -26,7 +26,7 @@ export default async function oauthCallback(req, res) {
         })
 
 
-        res.redirect('/');
+        res.json(profile);
     }catch (e) {
         res.json(e);
     }
