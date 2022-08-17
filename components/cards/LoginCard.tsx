@@ -23,7 +23,7 @@ export default function LoginCard() {
                 </Card.Body>
                 <Spacer y={2}/>
                 <Card.Footer>
-                    <Button size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>Ingresa con google</Button>
+                    <Button onClick={() => location.href = '/api/login'} size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>Ingresa con google</Button>
                 </Card.Footer>
             </Card>
             </Grid>
