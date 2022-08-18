@@ -1,7 +1,10 @@
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Spacer, Link, Card } from '@nextui-org/react';
 import bgImg1 from '../../public/img/BgImgAviso.jpg' //Cambiar estos link con las imagen correspondiente
 import bgImg2 from '../../public/img/BgImgAviso.jpg' //Cambiar estos link con las imagen correspondiente
 import AvisoCarrito from '../AvisoCarrito';
+import Links from './Links';
 export default function LandingCerrado() {
     var style
     var useStyle = 1 //Esto define que estilo se usa, por ahora usa un valor holdeado 1 o menor para el estilo original,  cualquier mayor a 1 para el estilo alternativo
@@ -45,11 +48,7 @@ export default function LandingCerrado() {
         <div style={style.imgStyle}>
         <Container fluid>
             <Card css={{ height: "40vh", background: "none" /*Tarjeta para el espaciado */ }}> </Card>
-            <AvisoCarrito innerStyle={style.avisoStyle.color} />
-            <Spacer y={3} />
-            <Link block href='#' css={{ color: style.linkStyle.color, background: "none" }} underline> Visita Nuestra Pagina</Link>
-            <Spacer y={1} />
-            <Link block href='#' css={{ color: style.linkStyle.color, background: "none" }} underline> Unite a la comunidad</Link>
+            <AvisoCarrito innerStyle={style.avisoStyle.color} landingType="toOpen"/>
         </Container>
         </div>
     );

@@ -1,3 +1,5 @@
+// General styles 
+
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +9,9 @@ body {
 p {
   font-family: $font !important;
 }
+
+
+// Product component styles
 .product-name {
   margin-top: 10px !important;
   font-weight: 500;
@@ -28,17 +33,17 @@ p {
 .product-container {
   flex-flow: wrap !important;
 }
-.text-container {
-  flex-basis: fit-content;
-}
+// .text-container {
+//   flex-basis: fit-content;
+// }
 .product-supplier {
   margin-top: 10px !important;
-  color: #db8704 !important;
   line-height: 13px;
   font-size: 12px;
   text-decoration: underline;
   svg {
     margin-right: 5px;
+    color: #db8704 !important;
   }
 }
 .product-price {
@@ -49,10 +54,10 @@ p {
   color: #333333 !important;
 }
 .button-text {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 14px;
   line-height: 15px;
-  color: #f29400;
+  color: #000000;
 }
 .product-quantity {
   flex: auto;
@@ -65,7 +70,6 @@ p {
   height: 24px;
   width: 24px;
   text-align: center;
-  color: #db8704 !important;
   font-weight: 500px;
   line-height: 24px;
   font-size: 24px;
@@ -73,4 +77,18 @@ p {
 .quantity {
   color: #333333;
   padding: 0px 10px 0px 10px;
+}
+.details-container {
+  flex-direction: column;
+}
+
+// Links styles
+
+.link-container {
+  color: $white!important;
+  background: none;
+  &:hover {
+    background: none!important;
+    text-decoration-color: $main!important;
+  }
 }
