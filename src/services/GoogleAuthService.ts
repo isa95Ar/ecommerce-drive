@@ -96,7 +96,7 @@ class GoogleAuthService {
 
             oauth2.userinfo.get((err,res) => {
                 if (!err) {
-                    
+
                     const profileData:Schema$Userinfo = res.data;
                     resolve(profileData);
                 }else {
