@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font !important;
+  font-weight: 400;
+}
+p {
+  font-family: $font !important;
+}
+.product-name {
+  margin-top: 10px !important;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #333333 !important;
+}
+.product-reference {
+  margin-top: 10px !important;
+  color: #828282 !important;
+  line-height: 13px;
+  font-size: 12px;
+  font-weight: 400;
+}
+.product-image {
+  border-radius: 50%;
+  margin: 0 !important;
+}
+.product-container {
+  flex-flow: wrap !important;
+}
+.text-container {
+  flex-basis: fit-content;
+}
+.product-supplier {
+  margin-top: 10px !important;
+  color: #db8704 !important;
+  line-height: 13px;
+  font-size: 12px;
+  text-decoration: underline;
+  svg {
+    margin-right: 5px;
+  }
+}
+.product-price {
+  margin-top: 10px !important;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+  color: #333333 !important;
+}
+.button-text {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 15px;
+  color: #f29400;
+}
+.product-quantity {
+  flex: auto;
+  display: inline-flex;
+  align-self: center;
+}
+.quantity-border {
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  text-align: center;
+  color: #db8704 !important;
+  font-weight: 500px;
+  line-height: 24px;
+  font-size: 24px;
+}
+.quantity {
+  color: #333333;
+  padding: 0px 10px 0px 10px;
+}

@@ -1,4 +1,4 @@
-import config from "../../constans/config";
+import config from "../../constants/config";
 import {
     Credentials,
     GoogleAuth, OAuth2Client
