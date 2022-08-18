@@ -26,7 +26,7 @@ export default async function oauthCallback(req, res) {
         })
 
 
-        res.json(profile);
+        res.redirect('/#logged');
     }catch (e) {
         res.json(e);
     }
