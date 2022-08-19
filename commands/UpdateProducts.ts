@@ -10,6 +10,7 @@ type productType = {
   minium: string;
   price: number;
   category: string;
+  seller: string;
 };
 
 

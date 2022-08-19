@@ -7,6 +7,7 @@ const productSchema = new Schema({
   minium: { type: "string" },
   price: { type: "number" },
   category: { type: "string" },
+  seller: {type: "string"}
 });
 
 export default mongoose.models.Product || model("Product", productSchema);
