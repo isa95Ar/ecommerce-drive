@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import Product from "../src/schemas/Product";
-import mongoConnection from "../src/utils/mongoConnection";
+import { container } from "tsyringe";
+import ProductService from "../src/services/ProductService";
 import GoogleSheetService from "../src/services/GoogleSheetService";
 
 type productType = {
@@ -27,6 +27,7 @@ function serializingProducts(
         minium: product[3],
         price: parseFloat(product[4]),
         category: product[5],
+        seller: product[6]
       });
     }
   });
@@ -38,10 +39,11 @@ async function saveProductsOnMongo(
   products: Array<productType>
 ): Promise<object> {
   try {
-    await mongoConnection();
+    const productService = container.resolve(ProductService);
 
+    await productService.clearAll();
     // @ts-ignore
-    products.map(async (product) => await Product.create(product));
+    products.map(async (product) => await productService.saveProduct(product));
 
     console.log("finish success!");
     return { success: true };
