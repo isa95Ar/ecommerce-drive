@@ -65,7 +65,7 @@ class GoogleAuthService {
         });
     }
 
-    getUserTokens(code:string):Promise<Credentials> {
+    getUserTokens(code:string | string[]):Promise<Credentials> {
         return new Promise(async(resolve,reject) => {
             try{
 

@@ -1,16 +1,17 @@
-import Cookies from 'cookies';
+import { NextApiResponse,NextApiRequest } from 'next';
 import { withSessionRoute } from "../../src/utils/withIronSession";
 
-export default withSessionRoute(logout);
-
-
-async function logout(req, res,session) {
+const logout = async (req:NextApiRequest, res:NextApiResponse) => {
 
     try {
-        req.session.destroy(req,res,session);
+        req.session.destroy();
 
         res.redirect('/#logout');
     }catch (e) {
         res.json(e);
     }
 }
+
+
+
+export default withSessionRoute(logout);
