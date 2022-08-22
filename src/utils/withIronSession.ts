@@ -1,0 +1,28 @@
+import { withIronSessionApiRoute } from "iron-session/next";
+import { NextApiHandler } from "next";
+
+import config from "../../constants/config";
+
+declare module "iron-session" {
+    interface IronSessionData {
+      user?: {
+        id_google_sheet?: number,
+        name?: string,
+        email?: string,
+        profile_picture?: string,
+        logged? : boolean
+      };
+    }
+}
+
+ export const sessionOptions = {
+  password:config.IRON_SESSIONS_PASSWORD,
+  cookieName: "almargen_app",
+  cookieOptions: {
+    secure: false,
+  },
+};
+
+export function withSessionRoute(handler) {
+  return withIronSessionApiRoute(handler, sessionOptions);
+}

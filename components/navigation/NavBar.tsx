@@ -4,10 +4,10 @@ import {Button} from "@nextui-org/react";
 import {useDispatch} from "react-redux";
 import { useRouter } from 'next/router'
 
-export default function NavBar() {
+export default function NavBar({user}) {
 
-    const user = useAppSelector(userLogged);
-    const dispatch:AppDispatch = useDispatch();
+    
+   
     const router = useRouter();
 
     var style = {
@@ -18,7 +18,7 @@ export default function NavBar() {
     }
 
     const closeSession = async () => {
-        dispatch(logout());
+       
         router.push('/api/logout');
     }
 
@@ -37,7 +37,7 @@ export default function NavBar() {
         }}>
             casi
 
-            {user.logged && <div style={{display:'flex',flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
+            {user && user.logged && <div style={{display:'flex',flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
                 <Button css={{alignSelf: "right", backgroundColor: style.navStyle.accent}} size={"sm"} onClick={() => closeSession()}>
                     Cerrar Sesión ({user.name})
                 </Button>
