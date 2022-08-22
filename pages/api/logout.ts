@@ -1,10 +1,13 @@
 import Cookies from 'cookies';
+import { withSessionRoute } from "../../src/utils/withIronSession";
 
-export default async function logout(req, res) {
+export default withSessionRoute(logout);
+
+
+async function logout(req, res,session) {
 
     try {
-        const cookies = new Cookies(req, res)
-        cookies.set("google_credentials")
+        req.session.destroy(req,res,session);
 
         res.redirect('/#logout');
     }catch (e) {

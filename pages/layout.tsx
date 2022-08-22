@@ -3,9 +3,10 @@ import NavBar from "../components/navigation/NavBar";
 
 
 type Props = {
-    children: React.ReactNode
+    children: React.ReactNode,
+    user:Object
 }
-  const Layout:React.FC<Props> = ({ children }) => {
+  const Layout:React.FC<Props> = ({ children,user }) => {
     return (
         <>
             <Head>
@@ -13,7 +14,7 @@ type Props = {
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
             </Head>
             <div>
-                <NavBar></NavBar>
+                <NavBar user={user}></NavBar>
 
                 {children}
             </div>

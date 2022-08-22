@@ -18,8 +18,7 @@ class GoogleAuthService {
             config.gapi.OAUTH_CLIENT_ID,
             config.gapi.OAUTH_CLIENT_KEY,
             config.gapi.OAUTH_REDIRECT_URL,
-
-        )
+        );
     }
 
     async startGoogleAuthentification() {
@@ -71,7 +70,7 @@ class GoogleAuthService {
             try{
 
                 const r = await this.oAuth2Client.getToken(code);
-                // Make sure to set the credentials on the OAuth2 client.
+                
                 this.oAuth2Client.setCredentials(r.tokens);
                 const tokens:Credentials = r.tokens;
 
