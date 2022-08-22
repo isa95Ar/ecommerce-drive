@@ -5,7 +5,7 @@ import { updateProducts } from "../commands/UpdateProducts";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = 8081;
+const port = 8084;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();

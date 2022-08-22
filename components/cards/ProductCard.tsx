@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-export default function ProductCard() {
+export default function ProductCard({item}) {
   const [quantity, setQuantity] = useState(1);
   return (
     <Grid.Container gap={2}>
@@ -21,14 +21,14 @@ export default function ProductCard() {
               </Grid>
               <Grid className="details-container" lg={7} md={7} xl={7}>
                 <Text className="product-name">
-                  Almohaditas rellenas de frutilla
+                  {item.name}
                 </Text>
-                <Text className="product-reference">1 un = bolsa 500gr</Text>
+                <Text className="product-reference">{item.minium}</Text>
                 <Text className="product-supplier">
                   <FontAwesomeIcon icon={faFaceLaughBeam} />
-                  Maran Atha
+                  {item.seller}
                 </Text>
-                <Text className="product-price">$270,50</Text>
+                <Text className="product-price">${item.price}</Text>
               </Grid>
             </Row>
             <Row>
