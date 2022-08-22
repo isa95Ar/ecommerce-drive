@@ -6,7 +6,7 @@ import config from "../../constants/config";
 declare module "iron-session" {
     interface IronSessionData {
       user?: {
-        id_google_sheet?: number,
+        id_google_sheet?: string,
         name?: string,
         email?: string,
         profile_picture?: string,
@@ -23,6 +23,6 @@ declare module "iron-session" {
   },
 };
 
-export function withSessionRoute(handler) {
+export function withSessionRoute(handler:NextApiHandler) {
   return withIronSessionApiRoute(handler, sessionOptions);
 }

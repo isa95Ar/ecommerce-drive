@@ -44,6 +44,8 @@ class GoogleSheetService
             case "products":
                 sheetName = config.gapi.PRODUCT_SHEET_NAME;
                 break;
+            case 'users':
+                sheetName = config.gapi.USERS_SHEET_NAME
             default:
                 break;
         }
