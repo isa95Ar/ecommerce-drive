@@ -22,6 +22,8 @@ const productSchema = new Schema<BaseProductDocument>({
   seller: {type: "string"}
 });
 
-model<BaseProductDocument>("Product", productSchema); 
+if (!mongoose.models.Product){
+  model<BaseProductDocument>("Product", productSchema); 
+}
 
 export default mongoose.models.Product;

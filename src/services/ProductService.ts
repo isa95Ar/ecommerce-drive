@@ -14,6 +14,7 @@ class ProductService {
             throw new Error(error);
         }
     }
+  
 
     async getAll() {
         try {
@@ -24,6 +25,7 @@ class ProductService {
             throw new Error(e);
         }
     }
+  
 
     async getByCategory(category: String) {
         try {
@@ -37,14 +39,15 @@ class ProductService {
             throw new Error(e);
         }
     }
+  
 
-    async clearAll() {
-        try {
-            return Product.deleteMany({});
-        } catch (error) {
-            throw new Error(error);
-        }
+  async clearAll() {
+    try {
+      return Product.deleteMany({});
+    } catch (error) {
+      throw new Error(error);
     }
+  }
 }
 
 export default ProductService;
