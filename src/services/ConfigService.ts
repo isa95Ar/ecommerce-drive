@@ -2,7 +2,6 @@ import {singleton} from "tsyringe";
 import mongoConnection from "../utils/mongoConnection"
 import Config from '../schemas/Config';
 
-mongoConnection();
 
 //ToDo crear interfaz de config
 

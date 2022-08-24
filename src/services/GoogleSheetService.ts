@@ -3,14 +3,15 @@ import GoogleAuthService from "./GoogleAuthService";
 import {google, sheets_v4} from "googleapis";
 
 interface googleSheetDataOptions {
-    module: string;
+    getGoogleSheetData():Promise<Array<Array<string>>>,
 }
 
 class GoogleSheetService
     extends GoogleAuthService
     implements googleSheetDataOptions {
-    googleSheetsImplements: sheets_v4.Sheets;
-    module: string;
+
+    private googleSheetsImplements: sheets_v4.Sheets;
+    private module: string;
 
     constructor(module: string) {
         super();
@@ -22,7 +23,7 @@ class GoogleSheetService
 
     }
 
-    async getGoogleSheetData(): Promise<Array<Array<string>>> {
+    public async getGoogleSheetData(): Promise<Array<Array<string>>> {
         try {
             await this.startGoogleAuthentification();
             const sheetName = this.getSheetName();
@@ -38,7 +39,7 @@ class GoogleSheetService
         }
     }
 
-    getSheetName(): string {
+    protected getSheetName(): string {
         let sheetName;
         switch (this.module) {
             case "products":

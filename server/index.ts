@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
 import { updateProducts } from "../commands/UpdateProducts";
+import mongoConnection from "../src/utils/mongoConnection";
 
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
@@ -10,6 +11,8 @@ const port = 3000;
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 //updateProducts();
+
+mongoConnection();
 
 app.prepare().then(() => {
   updateProducts();

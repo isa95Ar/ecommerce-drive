@@ -1,16 +1,15 @@
+import { HydratedDocument } from "mongoose";
 import {singleton} from "tsyringe";
-import Product from "../schemas/Product";
-import mongoConnection from "../utils/mongoConnection";
-
-mongoConnection();
+import Product,{ProductI} from "../schemas/Product";
 
 @singleton()
 class ProductService {
 
-    async saveProduct(product) {
+    async saveProduct(product:ProductI) {
         try {
-            // @ts-ignore
-            return Product.create(product);
+            const NewProduct:HydratedDocument<ProductI> = new Product(product);
+
+            return NewProduct;
         } catch (error) {
             throw new Error(error);
         }
@@ -18,7 +17,7 @@ class ProductService {
 
     async getAll() {
         try {
-            // @ts-ignore
+         
             const products = await Product.find({});
             return products;
         } catch (e) {
@@ -28,7 +27,7 @@ class ProductService {
 
     async getByCategory(category: String) {
         try {
-            // @ts-ignore
+          
             const products = await Product.find({ category });
             if (!products.length) {
                 throw new Error(`No products found on category ${category}`);
