@@ -17,7 +17,7 @@ class ProductService {
   
     async getAll() {
         try {
-            const products = await Product.find({});
+            const products = await Product.find({}, "-__v");
             return products;
         } catch (e) {
             throw new Error(e);
@@ -26,7 +26,7 @@ class ProductService {
   
     async getByCategory(category: String) {
         try {
-            const products = await Product.find({ category });
+            const products = await Product.find({ category: category });
             if (!products.length) {
                 throw new Error(`No products found on category ${category}`);
             }

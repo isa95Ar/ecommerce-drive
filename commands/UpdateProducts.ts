@@ -12,6 +12,7 @@ type productType = {
   minium: string;
   price: number;
   category: string;
+  categoryName: string;
   seller: string;
 };
 
@@ -30,6 +31,7 @@ function serializingProducts(
         minium: product[3],
         price: parseFloat(product[4]),
         category: slugify(product[5]),
+        categoryName: product[5],
         seller: product[6]
       });
     }
@@ -68,8 +70,8 @@ async function saveCategories(
     await categoryService.clearAll();
 
     products.map((product) => {
-      if (!categories.includes(product.category)) {
-        categories.push(product.category);
+      if (!categories.includes(product.categoryName)) {
+        categories.push(product.categoryName);
       }
     });
 
