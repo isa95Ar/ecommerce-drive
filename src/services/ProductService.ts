@@ -8,6 +8,7 @@ class ProductService {
     async saveProduct(product:ProductI) {
         try {
             const NewProduct:HydratedDocument<ProductI> = new Product(product);
+            NewProduct.save();
 
             return NewProduct;
         } catch (error) {

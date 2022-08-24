@@ -13,11 +13,13 @@ const handle = app.getRequestHandler();
 //updateProducts();
 
 mongoConnection();
+updateProducts();
 
 app.prepare().then(() => {
-  updateProducts();
   createServer(async (req, res) => {
     try {
+    
+
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
       const parsedUrl = parse(req.url, true);

@@ -58,7 +58,7 @@ export async function updateProducts(): Promise<object> {
   try {
     const googleSheetInstance = new GoogleSheetService("products");
     const products: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
-
+    console.log(products);
     const productsFormated: Array<productType> = serializingProducts(products);
 
     await saveProductsOnMongo(productsFormated);
