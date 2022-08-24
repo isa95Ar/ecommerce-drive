@@ -1,6 +1,6 @@
 import { HydratedDocument } from "mongoose";
-import {singleton} from "tsyringe";
-import Product,{ProductI} from "../schemas/Product";
+import { singleton } from "tsyringe";
+import Product, { ProductI } from "../schemas/Product";
 
 @singleton()
 class ProductService {
@@ -15,18 +15,20 @@ class ProductService {
         }
     }
   
-    async getAll() {
+    async getProducts(page: number) {
         try {
-            const products = await Product.find({}, "-__v");
-            return products;
+          const products = await Product.find({})
+            .skip(36 * page)
+            .limit(36);
+          return products;
         } catch (e) {
-            throw new Error(e);
+          throw new Error(e);
         }
-    }
+      }
   
     async getByCategory(category: String) {
         try {
-            const products = await Product.find({ category: category });
+            const products = await Product.find({ category });
             if (!products.length) {
                 throw new Error(`No products found on category ${category}`);
             }
