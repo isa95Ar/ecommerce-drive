@@ -6,8 +6,8 @@ import { useState } from "react";
 export default function ProductCard({ item }) {
   const [quantity, setQuantity] = useState(1);
   return (
-    <Grid.Container gap={2}>
-        <Grid xs={12} sm={12} md={3} lg={3} xl={3}>
+    <Grid.Container gap={2} >
+        <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
           <Card css={{ mt: "50px" }}>
             <Card.Body className="product-container">
               <Row className="text-container">

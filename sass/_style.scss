@@ -1,4 +1,4 @@
-// General styles 
+// General styles
 
 body {
   margin: 0;
@@ -9,7 +9,6 @@ body {
 p {
   font-family: $font !important;
 }
-
 
 // Product component styles
 .product-name {
@@ -85,16 +84,31 @@ p {
 // Links styles
 
 .link-container {
-  color: $white!important;
+  color: $white !important;
   background: none;
   &:hover {
-    background: none!important;
-    text-decoration-color: $main!important;
+    background: none !important;
+    text-decoration-color: $main !important;
   }
 }
 .link-container-black {
-  color: #000000!important;
+  color: #000000 !important;
   svg {
-    color: #000000!important;
+    color: #000000 !important;
   }
+}
+.header-products {
+  background: linear-gradient(
+      0deg,
+      rgba(50, 50, 50, 0.6),
+      rgba(50, 50, 50, 0.6)
+    ),
+    url(https://s3-alpha-sig.figma.com/img/cd19/cc90/5acbc496b190e77e3b3af1e40d17cc43?Expires=1662336000&Signature=Gwi8I4B48ECc6q0JTUmd-inO~lROftEZ2~4PETDVFbAlWm~evmS91c2g6gnHfKjLs7ZuxtyxORVRuEG~pNykSY9R-xJ-5uKIKZqFrIxNgTwavSd09UIWHhDcCJmr5etLUPXhvzCC5HV6DMDWLuXqAZ~TvwYxp54vtxUUKlobdGFiRVJ-U1QRk51mgCqM9itLAUMElAZfRwCVaGjY3QRS4Bt8Sc16mBNsbkUJjV~PwOTj1WFL6f-vqIMw8mUGwLXmmUx6OkIgw1uYOwCQY-rrXhfD-w0oUG1NaXpslIFh~dNtSWnCVPkIKD4UVF9u7N6J0MEWxEvvFY33oUrvv4oTsw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA);
+    background-size: cover;
+  font-weight: 500;
+  height: 25vh;
+  font-size: 42px;
+  line-height: 25vh;
+  text-align: center;
+  color: $white;
 }
