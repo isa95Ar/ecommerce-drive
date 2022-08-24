@@ -8,18 +8,15 @@ class ProductService {
     async saveProduct(product:ProductI) {
         try {
             const NewProduct:HydratedDocument<ProductI> = new Product(product);
-            NewProduct.save();
-
+            await NewProduct.save();
             return NewProduct;
         } catch (error) {
             throw new Error(error);
         }
     }
   
-
     async getAll() {
         try {
-         
             const products = await Product.find({});
             return products;
         } catch (e) {
@@ -27,10 +24,8 @@ class ProductService {
         }
     }
   
-
     async getByCategory(category: String) {
         try {
-          
             const products = await Product.find({ category });
             if (!products.length) {
                 throw new Error(`No products found on category ${category}`);
@@ -41,7 +36,6 @@ class ProductService {
         }
     }
   
-
   async clearAll() {
     try {
       return Product.deleteMany({});
