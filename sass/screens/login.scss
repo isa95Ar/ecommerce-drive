@@ -1,0 +1,28 @@
+.login {
+    height: 100vh;
+    padding: 15px !important;
+    background : linear-gradient(92.27deg, rgba(242, 148, 0, 0.58) 39.04%, rgba(0, 0, 0, 0.45) 92.48%), url('/img/header.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+   
+
+    .google-button {
+        background-color: #fff;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 180%;
+        text-align: center;
+        letter-spacing: 0.5px;
+        color: #333333;
+        height: 44px;
+        width: 100%;
+        margin-top: 120px;
+    }
+}

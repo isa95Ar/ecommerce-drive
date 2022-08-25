@@ -1,5 +1,5 @@
-type ProductCart = {
-  _id: string;
+export type ProductCart = {
+  code: number;
   name: string;
   qty: number;
   total: number;

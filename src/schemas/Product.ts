@@ -1,13 +1,14 @@
 import  mongoose, { Schema, model,Document } from "mongoose";
 
 export interface ProductI {
-  stock: boolean;
-  code: number;
-  name: string;
-  minium: string;
-  price: number;
-  category: string;
-  seller: string;
+  stock: boolean,
+  code: number,
+  name: string,
+  minium: string,
+  price: number,
+  category: string,
+  seller: string,
+  google_sheet_id?:string
 };
 
 interface BaseProductDocument extends ProductI,Document {}

@@ -1,10 +1,14 @@
-import { Grid, Row } from "@nextui-org/react";
+import { Container, Grid, Row } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import ProductCard from "../components/cards/ProductCard";
-import { getProducts } from "../helpers/content";
+import ProductCard from "./cards/ProductCard";
+import { getCategories, getProducts } from "../helpers/content";
 import InfiniteScroll from "react-infinite-scroll-component";
-export default function Products() {
+import Header from "./Header";
+import CategorySelector from "./CategorySelector";
+
+export default function Products(props) {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
@@ -12,7 +16,15 @@ export default function Products() {
     getProducts().then((res) => {
       setProducts(res);
     });
+    getCategories().then((res) => {
+      let categoriesParsed = [];
+      res.map((category) =>
+        categoriesParsed.push({ key: category, name: category })
+      );
+      setCategories([{ key: "", name: "Todos" }, ...categoriesParsed]);
+    });
   }, []);
+
   const fetchData = (setItems, items) => {
     getProducts(page).then((res) => {
       setItems([...items, ...res]);
@@ -22,8 +34,15 @@ export default function Products() {
       setPage(page + 1);
     });
   };
+
   return (
     <>
+      <Header
+        title="Elegí el rubro y encontrá tus productos"
+        user={props.user}
+      />
+      <CategorySelector categories={categories} />
+      <Container >
       <InfiniteScroll
         dataLength={products.length} //This is important field to render the next data
         next={() => {
@@ -37,7 +56,7 @@ export default function Products() {
           </p>
         }
       >
-        <Grid.Container gap={2}>
+        <Grid.Container gap={2} css={{ mt: "20px" }}>
           {products.map((item) => {
             return (
               item.stock && (
@@ -49,6 +68,7 @@ export default function Products() {
           })}
         </Grid.Container>
       </InfiniteScroll>
+      </Container>
     </>
   );
 }

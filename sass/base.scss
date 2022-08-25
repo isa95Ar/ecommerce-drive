@@ -6,3 +6,11 @@ $fa-font-path: '/fonts';
 
 // Styles
 @import 'style';
+
+@import './components/header.scss';
+
+@import './screens/login.scss';
+
+@import './components/categorySelector.scss';
+
+@import './screens/products.scss';

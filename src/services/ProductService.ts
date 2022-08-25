@@ -49,6 +49,25 @@ class ProductService {
       throw new Error(error);
     }
   }
+
+  async getCategories() {
+    try {
+         
+        const products = await Product.find({});
+        
+        let categories = [];
+
+        products.map(product => { 
+            if(!categories.includes(product.category)){
+                categories.push(product.category);
+            }
+        });
+
+        return categories;
+    } catch (e) {
+        throw new Error(e);
+    }
+  }
 }
 
 export default ProductService;

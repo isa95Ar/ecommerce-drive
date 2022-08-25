@@ -1,34 +1,22 @@
-import { Card, Grid, Text, Input, Spacer, Container, Button } from "@nextui-org/react";
-import bgImg from '../../public/img/BgImgLogin.jpg'
+import { Card, Grid, Text, Input, Spacer, Container, Button,Image } from "@nextui-org/react";
+
+
 export default function LoginCard() {
-    const style = {
-        backgroundImage: `url(${bgImg.src})`,
-        backgroundPosition:"center",
-        backgroundRepeat:"no-repeat",
-        backgroundSize:"cover"
-    }
+
+
     return (
-      <div style={style}>
-        <Container alignItems="center" css={{height:'100vh'}}>
-            
-            <Grid.Container justify="center">
-                <Grid >
-            <Card css={{ background: 'none' }}>
-                <Card.Header>
-                    
-                </Card.Header>
-                <Spacer y={5}/>
-                <Card.Body css={{minHeight:'20vh'}}>
-                Aqui ira el logo
-                </Card.Body>
-                <Spacer y={2}/>
-                <Card.Footer>
-                    <Button onClick={() => location.href = '/api/login'} size='lg' css={{background:'White', color:'Black',textAlign:"center"}}>Ingresa con google</Button>
-                </Card.Footer>
-            </Card>
-            </Grid>
-            </Grid.Container>
-        </Container>
-    </div> 
+      <Grid  className="login" >
+          <Grid.Container  justify="center" alignContent="center">
+                <Grid xs={12} xl={12}>
+                    <Image 
+                         src="/img/logoCoop.png"
+                         alt="Default Image"
+                    />
+                </Grid>
+                <Grid xs={12} xl={3} sm={6} md={3} lg={3}>
+                    <Button  className="google-button" onClick={() => location.href = '/api/login'}>  Ingresá con Google</Button>
+                </Grid>
+          </Grid.Container>
+    </Grid> 
     );
 }

@@ -13,7 +13,7 @@ const handle = app.getRequestHandler();
 //updateProducts();
 
 mongoConnection();
-updateProducts();
+//updateProducts();
 
 app.prepare().then(() => {
   createServer(async (req, res) => {

@@ -4,3 +4,10 @@ export const getProducts = async (page = null) => {
 
     return products;
 };
+
+export const getCategories = async () => {
+    
+    let categories = await fetch('/api/categories').then((data) => data.json());
+
+    return categories;
+}

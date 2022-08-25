@@ -1,8 +1,6 @@
 import "reflect-metadata";
 import '../sass/base.scss';
-import {Provider} from 'react-redux'
 import {NextUIProvider} from '@nextui-org/react';
-import store from '../store/store';
 import {  sessionOptions } from "../src/utils/withIronSession";
 import App, { AppContext } from "next/app";
 import { getIronSession, IronSessionData } from "iron-session";
@@ -12,11 +10,9 @@ import { UserLogged } from "../src/global/types";
 const MyApp = ({Component, pageProps}) => {
     
     return (
-        <Provider store={store}>
-            <NextUIProvider>
-                <Component {...pageProps} />
-            </NextUIProvider>
-        </Provider>
+        <NextUIProvider>
+            <Component {...pageProps} />
+        </NextUIProvider>
     );
 }
 
