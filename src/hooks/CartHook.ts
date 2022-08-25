@@ -11,7 +11,7 @@ export function useCart()
 
     const sumTotals = (products:Array<ProductCart>):number => {
         let totalCart = 0;
-        products.map(product => totalCart =+ product.total);
+        products.map(product => totalCart += product.total);
         return totalCart;
     };
 
@@ -38,7 +38,7 @@ export function useCart()
         
         setCart({total:sumTotals(products),products});   
         
-        localStorage.setItem('cart',JSON.stringify(cart));
+        localStorage.setItem('cart',JSON.stringify({total:sumTotals(products),products}));
     }
 
 
@@ -48,8 +48,12 @@ export function useCart()
             setCart(JSON.parse(actualCart));
     },[]);
 
+    useEffect(() => {
+        console.log(cart);
+    },[cart]);
+
     return {
-        cart,
+        Cart:cart,
         addProduct,
         removeProduct
     }

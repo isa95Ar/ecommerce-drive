@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-export default function ProductCard({ item }) {
+export default function ProductCard({ item,addProduct }) {
   const [quantity, setQuantity] = useState(1);
   return (
         <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -57,7 +57,7 @@ export default function ProductCard({ item }) {
                 </Grid>
                 <Grid sm={4} xs={4} lg={4} md={4} xl={4}>
                   <Button color="warning" auto>
-                    <span className="button-text">Agregar</span>
+                    <span onClick={() => addProduct(item,quantity)} className="button-text">Agregar</span>
                   </Button>
                 </Grid>
               </Row>

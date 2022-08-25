@@ -5,12 +5,19 @@ import { getCategories, getProducts } from "../helpers/content";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "./Header";
 import CategorySelector from "./CategorySelector";
+import { useCart } from "../src/hooks/CartHook";
 
 export default function Products(props) {
+  const cart = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+
+  const addProductToCart = (product,qty) => {
+    cart.addProduct(product,qty);
+  }
 
   useEffect(() => {
     getProducts().then((res) => {
@@ -60,7 +67,7 @@ export default function Products(props) {
                 item.stock && (
                   <>
                     <Grid xs={12} sm={12} md={4} lg={4} xl={4} key={item.code}>
-                      <ProductCard item={item} key={item.code} />
+                      <ProductCard addProduct={(product,qty) => addProductToCart(product,qty)} item={item} key={item.code} />
                     </Grid>
                   </>
                 )
