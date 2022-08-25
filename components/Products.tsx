@@ -44,6 +44,7 @@ export default function Products(props) {
       <CategorySelector categories={categories} />
 
       <InfiniteScroll
+        className="infinite-scroll"
         dataLength={products.length} //This is important field to render the next data
         next={() => {
           fetchData(setProducts, products);
