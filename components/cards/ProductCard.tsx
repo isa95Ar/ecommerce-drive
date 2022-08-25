@@ -1,23 +1,11 @@
 import { Card, Grid, Text, Image, Row, Button } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import { useCart } from "../../src/hooks/CartHook";
+import { useState } from "react";
 
 export default function ProductCard({ item }) {
   const [quantity, setQuantity] = useState(1);
-  const cart = useCart();
-  
-
-
-  const addProduct = () => {
-    cart.addProduct(item,quantity);
-    console.log(cart.cart);
-  }
-
   return (
-   
-      
         <Grid xs={12} sm={6} md={4} lg={4} xl={4}>
           <Card css={{margin:0}}>
             <Card.Body className="product-container">
@@ -69,14 +57,12 @@ export default function ProductCard({ item }) {
                 </Grid>
                 <Grid sm={4} xs={4} lg={4} md={4} xl={4}>
                   <Button color="warning" auto>
-                    <span className="button-text" onClick={addProduct}>Agregar</span>
+                    <span className="button-text">Agregar</span>
                   </Button>
                 </Grid>
               </Row>
             </Card.Body>
           </Card>
         </Grid>
-        
-   
   );
 }
