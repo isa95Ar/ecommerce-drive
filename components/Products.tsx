@@ -11,13 +11,13 @@ export default function Products(props) {
   const cart = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
+  const [category, setCategory] = useState({ key: "", name: "Todos" });
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-
-  const addProductToCart = (product,qty) => {
-    cart.addProduct(product,qty);
-  }
+  const addProductToCart = (product, qty) => {
+    cart.addProduct(product, qty);
+  };
 
   useEffect(() => {
     getProducts().then((res) => {
@@ -26,7 +26,7 @@ export default function Products(props) {
     getCategories().then((res) => {
       let categoriesParsed = [];
       res.map((category) =>
-          categoriesParsed.push({ key: category.slug, name: category.name })
+        categoriesParsed.push({ key: category.slug, name: category.name })
       );
       setCategories([{ key: "", name: "Todos" }, ...categoriesParsed]);
     });
@@ -41,14 +41,21 @@ export default function Products(props) {
       setPage(page + 1);
     });
   };
-
+  useEffect(() => {
+    console.log(category);
+  }, [category])
   return (
     <>
       <Header
         title="Elegí el rubro y encontrá tus productos"
         user={props.user}
       />
-      <CategorySelector categories={categories} />
+      <Grid.Container gap={2}>
+      <Grid md={2} lg={2} xl={2}></Grid>
+      <Grid md={10} lg={10} xl={10} css={{ flexFlow: "wrap" }}>
+        <CategorySelector categories={categories} setCategory={(val) => setCategory(val)} category={category}/>
+      </Grid>
+      </Grid.Container>
 
       <InfiniteScroll
         className="infinite-scroll"
@@ -60,21 +67,27 @@ export default function Products(props) {
         loader={<h6>Loading...</h6>}
       >
         <Grid.Container gap={2}>
-          <Grid md={2} lg={2}></Grid>
-          <Grid md={8} lg={8} css={{ flexFlow: "wrap" }}>
+          <Grid md={2} lg={2} xl={2}></Grid>
+          <Grid md={8} lg={8} xl={8} css={{ flexFlow: "wrap" }}>
             {products.map((item) => {
               return (
                 item.stock && (
                   <>
-                    <Grid xs={12} sm={12} md={4} lg={4} xl={4} key={item.code}>
-                      <ProductCard addProduct={(product,qty) => addProductToCart(product,qty)} item={item} key={item.code} />
+                    <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
+                      <ProductCard
+                        addProduct={(product, qty) =>
+                          addProductToCart(product, qty)
+                        }
+                        item={item}
+                        key={item.code}
+                      />
                     </Grid>
                   </>
                 )
               );
             })}
           </Grid>
-          <Grid md={2} lg={2}></Grid>
+          <Grid md={2} lg={2} xl={2}></Grid>
         </Grid.Container>
       </InfiniteScroll>
     </>

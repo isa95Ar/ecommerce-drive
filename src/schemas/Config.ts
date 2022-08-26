@@ -14,4 +14,4 @@ if (!mongoose.models.Config){
   model<BaseConfigDocument>("Config", configSchema); 
 }
 
-export default mongoose.models.Product;
+export default mongoose.models.Config;
