@@ -10,7 +10,7 @@ export default function ProductCard({ item,addProduct }) {
           <Card css={{margin:0}}>
             <Card.Body className="product-container">
               <Row className="text-container">
-                <Grid sm={8} xs={8} lg={5} md={5} xl={5}>
+                <Grid sm={8} xs={8} lg={6} md={6} xl={6}>
                   <Image
                     className="product-image"
                     width={120}
@@ -18,7 +18,7 @@ export default function ProductCard({ item,addProduct }) {
                     src="https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1661731200&Signature=gbtFkb-fsQ6khkbyvNCPyiCbbCyHbWvaqGw8Iujfon7FKgL7sjivLHbAhISYSBteXFgpFkLUgCi8j~S2kq7i8ZCqOLWrwuPm0cLnOWTZqdL1kks-vCeLEr0x5lhXfExpBEUteeYiEqeRFg2zFL~rge0KQCbN0HxXmKEFdiqMncPa-jrrTk7RmtCm0T~svH81kDDrzp6H8RgS60FSavxnU9dbCC-JVDhq3dsnKjMplRwSLcyN5XZ4txJOAV8MuunIMRfwwced2fNtfhO3Zb4nB9KMItnL-w2f0aHCXQITbYTZQkmFKEdZiiYZt6EjrKOIuFRF6JPXX2C9EPywdasEhA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
                   ></Image>
                 </Grid>
-                <Grid className="details-container" lg={7} md={7} xl={7}>
+                <Grid className="details-container" lg={6} md={6} xl={6}>
                   <Text className="product-name">{item.name}</Text>
                   <Text className="product-reference">{item.minium}</Text>
                   <Text className="product-supplier">
