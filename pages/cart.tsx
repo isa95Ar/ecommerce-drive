@@ -1,8 +1,9 @@
 import Layout from './layout';
 import LoginCard from '../components/cards/LoginCard';
-import LandingCerrado from '../components/landing/LandingCerrado';
 import Header from '../components/Header';
-import Products from '../components/Products';
+import {Button, Container} from '@nextui-org/react';
+import ProductCart from '../components/ProductCart';
+import TotalCart from '../components/TotalCart';
 
 export default function Cart(props) 
 {
@@ -14,7 +15,14 @@ export default function Cart(props)
       <LoginCard />}
 
       {props.user.logged 
-        && <Products user={props.user} />
+        && <>
+            <Header user={props.user} title={"Tu carrito"} />
+            <Container>
+              <ProductCart />
+              <TotalCart />
+              <Button  className='button-total' >Realizar pedido</Button>
+            </Container>
+          </>
       }
     </Layout>
   )
