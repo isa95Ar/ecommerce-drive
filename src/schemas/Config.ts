@@ -1,17 +1,19 @@
 import mongoose, { Schema, model, Document } from "mongoose";
 
 export interface ConfigI {
-  isOpen: boolean;
+  openDate: Date | null;
+  closeDate: Date | null;
 }
 
 interface BaseConfigDocument extends ConfigI,Document {}
 
 const configSchema = new Schema<BaseConfigDocument>({
-  isOpen: {type: 'boolean', default: false}
+  openDate: {type: Date || null},
+  closeDate: {type: Date || null},
 }, { capped: { size: 50000, max: 1} })
 
 if (!mongoose.models.Config){
   model<BaseConfigDocument>("Config", configSchema); 
 }
 
-export default mongoose.models.Product;
+export default mongoose.models.Config;

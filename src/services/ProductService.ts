@@ -4,7 +4,6 @@ import Product, { ProductI } from "../schemas/Product";
 
 @singleton()
 class ProductService {
-
     async saveProduct(product:ProductI) {
         try {
             const NewProduct:HydratedDocument<ProductI> = new Product(product);

@@ -1,6 +1,6 @@
-export const getProducts = async (page = null) => {
+export const getProducts = async (page = 1) => {
 
-    let products = await fetch(`/api/products${page ? `?page=`+page : ``}`).then((data) => data.json());
+    let products = await fetch(`/api/products/?page=${page}`).then((data) => data.json());
 
     return products;
 };
