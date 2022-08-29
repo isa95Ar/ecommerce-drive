@@ -1,60 +1,70 @@
-import { useEffect, useState } from "react"
-import {  ProductCart } from "../global/types";
+import { useEffect, useState } from "react";
+import { ProductCart } from "../global/types";
 import { ProductI } from "../schemas/Product";
 
-export function useCart()
-{
-    const [cart,setCart] = useState({
-        products:[],
-        total : 0
-    });
+export function useCart() {
+  const [cart, setCart] = useState({
+    products: [],
+    total: 0,
+  });
 
-    const sumTotals = (products:Array<ProductCart>):number => {
-        let totalCart = 0;
-        products.map(product => totalCart += product.total);
-        return totalCart;
+  const sumTotals = (products: Array<ProductCart>): number => {
+    let totalCart = 0;
+    products.map((product) => (totalCart += product.total));
+    return totalCart;
+  };
+
+  const addProduct = (product: ProductCart, qty: number) => {
+    const productCart: ProductCart = {
+      code: product.code,
+      name: product.name,
+      qty,
+      price: product.price,
+      total: product.price * qty,
     };
-
-    const addProduct = (product:ProductI,qty:number) => 
-    {   
-        const productCart:ProductCart = {
-            code: product.code,
-            name: product.name,
-            qty,
-            total: product.price*qty
+    let products = cart.products;
+    if (products.find((product) => product.code == productCart.code)) {
+        
+      products = products.map((cartProduct) => {
+        if (cartProduct.code == productCart.code) {
+          return productCart;
+        } else {
+          return cartProduct;
         }
-        const products = cart.products.filter(cartProduct => cartProduct.code !== product.code);
-        
-        updateProducts([...products,productCart]);
+      });
+    } else {
+      products.push(productCart);
     }
 
-    const removeProduct = (product:ProductI)=> 
-    {
-        const products = cart.products.filter(cartProduct => cartProduct.code !== product.code);
-        updateProducts(products);
+    updateProducts(products);
+  };
+
+  const removeProduct = (product: ProductCart) => {
+    const products = cart.products.filter(
+      (cartProduct) => cartProduct.code !== product.code
+    );
+    updateProducts(products);
+  };
+
+  const updateProducts = (products: Array<ProductCart>) => {
+    setCart({ total: sumTotals(products), products });
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify({ total: sumTotals(products), products })
+    );
+  };
+
+  useEffect(() => {
+    const actualCart = localStorage.getItem("cart");
+    if (actualCart) {
+      setCart(JSON.parse(actualCart));
     }
+  }, []);
 
-    const updateProducts = (products) => {
-        
-        setCart({total:sumTotals(products),products});   
-        
-        localStorage.setItem('cart',JSON.stringify({total:sumTotals(products),products}));
-    }
-
-
-    useEffect(() => {
-        const actualCart = localStorage.getItem('cart');
-        if(actualCart)
-            setCart(JSON.parse(actualCart));
-    },[]);
-
-    useEffect(() => {
-        console.log(cart);
-    },[cart]);
-
-    return {
-        Cart:cart,
-        addProduct,
-        removeProduct
-    }
+  return {
+    Cart: cart,
+    addProduct,
+    removeProduct,
+  };
 }

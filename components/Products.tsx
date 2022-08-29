@@ -46,6 +46,7 @@ export default function Products(props) {
       setPage(page + 1);
     });
   };
+
   useEffect(() => {
     setPage(0);
     fetchData(setProducts, products, category, true);
@@ -56,6 +57,7 @@ export default function Products(props) {
       <Header
         title="Elegí el rubro y encontrá tus productos"
         user={props.user}
+        cart={cart.Cart}
       />
       <Grid.Container gap={2}>
         <Grid md={2} lg={1} xl={2}></Grid>
