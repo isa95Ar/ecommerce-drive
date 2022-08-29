@@ -1,17 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 import { Text } from "@nextui-org/react";
 
-const TotalCart = () => {
+type totalCartProps = {
+  total:number
+}
+
+
+const TotalCart:FC<totalCartProps> = ({total}) => {
   return (
     <div className="total-cart">
       <div className="total-items">
         <Text className="items-text">Subtotal</Text>
-        <Text className="items-text">$3009</Text>
+        <Text className="items-text">${total}</Text>
       </div>
       <div className="divider"></div>
       <div className="total-items">
         <Text className="total-text">Total</Text>
-        <Text className="total-text">$3009</Text>
+        <Text className="total-text">${total}</Text>
       </div>
     </div>
   );
