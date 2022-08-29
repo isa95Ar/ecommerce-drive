@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ProductCart } from "../global/types";
-import { ProductI } from "../schemas/Product";
 
 export function useCart() {
   const [cart, setCart] = useState({
@@ -55,6 +54,14 @@ export function useCart() {
     );
   };
 
+  const removeCart = ():any => {
+      setCart({
+        products: [],
+        total: 0,
+      });
+      localStorage.removeItem("cart");
+  }
+
   useEffect(() => {
     const actualCart = localStorage.getItem("cart");
     if (actualCart) {
@@ -66,5 +73,6 @@ export function useCart() {
     Cart: cart,
     addProduct,
     removeProduct,
+    removeCart
   };
 }
