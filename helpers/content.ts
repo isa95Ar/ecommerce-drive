@@ -1,6 +1,11 @@
-export const getProducts = async (page = 1) => {
+export const getProducts = async (page = 0, initialPage, category = null) => {
 
-    let products = await fetch(`/api/products/?page=${page}`).then((data) => data.json());
+    let url = '/api/products';
+    if(category)
+    {
+        url += '/' + category;
+    }
+    let products = await fetch(`${url}?page=${page}`).then((data) => data.json());
 
     return products;
 };
