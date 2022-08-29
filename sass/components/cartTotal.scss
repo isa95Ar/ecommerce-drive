@@ -58,3 +58,20 @@
   color: #000000 !important;
   margin-bottom: 15px;
 }
+
+.button-total-disabled {
+  margin-top: 15px;
+  background-color: grey !important;
+  width: 100% !important;
+  height: 45px !important;
+  border-radius: 8px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 110%;
+  color: #fff !important;
+  opacity: 0.5;
+  margin-bottom: 15px;
+}
