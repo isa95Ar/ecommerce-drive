@@ -15,7 +15,7 @@ export default function ProductCard({ item,addProduct }) {
                     className="product-image"
                     width={120}
                     height={120}
-                    src="https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1661731200&Signature=gbtFkb-fsQ6khkbyvNCPyiCbbCyHbWvaqGw8Iujfon7FKgL7sjivLHbAhISYSBteXFgpFkLUgCi8j~S2kq7i8ZCqOLWrwuPm0cLnOWTZqdL1kks-vCeLEr0x5lhXfExpBEUteeYiEqeRFg2zFL~rge0KQCbN0HxXmKEFdiqMncPa-jrrTk7RmtCm0T~svH81kDDrzp6H8RgS60FSavxnU9dbCC-JVDhq3dsnKjMplRwSLcyN5XZ4txJOAV8MuunIMRfwwced2fNtfhO3Zb4nB9KMItnL-w2f0aHCXQITbYTZQkmFKEdZiiYZt6EjrKOIuFRF6JPXX2C9EPywdasEhA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+                    src="https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1662940800&Signature=Z8l8tNl7-LjlkbXM79cDGZGhKjLUw49mS3yn~iuOANWb-CewZF6E0Eo3U3lqLtRsk2V4I5y74~pXTiw-P88HPP2cUf3BUCfm3LGUnk0TsZ9kQflS0BaP2lldIA174tZpUo82eHnIPZENYjeT7dcXj7siOGMAEYS26JVT7WbrHZZcmteXs01Fpy4xU-NYQjnxEIsUEd0BZftl-yiAZgjWNU8uJU71eIiJqc5HhsxBj0izH-AKkI5OIi7454TRm-CsOgB93WgACpWxCATgU2m0lR5G1qYkGJfr5kA97De-Wgm6khozCXc1BlfSbFIJxvgFsHGoCRVAwHzEMIMDrnf6IA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
                   ></Image>
                 </Grid>
                 <Grid className="details-container" lg={6} md={6} xl={6}>

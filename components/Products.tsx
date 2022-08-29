@@ -32,29 +32,42 @@ export default function Products(props) {
     });
   }, []);
 
-  const fetchData = (setItems, items) => {
-    getProducts(page).then((res) => {
-      setItems([...items, ...res]);
+  const fetchData = (
+    setItems,
+    items,
+    sendCategory = null,
+    initialPage = false
+  ) => {
+    getProducts(page, initialPage, sendCategory?.key).then((res) => {
+      !initialPage ? setItems([...items, ...res]) : setItems(res);
       if (res.length < 24) {
         setHasMore(false);
       }
       setPage(page + 1);
     });
   };
+
   useEffect(() => {
-    console.log(category);
-  }, [category])
+    setPage(0);
+    fetchData(setProducts, products, category, true);
+  }, [category]);
+
   return (
     <>
       <Header
         title="Elegí el rubro y encontrá tus productos"
         user={props.user}
+        cart={cart.Cart}
       />
       <Grid.Container gap={2}>
-      <Grid md={2} lg={2} xl={2}></Grid>
-      <Grid md={10} lg={10} xl={10} css={{ flexFlow: "wrap" }}>
-        <CategorySelector categories={categories} setCategory={(val) => setCategory(val)} category={category}/>
-      </Grid>
+        <Grid md={2} lg={1} xl={2}></Grid>
+        <Grid md={10} lg={1} xl={10} css={{ flexFlow: "wrap" }}>
+          <CategorySelector
+            categories={categories}
+            setCategory={(val) => setCategory(val)}
+            category={category}
+          />
+        </Grid>
       </Grid.Container>
 
       <InfiniteScroll
@@ -67,8 +80,8 @@ export default function Products(props) {
         loader={<h6>Loading...</h6>}
       >
         <Grid.Container gap={2}>
-          <Grid md={2} lg={2} xl={2}></Grid>
-          <Grid md={8} lg={8} xl={8} css={{ flexFlow: "wrap" }}>
+          <Grid md={2} lg={1} xl={2}></Grid>
+          <Grid md={8} lg={10} xl={8} css={{ flexFlow: "wrap" }}>
             {products.map((item) => {
               return (
                 item.stock && (
@@ -87,7 +100,7 @@ export default function Products(props) {
               );
             })}
           </Grid>
-          <Grid md={2} lg={2} xl={2}></Grid>
+          <Grid md={2} lg={1} xl={2}></Grid>
         </Grid.Container>
       </InfiniteScroll>
     </>
