@@ -14,8 +14,10 @@ class ConfigService {
                 status = "closed";
             } else if(today.getTime() >= openTime && today.getTime() <= closeTime) {
                 status = "opened";
-            } else {
+            } else if (today.getTime() < openTime){
                 status = "toOpen";
+            } else {
+                status = "closed";
             }
             return {openDate: currentConfig.openDate, closeDate: currentConfig.closeDate, status}
         } catch (e) {
