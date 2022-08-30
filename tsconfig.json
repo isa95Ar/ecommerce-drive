@@ -22,7 +22,6 @@
     "**/*.ts",
     "**/*.tsx",
     "server.js",
-    "src/schemas/Product.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,4 +1,4 @@
-import Config from '../src/schemas/Config';
+import Config from '../src/models/Config';
 
 
  const createConfig = ():void => {
