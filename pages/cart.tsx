@@ -33,7 +33,7 @@ export default function Cart(props) {
           <Header user={props.user} title={"Tu carrito"} cart={cart.Cart} />
           <Container>
             <Grid.Container justify="center" gap={2}>
-              <Grid direction="column" md={8} lg={8} xl={8}>
+              <Grid direction="column" md={6} xl={3}>
                 {cart.Cart.products.map((product: productType) => (
                   <ProductCart
                     key={product.code}
