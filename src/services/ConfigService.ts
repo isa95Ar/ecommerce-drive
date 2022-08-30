@@ -1,35 +1,24 @@
 import {singleton} from "tsyringe";
-import Config from '../schemas/Config';
+import ApiException from "../exceptions/ApiExeption";
+import Config from '../models/Config';
 
 @singleton()
 class ConfigService {
     async getCartStatus() {
         try {
-            const currentConfig = await Config.findOne({});
-            const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
-            const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
-            const today = new Date();
-            let status = "";
-            if (!openTime || !closeTime) {
-                status = "closed";
-            } else if(today.getTime() >= openTime && today.getTime() <= closeTime) {
-                status = "opened";
-            } else if (today.getTime() < openTime){
-                status = "toOpen";
-            } else {
-                status = "closed";
-            }
-            return {openDate: currentConfig.openDate, closeDate: currentConfig.closeDate, status}
+            const status = await Config.getCartStatus();
+            return status;
         } catch (e) {
-            throw new Error(e);
+            throw new ApiException(e);
         }
     }
 
     async setDates(openDate: Date, closeDate: Date) {
         try {
-            await Config.findOneAndUpdate({}, {openDate, closeDate});
+            await Config.updateDates(openDate, closeDate);
+            return {error: false};
         } catch (e) {
-            throw new Error(e);
+            throw new ApiException(e);
         }
     }
 }

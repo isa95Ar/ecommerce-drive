@@ -13,13 +13,17 @@ export interface OrderI {
 
 interface BaseOrderDocument extends OrderI,Document {}
 
-const orderSchema = new Schema<BaseOrderDocument>({
+const Order = new Schema<BaseOrderDocument>({
   email: { type: "string" },
-  products: [{ code: "number", name: "string", amount: "number" }]
+  products: [{ code: "number", name: "string", qty: "number" }]
 });
 
+Order.statics.createOrder = async function(order: OrderI) {
+  await this.create(order);
+}
+
 if (!mongoose.models.Order){
-  model<BaseOrderDocument>("Order", orderSchema); 
+  model<BaseOrderDocument>("Order", Order); 
 }
 
 export default mongoose.models.Order;

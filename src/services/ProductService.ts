@@ -1,66 +1,41 @@
-import { HydratedDocument } from "mongoose";
 import { singleton } from "tsyringe";
-import Product, { ProductI } from "../schemas/Product";
+import ApiException from "../exceptions/ApiExeption";
+import Product, { ProductI } from "../models/Product";
 
 @singleton()
 class ProductService {
     async saveProduct(product:ProductI) {
         try {
-            const NewProduct:HydratedDocument<ProductI> = new Product(product);
-            await NewProduct.save();
-            return NewProduct;
-        } catch (error) {
-            throw new Error(error);
+            await Product.createProduct(product);
+            return {error: false};
+        } catch (e) {
+            throw new ApiException(e);
         }
     }
   
     async getProducts(page: number) {
         try {
-          const products = await Product.find({})
-            .skip(36 * page)
-            .limit(36);
+          const products = await Product.getProducts(page);
           return products;
         } catch (e) {
-          throw new Error(e);
+          throw new ApiException(e);
         }
       }
   
-    async getByCategory(category: String) {
+    async getByCategory(category: string) {
         try {
-            const products = await Product.find({ category });
-            if (!products.length) {
-                throw new Error(`No products found on category ${category}`);
-            }
+            const products = await Product.getByCategory(category);
             return products;
         } catch (e) {
-            throw new Error(e);
+            throw new ApiException(e);
         }
     }
   
   async clearAll() {
     try {
-      return Product.deleteMany({});
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  async getCategories() {
-    try {
-         
-        const products = await Product.find({});
-        
-        let categories = [];
-
-        products.map(product => { 
-            if(!categories.includes(product.category)){
-                categories.push(product.category);
-            }
-        });
-
-        return categories;
+      return Product.deleteAll();
     } catch (e) {
-        throw new Error(e);
+      throw new ApiException(e);
     }
   }
 }

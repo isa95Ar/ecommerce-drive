@@ -1,36 +1,34 @@
-import { HydratedDocument } from "mongoose";
 import {singleton} from "tsyringe";
-import { slugify } from "../../helpers/slug";
-import Category, {CategoryI} from "../schemas/Categroy";
+import ApiException from "../exceptions/ApiExeption";
+import Category from "../models/Category";
 
 @singleton()
 class CategoryService {
 
     async saveCategory(name:string) {
         try {
-            const slug = slugify(name);
-            const NewCategory:HydratedDocument<CategoryI> = new Category({name, slug});
-            await NewCategory.save();
-            return NewCategory;
-        } catch (error) {
-            throw new Error(error);
+            await Category.createCategory(name);
+            return {error: false};
+        } catch (e) {
+            throw new ApiException(e);
         }
     }
   
     async getAll() {
         try {
-            const categories = await Category.find({});
+            const categories = await Category.getAll();
             return categories;
         } catch (e) {
-            throw new Error(e);
+            throw new ApiException(e);
         }
     }
 
     async clearAll() {
         try {
-          return Category.deleteMany({});
+          await Category.deleteAll();
+          return {error: false};
         } catch (error) {
-          throw new Error(error);
+          throw new ApiException(error);
         }
       }
 }

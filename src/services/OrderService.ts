@@ -1,6 +1,6 @@
-import { HydratedDocument } from "mongoose";
 import {singleton} from "tsyringe";
-import Order, {OrderI} from "../schemas/Order";
+import ApiException from "../exceptions/ApiExeption";
+import Order, {OrderI} from "../models/Order";
 
 //ToDo crear interfaz de config
 
@@ -8,11 +8,9 @@ import Order, {OrderI} from "../schemas/Order";
 class OrderService {
   async saveOrder(order:OrderI) {
     try {
-        const NewOrder:HydratedDocument<OrderI> = new Order(order);
-        await NewOrder.save();
-        return NewOrder;
+      await Order.createOrder(order);
     } catch (error) {
-        throw new Error(error);
+      throw new ApiException(error);
     }
   }
 }
