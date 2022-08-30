@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  if (req.nextUrl.pathname.startsWith('/login') || req.nextUrl.pathname.startsWith('/oauthcallback')) {
+  if (req.nextUrl.pathname.startsWith('/api/login') || req.nextUrl.pathname.startsWith('/api/oauthcallback')) {
     return NextResponse.next();
   }
 
