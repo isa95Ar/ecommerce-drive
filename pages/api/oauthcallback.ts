@@ -41,7 +41,8 @@ import { NextApiRequest, NextApiResponse } from "next";
                 name: profile.name,
                 email: profile.email,
                 profile_picture: profile.picture,
-                logged : true
+                logged: true,
+                isAdmin: MatchEmail[2] === "1"
             };
             
             await req.session.save();

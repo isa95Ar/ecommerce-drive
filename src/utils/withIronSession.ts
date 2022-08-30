@@ -10,7 +10,8 @@ declare module "iron-session" {
         name?: string,
         email?: string,
         profile_picture?: string,
-        logged? : boolean
+        logged?: boolean,
+        isAdmin?: boolean
       };
     }
 }
