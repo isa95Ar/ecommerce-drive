@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getIronSession, IronSessionData } from "iron-session/edge";
-import configs from '../../constants/config';
+import configs from '../constants/config';
 
 
 export async function middleware(req: NextRequest) {
@@ -22,7 +22,13 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!ironSession.user) {
+  if (req.nextUrl.pathname.startsWith('/api') && !ironSession.user) {
     return NextResponse.json({ message: 'Auth required' }, { status: 401 });
   }
+
+  if ((req.nextUrl.pathname.startsWith('/api/admin') || req.nextUrl.pathname.startsWith('/admin')) && !ironSession.user.isAdmin) {
+    return NextResponse.json({ message: 'Forbidden. Must be admin' }, { status: 401 });
+  }
+
+  return NextResponse.next();
 }
