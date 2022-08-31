@@ -9,35 +9,43 @@ import ConfigService from '../src/services/ConfigService';
 import { useEffect, useState } from 'react';
 import { getCartStatus } from '../helpers/content';
 import AvisoCarrito from '../components/AvisoCarrito';
+import { Loading } from '@nextui-org/react';
 
-export default function Home(props) 
-{
-  const [cartStatus, setCartStatus] = useState({});
-  useEffect(() => {
-    getCartStatus().then((res) => setCartStatus(res));
-  }, []);
-  return (
-    <Layout {...props}>
-      {!props.user.logged 
-        && 
-      <LoginCard />}
-      {props.user.logged && cartStatus.status === 'open'
-        ? <Products user={props.user} /> : <AvisoCarrito status={cartStatus} />
-      }
-    </Layout>
-  )
+export default function Home(props) {
+	const [cartStatus, setCartStatus] = useState({});
+	const [loading, setLoading] = useState(true);
+	useEffect(() => {
+		getCartStatus().then(res => {
+			setCartStatus(res);
+			setLoading(false);
+		});
+	}, []);
+	return (
+		<Layout {...props}>
+			{!props.user.logged && <LoginCard />}
+			{loading ? (
+				<Loading css={{ margin: 'auto', width: '100%', paddingTop: '50vh' }} color="warning">
+					Cargando...
+				</Loading>
+			) : props.user.logged && cartStatus.status === 'open' ? (
+				<Products user={props.user} />
+			) : (
+				<AvisoCarrito status={cartStatus} />
+			)}
+		</Layout>
+	);
 }
 
 export async function getServerSideProps() {
-  // Fetch data from external API
-  // const res = await fetch(`https://.../data`)
-  // const data = await res.json()
+	// Fetch data from external API
+	// const res = await fetch(`https://.../data`)
+	// const data = await res.json()
 
-  // Pass data to the page via props
-  // return { props: { data } }
+	// Pass data to the page via props
+	// return { props: { data } }
 
-  const configService = container.resolve(ConfigService);
-  const getIsOpen = await configService.getCartStatus();
-  console.log(getIsOpen);
-  return {props: {}};
+	const configService = container.resolve(ConfigService);
+	const getIsOpen = await configService.getCartStatus();
+	console.log(getIsOpen);
+	return { props: {} };
 }

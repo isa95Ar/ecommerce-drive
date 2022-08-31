@@ -16,7 +16,6 @@ export default function AvisoCarrito({ status }) {
 
 	const Starter = 'El carrito abre el';
 	const FechaHora = status.openDate;
-	console.log(status);
 	const color = 'white';
 
 	var style;
