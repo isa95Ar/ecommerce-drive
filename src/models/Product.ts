@@ -24,23 +24,39 @@ const Product = new Schema<BaseProductDocument>({
 });
 
 Product.statics.getProducts = async function(page: number) {
+  const limit = 12;
+
+  const productsCount = await this.countDocuments();
+
   const products = await this.find({})
     .select({_id: 0, __v: 0})
-    .limit(36)
-    .skip(36 * page)
-  return products;
+    .limit(limit)
+    .skip(limit * (page - 1));
+  
+  const totalPages = Math.ceil(productsCount / limit);  
+  return {products, totalPages};
 }
 
 Product.statics.createProduct = async function(product: ProductI) {
   await this.create(product); 
 }
 
-Product.statics.getByCategory = async function(category: string) {
-  const products = await this.find({ category }).select({_id: 0, __v: 0});
+Product.statics.getByCategory = async function(category: string, page: number) {
+  const limit = 12;
+
+  const productsCount = await this.countDocuments({category});
+
+  const products = await this.find({category})
+    .select({_id: 0, __v: 0})
+    .limit(limit)
+    .skip(limit * (page - 1))
+  
     if (!products.length) {
         throw new Error(`No products found on category ${category}`);
     }
-    return products;
+  
+  const totalPages = Math.ceil(productsCount / limit);  
+  return {products, totalPages};
 }
 
 Product.statics.deleteAll = async function() {

@@ -1,4 +1,4 @@
-import { Grid, Container, Row, Col } from "@nextui-org/react";
+import { Grid, Container, Row, Col, Pagination } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/ProductCard";
 import { getCategories, getProducts } from "../helpers/content";
@@ -6,13 +6,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "./Header";
 import CategorySelector from "./CategorySelector";
 import { useCart } from "../src/hooks/CartHook";
+import { current } from "@reduxjs/toolkit";
 
 export default function Products(props) {
   const cart = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
   const [category, setCategory] = useState({ key: "", name: "Todos" });
-  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const addProductToCart = (product, qty) => {
@@ -21,7 +23,8 @@ export default function Products(props) {
 
   useEffect(() => {
     getProducts().then((res) => {
-      setProducts(res);
+      setProducts(res.products);
+      setTotalPages(res.totalPages);
     });
     getCategories().then((res) => {
       let categoriesParsed = [];
@@ -32,24 +35,17 @@ export default function Products(props) {
     });
   }, []);
 
-  const fetchData = (
-    setItems,
-    items,
-    sendCategory = null,
-    initialPage = false
-  ) => {
-    getProducts(page, initialPage, sendCategory?.key).then((res) => {
-      !initialPage ? setItems([...items, ...res]) : setItems(res);
-      if (res.length < 24) {
-        setHasMore(false);
-      }
-      setPage(page + 1);
+  const fetchData = (page, category) => {
+    getProducts(page, category.key).then((res) => {
+      setCurrentPage(page);
+      setTotalPages(res.totalPages);
+      setProducts(res.products);
     });
   };
 
   useEffect(() => {
-    setPage(0);
-    fetchData(setProducts, products, category, true);
+    setCurrentPage(1);
+    fetchData(1, category);
   }, [category]);
 
   return (
@@ -67,19 +63,28 @@ export default function Products(props) {
             category={category}
           />
         </Row>
-      
-
-      <Grid.Container gap={2} css={{ padding: 0, backgroundColor: "#fff" }}>
-        {products.map((item) => (
-          <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
-            <ProductCard
-              addProduct={(product, qty) => addProductToCart(product, qty)}
-              item={item}
-              key={item.code}
+        <Grid.Container gap={2} css={{ padding: 0, backgroundColor: "#fff" }}>
+          {products.map((item) => (
+            <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
+              <ProductCard
+                addProduct={(product, qty) => addProductToCart(product, qty)}
+                item={item}
+                key={item.code}
+              />
+            </Grid>
+          ))}
+        </Grid.Container>
+        <Grid.Container gap={2} css={{ padding: 0 }}>
+          <Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
+            <Pagination
+              initialPage={1}
+              total={totalPages}
+              onChange={(page) => fetchData(page, category)}
+              color="warning"
+              page={currentPage}
             />
           </Grid>
-        ))}
-      </Grid.Container>
+        </Grid.Container>
       </Container>
     </>
   );
