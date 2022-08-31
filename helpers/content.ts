@@ -16,3 +16,10 @@ export const getCategories = async () => {
 
     return categories;
 }
+
+export const getCartStatus = async() => {
+    
+    let cartStatus = await fetch('/api/cart/status').then((data) => data.json());
+
+    return cartStatus;
+}

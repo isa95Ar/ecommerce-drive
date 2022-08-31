@@ -14,7 +14,6 @@ const handle = app.getRequestHandler();
 
 mongoConnection();
 updateProducts();
-createConfig();
 
 app.prepare().then(() => {
   createServer(async (req, res) => {
