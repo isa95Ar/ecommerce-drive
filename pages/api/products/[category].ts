@@ -4,9 +4,9 @@ import ProductService from "../../../src/services/ProductService";
 export default async function getByCategory(req, res) {
   const productService = container.resolve(ProductService);
   try {
-    const { category } = req.query;
-    const products = await productService.getByCategory(category);
-    res.status(200).json(products);
+    const { category, page } = req.query;
+    const result = await productService.getByCategory(category, page);
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json(error);
   }
