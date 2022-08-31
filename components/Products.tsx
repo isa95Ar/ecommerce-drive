@@ -1,4 +1,4 @@
-import { Grid, Pagination } from "@nextui-org/react";
+import { Grid, Container, Row, Col, Pagination } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/ProductCard";
 import { getCategories, getProducts } from "../helpers/content";
@@ -32,26 +32,12 @@ export default function Products(props) {
     });
   }, []);
 
-  // const fetchData = (
-  //   setItems,
-  //   items,
-  //   sendCategory = null,
-  //   initialPage = false
-  // ) => {
-  //   getProducts(page, initialPage, sendCategory?.key).then((res) => {
-  //     !initialPage ? setItems([...items, ...res]) : setItems(res);
-  //     if (res.length < 24) {
-  //       setHasMore(false);
-  //     }
-  //     setPage(page + 1);
-  //   });
-  // };
-
   const fetchData = (page, category = null) => {
     getProducts(page).then((res) => {
       console.log(res);
     })
   }
+
   // useEffect(() => {
   //   setPage(0);
   //   fetchData(setProducts, products, category, true);
@@ -64,40 +50,32 @@ export default function Products(props) {
         user={props.user}
         cart={cart.Cart}
       />
-      <Grid.Container gap={2}>
-        <Grid md={2} lg={1} xl={2}></Grid>
-        <Grid md={10} lg={1} xl={10} css={{ flexFlow: "wrap" }}>
+      <Container>
+        <Row>
           <CategorySelector
             categories={categories}
             setCategory={(val) => setCategory(val)}
             category={category}
           />
-        </Grid>
-      </Grid.Container>
-        <Grid.Container gap={2}>
-          <Grid md={2} lg={1} xl={2}></Grid>
-          <Grid md={8} lg={10} xl={8} css={{ flexFlow: "wrap" }}>
-            {products.map((item) => {
-              return (
-                item.stock && (
-                  <>
-                    <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
-                      <ProductCard
-                        addProduct={(product, qty) =>
-                          addProductToCart(product, qty)
-                        }
-                        item={item}
-                        key={item.code}
-                      />
-                    </Grid>
-                  </>
-                )
-              );
-            })}
-          </Grid>
-          <Grid md={2} lg={1} xl={2}></Grid>
-        </Grid.Container>
-        <Pagination total={10} color="warning" initialPage={1} onChange={(page) => fetchData(page)}/>
+        </Row>
+          <Row >
+            <Grid.Container gap={2} css={{padding:0}}>
+              {products.map((item) => (
+                <Grid  xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
+                  <ProductCard
+                    addProduct={(product, qty) =>
+                      addProductToCart(product, qty)
+                    }
+                    item={item}
+                    key={item.code}
+                  />
+                </Grid>
+              ))}
+              <Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
+              <Pagination initialPage={1} total={10} onChange={(page) => fetchData(page)} color="warning"/></Grid>
+            </Grid.Container>
+          </Row>
+      </Container>
     </>
   );
 }
