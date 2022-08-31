@@ -12,7 +12,7 @@ export default function Products(props) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
   const [category, setCategory] = useState({ key: "", name: "Todos" });
-  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const addProductToCart = (product, qty) => {
@@ -21,7 +21,8 @@ export default function Products(props) {
 
   useEffect(() => {
     getProducts().then((res) => {
-      setProducts(res);
+      setProducts(res.products);
+      setTotalPages(res.totalPages);
     });
     getCategories().then((res) => {
       let categoriesParsed = [];
@@ -32,16 +33,16 @@ export default function Products(props) {
     });
   }, []);
 
-  const fetchData = (page, category = null) => {
-    getProducts(page).then((res) => {
-      console.log(res);
+  const fetchData = (page, category) => {
+    getProducts(page, category.key).then((res) => {
+      setTotalPages(res.totalPages);
+      setProducts(res.products);  
     })
   }
 
-  // useEffect(() => {
-  //   setPage(0);
-  //   fetchData(setProducts, products, category, true);
-  // }, [category]);
+  useEffect(() => {
+    fetchData(1, category);
+  }, [category]);
 
   return (
     <>
@@ -72,7 +73,7 @@ export default function Products(props) {
                 </Grid>
               ))}
               <Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
-              <Pagination initialPage={1} total={10} onChange={(page) => fetchData(page)} color="warning"/></Grid>
+              <Pagination initialPage={1} total={totalPages} onChange={(page) => fetchData(page, category)} color="warning"/></Grid>
             </Grid.Container>
           </Row>
       </Container>
