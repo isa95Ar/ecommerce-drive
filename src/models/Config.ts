@@ -31,9 +31,9 @@ Config.statics.getCartStatus = async function() {
     }
 
     const formatDate = (date: Date) => {
-      const day = date.getDate();
+      const day = date.getUTCDate();
       let formattedDay = day.toString();
-      const month = date.getMonth() + 1;
+      const month = date.getUTCMonth() + 1;
       let formattedMonth = month.toString();
 
       if (formattedDay.length === 1) {
