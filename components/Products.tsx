@@ -1,4 +1,4 @@
-import { Grid } from "@nextui-org/react";
+import { Grid, Pagination } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/ProductCard";
 import { getCategories, getProducts } from "../helpers/content";
@@ -32,25 +32,30 @@ export default function Products(props) {
     });
   }, []);
 
-  const fetchData = (
-    setItems,
-    items,
-    sendCategory = null,
-    initialPage = false
-  ) => {
-    getProducts(page, initialPage, sendCategory?.key).then((res) => {
-      !initialPage ? setItems([...items, ...res]) : setItems(res);
-      if (res.length < 24) {
-        setHasMore(false);
-      }
-      setPage(page + 1);
-    });
-  };
+  // const fetchData = (
+  //   setItems,
+  //   items,
+  //   sendCategory = null,
+  //   initialPage = false
+  // ) => {
+  //   getProducts(page, initialPage, sendCategory?.key).then((res) => {
+  //     !initialPage ? setItems([...items, ...res]) : setItems(res);
+  //     if (res.length < 24) {
+  //       setHasMore(false);
+  //     }
+  //     setPage(page + 1);
+  //   });
+  // };
 
-  useEffect(() => {
-    setPage(0);
-    fetchData(setProducts, products, category, true);
-  }, [category]);
+  const fetchData = (page, category = null) => {
+    getProducts(page).then((res) => {
+      console.log(res);
+    })
+  }
+  // useEffect(() => {
+  //   setPage(0);
+  //   fetchData(setProducts, products, category, true);
+  // }, [category]);
 
   return (
     <>
@@ -69,16 +74,6 @@ export default function Products(props) {
           />
         </Grid>
       </Grid.Container>
-
-      <InfiniteScroll
-        className="infinite-scroll"
-        dataLength={products.length} //This is important field to render the next data
-        next={() => {
-          fetchData(setProducts, products);
-        }}
-        hasMore={hasMore}
-        loader={<h6>Loading...</h6>}
-      >
         <Grid.Container gap={2}>
           <Grid md={2} lg={1} xl={2}></Grid>
           <Grid md={8} lg={10} xl={8} css={{ flexFlow: "wrap" }}>
@@ -102,7 +97,7 @@ export default function Products(props) {
           </Grid>
           <Grid md={2} lg={1} xl={2}></Grid>
         </Grid.Container>
-      </InfiniteScroll>
+        <Pagination total={10} color="warning" initialPage={1} onChange={(page) => fetchData(page)}/>
     </>
   );
 }
