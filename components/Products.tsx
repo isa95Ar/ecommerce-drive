@@ -59,40 +59,27 @@ export default function Products(props) {
         user={props.user}
         cart={cart.Cart}
       />
-      <Container>
-        <Row>
+      <Container css={{ backgroundColor: "#fff" }}>
+        <Row css={{ backgroundColor: "#fff" }}>
           <CategorySelector
             categories={categories}
             setCategory={(val) => setCategory(val)}
             category={category}
           />
         </Row>
+      
 
-        <InfiniteScroll
-          className="infinite-scroll"
-          dataLength={products.length} //This is important field to render the next data
-          next={() => {
-            fetchData(setProducts, products);
-          }}
-          hasMore={hasMore}
-          loader={<h6>Loading...</h6>}
-        >
-          <Row >
-            <Grid.Container gap={2} css={{padding:0}}>
-              {products.map((item) => (
-                <Grid  xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
-                  <ProductCard
-                    addProduct={(product, qty) =>
-                      addProductToCart(product, qty)
-                    }
-                    item={item}
-                    key={item.code}
-                  />
-                </Grid>
-              ))}
-            </Grid.Container>
-          </Row>
-        </InfiniteScroll>
+      <Grid.Container gap={2} css={{ padding: 0, backgroundColor: "#fff" }}>
+        {products.map((item) => (
+          <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
+            <ProductCard
+              addProduct={(product, qty) => addProductToCart(product, qty)}
+              item={item}
+              key={item.code}
+            />
+          </Grid>
+        ))}
+      </Grid.Container>
       </Container>
     </>
   );

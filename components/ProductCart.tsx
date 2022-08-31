@@ -15,7 +15,7 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
 
   return (
     <div className="product-cart">
-      <div>
+      <div className="product-image-container">
         <Avatar
           src="https://www.pequerecetas.com/wp-content/uploads/2010/04/empanadas-argentinas.jpg"
           size={"xl"}
@@ -43,7 +43,7 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
           <Text
             className="quantity-border"
             onClick={() => {
-              console.log(product,quantity,'aqu9i');
+            
               setQuantity((prev) => prev + 1);
               addProduct(product,quantity+1);
             }}
@@ -53,7 +53,7 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
         </div>
       </div>
       <div className="button-price">
-        <FontAwesomeIcon icon={faTrash} onClick={() => deleteProduct(product)} />
+        <FontAwesomeIcon style={{cursor:"point"}} icon={faTrash} onClick={() => deleteProduct(product)} />
         <Text className="product-price">${product.total.toFixed(2)}</Text>
       </div>
     </div>
