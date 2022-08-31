@@ -6,18 +6,23 @@ import Products from '../components/Products';
 import { container } from 'tsyringe';
 import ProductService from '../src/services/ProductService';
 import ConfigService from '../src/services/ConfigService';
+import { useEffect, useState } from 'react';
+import { getCartStatus } from '../helpers/content';
+import AvisoCarrito from '../components/AvisoCarrito';
 
 export default function Home(props) 
 {
-
+  const [cartStatus, setCartStatus] = useState({});
+  useEffect(() => {
+    getCartStatus().then((res) => setCartStatus(res));
+  }, []);
   return (
     <Layout {...props}>
       {!props.user.logged 
         && 
       <LoginCard />}
-
-      {props.user.logged 
-        && <Products user={props.user} />
+      {props.user.logged && cartStatus.status === 'open'
+        ? <Products user={props.user} /> : <AvisoCarrito status={cartStatus} />
       }
     </Layout>
   )
