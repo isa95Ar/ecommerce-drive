@@ -1,4 +1,4 @@
-import { Grid } from "@nextui-org/react";
+import { Grid, Container, Row, Col } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import ProductCard from "./cards/ProductCard";
 import { getCategories, getProducts } from "../helpers/content";
@@ -59,50 +59,41 @@ export default function Products(props) {
         user={props.user}
         cart={cart.Cart}
       />
-      <Grid.Container gap={2}>
-        <Grid md={2} lg={1} xl={2}></Grid>
-        <Grid md={10} lg={1} xl={10} css={{ flexFlow: "wrap" }}>
+      <Container>
+        <Row>
           <CategorySelector
             categories={categories}
             setCategory={(val) => setCategory(val)}
             category={category}
           />
-        </Grid>
-      </Grid.Container>
+        </Row>
 
-      <InfiniteScroll
-        className="infinite-scroll"
-        dataLength={products.length} //This is important field to render the next data
-        next={() => {
-          fetchData(setProducts, products);
-        }}
-        hasMore={hasMore}
-        loader={<h6>Loading...</h6>}
-      >
-        <Grid.Container gap={2}>
-          <Grid md={2} lg={1} xl={2}></Grid>
-          <Grid md={8} lg={10} xl={8} css={{ flexFlow: "wrap" }}>
-            {products.map((item) => {
-              return (
-                item.stock && (
-                  <>
-                    <Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
-                      <ProductCard
-                        addProduct={(product, qty) =>
-                          addProductToCart(product, qty)
-                        }
-                        item={item}
-                        key={item.code}
-                      />
-                    </Grid>
-                  </>
-                )
-              );
-            })}
-          </Grid>
-          <Grid md={2} lg={1} xl={2}></Grid>
-        </Grid.Container>
-      </InfiniteScroll>
+        <InfiniteScroll
+          className="infinite-scroll"
+          dataLength={products.length} //This is important field to render the next data
+          next={() => {
+            fetchData(setProducts, products);
+          }}
+          hasMore={hasMore}
+          loader={<h6>Loading...</h6>}
+        >
+          <Row >
+            <Grid.Container gap={2} css={{padding:0}}>
+              {products.map((item) => (
+                <Grid  xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
+                  <ProductCard
+                    addProduct={(product, qty) =>
+                      addProductToCart(product, qty)
+                    }
+                    item={item}
+                    key={item.code}
+                  />
+                </Grid>
+              ))}
+            </Grid.Container>
+          </Row>
+        </InfiniteScroll>
+      </Container>
     </>
   );
 }

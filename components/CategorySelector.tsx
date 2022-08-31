@@ -13,7 +13,7 @@ const CategorySelector: React.FC<CategoryProps> = ({
   setCategory,
 }) => {
   return (
-    <Grid className="selector-container" xl={8} md={8} lg={8}>
+    <div className="selector-container">
       {categories.length > 1 && (
         <Dropdown triggerType="listbox">
           <Dropdown.Button className="selector">
@@ -36,7 +36,7 @@ const CategorySelector: React.FC<CategoryProps> = ({
           </Dropdown.Menu>
         </Dropdown>
       )}
-    </Grid>
+    </div>
   );
 };
 export default CategorySelector;
