@@ -13,7 +13,7 @@ class ProductService {
         }
     }
   
-    async getProducts(page: number = 0) {
+    async getProducts(page: number = 1) {
         try {
           const products = await Product.getProducts(page);
           return products;
@@ -22,7 +22,7 @@ class ProductService {
         }
       }
   
-    async getByCategory(category: string, page: number = 0) {
+    async getByCategory(category: string, page: number = 1) {
         try {
             const products = await Product.getByCategory(category, page);
             return products;

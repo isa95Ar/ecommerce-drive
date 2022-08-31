@@ -6,6 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Header from "./Header";
 import CategorySelector from "./CategorySelector";
 import { useCart } from "../src/hooks/CartHook";
+import { current } from "@reduxjs/toolkit";
 
 export default function Products(props) {
   const cart = useCart();
@@ -13,6 +14,7 @@ export default function Products(props) {
   const [categories, setCategories] = useState([{ key: "", name: "Todos" }]);
   const [category, setCategory] = useState({ key: "", name: "Todos" });
   const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const addProductToCart = (product, qty) => {
@@ -35,12 +37,14 @@ export default function Products(props) {
 
   const fetchData = (page, category) => {
     getProducts(page, category.key).then((res) => {
+      setCurrentPage(page);
       setTotalPages(res.totalPages);
       setProducts(res.products);  
     })
   }
 
   useEffect(() => {
+    setCurrentPage(1);
     fetchData(1, category);
   }, [category]);
 
@@ -73,7 +77,7 @@ export default function Products(props) {
                 </Grid>
               ))}
               <Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
-              <Pagination initialPage={1} total={totalPages} onChange={(page) => fetchData(page, category)} color="warning"/></Grid>
+              <Pagination initialPage={1} total={totalPages} onChange={(page) => fetchData(page, category)} color="warning" page={currentPage}/></Grid>
             </Grid.Container>
           </Row>
       </Container>
