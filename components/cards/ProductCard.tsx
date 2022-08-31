@@ -6,6 +6,7 @@ import {
   Row,
   Button,
   Popover,
+  Avatar,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
@@ -18,13 +19,12 @@ export default function ProductCard({ item, addProduct }) {
       <Card css={{ margin: 0 }}>
         <Card.Body className="product-container">
           <Row className="text-container">
-            <Grid sm={8} xs={8} lg={6} md={6} xl={6}>
-              <Image
+            <Grid sm={7} xs={7} lg={6} md={6} xl={6} justify="center">
+              <Avatar
+                css={{width:100,height:100}}
                 className="product-image"
-                width={120}
-                height={120}
                 src="https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1662940800&Signature=Z8l8tNl7-LjlkbXM79cDGZGhKjLUw49mS3yn~iuOANWb-CewZF6E0Eo3U3lqLtRsk2V4I5y74~pXTiw-P88HPP2cUf3BUCfm3LGUnk0TsZ9kQflS0BaP2lldIA174tZpUo82eHnIPZENYjeT7dcXj7siOGMAEYS26JVT7WbrHZZcmteXs01Fpy4xU-NYQjnxEIsUEd0BZftl-yiAZgjWNU8uJU71eIiJqc5HhsxBj0izH-AKkI5OIi7454TRm-CsOgB93WgACpWxCATgU2m0lR5G1qYkGJfr5kA97De-Wgm6khozCXc1BlfSbFIJxvgFsHGoCRVAwHzEMIMDrnf6IA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-              ></Image>
+              />
             </Grid>
             <Grid className="details-container" lg={6} md={6} xl={6}>
               <Text className="product-name">{item.name}</Text>
@@ -38,12 +38,13 @@ export default function ProductCard({ item, addProduct }) {
           </Row>
           <Row>
             <Grid
-              sm={8}
-              xs={8}
-              lg={8}
-              md={8}
-              xl={8}
+              sm={7}
+              xs={7}
+              lg={6}
+              md={6}
+              xl={6}
               className="product-quantity"
+              justify="center"
             >
               <Text
                 className="quantity-border"
@@ -63,7 +64,7 @@ export default function ProductCard({ item, addProduct }) {
                 +
               </Text>
             </Grid>
-            <Grid sm={4} xs={4} lg={4} md={4} xl={4}>
+            <Grid sm={3} xs={3} lg={6} md={6} xl={6}>
               <Popover>
                 <Popover.Trigger>
                   <Button  onClick={() => addProduct(item, quantity)} className="button-text" color={"warning"} auto flat>
@@ -76,6 +77,7 @@ export default function ProductCard({ item, addProduct }) {
                   </Text>
                 </Popover.Content>
               </Popover>
+
             </Grid>
           </Row>
         </Card.Body>

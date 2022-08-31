@@ -6,7 +6,7 @@
   padding: 12px 11px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 
   .product-name {
     font-family: "Roboto";
@@ -17,16 +17,23 @@
     margin: 0px !important;
   }
 
-  .product-image {
-    border-radius: 80px;
-    width: 100px !important;
+  .product-image-container {
+   
+    .product-image {
+      border-radius: 80px;
+      width: 100px !important;
+    }
   }
+  
+
 
   .title-buttons {
     padding-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
+    
   }
 
   .button-price {

@@ -1,4 +1,4 @@
-export const getProducts = async (page = 0, category = null) => {
+export const getProducts = async (page = 1, category = null) => {
 
     let url = '/api/products';
     if(category)
