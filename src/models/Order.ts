@@ -22,6 +22,11 @@ Order.statics.createOrder = async function(order: OrderI) {
   await this.create(order);
 }
 
+Order.statics.getOrdersCount = async function() {
+  const count = await this.countDocuments({});
+  return count;
+}
+
 if (!mongoose.models.Order){
   model<BaseOrderDocument>("Order", Order); 
 }
