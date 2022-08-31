@@ -15,7 +15,7 @@ export default function Cart(props) {
       try {
         await fetch("/api/orders", {
           method: "POST",
-          body: JSON.stringify({ products: cart.Cart.products,email:'isaarg2312@gmail.com' }),
+          body: JSON.stringify({ products: cart.Cart.products }),
         });
         cart.removeCart();
         resolve(true);
