@@ -19,16 +19,37 @@ Config.statics.getCartStatus = async function() {
     const today = new Date();
     const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
     let status = "";
+
     if (!openTime || !closeTime) {
         status = "closed";
     } else if(isOpen) {
-        status = "opened";
+        status = "open";
     } else if (today.getTime() < openTime){
         status = "toOpen";
     } else {
         status = "closed";
     }
-    return {openDate: currentConfig.openDate, closeDate: currentConfig.closeDate, status};
+
+    const formatDate = (date: Date) => {
+      const day = date.getDate();
+      let formattedDay = day.toString();
+      const month = date.getMonth() + 1;
+      let formattedMonth = month.toString();
+
+      if (formattedDay.length === 1) {
+        formattedDay = "0" + formattedDay;
+      };
+      if (formattedMonth.length === 1) {
+        formattedMonth = "0" + formattedMonth;
+      };
+
+      return `${formattedDay}/${formattedMonth}`
+    }
+
+    const openDate = formatDate(currentConfig.openDate);
+    const closeDate = formatDate(currentConfig.closeDate);
+
+    return {openDate, closeDate, status};
 };
 
 Config.statics.updateDates = async function(openDate, closeDate) {
