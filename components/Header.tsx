@@ -8,7 +8,7 @@ import {useCart} from "../src/hooks/CartHook";
 type HeaderProps = {
   title: string;
   user: UserLogged;
-  cart: Cart
+  cart?: Cart
 };
 
 const Header: React.FC<HeaderProps> = ({ title, user,cart }) => {
@@ -25,13 +25,15 @@ const Header: React.FC<HeaderProps> = ({ title, user,cart }) => {
           <Button className="logout-button" onClick={() => router.push("/api/logout")}>
             Cerrar Session ({user.name})
           </Button>
-          <Badge
+          {cart && (
+            <Badge
             color="warning"
             content={cart.products.length}
             shape="circle"
           >
             <CartIcon fill="white" size={30} onClick={() => router.push("/cart")} />
           </Badge>
+          )}
         </div>
       )}
       <Text className="header-text">{title}</Text>
