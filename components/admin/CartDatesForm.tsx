@@ -1,4 +1,4 @@
-import { Container, Grid, Input } from "@nextui-org/react";
+import { Button, Container, Grid, Input, Loading, Text } from "@nextui-org/react";
 import { useState } from "react"
 
 export default function CartDatesForm() {
@@ -8,8 +8,23 @@ export default function CartDatesForm() {
   const [closeDate, setCloseDate] = useState("");
   const [openDateError, setOpenDateError] = useState("");
   const [closeDateError, setCloseDateError] = useState("");
+  const [fetching, setFetching] = useState({error: null, loading: false, done: false});
 
   const today = formatDate(new Date());
+
+  const handleOpenDateChange = (e) => {
+    setOpenDateError("");
+    setCloseDateError("");
+    setOpenDate(e.target.value);
+    let newCloseDate = new Date(e.target.value);
+    newCloseDate.setDate(newCloseDate.getDate() + 1);
+    setCloseDate(formatDate(newCloseDate));
+  };
+
+  const handleCloseDateChange = (e) => {
+    setCloseDateError("");
+    setCloseDate(e.target.value);
+  };
 
   const getMinCloseDate = () => {
     if (!openDate) {
@@ -22,16 +37,30 @@ export default function CartDatesForm() {
 
   const submitDates = async () => {
     try {
+      setFetching({error: null, done: false, loading: true});
       await fetch("/api/admin/cart/dates", {
         method: "POST",
         body: JSON.stringify({ openDate, closeDate }),
       });
+      setFetching({
+        error: null,
+        loading: false,
+        done: true
+      });
     } catch (e) {
+      setFetching({
+        error: "Ocurrió un error enviando las fechas",
+        loading: false,
+        done: true
+      });
       console.log(e);
     }
   };
 
   const validate = () => {
+    setOpenDateError("");
+    setCloseDateError("");
+
     let isValid = true;
     if (!openDate) {
       setOpenDateError("Debe ingresar una fecha de apertura");
@@ -39,6 +68,11 @@ export default function CartDatesForm() {
     }
     if (!closeDate) {
       setCloseDateError("Debe ingresar una fecha de cierre");
+      isValid = false;
+    }
+
+    if ((openDate && closeDate) && (new Date(closeDate) <= new Date(openDate))) {
+      setCloseDateError("La fecha de cierre debe ser mayor que la de apertura");
       isValid = false;
     }
     return isValid;
@@ -54,17 +88,17 @@ export default function CartDatesForm() {
 
   return (
       <Container>
-          <Grid.Container gap={2}>
+        <Text h4>Fechas del carrito</Text>
+          <Grid.Container gap={3} justify="center">
             <Grid>
               <Input
                 type="date"
                 label="Fecha de apertura"
                 min={today}
                 value={openDate}
-                onChange={(e) => setOpenDate(e.target.value)}
-                helperColor="error"
-                helperText={openDateError}
+                onChange={handleOpenDateChange}
               />
+              <Text color="error">{openDateError}</Text>
             </Grid>
             <Grid>
               <Input
@@ -73,13 +107,29 @@ export default function CartDatesForm() {
                 disabled={openDate === ""}
                 min={getMinCloseDate()}
                 value={closeDate}
-                onChange={(e) => setCloseDate(e.target.value)}
-                helperColor="error"
-                helperText={closeDateError}
+                onChange={handleCloseDateChange}
               />
+              <Text color="error">{closeDateError}</Text>
             </Grid>
           </Grid.Container>
-            <button onClick={handleSubmit}>Confirmar</button>
+          <Button
+            onClick={handleSubmit}
+            className={fetching.loading ? "button-total-disabled" : "button-total"}
+          >
+            Confirmar
+          </Button>
+          <Grid.Container gap={2} direction="column" justify="center">
+            {fetching.loading && (
+              <Loading color="warning"></Loading>
+            )}
+            {fetching.done && (
+              fetching.error ? (
+                <Text>{fetching.error}</Text>
+              ) : (
+                <Text>Se han guardado las fechas exitosamente</Text>
+              )
+            )}
+          </Grid.Container>
       </Container>
   );
 };
