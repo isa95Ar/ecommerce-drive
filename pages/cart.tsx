@@ -5,7 +5,9 @@ import { Button, Container, Grid } from "@nextui-org/react";
 import ProductCart from "../components/ProductCart";
 import TotalCart from "../components/TotalCart";
 import { useCart } from "../src/hooks/CartHook";
-import { ProductCart as productType } from "../src/global/types";
+import { ProductCart as productType, UserLogged } from "../src/global/types";
+import { getIronSession, IronSessionData } from "iron-session";
+import { sessionOptions } from "../src/utils/withIronSession";
 
 export default function Cart(props) {
   const cart = useCart();
@@ -68,3 +70,17 @@ export default function Cart(props) {
     </Layout>
   );
 }
+
+export async function getServerSideProps(context) {
+  const ironSession: IronSessionData = await getIronSession(
+    context.req,
+    context.res,
+    sessionOptions
+  );
+
+  const user: UserLogged = ironSession.user ?? { logged: false };
+
+  return {
+      props: {user}
+    }
+};

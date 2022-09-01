@@ -3,7 +3,6 @@ import { Text, Button, Badge } from "@nextui-org/react";
 import { Cart, UserLogged } from "../src/global/types";
 import { useRouter } from "next/router";
 import { CartIcon } from "../components/svg/CartIcon";
-import {useCart} from "../src/hooks/CartHook";
 
 type HeaderProps = {
   title: string;
@@ -11,12 +10,8 @@ type HeaderProps = {
   cart?: Cart
 };
 
-const Header: React.FC<HeaderProps> = ({ title, user,cart }) => {
+const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
   const router = useRouter();
-
-  const closeSession = async () => {
-    ;
-  };
 
   return (
     <div className="header">
@@ -27,6 +22,7 @@ const Header: React.FC<HeaderProps> = ({ title, user,cart }) => {
           </Button>
           {cart && (
             <Badge
+            css={{cursor: "pointer"}}
             color="warning"
             content={cart.products.length}
             shape="circle"
