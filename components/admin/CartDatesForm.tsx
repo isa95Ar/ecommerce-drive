@@ -126,7 +126,7 @@ export default function CartDatesForm() {
               fetching.error ? (
                 <Text>{fetching.error}</Text>
               ) : (
-                <Text>Se han guardado las fechas exitosamente</Text>
+                <Text>Las fechas se guardaron exitosamente</Text>
               )
             )}
           </Grid.Container>

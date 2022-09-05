@@ -53,7 +53,7 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
         </div>
       </div>
       <div className="button-price">
-        <FontAwesomeIcon style={{cursor:"point"}} icon={faTrash} onClick={() => deleteProduct(product)} />
+        <FontAwesomeIcon style={{cursor:"pointer"}} icon={faTrash} onClick={() => deleteProduct(product)} />
         <Text className="product-price">${product.total.toFixed(2)}</Text>
       </div>
     </div>

@@ -7,6 +7,7 @@ import Layout from "./layout";
 import Header from "../components/Header";
 import { AppContext } from "next/app";
 import { BaseContext } from "next/dist/shared/lib/utils";
+import Orders from "../components/admin/Orders";
 
 export default function Admin(props) {
   console.log(props);
@@ -16,6 +17,8 @@ export default function Admin(props) {
       <Container>
         <Grid.Container justify="center">
           <Grid>
+            <Orders />
+            <br />
             <CartDatesForm />
           </Grid>
         </Grid.Container>

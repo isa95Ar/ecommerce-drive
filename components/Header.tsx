@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
             content={cart.products.length}
             shape="circle"
           >
-            <CartIcon fill="white" size={30} onClick={() => router.push("/cart")} />
+            <CartIcon fill="white" size={30} width={24} height={24} onClick={() => router.push("/cart")} />
           </Badge>
           )}
         </div>

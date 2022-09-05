@@ -23,6 +23,11 @@
         margin-bottom: 20px;
     }
 
+    .buttons-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .logout-button {
         display: flex;
         flex-direction: row;
