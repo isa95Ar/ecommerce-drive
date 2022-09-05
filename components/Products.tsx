@@ -2,11 +2,9 @@ import { Grid, Container, Row, Col, Pagination, Loading } from '@nextui-org/reac
 import React, { useEffect, useState } from 'react';
 import ProductCard from './cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import Header from './Header';
 import CategorySelector from './CategorySelector';
 import { useCart } from '../src/hooks/CartHook';
-import { current } from '@reduxjs/toolkit';
 
 export default function Products(props) {
 	const cart = useCart();

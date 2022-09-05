@@ -1,6 +1,5 @@
 import Layout from './layout';
 import LoginCard from '../components/cards/LoginCard';
-import LandingCerrado from '../components/landing/LandingCerrado';
 import Header from '../components/Header';
 import Products from '../components/Products';
 import { container } from 'tsyringe';
@@ -12,7 +11,7 @@ import AvisoCarrito from '../components/AvisoCarrito';
 import { Loading } from '@nextui-org/react';
 
 export default function Home(props) {
-	const [cartStatus, setCartStatus] = useState({});
+	const [cartStatus, setCartStatus] = useState({status: "closed"});
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		getCartStatus().then(res => {

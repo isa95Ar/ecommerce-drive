@@ -3,17 +3,16 @@ import { parse } from "url";
 import next from "next";
 import { updateProducts } from "../commands/UpdateProducts";
 import mongoConnection from "../src/utils/mongoConnection";
-import createConfig from "../commands/createConfig";
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
-const port = 3000;
+const port = 8000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 
 mongoConnection();
-updateProducts();
+/* updateProducts(); */
 
 app.prepare().then(() => {
   createServer(async (req, res) => {
