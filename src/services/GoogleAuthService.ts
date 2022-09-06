@@ -6,14 +6,16 @@ import {
 import {singleton} from "tsyringe";
 import {google, oauth2_v2} from "googleapis";
 import Schema$Userinfo = oauth2_v2.Schema$Userinfo;
+import BaseService from "./BaseService";
 
 @singleton()
-class GoogleAuthService {
+class GoogleAuthService extends BaseService{
     public GoogleClient;
     public GoogleAuth;
     public oAuth2Client;
 
     constructor() {
+        super();
         this.oAuth2Client = new OAuth2Client(
             config.gapi.OAUTH_CLIENT_ID,
             config.gapi.OAUTH_CLIENT_KEY,

@@ -10,7 +10,7 @@ interface BaseConfigDocument extends ConfigI,Document {}
 const Config = new Schema<BaseConfigDocument>({
   openDate: {type: Date || null},
   closeDate: {type: Date || null},
-}, { capped: { size: 50000, max: 1} })
+});
 
 Config.statics.getCartStatus = async function() {
   const currentConfig = await this.findOne({});

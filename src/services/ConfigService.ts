@@ -1,9 +1,13 @@
 import {singleton} from "tsyringe";
 import ApiException from "../exceptions/ApiExeption";
 import Config from '../models/Config';
+import BaseService from "./BaseService";
 
 @singleton()
-class ConfigService {
+class ConfigService  extends BaseService{
+    constructor() {
+        super();
+    }
     async getCartStatus() {
         try {
             const status = await Config.getCartStatus();

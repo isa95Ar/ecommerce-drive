@@ -1,11 +1,17 @@
 import {singleton} from "tsyringe";
 import ApiException from "../exceptions/ApiExeption";
 import Order, {OrderI} from "../models/Order";
+import BaseService from "./BaseService";
 
 //ToDo crear interfaz de config
 
 @singleton()
-class OrderService {
+class OrderService  extends BaseService{
+
+  constructor() {
+    super();
+  }
+
   async saveOrder(order:OrderI) {
     try {
       await Order.createOrder(order);

@@ -1,9 +1,14 @@
 import {singleton} from "tsyringe";
 import ApiException from "../exceptions/ApiExeption";
 import Category from "../models/Category";
+import BaseService from "./BaseService";
 
 @singleton()
-class CategoryService {
+class CategoryService extends BaseService{
+
+    constructor() {
+        super();
+    }
 
     async saveCategory(name:string) {
         try {

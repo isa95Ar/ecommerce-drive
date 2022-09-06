@@ -21,7 +21,7 @@ export default function Home(props) {
 	}, []);
 	return (
 		<Layout {...props}>
-			{!props.user.logged && <LoginCard />}
+			{!props.user.logged && cartStatus.status === 'open' && <LoginCard />}
 			{loading ? (
 				<Loading css={{ margin: 'auto', width: '100%', paddingTop: '50vh' }} color="warning">
 					Cargando...

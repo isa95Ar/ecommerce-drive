@@ -4,6 +4,7 @@ import ProductService from "../src/services/ProductService";
 import CategoryService from "../src/services/CategoryService";
 import GoogleSheetService from "../src/services/GoogleSheetService";
 import { slugify } from "../helpers/slug";
+import ConfigService from "../src/services/ConfigService";
 
 type productType = {
   stock: boolean;
@@ -103,4 +104,14 @@ export async function updateProducts(): Promise<object> {
     return { error: e };
   }
 }
+//our Cron on Node :v
+setInterval(async () => {
+  console.log('Check if today the day of days');
+  const configService = container.resolve(ConfigService);
+  const cartStatus = await configService.getCartStatus();
+  if(cartStatus === 'open'){
+    console.log(`yes is today`);
+    await updateProducts();
+  }
+},1000*60*24)
 
