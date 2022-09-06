@@ -1,50 +1,44 @@
 import Layout from './layout';
 import LoginCard from '../components/cards/LoginCard';
-import Header from '../components/Header';
 import Products from '../components/Products';
 import { container } from 'tsyringe';
-import ProductService from '../src/services/ProductService';
 import ConfigService from '../src/services/ConfigService';
-import { useEffect, useState } from 'react';
-import { getCartStatus } from '../helpers/content';
 import AvisoCarrito from '../components/AvisoCarrito';
-import { Loading } from '@nextui-org/react';
+import {getIronSession, IronSessionData} from "iron-session";
+import {sessionOptions} from "../src/utils/withIronSession";
+import {UserLogged} from "../src/global/types";
 
 export default function Home(props) {
-	const [cartStatus, setCartStatus] = useState({status: "closed"});
-	const [loading, setLoading] = useState(true);
-	useEffect(() => {
-		getCartStatus().then(res => {
-			setCartStatus(res);
-			setLoading(false);
-		});
-	}, []);
+
+	const RenderComponent = () => {
+		if(!props.user.logged && props.cartStatus.status === 'open'){
+			return <LoginCard />;
+		}
+
+		if(props.user.logged && props.cartStatus.status === 'open'){
+			return <Products user={props.user} />
+		}
+
+		return <AvisoCarrito status={props.cartStatus} />;
+	}
+
 	return (
 		<Layout {...props}>
-			{!props.user.logged && cartStatus.status === 'open' && <LoginCard />}
-			{loading ? (
-				<Loading css={{ margin: 'auto', width: '100%', paddingTop: '50vh' }} color="warning">
-					Cargando...
-				</Loading>
-			) : props.user.logged && cartStatus.status === 'open' ? (
-				<Products user={props.user} />
-			) : (
-				<AvisoCarrito status={cartStatus} />
-			)}
+			{RenderComponent()}
 		</Layout>
 	);
 }
 
-export async function getServerSideProps() {
-	// Fetch data from external API
-	// const res = await fetch(`https://.../data`)
-	// const data = await res.json()
-
-	// Pass data to the page via props
-	// return { props: { data } }
+export async function getServerSideProps(context) {
 
 	const configService = container.resolve(ConfigService);
 	const getIsOpen = await configService.getCartStatus();
-	console.log(getIsOpen);
-	return { props: {} };
+	const ironSession: IronSessionData = await getIronSession(
+		context.req,
+		context.res,
+		sessionOptions
+	);
+
+	const user: UserLogged = ironSession.user ?? { logged: false };
+	return { props: {cartStatus:getIsOpen,user} };
 }

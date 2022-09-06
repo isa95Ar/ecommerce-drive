@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { container } from "tsyringe";
 import ProductService from "../src/services/ProductService";
 import CategoryService from "../src/services/CategoryService";

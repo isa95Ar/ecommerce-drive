@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update-products" : "ts-node commands/UpdateProducts.ts"
+    "update-products" : "node commands/UpdateProducts.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
