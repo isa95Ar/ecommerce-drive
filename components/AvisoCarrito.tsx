@@ -67,29 +67,23 @@ export default function AvisoCarrito({ status }) {
 				</Card>
 				{status.status === 'open' ? (
 					<div>
-						<Text>
-							<Text h1 css={{ color: color }}>
-								¿Ya hiciste tu pedido de este mes?{' '}
-							</Text>
+						<Text h1 css={{ color: color }}>
+							¿Ya hiciste tu pedido de este mes?{' '}
 						</Text>
 					</div>
 				) : status.status === 'toOpen' ? (
 					<div>
-						<Text>
-							<Text h1 css={{ color: color }}>
-								{Starter} {FechaHora}
-							</Text>
+						<Text h1 css={{ color: color }}>
+							{Starter} {FechaHora}
 						</Text>
 					</div>
 				) : (
 					<div>
-						<Text>
-							<Text h1 css={{ color: color }}>
-								El carrito ya está cerrado.{' '}
-							</Text>
-							<Text h4 css={{ color: color }}>
-								Nos vemos la próxima semana.{' '}
-							</Text>
+						<Text h1 css={{ color: color }}>
+							El carrito ya está cerrado.{' '}
+						</Text>
+						<Text h4 css={{ color: color }}>
+							Nos vemos la próxima semana.{' '}
 						</Text>
 					</div>
 				)}

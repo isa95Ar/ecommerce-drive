@@ -30,7 +30,6 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-
 	const configService = container.resolve(ConfigService);
 	const getIsOpen = await configService.getCartStatus();
 	const ironSession: IronSessionData = await getIronSession(
@@ -40,5 +39,5 @@ export async function getServerSideProps(context) {
 	);
 
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	return { props: {cartStatus:getIsOpen,user} };
+	return { props: {cartStatus: getIsOpen, user} };
 }
