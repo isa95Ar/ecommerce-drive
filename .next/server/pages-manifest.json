@@ -13,9 +13,9 @@
   "/api/products": "pages/api/products.js",
   "/components": "pages/components.js",
   "/layout": "pages/layout.js",
-  "/admin": "pages/admin.js",
+  "/_error": "pages/_error.js",
   "/": "pages/index.js",
   "/cart": "pages/cart.js",
-  "/_error": "pages/_error.js",
+  "/admin": "pages/admin.js",
   "/_document": "pages/_document.js"
 }
