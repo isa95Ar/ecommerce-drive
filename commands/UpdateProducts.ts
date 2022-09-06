@@ -109,7 +109,7 @@ async function initExport () {
   console.log('Check if today the day of days');
   const configService = container.resolve(ConfigService);
   const cartStatus = await configService.getCartStatus();
-  if(cartStatus === 'open'){
+  if(cartStatus.status === 'open'){
     console.log(`yes is today`);
     await updateProducts();
   }
