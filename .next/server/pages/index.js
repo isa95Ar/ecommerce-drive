@@ -156,57 +156,51 @@ function AvisoCarrito({ status  }) {
                     children: " "
                 }),
                 status.status === "open" ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                    children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                        h1: true,
+                        css: {
+                            color: color
+                        },
+                        children: [
+                            "\xbfYa hiciste tu pedido de este mes?",
+                            " "
+                        ]
+                    })
+                }) : status.status === "toOpen" ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
+                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                        h1: true,
+                        css: {
+                            color: color
+                        },
+                        children: [
+                            Starter,
+                            " ",
+                            FechaHora
+                        ]
+                    })
+                }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                    children: [
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
                             h1: true,
                             css: {
                                 color: color
                             },
                             children: [
-                                "\xbfYa hiciste tu pedido de este mes?",
+                                "El carrito ya est\xe1 cerrado.",
+                                " "
+                            ]
+                        }),
+                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                            h4: true,
+                            css: {
+                                color: color
+                            },
+                            children: [
+                                "Nos vemos la pr\xf3xima semana.",
                                 " "
                             ]
                         })
-                    })
-                }) : status.status === "toOpen" ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                    children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                            h1: true,
-                            css: {
-                                color: color
-                            },
-                            children: [
-                                Starter,
-                                " ",
-                                FechaHora
-                            ]
-                        })
-                    })
-                }) : /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                        children: [
-                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                                h1: true,
-                                css: {
-                                    color: color
-                                },
-                                children: [
-                                    "El carrito ya est\xe1 cerrado.",
-                                    " "
-                                ]
-                            }),
-                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                                h4: true,
-                                css: {
-                                    color: color
-                                },
-                                children: [
-                                    "Nos vemos la pr\xf3xima semana.",
-                                    " "
-                                ]
-                            })
-                        ]
-                    })
+                    ]
                 }),
                 /*#__PURE__*/ jsx_runtime_.jsx(Links, {})
             ]
