@@ -153,12 +153,20 @@ Config.statics.getCartStatus = function() {
                     currentConfig = _a.sent();
                     openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
                     closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+                    if (!openTime || !closeTime) {
+                        return [
+                            2 /*return*/ ,
+                            {
+                                openDate: null,
+                                closeDate: null,
+                                status: "closed"
+                            }
+                        ];
+                    }
                     today = new Date();
                     isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
                     status = "";
-                    if (!openTime || !closeTime) {
-                        status = "closed";
-                    } else if (isOpen) {
+                    if (isOpen) {
                         status = "open";
                     } else if (today.getTime() < openTime) {
                         status = "toOpen";

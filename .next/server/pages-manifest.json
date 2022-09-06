@@ -15,7 +15,7 @@
   "/components": "pages/components.js",
   "/layout": "pages/layout.js",
   "/admin": "pages/admin.js",
-  "/cart": "pages/cart.js",
   "/": "pages/index.js",
+  "/cart": "pages/cart.js",
   "/_document": "pages/_document.js"
 }

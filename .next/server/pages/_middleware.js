@@ -2670,7 +2670,7 @@ __webpack_require__.r(__webpack_exports__);
           __webpack_require__.g.process = process;
         }
 
-        var mod = __webpack_require__(285)
+        var mod = __webpack_require__(422)
         var handler = mod.middleware || mod.default;
 
         if (typeof handler !== 'function') {
@@ -2685,6 +2685,32 @@ __webpack_require__.r(__webpack_exports__);
           })
         }
     
+
+/***/ }),
+
+/***/ 591:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = true;
+exports.Z = {
+    gapi: {
+        SPREADSHEET_ID: "1TWtQUwrYNQ0I4TY36UnLkhOCiqWVBeWgWiPO8wxJlSY",
+        SCOPES: "https://www.googleapis.com/auth/spreadsheets",
+        PRODUCT_SHEET_NAME: "products",
+        USERS_SHEET_NAME: "socios",
+        OAUTH_CLIENT_ID: "87845224128-7us8ca317i9pojma6ol7m3ujnp7slqfc.apps.googleusercontent.com",
+        OAUTH_CLIENT_KEY: "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",
+        OAUTH_REDIRECT_URL: "http://localhost:3000/api/oauthcallback",
+        OAUTH_SCOPES: [
+            "https://www.googleapis.com/auth/drive.metadata.readonly"
+        ]
+    },
+    IRON_SESSIONS_PASSWORD: "8BV9cARYpoTXzesGTu3i594wVwXdyzeb"
+};
+
 
 /***/ }),
 
@@ -3697,7 +3723,7 @@ exports.NormalizeError = NormalizeError; //# sourceMappingURL=utils.js.map
 
 /***/ }),
 
-/***/ 285:
+/***/ 422:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3921,23 +3947,8 @@ var getIronSession = createGetIronSession(
 );
 
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ./constants/config.ts
-/* harmony default export */ const config = ({
-    gapi: {
-        SPREADSHEET_ID: "1TWtQUwrYNQ0I4TY36UnLkhOCiqWVBeWgWiPO8wxJlSY",
-        SCOPES: "https://www.googleapis.com/auth/spreadsheets",
-        PRODUCT_SHEET_NAME: "products",
-        USERS_SHEET_NAME: "socios",
-        OAUTH_CLIENT_ID: "87845224128-7us8ca317i9pojma6ol7m3ujnp7slqfc.apps.googleusercontent.com",
-        OAUTH_CLIENT_KEY: "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",
-        OAUTH_REDIRECT_URL: "http://localhost:3000/api/oauthcallback",
-        OAUTH_SCOPES: [
-            "https://www.googleapis.com/auth/drive.metadata.readonly"
-        ]
-    },
-    IRON_SESSIONS_PASSWORD: "8BV9cARYpoTXzesGTu3i594wVwXdyzeb"
-});
-
+// EXTERNAL MODULE: ./constants/config.js
+var config = __webpack_require__(591);
 ;// CONCATENATED MODULE: ./pages/_middleware.ts
 
 
@@ -3945,7 +3956,7 @@ var getIronSession = createGetIronSession(
 async function middleware(req) {
     const res = server.NextResponse.next();
     const ironSession = await getIronSession(req, res, {
-        password: config.IRON_SESSIONS_PASSWORD,
+        password: config/* default.IRON_SESSIONS_PASSWORD */.Z.IRON_SESSIONS_PASSWORD,
         cookieName: "almargen_app",
         cookieOptions: {
             secure: false
