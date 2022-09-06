@@ -16,13 +16,16 @@ Config.statics.getCartStatus = async function() {
   const currentConfig = await this.findOne({});
     const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
     const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+  
+    if (!openTime || !closeTime) {
+      return {openDate: null, closeDate: null, status: "closed"};
+    } 
+  
     const today = new Date();
     const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
     let status = "";
-
-    if (!openTime || !closeTime) {
-        status = "closed";
-    } else if(isOpen) {
+    
+    if(isOpen) {
         status = "open";
     } else if (today.getTime() < openTime){
         status = "toOpen";
