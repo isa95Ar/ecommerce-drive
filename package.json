@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && tsc commands/UpdateProducts.ts --experimentalDecorators true",
     "start": "next start",
     "lint": "next lint",
     "update-products" : "node commands/UpdateProducts.js"

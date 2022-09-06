@@ -33,11 +33,12 @@ module.exports = require("tsyringe");
 
 /***/ }),
 
-/***/ 8447:
+/***/ 5684:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
     gapi: {
@@ -67,11 +68,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5074);
+/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2415);
+/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__);
 
 
 const login = async (req, res)=>{
-    const googleAuth = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
+    const googleAuth = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve((_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1___default()));
     try {
         const url = await googleAuth.getAuthUrl();
         res.redirect(url);
@@ -91,7 +93,7 @@ const login = async (req, res)=>{
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [96,74], () => (__webpack_exec__(5087)));
+var __webpack_exports__ = __webpack_require__.X(0, [102,415], () => (__webpack_exec__(5087)));
 module.exports = __webpack_exports__;
 
 })();

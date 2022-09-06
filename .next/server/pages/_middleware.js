@@ -2670,7 +2670,7 @@ __webpack_require__.r(__webpack_exports__);
           __webpack_require__.g.process = process;
         }
 
-        var mod = __webpack_require__(519)
+        var mod = __webpack_require__(285)
         var handler = mod.middleware || mod.default;
 
         if (typeof handler !== 'function') {
@@ -3697,7 +3697,7 @@ exports.NormalizeError = NormalizeError; //# sourceMappingURL=utils.js.map
 
 /***/ }),
 
-/***/ 519:
+/***/ 285:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3921,7 +3921,7 @@ var getIronSession = createGetIronSession(
 );
 
 //# sourceMappingURL=index.mjs.map
-;// CONCATENATED MODULE: ./constants/config.js
+;// CONCATENATED MODULE: ./constants/config.ts
 /* harmony default export */ const config = ({
     gapi: {
         SPREADSHEET_ID: "1TWtQUwrYNQ0I4TY36UnLkhOCiqWVBeWgWiPO8wxJlSY",
