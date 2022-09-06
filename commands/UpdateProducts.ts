@@ -104,8 +104,8 @@ export async function updateProducts(): Promise<object> {
     return { error: e };
   }
 }
-//our Cron on Node :v
-setInterval(async () => {
+
+async function initExport () {
   console.log('Check if today the day of days');
   const configService = container.resolve(ConfigService);
   const cartStatus = await configService.getCartStatus();
@@ -113,5 +113,11 @@ setInterval(async () => {
     console.log(`yes is today`);
     await updateProducts();
   }
+}
+
+initExport().then(res => console.log(`result of first exportation ${res}`));
+//our Cron on Node :v
+setInterval(async () => {
+ await initExport();
 },1000*60*24)
 
