@@ -10,7 +10,17 @@
   ],
   "middleware": {
     "/": {
-      "env": [],
+      "env": [
+        "SPREADSHEET_ID",
+        "SCOPES",
+        "PRODUCT_SHEET_NAME",
+        "USERS_SHEET_NAME",
+        "OAUTH_CLIENT_ID",
+        "OAUTH_CLIENT_KEY",
+        "OAUTH_REDIRECT_URL",
+        "OAUTH_SCOPES",
+        "IRON_SESSIONS_PASSWORD"
+      ],
       "files": [
         "server/edge-runtime-webpack.js",
         "server/pages/_middleware.js"
