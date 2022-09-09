@@ -1,9 +1,10 @@
 export type ProductCart = {
-  code: number,
-  name: string,
-  qty: number,
-  total: number,
-  price?:number
+  code: number;
+  name: string;
+  qty: number;
+  total: number;
+  price?:number;
+  minimum: string;
 };
 
 export type UserLogged = {
