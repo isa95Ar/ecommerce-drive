@@ -18,3 +18,6 @@ export type Cart = {
   products: Array<ProductCart>;
   total: number;
 };
+
+
+export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>

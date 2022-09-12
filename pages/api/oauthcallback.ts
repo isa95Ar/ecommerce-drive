@@ -51,6 +51,7 @@ import { NextApiRequest, NextApiResponse } from "next";
         }
 
     }catch (e) {
+        
         res.json(e);
     }
 }

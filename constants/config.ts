@@ -7,7 +7,8 @@ export default {
     OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
     OAUTH_CLIENT_KEY: process.env.OAUTH_CLIENT_KEY,
     OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
-    OAUTH_SCOPES: [process.env.OAUTH_SCOPES]
+    OAUTH_SCOPES: [process.env.OAUTH_SCOPES],
+    ORDERS_SHEET_NAME: process.env.ORDERS_SHEET_NAME
   },
   IRON_SESSIONS_PASSWORD :process.env.IRON_SESSIONS_PASSWORD
 };
