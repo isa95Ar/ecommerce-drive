@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && tsc product-process.ts --experimentalDecorators true --outDir ./build",
+    "build": "rm -rf .next && next build",
+    "build-command": "tsc product-process.ts --experimentalDecorators true --outDir ./build",
     "start": "next start",
     "lint": "next lint",
     "update-products": "node build/product-process.js"
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "googleapis": "^100.0.0",
+    "http2": "^3.3.7",
     "iron-session": "^6.2.0",
     "mongoose": "^6.5.1",
     "next": "12.1.6",

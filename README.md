@@ -16,7 +16,13 @@ npm install -g ts-node
 ## Pasos para correr
 
 ```
-npm i
-ts-node commands/UpateProducts.ts //Para traer los productos del excel
-npm run dev
+npm run build  //para buildear next
+npm run build-command //buildear comandos
+```
+
+## Make it running
+
+```
+npm run start
+node build/product-process.js //para correr migracion
 ```
