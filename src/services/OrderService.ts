@@ -28,6 +28,15 @@ class OrderService  extends BaseService{
       throw new ApiException(e);
     }
   }
+
+  async getUserOrder(email: string) {
+    try {
+      const userOrder = await Order.getUserOrder(email);
+      return userOrder;
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
 }
 
 export default OrderService;

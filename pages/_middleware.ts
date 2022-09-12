@@ -18,11 +18,13 @@ export async function middleware(req: NextRequest) {
     }
   );
 
+  const isLogged = ironSession.user;
+
   if (req.nextUrl.pathname.startsWith('/api/login') || req.nextUrl.pathname.startsWith('/api/oauthcallback')) {
     return NextResponse.next();
   }
 
-  if (req.nextUrl.pathname.startsWith('/api') && !ironSession.user) {
+  if (req.nextUrl.pathname.startsWith('/api') && !isLogged) {
     return NextResponse.json({ message: 'Auth required' }, { status: 401 });
   }
 
