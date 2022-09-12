@@ -1,10 +1,8 @@
-import "reflect-metadata";
 import { container } from "tsyringe";
 import ProductService from "../src/services/ProductService";
 import CategoryService from "../src/services/CategoryService";
 import GoogleSheetService from "../src/services/GoogleSheetService";
 import { slugify } from "../helpers/slug";
-import ConfigService from "../src/services/ConfigService";
 
 type productType = {
   stock: boolean;
@@ -105,19 +103,5 @@ export async function updateProducts(): Promise<object> {
   }
 }
 
-async function initExport () {
-  console.log('Check if today the day of days');
-  const configService = container.resolve(ConfigService);
-  const cartStatus = await configService.getCartStatus();
-  if(cartStatus.status === 'open'){
-    console.log(`yes is today`);
-    await updateProducts();
-  }
-}
 
-initExport().then(res => console.log(`result of first exportation ${res}`));
-//our Cron on Node :v
-setInterval(async () => {
- await initExport();
-},1000*60*24)
 

@@ -1,3 +1,6 @@
+import * as dotEnv from 'dotenv';
+dotEnv.config();
+
 export default {
   gapi: {
     SPREADSHEET_ID: process.env.SPREADSHEET_ID,
