@@ -33,30 +33,6 @@ module.exports = require("tsyringe");
 
 /***/ }),
 
-/***/ 8447:
-/***/ ((__unused_webpack_module, exports) => {
-
-
-exports.__esModule = true;
-exports["default"] = {
-    gapi: {
-        SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: process.env.SCOPES,
-        PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
-        USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
-        OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
-        OAUTH_CLIENT_KEY: process.env.OAUTH_CLIENT_KEY,
-        OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
-        OAUTH_SCOPES: [
-            process.env.OAUTH_SCOPES
-        ]
-    },
-    IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
-};
-
-
-/***/ }),
-
 /***/ 5087:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -66,12 +42,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2415);
-/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5074);
 
 
 const login = async (req, res)=>{
-    const googleAuth = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve((_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1___default()));
+    const googleAuth = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
     try {
         const url = await googleAuth.getAuthUrl();
         res.redirect(url);
@@ -91,7 +66,7 @@ const login = async (req, res)=>{
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [102,415], () => (__webpack_exec__(5087)));
+var __webpack_exports__ = __webpack_require__.X(0, [96,74], () => (__webpack_exec__(5087)));
 module.exports = __webpack_exports__;
 
 })();

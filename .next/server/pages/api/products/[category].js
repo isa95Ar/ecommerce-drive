@@ -28,12 +28,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _src_services_ProductService__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2005);
 
 
 async function getByCategory(req, res) {
-    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve((_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1___default()));
+    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
     try {
         const { category , page  } = req.query;
         const result = await productService.getByCategory(category, page);
@@ -53,7 +52,7 @@ async function getByCategory(req, res) {
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [102,139,6], () => (__webpack_exec__(8598)));
+var __webpack_exports__ = __webpack_require__.X(0, [96,5], () => (__webpack_exec__(8598)));
 module.exports = __webpack_exports__;
 
 })();

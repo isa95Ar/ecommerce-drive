@@ -2670,7 +2670,7 @@ __webpack_require__.r(__webpack_exports__);
           __webpack_require__.g.process = process;
         }
 
-        var mod = __webpack_require__(422)
+        var mod = __webpack_require__(285)
         var handler = mod.middleware || mod.default;
 
         if (typeof handler !== 'function') {
@@ -2685,32 +2685,6 @@ __webpack_require__.r(__webpack_exports__);
           })
         }
     
-
-/***/ }),
-
-/***/ 591:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-var __webpack_unused_export__;
-
-__webpack_unused_export__ = true;
-exports.Z = {
-    gapi: {
-        SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: process.env.SCOPES,
-        PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
-        USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
-        OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
-        OAUTH_CLIENT_KEY: process.env.OAUTH_CLIENT_KEY,
-        OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
-        OAUTH_SCOPES: [
-            process.env.OAUTH_SCOPES
-        ]
-    },
-    IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
-};
-
 
 /***/ }),
 
@@ -3723,7 +3697,7 @@ exports.NormalizeError = NormalizeError; //# sourceMappingURL=utils.js.map
 
 /***/ }),
 
-/***/ 422:
+/***/ 285:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3947,8 +3921,23 @@ var getIronSession = createGetIronSession(
 );
 
 //# sourceMappingURL=index.mjs.map
-// EXTERNAL MODULE: ./constants/config.js
-var config = __webpack_require__(591);
+;// CONCATENATED MODULE: ./constants/config.ts
+/* harmony default export */ const config = ({
+    gapi: {
+        SPREADSHEET_ID: process.env.SPREADSHEET_ID,
+        SCOPES: process.env.SCOPES,
+        PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
+        USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
+        OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
+        OAUTH_CLIENT_KEY: process.env.OAUTH_CLIENT_KEY,
+        OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
+        OAUTH_SCOPES: [
+            process.env.OAUTH_SCOPES
+        ]
+    },
+    IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
+});
+
 ;// CONCATENATED MODULE: ./pages/_middleware.ts
 
 
@@ -3956,7 +3945,7 @@ var config = __webpack_require__(591);
 async function middleware(req) {
     const res = server.NextResponse.next();
     const ironSession = await getIronSession(req, res, {
-        password: config/* default.IRON_SESSIONS_PASSWORD */.Z.IRON_SESSIONS_PASSWORD,
+        password: config.IRON_SESSIONS_PASSWORD,
         cookieName: "almargen_app",
         cookieOptions: {
             secure: false

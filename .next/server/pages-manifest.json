@@ -9,13 +9,13 @@
   "/api/login": "pages/api/login.js",
   "/api/logout": "pages/api/logout.js",
   "/api/oauthcallback": "pages/api/oauthcallback.js",
-  "/api/orders": "pages/api/orders.js",
   "/api/products/[category]": "pages/api/products/[category].js",
+  "/api/orders": "pages/api/orders.js",
   "/api/products": "pages/api/products.js",
   "/components": "pages/components.js",
   "/layout": "pages/layout.js",
-  "/_document": "pages/_document.js",
   "/admin": "pages/admin.js",
+  "/": "pages/index.js",
   "/cart": "pages/cart.js",
-  "/": "pages/index.js"
+  "/_document": "pages/_document.js"
 }
