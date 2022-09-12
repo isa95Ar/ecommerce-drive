@@ -28,7 +28,7 @@ export default function ProductCard({ item, addProduct }) {
             </Grid>
             <Grid className="details-container" lg={6} md={6} xl={6}>
               <Text className="product-name">{item.name}</Text>
-              <Text className="product-reference">{item.minium}</Text>
+              <Text className="product-reference">{item.minimum}</Text>
               <Text className="product-supplier">
                 <FontAwesomeIcon icon={faFaceLaughBeam} />
                 {item.seller}

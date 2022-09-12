@@ -4,7 +4,7 @@ export interface ProductI {
   stock: boolean,
   code: number,
   name: string,
-  minium: string,
+  minimum: string,
   price: number,
   category: string,
   seller: string,
@@ -17,7 +17,7 @@ const Product = new Schema<BaseProductDocument>({
   stock: { type: "boolean" },
   code: { type: "number" },
   name: { type: "string" },
-  minium: { type: "string" },
+  minimum: { type: "string" },
   price: { type: "number" },
   category: { type: "string" },
   seller: {type: "string"}

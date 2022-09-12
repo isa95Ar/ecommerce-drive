@@ -1,9 +1,10 @@
 export type ProductCart = {
-  code: number,
-  name: string,
-  qty: number,
-  total: number,
-  price?:number
+  code: number;
+  name: string;
+  qty: number;
+  total: number;
+  price?:number;
+  minimum: string;
 };
 
 export type UserLogged = {
@@ -18,3 +19,6 @@ export type Cart = {
   products: Array<ProductCart>;
   total: number;
 };
+
+
+export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>

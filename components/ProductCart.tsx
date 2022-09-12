@@ -24,14 +24,13 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
       <div className="title-buttons">
         <div>
           <Text className="product-name">{product.name}</Text>
-          <small className="product-description">1 un = bolsa 500 gr</small>
+          <small className="product-description">{product.minimum}</small>
         </div>
         <div className="product-buttons">
           <Text
             className="quantity-border"
             onClick={() => {
               if (quantity > 1) {
-                
                   setQuantity((prev) => prev - 1);
                   addProduct(product,quantity-1);
                 }
@@ -42,8 +41,7 @@ const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct })
           <Text className="quantity">{quantity}</Text>
           <Text
             className="quantity-border"
-            onClick={() => {
-            
+            onClick={() => { 
               setQuantity((prev) => prev + 1);
               addProduct(product,quantity+1);
             }}

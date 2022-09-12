@@ -2,6 +2,7 @@ import { getIronSession, IronSessionData } from "iron-session";
 import { container } from "tsyringe";
 import OrderService from "../../src/services/OrderService";
 import { sessionOptions } from "../../src/utils/withIronSession";
+import sendEmail from "../../helpers/sendEmail";
 
 export default async function postOrder(req, res) {
   if (req.method !== 'POST') {
@@ -16,11 +17,6 @@ export default async function postOrder(req, res) {
       return res.status(400).json({error: true, message: "Missing products"});
     }
 
-    products = products.map((product) => {
-      const {name, code, qty} = product;
-      return {name, code, qty};
-    });
-
     const currentSession: IronSessionData = await getIronSession(
       req,
       res,
@@ -28,6 +24,17 @@ export default async function postOrder(req, res) {
     );
 
     const userEmail = currentSession.user.email;
+
+    // Enviar mail
+    
+    /* const mailData = {
+      from: 'Compras Almargen',
+      to: userEmail,
+      subject: `Tu pedido fue guardado`,
+      text: "Aca van los productos",
+     }
+
+     sendEmail(mailData); */
 
     await orderService.saveOrder({products, email: userEmail});
     res.status(200).json({success: true, error: false});
