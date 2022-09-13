@@ -10,7 +10,7 @@ type ProductCartProps = {
   addProduct(product:ProductCart,qty:number)
 };
 
-const ProductCart: FC<ProductCartProps> = ({ product,deleteProduct,addProduct }) => {
+const ProductCart: FC<ProductCartProps> = ({ product, deleteProduct, addProduct }) => {
   const [quantity, setQuantity] = useState(product.qty);
 
   return (
