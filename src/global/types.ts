@@ -22,6 +22,18 @@ export type Cart = {
 
 export type GoogleSheetDataType = Array<Array<string>>;
 
-export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>
+export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>;
 
 export type FileInfoType = Array<{webViewLink:string,code:number}>;
+
+export type ProductModel = {
+  stock: boolean,
+  code: number,
+  name: string,
+  minimum: string,
+  price: number,
+  category: string,
+  seller: string,
+  google_sheet_id?:string
+  picture?:string
+};

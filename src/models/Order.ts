@@ -35,6 +35,23 @@ Order.statics.getUserOrder = async function(email: string) {
   return order;
 };
 
+Order.statics.getOrdersToPost = async function() {
+  const allOrders = await this.find({});
+  const formattedOrders = [];
+  allOrders.map((order) => {
+    order.products.map((product) => {
+      const newOrder = {
+        email: order.email,
+        product: product.name,
+        code: product.code,
+        cantidad: product.qty
+      }
+      formattedOrders.push(newOrder);
+    })
+  });
+  return formattedOrders;
+}
+
 if (!mongoose.models.Order){
   model<BaseOrderDocument>("Order", Order); 
 }

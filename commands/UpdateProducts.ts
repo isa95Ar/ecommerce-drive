@@ -3,6 +3,8 @@ import ProductService from "../src/services/ProductService";
 import CategoryService from "../src/services/CategoryService";
 import GoogleSheetService from "../src/services/GoogleSheetService";
 import { slugify } from "../helpers/slug";
+import GoogleDriveFilesService from "../src/services/GoogleDriveFilesService";
+import { FileInfoType } from "../src/global/types";
 
 type productType = {
   stock: boolean;
@@ -13,16 +15,19 @@ type productType = {
   category: string;
   categoryName: string;
   seller: string;
+  picture: string;
 };
 
 
 function serializingProducts(
-  products: Array<Array<string>>
+  products: Array<Array<string>>,
+  files: FileInfoType
 ): Array<productType> {
   const serializeProducts = [];
 
   products.map((product, i) => {
     if (i !== 0) {
+      const fileInfo = files.find(file => file.code == parseInt(product[1]));
       serializeProducts.push({
         stock: product[0] == "1",
         code: parseInt(product[1]),
@@ -31,7 +36,8 @@ function serializingProducts(
         price: parseFloat(product[4]),
         category: slugify(product[5]),
         categoryName: product[5],
-        seller: product[6]
+        seller: product[6],
+        picture: fileInfo ? fileInfo.webViewLink : ''
       });
     }
   });
@@ -91,7 +97,10 @@ export async function updateProducts(): Promise<object> {
     const googleSheetInstance = new GoogleSheetService("products");
     const products: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
     
-    const productsFormated: Array<productType> = serializingProducts(products);
+    const GDservice = new GoogleDriveFilesService();
+    const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
+    
+    const productsFormated: Array<productType> = serializingProducts(products,filesInfo);
 
     await saveProductsOnMongo(productsFormated);
     await saveCategories(productsFormated);

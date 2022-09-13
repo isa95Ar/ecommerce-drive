@@ -3,8 +3,8 @@ import React from "react";
 export default function BackgroundLogo() {
   return (
     <svg
-      width="188"
-      height="51"
+      width="488"
+      height="351"
       viewBox="0 0 188 51"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
