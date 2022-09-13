@@ -12,10 +12,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
     const googleAuth = container.resolve(GoogleAuthService);
     
-    
     try {
         const code = req.query.code;
-
 
         if(!code){
             res.json({error:true,message:'code doesnt exists'})
@@ -31,11 +29,8 @@ import { NextApiRequest, NextApiResponse } from "next";
         const MatchEmail = users.find((user) => user[1] === profile.email);
 
         if(!MatchEmail) {
-
             res.redirect('/#unauthorized');
-        
         } else {
-    
             req.session.user = {
                 id_google_sheet: profile.id,
                 name: profile.name,

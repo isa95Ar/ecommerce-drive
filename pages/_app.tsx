@@ -5,7 +5,6 @@ import { sessionOptions } from "../src/utils/withIronSession";
 import App, { AppContext } from "next/app";
 import { getIronSession, IronSessionData } from "iron-session";
 import { UserLogged } from "../src/global/types";
-import { updateProducts } from "../commands/UpdateProducts";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
@@ -16,9 +15,6 @@ const MyApp = ({ Component, pageProps }) => {
 };
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-
-  await updateProducts();
-
   const ironSession: IronSessionData = await getIronSession(
     appContext.ctx.req,
     appContext.ctx.res,

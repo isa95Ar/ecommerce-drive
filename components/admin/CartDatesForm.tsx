@@ -1,7 +1,11 @@
 import { Button, Container, Grid, Input, Loading, Text } from "@nextui-org/react";
-import { useState } from "react"
+import { FC, useState } from "react"
 
-export default function CartDatesForm() {
+type props = {
+  setEditing(status: boolean): void
+}
+
+const CartDatesForm:FC<props> = ({setEditing}) => {
   const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
   const [openDate, setOpenDate] = useState("");
@@ -88,12 +92,11 @@ export default function CartDatesForm() {
 
   return (
       <Container>
-        <Text h4>Fechas del carrito</Text>
           <Grid.Container gap={3} justify="center">
             <Grid>
               <Input
                 type="date"
-                label="Fecha de apertura"
+                label="Nueva fecha de apertura"
                 min={today}
                 value={openDate}
                 onChange={handleOpenDateChange}
@@ -103,7 +106,7 @@ export default function CartDatesForm() {
             <Grid>
               <Input
                 type="date"
-                label="Fecha de cierre"
+                label="Nueva fecha de cierre"
                 disabled={openDate === ""}
                 min={getMinCloseDate()}
                 value={closeDate}
@@ -112,6 +115,12 @@ export default function CartDatesForm() {
               <Text color="error">{closeDateError}</Text>
             </Grid>
           </Grid.Container>
+          <Button
+            onClick={() => setEditing(false)}
+            className={fetching.loading ? "button-total-disabled" : "button-cancel"}
+          >
+            Cancelar
+          </Button>
           <Button
             onClick={handleSubmit}
             className={fetching.loading ? "button-total-disabled" : "button-total"}
@@ -133,3 +142,5 @@ export default function CartDatesForm() {
       </Container>
   );
 };
+
+export default CartDatesForm;
