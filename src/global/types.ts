@@ -20,5 +20,8 @@ export type Cart = {
   total: number;
 };
 
+export type GoogleSheetDataType = Array<Array<string>>;
 
 export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>
+
+export type FileInfoType = Array<{webViewLink:string,code:number}>;
