@@ -37,6 +37,15 @@ class OrderService  extends BaseService{
       throw new ApiException(e);
     }
   }
+
+  async getOrdersToPost() {
+    try {
+      const orders = await Order.getOrdersToPost();
+      return orders;
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
 }
 
 export default OrderService;

@@ -17,12 +17,15 @@ const CartDatesForm:FC<props> = ({setEditing}) => {
   const today = formatDate(new Date());
 
   const handleOpenDateChange = (e) => {
+    const newDate = e.target.value;
     setOpenDateError("");
     setCloseDateError("");
-    setOpenDate(e.target.value);
-    let newCloseDate = new Date(e.target.value);
-    newCloseDate.setDate(newCloseDate.getDate() + 1);
-    setCloseDate(formatDate(newCloseDate));
+    setOpenDate(newDate);
+    let newCloseDate = new Date(newDate);
+    if (newDate) {
+      newCloseDate.setDate(newCloseDate.getDate() + 1);
+      setCloseDate(formatDate(newCloseDate));
+    }
   };
 
   const handleCloseDateChange = (e) => {

@@ -40,14 +40,13 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 	public async insertOnGoogleSheet(data: OrderType): Promise<{ status: string; message: any }> {
 		return new Promise(async (resolve, reject) => {
 			try {
-                await this.startGoogleAuthentification();
-				const sheetName = this.getSheetName();
-             
+        await this.startGoogleAuthentification();
+				const sheetName = this.getSheetName();    
 				const response = this.googleSheetService.spreadsheets.values.append({
 					spreadsheetId: config.gapi.SPREADSHEET_ID,
-                    auth: this.GoogleAuth,
-                    range: sheetName,
-                    valueInputOption:"RAW",
+          auth: this.GoogleAuth,
+          range: sheetName,
+          valueInputOption:"RAW",
 					requestBody: {  range: sheetName, values: this.serializeGoogleRows(data) }
 				});
 				resolve({ status: 'success',message:response });
@@ -66,7 +65,7 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 				break;
 			case 'users':
 				sheetName = config.gapi.USERS_SHEET_NAME;
-                break;
+        break;
 			case 'orders':
 				sheetName = config.gapi.ORDERS_SHEET_NAME;
 				break;
