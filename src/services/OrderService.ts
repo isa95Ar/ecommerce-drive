@@ -23,7 +23,7 @@ class OrderService  extends BaseService{
   async getOrdersCount() {
     try {
       const ordersCount = await Order.getOrdersCount();
-      return {ordersCount};
+      return ordersCount;
     } catch (e) {
       throw new ApiException(e);
     }

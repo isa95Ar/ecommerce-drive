@@ -15,7 +15,6 @@ const MyApp = ({ Component, pageProps }) => {
 };
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-
   const ironSession: IronSessionData = await getIronSession(
     appContext.ctx.req,
     appContext.ctx.res,
