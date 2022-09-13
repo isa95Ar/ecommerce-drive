@@ -37,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
-;
 var Product = new mongoose_1.Schema({
     stock: { type: "boolean" },
     code: { type: "number" },
@@ -45,7 +44,8 @@ var Product = new mongoose_1.Schema({
     minimum: { type: "string" },
     price: { type: "number" },
     category: { type: "string" },
-    seller: { type: "string" }
+    seller: { type: "string" },
+    picture: { type: "string" }
 });
 Product.statics.getProducts = function (page) {
     return __awaiter(this, void 0, void 0, function () {
