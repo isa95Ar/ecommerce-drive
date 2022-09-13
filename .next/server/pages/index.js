@@ -211,7 +211,7 @@ function AvisoCarrito({ status  }) {
 
 /***/ }),
 
-/***/ 6948:
+/***/ 1135:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -267,7 +267,7 @@ function ProductCard({ item , addProduct  }) {
                                         height: 100
                                     },
                                     className: "product-image",
-                                    src: "https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1662940800&Signature=Z8l8tNl7-LjlkbXM79cDGZGhKjLUw49mS3yn~iuOANWb-CewZF6E0Eo3U3lqLtRsk2V4I5y74~pXTiw-P88HPP2cUf3BUCfm3LGUnk0TsZ9kQflS0BaP2lldIA174tZpUo82eHnIPZENYjeT7dcXj7siOGMAEYS26JVT7WbrHZZcmteXs01Fpy4xU-NYQjnxEIsUEd0BZftl-yiAZgjWNU8uJU71eIiJqc5HhsxBj0izH-AKkI5OIi7454TRm-CsOgB93WgACpWxCATgU2m0lR5G1qYkGJfr5kA97De-Wgm6khozCXc1BlfSbFIJxvgFsHGoCRVAwHzEMIMDrnf6IA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+                                    src: item.picture
                                 })
                             }),
                             /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid, {
@@ -375,27 +375,8 @@ function ProductCard({ item , addProduct  }) {
     });
 };
 
-;// CONCATENATED MODULE: ./helpers/content.ts
-const getProducts = async (page = 1, category = null)=>{
-    let url = "/api/products";
-    if (category) {
-        url += "/" + category;
-    }
-    let products = await fetch(`${url}?page=${page}`).then((data)=>data.json()
-    );
-    return products;
-};
-const getCategories = async ()=>{
-    let categories = await fetch("/api/categories").then((data)=>data.json()
-    );
-    return categories;
-};
-const getCartStatus = async ()=>{
-    let cartStatus = await fetch("/api/cart/status").then((data)=>data.json()
-    );
-    return cartStatus;
-};
-
+// EXTERNAL MODULE: ./helpers/content.ts
+var content = __webpack_require__(724);
 // EXTERNAL MODULE: ./components/Header.tsx + 1 modules
 var Header = __webpack_require__(5141);
 ;// CONCATENATED MODULE: ./components/CategorySelector.tsx
@@ -463,12 +444,12 @@ function Products(props) {
         cart.addProduct(product, qty);
     };
     (0,external_react_.useEffect)(()=>{
-        getProducts().then((res)=>{
+        (0,content/* getProducts */.Xp)().then((res)=>{
             setProducts(res.products);
             setTotalPages(res.totalPages);
             setLoading(false);
         });
-        getCategories().then((res)=>{
+        (0,content/* getCategories */.CP)().then((res)=>{
             let categoriesParsed = [];
             res.map((category)=>categoriesParsed.push({
                     key: category.slug,
@@ -485,7 +466,7 @@ function Products(props) {
         });
     }, []);
     const fetchData = (page, category)=>{
-        getProducts(page, category.key).then((res)=>{
+        (0,content/* getProducts */.Xp)(page, category.key).then((res)=>{
             setCurrentPage(page);
             setTotalPages(res.totalPages);
             setProducts(res.products);
@@ -583,44 +564,107 @@ function Products(props) {
 
 /***/ }),
 
-/***/ 5701:
+/***/ 261:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (/* binding */ LoginCard)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ LoginCard)
+});
+
+// EXTERNAL MODULE: external "react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(997);
+// EXTERNAL MODULE: external "@nextui-org/react"
+var react_ = __webpack_require__(6735);
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(6689);
+;// CONCATENATED MODULE: ./components/svg/GoogleIcon.tsx
+
+
+const GoogleIcon = ({ height =48 , width =48  })=>{
+    return /*#__PURE__*/ jsx_runtime_.jsx("div", {
+        style: {
+            cursor: "pointer",
+            display: "flex",
+            alignSelf: "center",
+            justifyItems: "center",
+            alignContent: "center"
+        },
+        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 48 48",
+            width: `${width}px`,
+            height: `${height}px`,
+            children: [
+                /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                    fill: "#FFC107",
+                    d: "M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                }),
+                /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                    fill: "#FF3D00",
+                    d: "M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                }),
+                /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                    fill: "#4CAF50",
+                    d: "M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                }),
+                /*#__PURE__*/ jsx_runtime_.jsx("path", {
+                    fill: "#1976D2",
+                    d: "M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                })
+            ]
+        })
+    });
+};
+
+;// CONCATENATED MODULE: ./components/cards/LoginCard.tsx
+
 
 
 function LoginCard() {
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+    return /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
         className: "login",
-        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
+        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
             justify: "center",
             alignContent: "center",
             children: [
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+                /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
                     xs: 12,
                     xl: 12,
-                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Image, {
+                    css: {
+                        zIndex: 9000
+                    },
+                    children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Image, {
                         src: "/img/logoCoop.png",
                         alt: "Default Image"
                     })
                 }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+                /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
                     xs: 12,
                     xl: 3,
                     sm: 6,
                     md: 3,
                     lg: 3,
-                    children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                    children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Button, {
                         className: "google-button",
                         onClick: ()=>location.href = "/api/login"
                         ,
-                        children: "  Ingres\xe1 con Google"
+                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                            className: "button-container",
+                            children: [
+                                /*#__PURE__*/ jsx_runtime_.jsx(GoogleIcon, {
+                                    width: 30,
+                                    height: 30
+                                }),
+                                /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
+                                    style: {
+                                        marginLeft: 5
+                                    },
+                                    children: "Ingres\xe1 con Google"
+                                })
+                            ]
+                        })
                     })
                 })
             ]
@@ -643,8 +687,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1713);
-/* harmony import */ var _components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5701);
-/* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6948);
+/* harmony import */ var _components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(261);
+/* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1135);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3507);
@@ -778,7 +822,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,507,961], () => (__webpack_exec__(4186)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,97,961], () => (__webpack_exec__(4186)));
 module.exports = __webpack_exports__;
 
 })();

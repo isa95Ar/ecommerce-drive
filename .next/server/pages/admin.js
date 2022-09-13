@@ -34,12 +34,15 @@ const CartDatesForm = ({ setEditing  })=>{
     });
     const today = formatDate(new Date());
     const handleOpenDateChange = (e)=>{
+        const newDate = e.target.value;
         setOpenDateError("");
         setCloseDateError("");
-        setOpenDate(e.target.value);
-        let newCloseDate = new Date(e.target.value);
-        newCloseDate.setDate(newCloseDate.getDate() + 1);
-        setCloseDate(formatDate(newCloseDate));
+        setOpenDate(newDate);
+        let newCloseDate = new Date(newDate);
+        if (newDate) {
+            newCloseDate.setDate(newCloseDate.getDate() + 1);
+            setCloseDate(formatDate(newCloseDate));
+        }
     };
     const handleCloseDateChange = (e)=>{
         setCloseDateError("");
@@ -261,9 +264,24 @@ const CurrentStatus = ({ status , setEditing  })=>{
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(724);
+
 
 
 const CurrentOrders = ({ ordersCount  })=>{
+    const postOrdersOnSheets = async ()=>{
+        try {
+            const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_2__/* .getOrdersToPost */ .g4)();
+            await fetch("/api/admin/orders", {
+                method: "POST",
+                body: JSON.stringify({
+                    orders
+                })
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
         children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
             justify: "center",
@@ -279,6 +297,7 @@ const CurrentOrders = ({ ordersCount  })=>{
                     children: ordersCount
                 }),
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                    onClick: postOrdersOnSheets,
                     className: "button-total",
                     children: "Enviar pedidos"
                 })
@@ -442,6 +461,22 @@ Order.statics.getUserOrder = async function(email) {
     });
     return order;
 };
+Order.statics.getOrdersToPost = async function() {
+    const allOrders = await this.find({});
+    const formattedOrders = [];
+    allOrders.map((order)=>{
+        order.products.map((product)=>{
+            const newOrder = {
+                email: order.email,
+                product: product.name,
+                code: product.code,
+                cantidad: product.qty
+            };
+            formattedOrders.push(newOrder);
+        });
+    });
+    return formattedOrders;
+};
 if (!(external_mongoose_default()).models.Order) {
     (0,external_mongoose_.model)("Order", Order);
 }
@@ -480,6 +515,14 @@ class OrderService extends BaseService/* default */.Z {
         try {
             const userOrder = await models_Order.getUserOrder(email);
             return userOrder;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async getOrdersToPost() {
+        try {
+            const orders = await models_Order.getOrdersToPost();
+            return orders;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }
@@ -553,7 +596,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,507], () => (__webpack_exec__(2285)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,97], () => (__webpack_exec__(2285)));
 module.exports = __webpack_exports__;
 
 })();

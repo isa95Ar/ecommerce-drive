@@ -72,6 +72,22 @@ Order.statics.getUserOrder = async function(email) {
     });
     return order;
 };
+Order.statics.getOrdersToPost = async function() {
+    const allOrders = await this.find({});
+    const formattedOrders = [];
+    allOrders.map((order)=>{
+        order.products.map((product)=>{
+            const newOrder = {
+                email: order.email,
+                product: product.name,
+                code: product.code,
+                cantidad: product.qty
+            };
+            formattedOrders.push(newOrder);
+        });
+    });
+    return formattedOrders;
+};
 if (!(external_mongoose_default()).models.Order) {
     (0,external_mongoose_.model)("Order", Order);
 }
@@ -110,6 +126,14 @@ class OrderService extends BaseService/* default */.Z {
         try {
             const userOrder = await models_Order.getUserOrder(email);
             return userOrder;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async getOrdersToPost() {
+        try {
+            const orders = await models_Order.getOrdersToPost();
+            return orders;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

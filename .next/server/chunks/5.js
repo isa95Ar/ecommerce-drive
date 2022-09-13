@@ -65,6 +65,9 @@ const Product = new external_mongoose_.Schema({
     },
     seller: {
         type: "string"
+    },
+    picture: {
+        type: "string"
     }
 });
 Product.statics.getProducts = async function(page) {
