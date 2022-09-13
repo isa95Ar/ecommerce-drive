@@ -282,7 +282,7 @@ function ProductCard({ item , addProduct  }) {
                                     }),
                                     /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
                                         className: "product-reference",
-                                        children: item.minium
+                                        children: item.minimum
                                     }),
                                     /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
                                         className: "product-supplier",
@@ -647,7 +647,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6948);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(641);
+/* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3507);
 /* harmony import */ var _components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1572);
 /* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4014);
 /* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5869);
@@ -701,161 +701,6 @@ __webpack_async_result__();
 
 /***/ }),
 
-/***/ 641:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ services_ConfigService)
-});
-
-// EXTERNAL MODULE: external "tsyringe"
-var external_tsyringe_ = __webpack_require__(6896);
-;// CONCATENATED MODULE: ./src/exceptions/ApiExeption.ts
-class ApiException extends Error {
-    constructor(message){
-        super(message);
-        Object.setPrototypeOf(this, ApiException.prototype);
-    }
-    jsonOutPut() {
-        return {
-            error: true,
-            message: this.message
-        };
-    }
-}
-/* harmony default export */ const ApiExeption = (ApiException);
-
-;// CONCATENATED MODULE: external "mongoose"
-const external_mongoose_namespaceObject = require("mongoose");
-var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mongoose_namespaceObject);
-;// CONCATENATED MODULE: ./src/models/Config.ts
-
-const Config = new external_mongoose_namespaceObject.Schema({
-    openDate: {
-        type: Date || null
-    },
-    closeDate: {
-        type: Date || null
-    }
-});
-Config.statics.getCartStatus = async function() {
-    const currentConfig = await this.findOne({});
-    const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
-    const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
-    if (!openTime || !closeTime) {
-        return {
-            openDate: null,
-            closeDate: null,
-            status: "closed"
-        };
-    }
-    const today = new Date();
-    const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
-    let status = "";
-    if (isOpen) {
-        status = "open";
-    } else if (today.getTime() < openTime) {
-        status = "toOpen";
-    } else {
-        status = "closed";
-    }
-    const formatDate = (date)=>{
-        const day = date.getUTCDate();
-        let formattedDay = day.toString();
-        const month = date.getUTCMonth() + 1;
-        let formattedMonth = month.toString();
-        if (formattedDay.length === 1) {
-            formattedDay = "0" + formattedDay;
-        }
-        if (formattedMonth.length === 1) {
-            formattedMonth = "0" + formattedMonth;
-        }
-        return `${formattedDay}/${formattedMonth}`;
-    };
-    const openDate = formatDate(currentConfig.openDate);
-    const closeDate = formatDate(currentConfig.closeDate);
-    return {
-        openDate,
-        closeDate,
-        status
-    };
-};
-Config.statics.updateDates = async function(openDate, closeDate) {
-    await this.findOneAndUpdate({
-        openDate,
-        closeDate
-    });
-};
-if (!(external_mongoose_default()).models.Config) {
-    (0,external_mongoose_namespaceObject.model)("Config", Config);
-}
-/* harmony default export */ const models_Config = ((external_mongoose_default()).models.Config);
-
-;// CONCATENATED MODULE: ./src/services/BaseService.ts
-var _class;
-
-
-var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,external_tsyringe_.singleton)();
-let BaseService = _class = _dec2(_class = _dec1(_class = _dec((_class = class BaseService {
-    constructor(){
-        this.mongoInit().then((res)=>{
-            console.log(`mongo db connection actual Status ${res}`);
-        }).catch((e)=>console.log(e)
-        );
-    }
-    async mongoInit() {
-        return new Promise(async (resolve, reject)=>{
-            try {
-                if (this.isDbConnected) return;
-                const db = await (0,external_mongoose_namespaceObject.connect)("mongodb://localhost:27017/almargen");
-                this.isDbConnected = db.connections[0].readyState;
-                console.log(`connected succesfully =)`);
-                resolve(db.connections[0].readyState);
-            } catch (e) {
-                reject(e);
-            }
-        });
-    }
-}) || _class) || _class) || _class) || _class;
-/* harmony default export */ const services_BaseService = (BaseService);
-
-;// CONCATENATED MODULE: ./src/services/ConfigService.ts
-var ConfigService_class;
-
-
-
-
-var ConfigService_dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), ConfigService_dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), ConfigService_dec2 = (0,external_tsyringe_.singleton)();
-let ConfigService = ConfigService_class = ConfigService_dec2(ConfigService_class = ConfigService_dec1(ConfigService_class = ConfigService_dec((ConfigService_class = class ConfigService extends services_BaseService {
-    constructor(){
-        super();
-    }
-    async getCartStatus() {
-        try {
-            const status = await models_Config.getCartStatus();
-            return status;
-        } catch (e) {
-            throw new ApiExeption(e);
-        }
-    }
-    async setDates(openDate, closeDate) {
-        try {
-            await models_Config.updateDates(openDate, closeDate);
-            return {
-                error: false
-            };
-        } catch (e) {
-            throw new ApiExeption(e);
-        }
-    }
-}) || ConfigService_class) || ConfigService_class) || ConfigService_class) || ConfigService_class;
-/* harmony default export */ const services_ConfigService = (ConfigService);
-
-
-/***/ }),
-
 /***/ 6466:
 /***/ ((module) => {
 
@@ -874,6 +719,13 @@ module.exports = require("@fortawesome/react-fontawesome");
 /***/ ((module) => {
 
 module.exports = require("@nextui-org/react");
+
+/***/ }),
+
+/***/ 1185:
+/***/ ((module) => {
+
+module.exports = require("mongoose");
 
 /***/ }),
 
@@ -926,7 +778,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,961], () => (__webpack_exec__(4186)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,507,961], () => (__webpack_exec__(4186)));
 module.exports = __webpack_exports__;
 
 })();

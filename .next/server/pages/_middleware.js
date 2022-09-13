@@ -3925,7 +3925,10 @@ var getIronSession = createGetIronSession(
 /* harmony default export */ const config = ({
     gapi: {
         SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: process.env.SCOPES,
+        SCOPES: [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ],
         PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
         USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
         OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
@@ -3933,7 +3936,9 @@ var getIronSession = createGetIronSession(
         OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
         OAUTH_SCOPES: [
             process.env.OAUTH_SCOPES
-        ]
+        ],
+        ORDERS_SHEET_NAME: process.env.ORDERS_SHEET_NAME,
+        PICTURES_FOLDERS_ID: process.env.PICTURES_FOLDERS_ID
     },
     IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
 });
@@ -3951,10 +3956,11 @@ async function middleware(req) {
             secure: false
         }
     });
+    const isLogged = ironSession.user;
     if (req.nextUrl.pathname.startsWith("/api/login") || req.nextUrl.pathname.startsWith("/api/oauthcallback")) {
         return server.NextResponse.next();
     }
-    if (req.nextUrl.pathname.startsWith("/api") && !ironSession.user) {
+    if (req.nextUrl.pathname.startsWith("/api") && !isLogged) {
         return server.NextResponse.json({
             message: "Auth required"
         }, {

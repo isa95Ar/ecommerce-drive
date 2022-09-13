@@ -59,7 +59,7 @@ var GoogleSheetService = /** @class */ (function (_super) {
     function GoogleSheetService(module) {
         var _this = _super.call(this) || this;
         _this.module = module;
-        _this.googleSheetsImplements = googleapis_1.google.sheets({
+        _this.googleSheetService = googleapis_1.google.sheets({
             version: 'v4',
             auth: _this.GoogleClient
         });
@@ -76,7 +76,7 @@ var GoogleSheetService = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         sheetName = this.getSheetName();
-                        return [4 /*yield*/, this.googleSheetsImplements.spreadsheets.values.get({
+                        return [4 /*yield*/, this.googleSheetService.spreadsheets.values.get({
                                 auth: this.GoogleAuth,
                                 spreadsheetId: config_1["default"].gapi.SPREADSHEET_ID,
                                 range: sheetName
@@ -92,7 +92,7 @@ var GoogleSheetService = /** @class */ (function (_super) {
             });
         });
     };
-    GoogleSheetService.prototype.insertOnGoogleSheet = function () {
+    GoogleSheetService.prototype.insertOnGoogleSheet = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
@@ -106,12 +106,12 @@ var GoogleSheetService = /** @class */ (function (_super) {
                                 case 1:
                                     _a.sent();
                                     sheetName = this.getSheetName();
-                                    response = this.googleSheetsImplements.spreadsheets.values.append({
+                                    response = this.googleSheetService.spreadsheets.values.append({
                                         spreadsheetId: config_1["default"].gapi.SPREADSHEET_ID,
                                         auth: this.GoogleAuth,
                                         range: sheetName,
                                         valueInputOption: "RAW",
-                                        requestBody: { range: sheetName, values: [['hola', 'mundo']] }
+                                        requestBody: { range: sheetName, values: this.serializeGoogleRows(data) }
                                     });
                                     resolve({ status: 'success', message: response });
                                     return [3 /*break*/, 3];
@@ -144,6 +144,10 @@ var GoogleSheetService = /** @class */ (function (_super) {
         if (!sheetName)
             throw new Error('Module Name incorrect!');
         return sheetName;
+    };
+    GoogleSheetService.prototype.serializeGoogleRows = function (data) {
+        return data.map(function (person) { return Object.values(person).map(function (value) { return value; }); });
+        ;
     };
     return GoogleSheetService;
 }(GoogleAuthService_1["default"]));

@@ -29,6 +29,7 @@ function useCart() {
             name: product1.name,
             qty,
             price: product1.price,
+            minimum: product1.minimum,
             total: product1.price * qty
         };
         let products = cart.products;

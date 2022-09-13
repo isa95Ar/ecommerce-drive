@@ -49,7 +49,7 @@ const ProductCart = ({ product , deleteProduct , addProduct  })=>{
                             }),
                             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("small", {
                                 className: "product-description",
-                                children: "1 un = bolsa 500 gr"
+                                children: product.minimum
                             })
                         ]
                     }),

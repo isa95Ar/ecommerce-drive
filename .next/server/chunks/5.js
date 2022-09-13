@@ -54,7 +54,7 @@ const Product = new external_mongoose_.Schema({
     name: {
         type: "string"
     },
-    minium: {
+    minimum: {
         type: "string"
     },
     price: {

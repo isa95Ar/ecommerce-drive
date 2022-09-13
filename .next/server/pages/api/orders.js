@@ -35,7 +35,10 @@ module.exports = import("iron-session");;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
     gapi: {
         SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: process.env.SCOPES,
+        SCOPES: [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ],
         PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
         USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
         OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
@@ -43,7 +46,9 @@ module.exports = import("iron-session");;
         OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
         OAUTH_SCOPES: [
             process.env.OAUTH_SCOPES
-        ]
+        ],
+        ORDERS_SHEET_NAME: process.env.ORDERS_SHEET_NAME,
+        PICTURES_FOLDERS_ID: process.env.PICTURES_FOLDERS_ID
     },
     IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
 });
@@ -86,17 +91,17 @@ async function postOrder(req, res) {
                 message: "Missing products"
             });
         }
-        products = products.map((product)=>{
-            const { name , code , qty  } = product;
-            return {
-                name,
-                code,
-                qty
-            };
-        });
         const currentSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_0__.getIronSession)(req, res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__/* .sessionOptions */ .d);
         const userEmail = currentSession.user.email;
-        await orderService.saveOrder({
+        // Enviar mail
+        /* const mailData = {
+      from: 'Compras Almargen',
+      to: userEmail,
+      subject: `Tu pedido fue guardado`,
+      text: "Aca van los productos",
+     }
+
+     sendEmail(mailData); */ await orderService.saveOrder({
             products,
             email: userEmail
         });
