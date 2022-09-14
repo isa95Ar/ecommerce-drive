@@ -92,6 +92,7 @@ p {
   &:hover {
     background: none !important;
     text-decoration-color: $main !important;
+    text-decoration-line: overline;
   }
 }
 .link-container-black {

@@ -52,6 +52,10 @@ Order.statics.getOrdersToPost = async function() {
   return formattedOrders;
 }
 
+Order.statics.deleteAllOrders = async function() {
+  await this.deleteMany({});
+}
+
 if (!mongoose.models.Order){
   model<BaseOrderDocument>("Order", Order); 
 }

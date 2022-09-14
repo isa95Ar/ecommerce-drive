@@ -1,12 +1,14 @@
 import { Button, Container, Grid, Text } from "@nextui-org/react";
 import { FC } from "react";
 
+type status = {
+  status: string,
+  openDate: string,
+  closeDate: string
+}
+
 type props = {
-  status: {
-    status: string,
-    openDate: string,
-    closeDate: string
-  };
+  status: status;
   setEditing(editing: boolean): void;
 }
 

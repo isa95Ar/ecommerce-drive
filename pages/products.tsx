@@ -1,10 +1,15 @@
-import { Grid, Container, Row, Col, Pagination, Loading } from '@nextui-org/react';
+import { Grid, Container, Row, Pagination, Loading } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
-import ProductCard from './cards/ProductCard';
+import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
-import Header from './Header';
-import CategorySelector from './CategorySelector';
+import Header from '../components/Header';
+import CategorySelector from '../components/CategorySelector';
 import { useCart } from '../src/hooks/CartHook';
+import { sessionOptions } from '../src/utils/withIronSession';
+import { container } from 'tsyringe';
+import ConfigService from '../src/services/ConfigService';
+import { getIronSession, IronSessionData } from 'iron-session';
+import { UserLogged } from '../src/global/types';
 
 export default function Products(props) {
 	const cart = useCart();
@@ -52,7 +57,9 @@ export default function Products(props) {
 					<CategorySelector categories={categories} setCategory={val => setCategory(val)} category={category} />
 				</Row>
 				{loading ? (
-					<Loading  css={{margin: 'auto', width: '100%', paddingTop: '10vh'}} color="warning">Cargando...</Loading>
+					<Loading css={{ margin: 'auto', width: '100%', paddingTop: '10vh' }} color="warning">
+						Cargando...
+					</Loading>
 				) : (
 					<>
 						<Grid.Container gap={2} css={{ padding: 0, backgroundColor: '#fff' }}>
@@ -82,4 +89,22 @@ export default function Products(props) {
 			</Container>
 		</>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const configService = container.resolve(ConfigService);
+	const getIsOpen = await configService.getCartStatus();
+	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
+	if (getIsOpen.status !== 'open' || !ironSession.user) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/'
+			},
+			props: {}
+		};
+	}
+
+	const user: UserLogged = ironSession.user ?? { logged: false };
+	return { props: { cartStatus: getIsOpen, user } };
 }
