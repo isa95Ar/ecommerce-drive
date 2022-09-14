@@ -30,7 +30,8 @@ function useCart() {
             qty,
             price: product1.price,
             minimum: product1.minimum,
-            total: product1.price * qty
+            total: product1.price * qty,
+            picture: product1.picture
         };
         let products = cart.products;
         if (products.find((product)=>product.code == productCart.code

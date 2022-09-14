@@ -34,7 +34,7 @@ const ProductCart = ({ product , deleteProduct , addProduct  })=>{
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                 className: "product-image-container",
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Avatar, {
-                    src: "https://www.pequerecetas.com/wp-content/uploads/2010/04/empanadas-argentinas.jpg",
+                    src: product.picture,
                     size: "xl"
                 })
             }),
