@@ -420,12 +420,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1751);
 /* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3507);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8366);
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5141);
+/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8277);
 /* harmony import */ var _components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5344);
 /* harmony import */ var _components_admin_CurrentOrders__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(1061);
 /* harmony import */ var _components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7866);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8662);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -443,9 +445,11 @@ function Admin(props) {
     const { 0: editingDates , 1: setEditingDates  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
     const { 0: ordersCount , 1: setOrdersCount  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.ordersCount);
     const { 0: currentStatus , 1: setCurrentStatus  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.currentStatus);
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_13__/* .infoMessages */ .o)()
+    , []);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_layout__WEBPACK_IMPORTED_MODULE_8__["default"], {
         children: [
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Header__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_navigation_Header__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
                 user: props.user,
                 title: "Panel de administrador"
             }),
@@ -504,134 +508,6 @@ async function getServerSideProps(context) {
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
-
-/***/ }),
-
-/***/ 1751:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ services_OrderService)
-});
-
-// EXTERNAL MODULE: external "tsyringe"
-var external_tsyringe_ = __webpack_require__(6896);
-// EXTERNAL MODULE: ./src/exceptions/ApiExeption.ts
-var ApiExeption = __webpack_require__(7393);
-// EXTERNAL MODULE: external "mongoose"
-var external_mongoose_ = __webpack_require__(1185);
-var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mongoose_);
-;// CONCATENATED MODULE: ./src/models/Order.ts
-
-const Order = new external_mongoose_.Schema({
-    email: {
-        type: "string"
-    },
-    products: [
-        {
-            code: "number",
-            name: "string",
-            price: "number",
-            minimum: "string",
-            qty: "number",
-            total: "number"
-        }
-    ]
-});
-Order.statics.createOrder = async function(order) {
-    await this.create(order);
-};
-Order.statics.getOrdersCount = async function() {
-    const count = await this.countDocuments({});
-    return count;
-};
-Order.statics.getUserOrder = async function(email) {
-    const order = await this.find({
-        email
-    });
-    return order;
-};
-Order.statics.getOrdersToPost = async function() {
-    const allOrders = await this.find({});
-    const formattedOrders = [];
-    allOrders.map((order)=>{
-        order.products.map((product)=>{
-            const newOrder = {
-                email: order.email,
-                product: product.name,
-                code: product.code,
-                cantidad: product.qty
-            };
-            formattedOrders.push(newOrder);
-        });
-    });
-    return formattedOrders;
-};
-Order.statics.deleteAllOrders = async function() {
-    await this.deleteMany({});
-};
-if (!(external_mongoose_default()).models.Order) {
-    (0,external_mongoose_.model)("Order", Order);
-}
-/* harmony default export */ const models_Order = ((external_mongoose_default()).models.Order);
-
-// EXTERNAL MODULE: ./src/services/BaseService.ts
-var BaseService = __webpack_require__(9453);
-;// CONCATENATED MODULE: ./src/services/OrderService.ts
-var _class;
-
-
-
-
-var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,external_tsyringe_.singleton)();
-let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = //ToDo crear interfaz de config
-class OrderService extends BaseService/* default */.Z {
-    constructor(){
-        super();
-    }
-    async saveOrder(order) {
-        try {
-            await models_Order.createOrder(order);
-        } catch (e) {
-            throw new ApiExeption/* default */.Z(e);
-        }
-    }
-    async getOrdersCount() {
-        try {
-            const ordersCount = await models_Order.getOrdersCount();
-            return ordersCount;
-        } catch (e) {
-            throw new ApiExeption/* default */.Z(e);
-        }
-    }
-    async getUserOrder(email) {
-        try {
-            const userOrder = await models_Order.getUserOrder(email);
-            return userOrder;
-        } catch (e) {
-            throw new ApiExeption/* default */.Z(e);
-        }
-    }
-    async getOrdersToPost() {
-        try {
-            const orders = await models_Order.getOrdersToPost();
-            return orders;
-        } catch (e) {
-            throw new ApiExeption/* default */.Z(e);
-        }
-    }
-    async clearLocalOrders() {
-        try {
-            await models_Order.deleteAllOrders();
-        } catch (e) {
-            throw new ApiExeption/* default */.Z(e);
-        }
-    }
-}) || _class) || _class) || _class) || _class;
-/* harmony default export */ const services_OrderService = (OrderService);
-
 
 /***/ }),
 
@@ -703,6 +579,13 @@ module.exports = require("tsyringe");
 
 module.exports = import("iron-session");;
 
+/***/ }),
+
+/***/ 3590:
+/***/ ((module) => {
+
+module.exports = import("react-toastify");;
+
 /***/ })
 
 };
@@ -712,7 +595,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,141,507], () => (__webpack_exec__(2285)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,885,82,507], () => (__webpack_exec__(2285)));
 module.exports = __webpack_exports__;
 
 })();

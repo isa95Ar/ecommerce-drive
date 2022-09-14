@@ -39,8 +39,8 @@ exports.modules = {
             SELLER_COLUMN: 6
         },
         USERS: {
-            EMAIL_COLUMN: 1,
-            IS_ADMIN_COLUMN: 1
+            EMAIL_COLUMN: 2,
+            IS_ADMIN_COLUMN: 3
         }
     }
 });

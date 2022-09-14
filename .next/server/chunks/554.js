@@ -55,7 +55,8 @@ const Order = new external_mongoose_.Schema({
             price: "number",
             minimum: "string",
             qty: "number",
-            total: "number"
+            total: "number",
+            picture: "string"
         }
     ]
 });
@@ -67,9 +68,9 @@ Order.statics.getOrdersCount = async function() {
     return count;
 };
 Order.statics.getUserOrder = async function(email) {
-    const order = await this.find({
+    const order = await this.findOne({
         email
-    });
+    }).lean();
     return order;
 };
 Order.statics.getOrdersToPost = async function() {

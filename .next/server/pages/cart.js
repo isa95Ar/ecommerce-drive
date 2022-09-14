@@ -185,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8366);
-/* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5141);
+/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8277);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6735);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_ProductCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9673);
@@ -193,8 +193,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(961);
 /* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4014);
 /* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5869);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1751);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8662);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
+
+
+
 
 
 
@@ -205,30 +218,31 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 
 
 function Cart(props) {
-    const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)();
+    const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)(props.cart);
+    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_11__.useRouter)();
+    (0,react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_13__/* .infoMessages */ .o)()
+    , []);
     const sendOrder = async ()=>{
-        return new Promise(async (resolve, reject)=>{
-            try {
-                await fetch("/api/orders", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        products: cart.Cart.products
-                    })
-                });
-                cart.removeCart();
-                resolve(true);
-            } catch (e) {
-                reject(e);
-            }
-        });
+        try {
+            await fetch("/api/orders", {
+                method: "POST",
+                body: JSON.stringify({
+                    products: cart.Cart.products
+                })
+            });
+            cart.removeCart();
+            router.push("/#orderstored");
+        } catch (e) {
+            console.warn(`error on saving order`, e);
+        }
     };
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
         ...props,
         children: props.user.logged && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
             children: [
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Header__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_navigation_Header__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
                     user: props.user,
-                    title: "Tu carrito",
+                    title: props.cart && props.cart.products ? "Edita tu pedido" : "Tu carrito",
                     cart: cart.Cart
                 }),
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__.Container, {
@@ -273,9 +287,35 @@ async function getServerSideProps(context) {
     const user = ironSession.user ?? {
         logged: false
     };
+    let cart = {};
+    if (user.logged) {
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_9__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z);
+        const ModelResponse = await orderService.getUserOrder(user.email);
+        if (ModelResponse) {
+            cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
+                    code,
+                    name,
+                    price,
+                    minimum,
+                    qty,
+                    total,
+                    picture
+                })
+            );
+        }
+    } else {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/login"
+            },
+            props: {}
+        };
+    }
     return {
         props: {
-            user
+            user,
+            cart
         }
     };
 }
@@ -303,6 +343,13 @@ module.exports = require("@fortawesome/react-fontawesome");
 /***/ ((module) => {
 
 module.exports = require("@nextui-org/react");
+
+/***/ }),
+
+/***/ 1185:
+/***/ ((module) => {
+
+module.exports = require("mongoose");
 
 /***/ }),
 
@@ -334,10 +381,24 @@ module.exports = require("react/jsx-runtime");
 
 /***/ }),
 
+/***/ 6896:
+/***/ ((module) => {
+
+module.exports = require("tsyringe");
+
+/***/ }),
+
 /***/ 4014:
 /***/ ((module) => {
 
 module.exports = import("iron-session");;
+
+/***/ }),
+
+/***/ 3590:
+/***/ ((module) => {
+
+module.exports = import("react-toastify");;
 
 /***/ })
 
@@ -348,7 +409,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,141,961], () => (__webpack_exec__(1404)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,885,82,961], () => (__webpack_exec__(1404)));
 module.exports = __webpack_exports__;
 
 })();

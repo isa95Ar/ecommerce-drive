@@ -345,8 +345,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8662);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__, _helpers_notify__WEBPACK_IMPORTED_MODULE_10__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__, _helpers_notify__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -360,12 +362,13 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 function Home(props) {
     const router = (0,next_router__WEBPACK_IMPORTED_MODULE_8__.useRouter)();
     (0,react__WEBPACK_IMPORTED_MODULE_9__.useEffect)(()=>{
+        (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_10__/* .infoMessages */ .o)();
         if (props.user.logged && props.cartStatus.status === "open") {
             router.push("/products");
         }
     }, []);
     const RenderComponent = ()=>{
-        if (!props.user.logged && props.cartStatus.status === "open") {
+        if (!props.user.logged) {
             return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {});
         }
         return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
@@ -474,6 +477,13 @@ module.exports = require("tsyringe");
 
 module.exports = import("iron-session");;
 
+/***/ }),
+
+/***/ 3590:
+/***/ ((module) => {
+
+module.exports = import("react-toastify");;
+
 /***/ })
 
 };
@@ -483,7 +493,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,507], () => (__webpack_exec__(4186)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,885,507], () => (__webpack_exec__(4186)));
 module.exports = __webpack_exports__;
 
 })();

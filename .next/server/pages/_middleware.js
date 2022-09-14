@@ -3952,8 +3952,8 @@ var getIronSession = createGetIronSession(
             SELLER_COLUMN: 6
         },
         USERS: {
-            EMAIL_COLUMN: 1,
-            IS_ADMIN_COLUMN: 1
+            EMAIL_COLUMN: 2,
+            IS_ADMIN_COLUMN: 3
         }
     }
 });
@@ -3974,6 +3974,9 @@ async function middleware(req) {
     const isLogged = ironSession.user;
     if (req.nextUrl.pathname.startsWith("/api/login") || req.nextUrl.pathname.startsWith("/api/oauthcallback")) {
         return server.NextResponse.next();
+    }
+    if (req.nextUrl.pathname.startsWith("/admin") && !isLogged) {
+        return server.NextResponse.redirect(new URL("/", req.url));
     }
     if (req.nextUrl.pathname.startsWith("/api") && !isLogged) {
         return server.NextResponse.json({

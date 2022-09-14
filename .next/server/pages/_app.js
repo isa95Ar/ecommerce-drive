@@ -17,13 +17,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3236);
 /* harmony import */ var reflect_metadata__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(reflect_metadata__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6735);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5869);
-/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7544);
-/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4014);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__, iron_session__WEBPACK_IMPORTED_MODULE_5__]);
-([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__, iron_session__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8819);
+/* harmony import */ var react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6735);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5869);
+/* harmony import */ var next_app__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7544);
+/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4014);
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3590);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_4__, iron_session__WEBPACK_IMPORTED_MODULE_6__, react_toastify__WEBPACK_IMPORTED_MODULE_7__]);
+([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_4__, iron_session__WEBPACK_IMPORTED_MODULE_6__, react_toastify__WEBPACK_IMPORTED_MODULE_7__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
 
 
 
@@ -32,15 +37,18 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_src
 
 
 const MyApp = ({ Component , pageProps  })=>{
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.NextUIProvider, {
-        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
-            ...pageProps
-        })
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__.NextUIProvider, {
+        children: [
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(Component, {
+                ...pageProps
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(react_toastify__WEBPACK_IMPORTED_MODULE_7__.ToastContainer, {})
+        ]
     });
 };
 MyApp.getInitialProps = async (appContext)=>{
-    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_5__.getIronSession)(appContext.ctx.req, appContext.ctx.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__/* .sessionOptions */ .d);
-    const appProps = await next_app__WEBPACK_IMPORTED_MODULE_4__["default"].getInitialProps(appContext);
+    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_6__.getIronSession)(appContext.ctx.req, appContext.ctx.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_4__/* .sessionOptions */ .d);
+    const appProps = await next_app__WEBPACK_IMPORTED_MODULE_5__["default"].getInitialProps(appContext);
     const user = ironSession.user ?? {
         logged: false
     };
@@ -99,6 +107,13 @@ module.exports = require("reflect-metadata");
 
 module.exports = import("iron-session");;
 
+/***/ }),
+
+/***/ 3590:
+/***/ ((module) => {
+
+module.exports = import("react-toastify");;
+
 /***/ })
 
 };
@@ -108,7 +123,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,544,869], () => (__webpack_exec__(3847)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,568,869], () => (__webpack_exec__(3847)));
 module.exports = __webpack_exports__;
 
 })();

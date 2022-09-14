@@ -89,6 +89,9 @@ const oauthCallback = async (req, res)=>{
                 isAdmin: MatchEmail[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === "1"
             };
             await req.session.save();
+            if (MatchEmail[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === "1") {
+                return res.redirect("/admin#logged");
+            }
             res.redirect("/#logged");
         }
     } catch (e) {

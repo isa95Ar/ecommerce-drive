@@ -43,6 +43,7 @@ function Footer() {
                     backgroundColor: "#F9F9F9",
                     padding: 25
                 },
+                gap: 2,
                 children: [
                     /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
                         xs: 12,

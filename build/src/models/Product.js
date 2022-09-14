@@ -60,7 +60,7 @@ Product.statics.getProducts = function (page) {
                     return [4 /*yield*/, this.find({})
                             .select({ _id: 0, __v: 0 })
                             .limit(limit)
-                            .skip(limit * page)];
+                            .skip(limit * (page - 1))];
                 case 2:
                     products = _a.sent();
                     totalPages = Math.ceil(productsCount / limit);
