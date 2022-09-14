@@ -10,23 +10,26 @@ import Layout from "./layout";
 import Header from "../components/Header";
 import CartDatesForm from "../components/admin/CartDatesForm";
 import CurrentOrders from "../components/admin/CurrentOrders";
-import CurrentStatus from "../components/admin/CurrentDates";
+import CurrentStatus from "../components/admin/CurrentStatus";
 
 export default function Admin(props) {
   const [editingDates, setEditingDates] = useState(false);
+  const [ordersCount, setOrdersCount] = useState(props.ordersCount);
+  const [currentStatus, setCurrentStatus] = useState(props.currentStatus);
+
   return (
     <Layout>
       <Header user={props.user} title="Panel de administrador" ></Header>
       <Container>
         <Grid.Container justify="center" alignItems="center" gap={4}>
           <Grid xs={12} sm={10} md={6} lg={4}>
-            <CurrentOrders ordersCount={props.ordersCount} />
+            <CurrentOrders ordersCount={ordersCount} setOrdersCount={setOrdersCount} />
           </Grid>
           <Grid xs={12} sm={10} md={6} lg={4}>
             {editingDates ? (
-              <CartDatesForm setEditing={setEditingDates}/>
+              <CartDatesForm setEditing={setEditingDates} setCurrentStatus={setCurrentStatus}/>
             ) : (
-              <CurrentStatus status={props.currentStatus} setEditing={setEditingDates}/>
+              <CurrentStatus status={currentStatus} setEditing={setEditingDates}/>
             )}
           </Grid>
         </Grid.Container>

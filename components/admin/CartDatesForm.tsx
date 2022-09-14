@@ -1,11 +1,18 @@
 import { Button, Container, Grid, Input, Loading, Text } from "@nextui-org/react";
 import { FC, useState } from "react"
 
-type props = {
-  setEditing(status: boolean): void
+type status = {
+  status: string,
+  openDate: string,
+  closeDate: string
 }
 
-const CartDatesForm:FC<props> = ({setEditing}) => {
+type props = {
+  setEditing(status: boolean): void
+  setCurrentStatus(status: status): void;
+}
+
+const CartDatesForm:FC<props> = ({setEditing, setCurrentStatus}) => {
   const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
   const [openDate, setOpenDate] = useState("");
@@ -45,15 +52,17 @@ const CartDatesForm:FC<props> = ({setEditing}) => {
   const submitDates = async () => {
     try {
       setFetching({error: null, done: false, loading: true});
-      await fetch("/api/admin/cart/dates", {
+
+      const response = await fetch("/api/admin/cart/dates", {
         method: "POST",
         body: JSON.stringify({ openDate, closeDate }),
       });
-      setFetching({
-        error: null,
-        loading: false,
-        done: true
-      });
+      const newStatus = await response.json();
+
+      setCurrentStatus(newStatus);
+
+      setFetching({error: null, loading: false, done: true});
+      setEditing(false);
     } catch (e) {
       setFetching({
         error: "Ocurrió un error enviando las fechas",
@@ -134,13 +143,10 @@ const CartDatesForm:FC<props> = ({setEditing}) => {
             {fetching.loading && (
               <Loading color="warning"></Loading>
             )}
-            {fetching.done && (
-              fetching.error ? (
+            {(fetching.done && fetching.error) && (
                 <Text>{fetching.error}</Text>
-              ) : (
-                <Text>Las fechas se guardaron exitosamente</Text>
               )
-            )}
+            }
           </Grid.Container>
       </Container>
   );
