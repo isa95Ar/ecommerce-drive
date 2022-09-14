@@ -11,6 +11,7 @@ import ConfigService from '../src/services/ConfigService';
 import { getIronSession, IronSessionData } from 'iron-session';
 import { UserLogged } from '../src/global/types';
 import OrderService from '../src/services/OrderService';
+import { infoMessages } from '../helpers/notify';
 
 export default function Products(props) {
 
@@ -26,6 +27,7 @@ export default function Products(props) {
 	};
 
 	useEffect(() => {
+		infoMessages();
 		getProducts().then(res => {
 			setProducts(res.products);
 			setTotalPages(res.totalPages);

@@ -43,7 +43,7 @@ import config from "../../constants/config";
             
             await req.session.save();
             if (MatchEmail[config.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === "1") {
-                return res.redirect("/admin");
+                return res.redirect("/admin#logged");
             }
             res.redirect('/#logged');
         }

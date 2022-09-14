@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Grid } from "@nextui-org/react";
 import { container } from "tsyringe";
 import { getIronSession, IronSessionData } from "iron-session";
@@ -11,12 +11,14 @@ import Header from "../components/navigation/Header";
 import CartDatesForm from "../components/admin/CartDatesForm";
 import CurrentOrders from "../components/admin/CurrentOrders";
 import CurrentStatus from "../components/admin/CurrentStatus";
+import { infoMessages } from "../helpers/notify";
 
 export default function Admin(props) {
   const [editingDates, setEditingDates] = useState(false);
   const [ordersCount, setOrdersCount] = useState(props.ordersCount);
   const [currentStatus, setCurrentStatus] = useState(props.currentStatus);
 
+  useEffect(()=> infoMessages(),[]);
   return (
     <Layout>
       <Header user={props.user} title="Panel de administrador" ></Header>

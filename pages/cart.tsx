@@ -1,5 +1,4 @@
 import Layout from './layout';
-import LoginCard from '../components/cards/LoginCard';
 import Header from '../components/navigation/Header';
 import { Button, Container, Grid } from '@nextui-org/react';
 import ProductCart from '../components/ProductCart';
@@ -11,11 +10,15 @@ import { sessionOptions } from '../src/utils/withIronSession';
 import { container } from 'tsyringe';
 import OrderService from '../src/services/OrderService';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { infoMessages } from '../helpers/notify';
 
 export default function Cart(props) {
   
 	const cart = useCart(props.cart);
 	const router = useRouter();
+
+	useEffect(()=> infoMessages(),[]);
 
 	const sendOrder = async () => {
 		try {
@@ -24,7 +27,7 @@ export default function Cart(props) {
 				body: JSON.stringify({ products: cart.Cart.products })
 			});
 			cart.removeCart();
-			router.push('/');
+			router.push('/#orderstored');
 		} catch (e) {
 			console.warn(`error on saving order`, e);
 		}
