@@ -4,8 +4,8 @@ import { google, sheets_v4 } from 'googleapis';
 import { GoogleSheetDataType, OrderType } from '../global/types';
 
 interface googleSheetDataOptions {
-	getGoogleSheetData(): Promise<GoogleSheetDataType>,
-	insertOnGoogleSheet(data:OrderType):  Promise<{ status: string; message: any }>
+	getGoogleSheetData(): Promise<GoogleSheetDataType>;
+	insertOnGoogleSheet(data: OrderType): Promise<{ status: string; message: any }>;
 }
 
 class GoogleSheetService extends GoogleAuthService implements googleSheetDataOptions {
@@ -40,16 +40,16 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 	public async insertOnGoogleSheet(data: OrderType): Promise<{ status: string; message: any }> {
 		return new Promise(async (resolve, reject) => {
 			try {
-        await this.startGoogleAuthentification();
-				const sheetName = this.getSheetName();    
+				await this.startGoogleAuthentification();
+				const sheetName = this.getSheetName();
 				const response = this.googleSheetService.spreadsheets.values.append({
 					spreadsheetId: config.gapi.SPREADSHEET_ID,
-          auth: this.GoogleAuth,
-          range: sheetName,
-          valueInputOption:"RAW",
-					requestBody: {  range: sheetName, values: this.serializeGoogleRows(data) }
+					auth: this.GoogleAuth,
+					range: sheetName,
+					valueInputOption: 'RAW',
+					requestBody: { range: sheetName, values: this.serializeGoogleRows(data) }
 				});
-				resolve({ status: 'success',message:response });
+				resolve({ status: 'success', message: response });
 			} catch (e) {
 				reject({ status: 'Error', message: e.message });
 			}
@@ -58,14 +58,14 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 
 	protected getSheetName(): string {
 		let sheetName;
-		
+
 		switch (this.module) {
 			case 'products':
 				sheetName = config.gapi.PRODUCT_SHEET_NAME;
 				break;
 			case 'users':
 				sheetName = config.gapi.USERS_SHEET_NAME;
-        break;
+				break;
 			case 'orders':
 				sheetName = config.gapi.ORDERS_SHEET_NAME;
 				break;
@@ -78,8 +78,8 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 		return sheetName;
 	}
 
-	protected serializeGoogleRows(data:OrderType) {
-			return data.map(person => Object.values(person).map(value => value));;
+	protected serializeGoogleRows(data: OrderType) {
+		return data.map(person => Object.values(person).map(value => value));
 	}
 }
 

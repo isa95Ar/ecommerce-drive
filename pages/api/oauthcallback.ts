@@ -6,6 +6,7 @@ import Schema$Userinfo = oauth2_v2.Schema$Userinfo;
 import { withSessionRoute } from "../../src/utils/withIronSession";
 import GoogleSheetService from "../../src/services/GoogleSheetService";
 import { NextApiRequest, NextApiResponse } from "next";
+import config from "../../constants/config";
 
 
  const oauthCallback = async (req:NextApiRequest, res:NextApiResponse) => {
@@ -26,7 +27,7 @@ import { NextApiRequest, NextApiResponse } from "next";
         const googleSheetInstance = new GoogleSheetService("users");
         const users: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
         
-        const MatchEmail = users.find((user) => user[1] === profile.email);
+        const MatchEmail = users.find((user) => user[config.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === profile.email);
 
         if(!MatchEmail) {
             res.redirect('/#unauthorized');
@@ -37,7 +38,7 @@ import { NextApiRequest, NextApiResponse } from "next";
                 email: profile.email,
                 profile_picture: profile.picture,
                 logged: true,
-                isAdmin: MatchEmail[2] === "1"
+                isAdmin: MatchEmail[config.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === "1"
             };
             
             await req.session.save();

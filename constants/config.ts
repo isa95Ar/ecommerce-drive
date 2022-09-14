@@ -12,5 +12,20 @@ export default {
     OAUTH_SCOPES: [process.env.OAUTH_SCOPES],
     PICTURES_FOLDERS_ID: process.env.PICTURES_FOLDERS_ID
   },
-  IRON_SESSIONS_PASSWORD :process.env.IRON_SESSIONS_PASSWORD
+  IRON_SESSIONS_PASSWORD :process.env.IRON_SESSIONS_PASSWORD,
+  GOOGLE_SHEET_ROWS: {
+    PRODUCTS: {
+      STOCK_COLUMN: 0,
+      CODE_COLUMN: 1,
+      NAME_COLUMN: 2,
+      MINIUM_COLUMN: 3,
+      PRICE_COLUMN: 4,
+      CATEGORY_COLUMN: 5,
+      SELLER_COLUMN: 6
+    },
+    USERS: {
+      EMAIL_COLUMN:1,
+      IS_ADMIN_COLUMN: 1
+    }
+  }
 };

@@ -5,6 +5,7 @@ import GoogleSheetService from "../src/services/GoogleSheetService";
 import { slugify } from "../helpers/slug";
 import GoogleDriveFilesService from "../src/services/GoogleDriveFilesService";
 import { FileInfoType } from "../src/global/types";
+import config from "../constants/config";
 
 type productType = {
   stock: boolean;
@@ -29,14 +30,14 @@ function serializingProducts(
     if (i !== 0) {
       const fileInfo = files.find(file => file.code == parseInt(product[1]));
       serializeProducts.push({
-        stock: product[0] == "1",
-        code: parseInt(product[1]),
-        name: product[2],
-        minimum: product[3],
-        price: parseFloat(product[4]),
-        category: slugify(product[5]),
-        categoryName: product[5],
-        seller: product[6],
+        stock: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
+        code: parseInt(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
+        name: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.NAME_COLUMN],
+        minimum: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.MINIUM_COLUMN],
+        price: parseFloat(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.PRICE_COLUMN]),
+        category: slugify(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN]),
+        categoryName: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
+        seller: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
         picture: fileInfo ? fileInfo.webViewLink : ''
       });
     }
