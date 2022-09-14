@@ -67,6 +67,17 @@ export function useCart(userCart?:{_id?,email?,products?}) {
       localStorage.removeItem("cart");
   }
 
+  const getCartProductQty = (code: number): number => {
+    const product = cart.products.find((product) => {
+      return product.code === code;
+    });
+    if (!product) {
+      return 1;
+    }
+    console.log(product)
+    return product.qty;
+  } 
+
   useEffect(() => {
     const actualCart = localStorage.getItem("cart");
     
@@ -81,6 +92,7 @@ export function useCart(userCart?:{_id?,email?,products?}) {
     Cart: cart,
     addProduct,
     removeProduct,
-    removeCart
+    removeCart,
+    getCartProductQty
   };
 }

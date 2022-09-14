@@ -10,11 +10,18 @@ import {
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCart } from "../../src/hooks/CartHook";
 
 
 export default function ProductCard({ item, addProduct }) {
+  const cart = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    const qty = cart.getCartProductQty(item.code);
+    setQuantity(qty);
+  }, [cart.Cart])
   return (
     <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card css={{ margin: 0 }}>
