@@ -1,98 +1,94 @@
-import { useEffect, useState } from "react";
-import { ProductCart } from "../global/types";
+import { useEffect, useState } from 'react';
+import { ProductCart } from '../global/types';
 
+export function useCart(userCart?: { _id?; email?; products? }) {
+	const [cart, setCart] = useState({
+		products: [],
+		total: 0
+	});
 
+	const sumTotals = (products: Array<ProductCart>): number => {
+		let totalCart = 0;
+		products.map(product => (totalCart += product.total));
+		return totalCart;
+	};
 
-export function useCart(userCart?:{_id?,email?,products?}) {
+	const addProduct = (product: ProductCart, qty: number) => {
+		const productCart: ProductCart = {
+			code: product.code,
+			name: product.name,
+			qty,
+			price: product.price,
+			minimum: product.minimum,
+			total: product.price * qty,
+			picture: product.picture
+		};
+		let products = cart.products;
+		if (products.find(product => product.code == productCart.code)) {
+			products = products.map(cartProduct => {
+				if (cartProduct.code == productCart.code) {
+					return productCart;
+				} else {
+					return cartProduct;
+				}
+			});
+		} else {
+			products.push(productCart);
+		}
 
-  const [cart, setCart] = useState({
-    products: [],
-    total: 0,
-  });
+		updateProducts(products);
+	};
 
-  const sumTotals = (products: Array<ProductCart>): number => {
-    let totalCart = 0;
-    products.map((product) => (totalCart += product.total));
-    return totalCart;
-  };
+	const removeProduct = (product: ProductCart) => {
+		const products = cart.products.filter(cartProduct => cartProduct.code !== product.code);
+		updateProducts(products);
+	};
 
-  const addProduct = (product: ProductCart, qty: number) => {
-    const productCart: ProductCart = {
-      code: product.code,
-      name: product.name,
-      qty,
-      price: product.price,
-      minimum: product.minimum,
-      total: product.price * qty,
-      picture: product.picture
-    };
-    let products = cart.products;
-    if (products.find((product) => product.code == productCart.code)) {
-        
-      products = products.map((cartProduct) => {
-        if (cartProduct.code == productCart.code) {
-          return productCart;
-        } else {
-          return cartProduct;
-        }
-      });
-    } else {
-      products.push(productCart);
-    }
+	const updateProducts = (products: Array<ProductCart>) => {
+		setCart({ total: sumTotals(products), products });
 
-    updateProducts(products);
-  };
+		localStorage.setItem('cart', JSON.stringify({ total: sumTotals(products), products }));
+	};
 
-  const removeProduct = (product: ProductCart) => {
-    const products = cart.products.filter(
-      (cartProduct) => cartProduct.code !== product.code
-    );
-    updateProducts(products);
-  };
+	const removeCart = (): any => {
+		setCart({
+			products: [],
+			total: 0
+		});
+		localStorage.removeItem('cart');
+	};
 
-  const updateProducts = (products: Array<ProductCart>) => {
-    setCart({ total: sumTotals(products), products });
+	const getCartProductQty = (code: number): number => {
+		const product = cart.products.find(product => {
+			return product.code === code;
+		});
+		if (!product) {
+			return 1;
+		}
+		return product.qty;
+	};
 
-    localStorage.setItem(
-      "cart",
-      JSON.stringify({ total: sumTotals(products), products })
-    );
-  };
+	useEffect(() => {
+		const actualCart = localStorage.getItem('cart');
+		let products: any = [];
 
-  const removeCart = ():any => {
-      setCart({
-        products: [],
-        total: 0,
-      });
-      localStorage.removeItem("cart");
-  }
+		if (actualCart) {
+			const storedCart = JSON.parse(actualCart);
+			products = products.concat(storedCart.products);
+		}
+		
+		if (userCart && userCart.products) {
+			products = products.concat(userCart.products);
+		}
 
-  const getCartProductQty = (code: number): number => {
-    const product = cart.products.find((product) => {
-      return product.code === code;
-    });
-    if (!product) {
-      return 1;
-    }
-    console.log(product)
-    return product.qty;
-  } 
+		products.map(product => addProduct(product, product.qty));
+	}, []);
 
-  useEffect(() => {
-    const actualCart = localStorage.getItem("cart");
-    
-    if (actualCart) {
-      setCart(JSON.parse(actualCart));
-    }else if(userCart && userCart.products){
-        userCart.products.map(product => addProduct(product,product.qty) );
-    }
-  }, []);
-
-  return {
-    Cart: cart,
-    addProduct,
-    removeProduct,
-    removeCart,
-    getCartProductQty
-  };
+	return {
+		Cart: cart,
+		addProduct,
+		removeProduct,
+		removeCart,
+		getCartProductQty
+	};
 }

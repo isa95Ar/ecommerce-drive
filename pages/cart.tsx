@@ -13,7 +13,7 @@ import OrderService from '../src/services/OrderService';
 import { useRouter } from 'next/router';
 
 export default function Cart(props) {
-  console.log(props);
+  
 	const cart = useCart(props.cart);
 	const router = useRouter();
 
@@ -24,7 +24,7 @@ export default function Cart(props) {
 				body: JSON.stringify({ products: cart.Cart.products })
 			});
 			cart.removeCart();
-			router.push('/cart');
+			router.push('/');
 		} catch (e) {
 			console.warn(`error on saving order`, e);
 		}
@@ -75,7 +75,15 @@ export async function getServerSideProps(context) {
     if(ModelResponse){
         cart.products = ModelResponse.products.map(({code,name,price,minimum,qty,total,picture}) => ({code,name,price,minimum,qty,total,picture}));
     }
-	}
+	}else{
+    return {
+			redirect: {
+				permanent: false,
+				destination: '/login'
+			},
+			props: {}
+		};
+  }
  
 	return {
 		props: { user, cart }

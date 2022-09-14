@@ -10,9 +10,11 @@ import { container } from 'tsyringe';
 import ConfigService from '../src/services/ConfigService';
 import { getIronSession, IronSessionData } from 'iron-session';
 import { UserLogged } from '../src/global/types';
+import OrderService from '../src/services/OrderService';
 
 export default function Products(props) {
-	const cart = useCart();
+
+	const cart = useCart(props.cart);
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([{ key: '', name: 'Todos' }]);
 	const [category, setCategory] = useState({ key: '', name: 'Todos' });
@@ -105,6 +107,23 @@ export async function getServerSideProps(context) {
 		};
 	}
 
+	let cart:any = {};
+
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	return { props: { cartStatus: getIsOpen, user } };
+
+	const orderService = container.resolve(OrderService);
+	const ModelResponse = await orderService.getUserOrder(user.email);
+	if (ModelResponse) {
+		cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
+			code,
+			name,
+			price,
+			minimum,
+			qty,
+			total,
+			picture
+		}));
+	}
+
+	return { props: { cartStatus: getIsOpen, user,cart } };
 }
