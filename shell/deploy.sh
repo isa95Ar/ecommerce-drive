@@ -4,6 +4,7 @@ echo "Moving to builded-version branch"
  git merge main
 
 echo "Building Apps"
+ npm i
  npm run build
  npm run build-command
  sed -i '3i\var dotEnv = require("dotenv");' build/constants/config.js

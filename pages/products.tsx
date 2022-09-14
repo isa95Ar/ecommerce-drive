@@ -2,7 +2,7 @@ import { Grid, Container, Row, Pagination, Loading } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
-import Header from '../components/Header';
+import Header from '../components/navigation/Header';
 import CategorySelector from '../components/CategorySelector';
 import { useCart } from '../src/hooks/CartHook';
 import { sessionOptions } from '../src/utils/withIronSession';
@@ -10,9 +10,12 @@ import { container } from 'tsyringe';
 import ConfigService from '../src/services/ConfigService';
 import { getIronSession, IronSessionData } from 'iron-session';
 import { UserLogged } from '../src/global/types';
+import OrderService from '../src/services/OrderService';
+import { infoMessages } from '../helpers/notify';
 
 export default function Products(props) {
-	const cart = useCart();
+
+	const cart = useCart(props.cart);
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([{ key: '', name: 'Todos' }]);
 	const [category, setCategory] = useState({ key: '', name: 'Todos' });
@@ -24,6 +27,7 @@ export default function Products(props) {
 	};
 
 	useEffect(() => {
+		infoMessages();
 		getProducts().then(res => {
 			setProducts(res.products);
 			setTotalPages(res.totalPages);
@@ -105,6 +109,23 @@ export async function getServerSideProps(context) {
 		};
 	}
 
+	let cart:any = {};
+
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	return { props: { cartStatus: getIsOpen, user } };
+
+	const orderService = container.resolve(OrderService);
+	const ModelResponse = await orderService.getUserOrder(user.email);
+	if (ModelResponse) {
+		cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
+			code,
+			name,
+			price,
+			minimum,
+			qty,
+			total,
+			picture
+		}));
+	}
+
+	return { props: { cartStatus: getIsOpen, user,cart } };
 }

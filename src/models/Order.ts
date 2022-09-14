@@ -6,7 +6,8 @@ interface Product {
   price: number;
   minimum: string;
   qty: number;
-  total: number
+  total: number;
+  picture:string;
 };
 
 export interface OrderI {
@@ -18,7 +19,7 @@ interface BaseOrderDocument extends OrderI,Document {}
 
 const Order = new Schema<BaseOrderDocument>({
   email: { type: "string" },
-  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total:"number" }]
+  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total:"number",picture:"string" }]
 });
 
 Order.statics.createOrder = async function(order: OrderI) {
@@ -31,7 +32,7 @@ Order.statics.getOrdersCount = async function() {
 };
 
 Order.statics.getUserOrder = async function(email: string) {
-  const order = await this.find({email});
+  const order = await this.findOne({email}).lean();
   return order;
 };
 

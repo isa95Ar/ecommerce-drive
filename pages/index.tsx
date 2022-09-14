@@ -8,18 +8,21 @@ import { sessionOptions } from '../src/utils/withIronSession';
 import { UserLogged } from '../src/global/types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { infoMessages } from '../helpers/notify';
+
 
 export default function Home(props) {
 	const router = useRouter();
 
 	useEffect(() => {
+		infoMessages()
 		if (props.user.logged && props.cartStatus.status === 'open') {
 			router.push('/products');
 		}
 	}, []);
 
 	const RenderComponent = () => {
-		if (!props.user.logged && props.cartStatus.status === 'open') {
+		if (!props.user.logged) {
 			return <LoginCard />;
 		}
 

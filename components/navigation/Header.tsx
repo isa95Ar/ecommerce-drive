@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, Button, Badge } from '@nextui-org/react';
-import { Cart, UserLogged } from '../src/global/types';
+import { Cart, UserLogged } from '../../src/global/types';
 import { useRouter } from 'next/router';
-import { CartIcon } from '../components/svg/CartIcon';
+import { CartIcon } from '../svg/CartIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 
