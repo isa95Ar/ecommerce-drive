@@ -25,7 +25,7 @@ export default {
     },
     USERS: {
       EMAIL_COLUMN:1,
-      IS_ADMIN_COLUMN: 1
+      IS_ADMIN_COLUMN: 2
     }
   }
 };

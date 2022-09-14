@@ -2,7 +2,7 @@ import { Grid, Container, Row, Pagination, Loading } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
-import Header from '../components/Header';
+import Header from '../components/navigation/Header';
 import CategorySelector from '../components/CategorySelector';
 import { useCart } from '../src/hooks/CartHook';
 import { sessionOptions } from '../src/utils/withIronSession';
