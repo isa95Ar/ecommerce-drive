@@ -46,6 +46,14 @@ class OrderService  extends BaseService{
       throw new ApiException(e);
     }
   }
+
+  async clearLocalOrders() {
+    try {
+      await Order.deleteAllOrders();
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
 }
 
 export default OrderService;
