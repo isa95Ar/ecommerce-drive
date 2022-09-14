@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { ProductCart } from "../global/types";
 
-export function useCart() {
+
+
+export function useCart(userCart?:{_id?,email?,products?}) {
+
   const [cart, setCart] = useState({
     products: [],
     total: 0,
@@ -66,8 +69,11 @@ export function useCart() {
 
   useEffect(() => {
     const actualCart = localStorage.getItem("cart");
+    
     if (actualCart) {
       setCart(JSON.parse(actualCart));
+    }else if(userCart && userCart.products){
+        userCart.products.map(product => addProduct(product,product.qty) );
     }
   }, []);
 
