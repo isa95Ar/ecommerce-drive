@@ -24,6 +24,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+  if (req.nextUrl.pathname.startsWith("/admin") && !isLogged) {
+    return NextResponse.redirect(new URL('/', req.url))
+  }
+
   if (req.nextUrl.pathname.startsWith('/api') && !isLogged) {
     return NextResponse.json({ message: 'Auth required' }, { status: 401 });
   }

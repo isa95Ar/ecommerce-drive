@@ -19,7 +19,7 @@ export default function Home(props) {
 	}, []);
 
 	const RenderComponent = () => {
-		if (!props.user.logged && props.cartStatus.status === 'open') {
+		if (!props.user.logged) {
 			return <LoginCard />;
 		}
 
