@@ -17,7 +17,7 @@ const ProductCart: FC<ProductCartProps> = ({ product, deleteProduct, addProduct 
     <div className="product-cart">
       <div className="product-image-container">
         <Avatar
-          src="https://www.pequerecetas.com/wp-content/uploads/2010/04/empanadas-argentinas.jpg"
+          src={product.picture}
           size={"xl"}
         />
       </div>

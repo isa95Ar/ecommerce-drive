@@ -21,6 +21,7 @@ export function useCart() {
       price: product.price,
       minimum: product.minimum,
       total: product.price * qty,
+      picture: product.picture
     };
     let products = cart.products;
     if (products.find((product) => product.code == productCart.code)) {
