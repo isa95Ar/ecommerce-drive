@@ -7,7 +7,7 @@ import { sessionOptions } from "../src/utils/withIronSession";
 import OrderService from "../src/services/OrderService";
 import ConfigService from "../src/services/ConfigService";
 import Layout from "./layout";
-import Header from "../components/Header";
+import Header from "../components/navigation/Header";
 import CartDatesForm from "../components/admin/CartDatesForm";
 import CurrentOrders from "../components/admin/CurrentOrders";
 import CurrentStatus from "../components/admin/CurrentStatus";

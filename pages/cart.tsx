@@ -1,6 +1,6 @@
 import Layout from "./layout";
 import LoginCard from "../components/cards/LoginCard";
-import Header from "../components/Header";
+import Header from "../components/navigation/Header";
 import { Button, Container, Grid } from "@nextui-org/react";
 import ProductCart from "../components/ProductCart";
 import TotalCart from "../components/TotalCart";
