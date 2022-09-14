@@ -74,7 +74,7 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
             });
             const filesFields = responseFileList.data.files.map((file)=>{
                 return {
-                    webViewLink: file.webViewLink,
+                    webViewLink: file.webContentLink,
                     code: parseInt(file.name.split(".")[0])
                 };
             });
