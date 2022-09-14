@@ -53,8 +53,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_services_GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5074);
 /* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7111);
 /* harmony import */ var _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7419);
+/* harmony import */ var _constants_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5684);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__]);
 _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
 
 
 
@@ -73,7 +75,7 @@ const oauthCallback = async (req, res)=>{
         const profile = await googleAuth.getProfileInfo(clientCredentials);
         /* Get User's List from Google Sheet*/ const googleSheetInstance = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z("users");
         const users = await googleSheetInstance.getGoogleSheetData();
-        const MatchEmail = users.find((user)=>user[1] === profile.email
+        const MatchEmail = users.find((user)=>user[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === profile.email
         );
         if (!MatchEmail) {
             res.redirect("/#unauthorized");
@@ -84,7 +86,7 @@ const oauthCallback = async (req, res)=>{
                 email: profile.email,
                 profile_picture: profile.picture,
                 logged: true,
-                isAdmin: MatchEmail[2] === "1"
+                isAdmin: MatchEmail[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === "1"
             };
             await req.session.save();
             res.redirect("/#logged");
@@ -137,7 +139,7 @@ __webpack_async_result__();
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [534,96,74,419], () => (__webpack_exec__(9944)));
+var __webpack_exports__ = __webpack_require__.X(0, [534,96,684,74,419], () => (__webpack_exec__(9944)));
 module.exports = __webpack_exports__;
 
 })();

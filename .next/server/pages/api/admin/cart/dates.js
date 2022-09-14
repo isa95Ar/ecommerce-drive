@@ -50,8 +50,9 @@ async function updateCartDates(req, res) {
         openDate = new Date(openDate);
         closeDate = new Date(closeDate);
         await configService.setDates(openDate, closeDate);
+        const newStatus = await configService.getCartStatus();
         res.status(200).json({
-            error: false
+            ...newStatus
         });
     } catch (error) {
         res.status(500).json({

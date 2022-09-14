@@ -2,7 +2,7 @@
 (() => {
 var exports = {};
 exports.id = 964;
-exports.ids = [964];
+exports.ids = [964,777];
 exports.modules = {
 
 /***/ 5344:
@@ -20,7 +20,7 @@ exports.modules = {
 
 
 
-const CartDatesForm = ({ setEditing  })=>{
+const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
     const formatDate = (date)=>date.toISOString().split("T")[0]
     ;
     const { 0: openDate , 1: setOpenDate  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
@@ -63,18 +63,21 @@ const CartDatesForm = ({ setEditing  })=>{
                 done: false,
                 loading: true
             });
-            await fetch("/api/admin/cart/dates", {
+            const response = await fetch("/api/admin/cart/dates", {
                 method: "POST",
                 body: JSON.stringify({
                     openDate,
                     closeDate
                 })
             });
+            const newStatus = await response.json();
+            setCurrentStatus(newStatus);
             setFetching({
                 error: null,
                 loading: false,
                 done: true
             });
+            setEditing(false);
         } catch (e) {
             setFetching({
                 error: "Ocurri\xf3 un error enviando las fechas",
@@ -167,11 +170,9 @@ const CartDatesForm = ({ setEditing  })=>{
                     fetching.loading && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Loading, {
                         color: "warning"
                     }),
-                    fetching.done && (fetching.error ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                    fetching.done && fetching.error && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
                         children: fetching.error
-                    }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                        children: "Las fechas se guardaron exitosamente"
-                    }))
+                    })
                 ]
             })
         ]
@@ -182,7 +183,107 @@ const CartDatesForm = ({ setEditing  })=>{
 
 /***/ }),
 
-/***/ 4547:
+/***/ 1061:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(724);
+
+
+
+
+const CurrentOrders = ({ ordersCount , setOrdersCount  })=>{
+    const { 0: fetching , 1: setFetching  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+        error: null,
+        loading: false,
+        done: false
+    });
+    const postOrdersOnSheets = async ()=>{
+        try {
+            setFetching({
+                error: null,
+                loading: true,
+                done: false
+            });
+            const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_3__/* .getOrdersToPost */ .g4)();
+            const response = await fetch("/api/admin/orders", {
+                method: "POST",
+                body: JSON.stringify({
+                    orders
+                })
+            });
+            const result = await response.json();
+            if (!result.error) {
+                setOrdersCount(0);
+                setFetching({
+                    error: null,
+                    loading: false,
+                    done: true
+                });
+            } else throw new Error("Error enviando los pedidos");
+        } catch (error) {
+            setFetching({
+                error: "Ocurri\xf3 un error enviando los pedidos",
+                loading: false,
+                done: true
+            });
+        }
+    };
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
+        children: [
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
+                justify: "center",
+                direction: "column",
+                alignItems: "center",
+                children: [
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        h3: true,
+                        children: "Pedidos guardados hasta ahora (sin enviar)"
+                    }),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        h2: true,
+                        children: ordersCount
+                    }),
+                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                        onClick: postOrdersOnSheets,
+                        className: fetching.loading ? "button-total-disabled" : "button-total",
+                        children: "Enviar pedidos"
+                    })
+                ]
+            }),
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
+                gap: 2,
+                direction: "column",
+                justify: "center",
+                children: [
+                    fetching.loading && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Loading, {
+                        color: "warning"
+                    }),
+                    fetching.done && (fetching.error ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        color: "error",
+                        children: fetching.error
+                    }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        children: "Pedidos enviados con \xe9xito"
+                    }))
+                ]
+            })
+        ]
+    });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CurrentOrders);
+
+
+/***/ }),
+
+/***/ 7866:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -254,58 +355,45 @@ const CurrentStatus = ({ status , setEditing  })=>{
 
 /***/ }),
 
-/***/ 1061:
+/***/ 724:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "CP": () => (/* binding */ getCategories),
+/* harmony export */   "Xp": () => (/* binding */ getProducts),
+/* harmony export */   "g4": () => (/* binding */ getOrdersToPost)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
-/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(724);
+/* unused harmony export getCartStatus */
+/* harmony import */ var _src_exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7393);
 
-
-
-const CurrentOrders = ({ ordersCount  })=>{
-    const postOrdersOnSheets = async ()=>{
-        try {
-            const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_2__/* .getOrdersToPost */ .g4)();
-            await fetch("/api/admin/orders", {
-                method: "POST",
-                body: JSON.stringify({
-                    orders
-                })
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
-        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
-            justify: "center",
-            direction: "column",
-            alignItems: "center",
-            children: [
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                    h3: true,
-                    children: "Pedidos realizados hasta ahora"
-                }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                    h2: true,
-                    children: ordersCount
-                }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                    onClick: postOrdersOnSheets,
-                    className: "button-total",
-                    children: "Enviar pedidos"
-                })
-            ]
-        })
-    });
+const getProducts = async (page = 1, category = null)=>{
+    let url = "/api/products";
+    if (category) {
+        url += "/" + category;
+    }
+    let products = await fetch(`${url}?page=${page}`).then((data)=>data.json()
+    );
+    return products;
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CurrentOrders);
+const getCategories = async ()=>{
+    let categories = await fetch("/api/categories").then((data)=>data.json()
+    );
+    return categories;
+};
+const getCartStatus = async ()=>{
+    let cartStatus = await fetch("/api/cart/status").then((data)=>data.json()
+    );
+    return cartStatus;
+};
+const getOrdersToPost = async ()=>{
+    try {
+        const orders = await fetch("/api/admin/orders/to-post").then((data)=>data.json()
+        );
+        return orders;
+    } catch (error) {
+        throw new _src_exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z(error);
+    }
+};
 
 
 /***/ }),
@@ -331,11 +419,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5869);
 /* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1751);
 /* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3507);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1713);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8366);
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5141);
 /* harmony import */ var _components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5344);
 /* harmony import */ var _components_admin_CurrentOrders__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(1061);
-/* harmony import */ var _components_admin_CurrentDates__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(4547);
+/* harmony import */ var _components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7866);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__]);
 ([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
@@ -353,6 +441,8 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 
 function Admin(props) {
     const { 0: editingDates , 1: setEditingDates  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
+    const { 0: ordersCount , 1: setOrdersCount  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.ordersCount);
+    const { 0: currentStatus , 1: setCurrentStatus  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.currentStatus);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_layout__WEBPACK_IMPORTED_MODULE_8__["default"], {
         children: [
             /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Header__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
@@ -371,7 +461,8 @@ function Admin(props) {
                             md: 6,
                             lg: 4,
                             children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentOrders__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z, {
-                                ordersCount: props.ordersCount
+                                ordersCount: ordersCount,
+                                setOrdersCount: setOrdersCount
                             })
                         }),
                         /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {
@@ -380,9 +471,10 @@ function Admin(props) {
                             md: 6,
                             lg: 4,
                             children: editingDates ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
-                                setEditing: setEditingDates
-                            }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentDates__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
-                                status: props.currentStatus,
+                                setEditing: setEditingDates,
+                                setCurrentStatus: setCurrentStatus
+                            }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
+                                status: currentStatus,
                                 setEditing: setEditingDates
                             })
                         })
@@ -477,6 +569,9 @@ Order.statics.getOrdersToPost = async function() {
     });
     return formattedOrders;
 };
+Order.statics.deleteAllOrders = async function() {
+    await this.deleteMany({});
+};
 if (!(external_mongoose_default()).models.Order) {
     (0,external_mongoose_.model)("Order", Order);
 }
@@ -527,9 +622,30 @@ class OrderService extends BaseService/* default */.Z {
             throw new ApiExeption/* default */.Z(e);
         }
     }
+    async clearLocalOrders() {
+        try {
+            await models_Order.deleteAllOrders();
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
 }) || _class) || _class) || _class) || _class;
 /* harmony default export */ const services_OrderService = (OrderService);
 
+
+/***/ }),
+
+/***/ 6466:
+/***/ ((module) => {
+
+module.exports = require("@fortawesome/free-solid-svg-icons");
+
+/***/ }),
+
+/***/ 7197:
+/***/ ((module) => {
+
+module.exports = require("@fortawesome/react-fontawesome");
 
 /***/ }),
 
@@ -596,7 +712,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,97], () => (__webpack_exec__(2285)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,141,507], () => (__webpack_exec__(2285)));
 module.exports = __webpack_exports__;
 
 })();

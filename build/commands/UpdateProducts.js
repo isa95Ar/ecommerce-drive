@@ -43,20 +43,21 @@ var CategoryService_1 = require("../src/services/CategoryService");
 var GoogleSheetService_1 = require("../src/services/GoogleSheetService");
 var slug_1 = require("../helpers/slug");
 var GoogleDriveFilesService_1 = require("../src/services/GoogleDriveFilesService");
+var config_1 = require("../constants/config");
 function serializingProducts(products, files) {
     var serializeProducts = [];
     products.map(function (product, i) {
         if (i !== 0) {
             var fileInfo = files.find(function (file) { return file.code == parseInt(product[1]); });
             serializeProducts.push({
-                stock: product[0] == "1",
-                code: parseInt(product[1]),
-                name: product[2],
-                minimum: product[3],
-                price: parseFloat(product[4]),
-                category: (0, slug_1.slugify)(product[5]),
-                categoryName: product[5],
-                seller: product[6],
+                stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
+                code: parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
+                name: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.NAME_COLUMN],
+                minimum: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.MINIUM_COLUMN],
+                price: parseFloat(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.PRICE_COLUMN]),
+                category: (0, slug_1.slugify)(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN]),
+                categoryName: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
+                seller: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
                 picture: fileInfo ? fileInfo.webViewLink : ''
             });
         }

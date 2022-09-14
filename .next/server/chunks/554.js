@@ -88,6 +88,9 @@ Order.statics.getOrdersToPost = async function() {
     });
     return formattedOrders;
 };
+Order.statics.deleteAllOrders = async function() {
+    await this.deleteMany({});
+};
 if (!(external_mongoose_default()).models.Order) {
     (0,external_mongoose_.model)("Order", Order);
 }
@@ -134,6 +137,13 @@ class OrderService extends BaseService/* default */.Z {
         try {
             const orders = await models_Order.getOrdersToPost();
             return orders;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async clearLocalOrders() {
+        try {
+            await models_Order.deleteAllOrders();
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

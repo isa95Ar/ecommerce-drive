@@ -2,7 +2,7 @@
 (() => {
 var exports = {};
 exports.id = 405;
-exports.ids = [405];
+exports.ids = [405,777];
 exports.modules = {
 
 /***/ 1572:
@@ -211,359 +211,6 @@ function AvisoCarrito({ status  }) {
 
 /***/ }),
 
-/***/ 1135:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ Products)
-});
-
-// EXTERNAL MODULE: external "react/jsx-runtime"
-var jsx_runtime_ = __webpack_require__(997);
-// EXTERNAL MODULE: external "@nextui-org/react"
-var react_ = __webpack_require__(6735);
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(6689);
-// EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
-var react_fontawesome_ = __webpack_require__(7197);
-// EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
-var free_solid_svg_icons_ = __webpack_require__(6466);
-;// CONCATENATED MODULE: ./components/cards/ProductCard.tsx
-
-
-
-
-
-function ProductCard({ item , addProduct  }) {
-    const { 0: quantity , 1: setQuantity  } = (0,external_react_.useState)(1);
-    return /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
-        xs: 12,
-        sm: 12,
-        md: 12,
-        lg: 12,
-        xl: 12,
-        children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Card, {
-            css: {
-                margin: 0
-            },
-            children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Card.Body, {
-                className: "product-container",
-                children: [
-                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Row, {
-                        className: "text-container",
-                        children: [
-                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
-                                sm: 7,
-                                xs: 7,
-                                lg: 6,
-                                md: 6,
-                                xl: 6,
-                                justify: "center",
-                                children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Avatar, {
-                                    css: {
-                                        width: 100,
-                                        height: 100
-                                    },
-                                    className: "product-image",
-                                    src: item.picture
-                                })
-                            }),
-                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid, {
-                                className: "details-container",
-                                lg: 6,
-                                md: 6,
-                                xl: 6,
-                                children: [
-                                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                        className: "product-name",
-                                        children: item.name
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                        className: "product-reference",
-                                        children: item.minimum
-                                    }),
-                                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                                        className: "product-supplier",
-                                        children: [
-                                            /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-                                                icon: free_solid_svg_icons_.faFaceLaughBeam
-                                            }),
-                                            item.seller
-                                        ]
-                                    }),
-                                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                                        className: "product-price",
-                                        children: [
-                                            "$",
-                                            item.price
-                                        ]
-                                    })
-                                ]
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Row, {
-                        children: [
-                            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid, {
-                                sm: 7,
-                                xs: 7,
-                                lg: 6,
-                                md: 6,
-                                xl: 6,
-                                className: "product-quantity",
-                                justify: "center",
-                                children: [
-                                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                        className: "quantity-border",
-                                        onClick: ()=>{
-                                            if (quantity > 1) setQuantity((prev)=>prev - 1
-                                            );
-                                        },
-                                        children: "-"
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                        className: "quantity",
-                                        children: quantity
-                                    }),
-                                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                        className: "quantity-border",
-                                        onClick: ()=>{
-                                            setQuantity((prev)=>prev + 1
-                                            );
-                                        },
-                                        children: "+"
-                                    })
-                                ]
-                            }),
-                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
-                                sm: 3,
-                                xs: 3,
-                                lg: 6,
-                                md: 6,
-                                xl: 6,
-                                children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Popover, {
-                                    children: [
-                                        /*#__PURE__*/ jsx_runtime_.jsx(react_.Popover.Trigger, {
-                                            children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Button, {
-                                                onClick: ()=>addProduct(item, quantity)
-                                                ,
-                                                className: "button-text",
-                                                color: "warning",
-                                                auto: true,
-                                                flat: true,
-                                                children: "Agregar"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ jsx_runtime_.jsx(react_.Popover.Content, {
-                                            children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                                css: {
-                                                    p: "$10"
-                                                },
-                                                children: "Agregado exitosamente!"
-                                            })
-                                        })
-                                    ]
-                                })
-                            })
-                        ]
-                    })
-                ]
-            })
-        })
-    });
-};
-
-// EXTERNAL MODULE: ./helpers/content.ts
-var content = __webpack_require__(724);
-// EXTERNAL MODULE: ./components/Header.tsx + 1 modules
-var Header = __webpack_require__(5141);
-;// CONCATENATED MODULE: ./components/CategorySelector.tsx
-
-
-
-const CategorySelector = ({ categories , category , setCategory ,  })=>{
-    return /*#__PURE__*/ jsx_runtime_.jsx("div", {
-        className: "selector-container",
-        children: categories.length > 1 && /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Dropdown, {
-            triggerType: "listbox",
-            children: [
-                /*#__PURE__*/ jsx_runtime_.jsx(react_.Dropdown.Button, {
-                    className: "selector",
-                    children: category.name
-                }),
-                /*#__PURE__*/ jsx_runtime_.jsx(react_.Dropdown.Menu, {
-                    "aria-label": "Dynamic Actions",
-                    items: categories,
-                    selectedKeys: category.key,
-                    onAction: (val)=>{
-                        setCategory(categories.find((option)=>option.key === val
-                        ));
-                    },
-                    children: categories.map((item)=>/*#__PURE__*/ jsx_runtime_.jsx(react_.Dropdown.Item, {
-                            color: item.key === "delete" ? "error" : "default",
-                            children: item.name
-                        }, item.key)
-                    )
-                })
-            ]
-        })
-    });
-};
-/* harmony default export */ const components_CategorySelector = (CategorySelector);
-
-// EXTERNAL MODULE: ./src/hooks/CartHook.ts
-var CartHook = __webpack_require__(961);
-;// CONCATENATED MODULE: ./components/Products.tsx
-
-
-
-
-
-
-
-
-function Products(props) {
-    const cart = (0,CartHook/* useCart */.j)();
-    const { 0: products , 1: setProducts  } = (0,external_react_.useState)([]);
-    const { 0: categories , 1: setCategories  } = (0,external_react_.useState)([
-        {
-            key: "",
-            name: "Todos"
-        }
-    ]);
-    const { 0: category1 , 1: setCategory  } = (0,external_react_.useState)({
-        key: "",
-        name: "Todos"
-    });
-    const { 0: totalPages , 1: setTotalPages  } = (0,external_react_.useState)(1);
-    const { 0: currentPage , 1: setCurrentPage  } = (0,external_react_.useState)(1);
-    const { 0: loading , 1: setLoading  } = (0,external_react_.useState)(true);
-    const addProductToCart = (product, qty)=>{
-        cart.addProduct(product, qty);
-    };
-    (0,external_react_.useEffect)(()=>{
-        (0,content/* getProducts */.Xp)().then((res)=>{
-            setProducts(res.products);
-            setTotalPages(res.totalPages);
-            setLoading(false);
-        });
-        (0,content/* getCategories */.CP)().then((res)=>{
-            let categoriesParsed = [];
-            res.map((category)=>categoriesParsed.push({
-                    key: category.slug,
-                    name: category.name
-                })
-            );
-            setCategories([
-                {
-                    key: "",
-                    name: "Todos"
-                },
-                ...categoriesParsed
-            ]);
-        });
-    }, []);
-    const fetchData = (page, category)=>{
-        (0,content/* getProducts */.Xp)(page, category.key).then((res)=>{
-            setCurrentPage(page);
-            setTotalPages(res.totalPages);
-            setProducts(res.products);
-        });
-    };
-    (0,external_react_.useEffect)(()=>{
-        setCurrentPage(1);
-        fetchData(1, category1);
-    }, [
-        category1
-    ]);
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
-        children: [
-            /*#__PURE__*/ jsx_runtime_.jsx(Header/* default */.Z, {
-                title: "Eleg\xed el rubro y encontr\xe1 tus productos",
-                user: props.user,
-                cart: cart.Cart
-            }),
-            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Container, {
-                css: {
-                    backgroundColor: "#fff"
-                },
-                children: [
-                    /*#__PURE__*/ jsx_runtime_.jsx(react_.Row, {
-                        css: {
-                            backgroundColor: "#fff"
-                        },
-                        children: /*#__PURE__*/ jsx_runtime_.jsx(components_CategorySelector, {
-                            categories: categories,
-                            setCategory: (val)=>setCategory(val)
-                            ,
-                            category: category1
-                        })
-                    }),
-                    loading ? /*#__PURE__*/ jsx_runtime_.jsx(react_.Loading, {
-                        css: {
-                            margin: "auto",
-                            width: "100%",
-                            paddingTop: "10vh"
-                        },
-                        color: "warning",
-                        children: "Cargando..."
-                    }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
-                        children: [
-                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid.Container, {
-                                gap: 2,
-                                css: {
-                                    padding: 0,
-                                    backgroundColor: "#fff"
-                                },
-                                children: products.map((item)=>/*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
-                                        xs: 12,
-                                        sm: 12,
-                                        md: 6,
-                                        lg: 4,
-                                        xl: 4,
-                                        children: /*#__PURE__*/ jsx_runtime_.jsx(ProductCard, {
-                                            addProduct: (product, qty)=>addProductToCart(product, qty)
-                                            ,
-                                            item: item
-                                        }, item.code)
-                                    }, item.code)
-                                )
-                            }),
-                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid.Container, {
-                                gap: 2,
-                                css: {
-                                    padding: 0
-                                },
-                                children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
-                                    justify: "center",
-                                    md: 12,
-                                    lg: 12,
-                                    xl: 12,
-                                    xs: 12,
-                                    sm: 12,
-                                    children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Pagination, {
-                                        initialPage: 1,
-                                        total: totalPages,
-                                        onChange: (page)=>fetchData(page, category1)
-                                        ,
-                                        color: "warning",
-                                        page: currentPage
-                                    })
-                                })
-                            })
-                        ]
-                    })
-                ]
-            })
-        ]
-    });
-};
-
-
-/***/ }),
-
 /***/ 261:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -686,17 +333,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1713);
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8366);
 /* harmony import */ var _components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(261);
-/* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1135);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6896);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3507);
-/* harmony import */ var _components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1572);
-/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4014);
-/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5869);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3507);
+/* harmony import */ var _components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1572);
+/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(4014);
+/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5869);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_6__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -707,16 +358,17 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 
 
 function Home(props) {
+    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_8__.useRouter)();
+    (0,react__WEBPACK_IMPORTED_MODULE_9__.useEffect)(()=>{
+        if (props.user.logged && props.cartStatus.status === "open") {
+            router.push("/products");
+        }
+    }, []);
     const RenderComponent = ()=>{
         if (!props.user.logged && props.cartStatus.status === "open") {
             return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {});
         }
-        if (props.user.logged && props.cartStatus.status === "open") {
-            return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_Products__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z, {
-                user: props.user
-            });
-        }
-        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
+        return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_AvisoCarrito__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
             status: props.cartStatus
         });
     };
@@ -726,9 +378,18 @@ function Home(props) {
     });
 };
 async function getServerSideProps(context) {
-    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_4__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z);
+    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_3__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
     const getIsOpen = await configService.getCartStatus();
-    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_7__.getIronSession)(context.req, context.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__/* .sessionOptions */ .d);
+    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_6__.getIronSession)(context.req, context.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_7__/* .sessionOptions */ .d);
+    if (ironSession.user && getIsOpen.status === "open") {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/products"
+            },
+            props: {}
+        };
+    }
     const user = ironSession.user ?? {
         logged: false
     };
@@ -822,7 +483,7 @@ module.exports = import("iron-session");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,869,834,97,961], () => (__webpack_exec__(4186)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,869,366,507], () => (__webpack_exec__(4186)));
 module.exports = __webpack_exports__;
 
 })();

@@ -40,7 +40,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ postOrders)
 /* harmony export */ });
-/* harmony import */ var _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7419);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7419);
+/* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9554);
+
+
 
 async function postOrders(req, res) {
     if (req.method !== "POST") {
@@ -49,10 +54,12 @@ async function postOrders(req, res) {
         });
     }
     try {
-        const googleService = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z("orders");
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
+        const googleService = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z("orders");
         const body = JSON.parse(req.body);
         let orders = body.orders;
         await googleService.insertOnGoogleSheet(orders);
+        await orderService.clearLocalOrders();
         res.status(200).json({
             success: true,
             error: false
@@ -72,7 +79,7 @@ async function postOrders(req, res) {
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [96,74,419], () => (__webpack_exec__(1858)));
+var __webpack_exports__ = __webpack_require__.X(0, [96,684,554,74,419], () => (__webpack_exec__(1858)));
 module.exports = __webpack_exports__;
 
 })();

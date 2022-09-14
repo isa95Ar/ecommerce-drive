@@ -110,7 +110,7 @@ var GoogleSheetService = /** @class */ (function (_super) {
                                         spreadsheetId: config_1["default"].gapi.SPREADSHEET_ID,
                                         auth: this.GoogleAuth,
                                         range: sheetName,
-                                        valueInputOption: "RAW",
+                                        valueInputOption: 'RAW',
                                         requestBody: { range: sheetName, values: this.serializeGoogleRows(data) }
                                     });
                                     resolve({ status: 'success', message: response });
@@ -147,7 +147,6 @@ var GoogleSheetService = /** @class */ (function (_super) {
     };
     GoogleSheetService.prototype.serializeGoogleRows = function (data) {
         return data.map(function (person) { return Object.values(person).map(function (value) { return value; }); });
-        ;
     };
     return GoogleSheetService;
 }(GoogleAuthService_1["default"]));
