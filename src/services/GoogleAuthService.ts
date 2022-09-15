@@ -28,7 +28,6 @@ class GoogleAuthService extends BaseService{
             const connection = await this.initConnection();
             this.GoogleClient = connection.googleClient;
             this.GoogleAuth = connection.googleAuth;
-
         } catch (e) {
             throw new Error(`Client Google error ${e}`);
         }

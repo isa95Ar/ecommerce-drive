@@ -23,7 +23,7 @@ class OrderService  extends BaseService{
   async getOrdersCount() {
     try {
       const ordersCount = await Order.getOrdersCount();
-      return {ordersCount};
+      return ordersCount;
     } catch (e) {
       throw new ApiException(e);
     }
@@ -33,6 +33,33 @@ class OrderService  extends BaseService{
     try {
       const userOrder = await Order.getUserOrder(email);
       return userOrder;
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
+
+  async getOrdersToPost() {
+    try {
+      const orders = await Order.getOrdersToPost();
+      return orders;
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
+
+  async updateOrder(orderId: string, products) {
+    try {
+      console.log(orderId, products)
+      const updatedOrder = await Order.updateOrder(orderId, products);
+      return updatedOrder;
+    } catch (e) {
+      throw new ApiException(e);
+    }
+  }
+
+  async clearLocalOrders() {
+    try {
+      await Order.deleteAllOrders();
     } catch (e) {
       throw new ApiException(e);
     }

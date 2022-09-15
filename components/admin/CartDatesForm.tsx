@@ -1,7 +1,18 @@
 import { Button, Container, Grid, Input, Loading, Text } from "@nextui-org/react";
-import { useState } from "react"
+import { FC, useState } from "react"
 
-export default function CartDatesForm() {
+type status = {
+  status: string,
+  openDate: string,
+  closeDate: string
+}
+
+type props = {
+  setEditing(status: boolean): void
+  setCurrentStatus(status: status): void;
+}
+
+const CartDatesForm:FC<props> = ({setEditing, setCurrentStatus}) => {
   const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
   const [openDate, setOpenDate] = useState("");
@@ -13,12 +24,15 @@ export default function CartDatesForm() {
   const today = formatDate(new Date());
 
   const handleOpenDateChange = (e) => {
+    const newDate = e.target.value;
     setOpenDateError("");
     setCloseDateError("");
-    setOpenDate(e.target.value);
-    let newCloseDate = new Date(e.target.value);
-    newCloseDate.setDate(newCloseDate.getDate() + 1);
-    setCloseDate(formatDate(newCloseDate));
+    setOpenDate(newDate);
+    let newCloseDate = new Date(newDate);
+    if (newDate) {
+      newCloseDate.setDate(newCloseDate.getDate() + 1);
+      setCloseDate(formatDate(newCloseDate));
+    }
   };
 
   const handleCloseDateChange = (e) => {
@@ -38,15 +52,17 @@ export default function CartDatesForm() {
   const submitDates = async () => {
     try {
       setFetching({error: null, done: false, loading: true});
-      await fetch("/api/admin/cart/dates", {
+
+      const response = await fetch("/api/admin/cart/dates", {
         method: "POST",
         body: JSON.stringify({ openDate, closeDate }),
       });
-      setFetching({
-        error: null,
-        loading: false,
-        done: true
-      });
+      const newStatus = await response.json();
+
+      setCurrentStatus(newStatus);
+
+      setFetching({error: null, loading: false, done: true});
+      setEditing(false);
     } catch (e) {
       setFetching({
         error: "Ocurrió un error enviando las fechas",
@@ -88,12 +104,11 @@ export default function CartDatesForm() {
 
   return (
       <Container>
-        <Text h4>Fechas del carrito</Text>
           <Grid.Container gap={3} justify="center">
             <Grid>
               <Input
                 type="date"
-                label="Fecha de apertura"
+                label="Nueva fecha de apertura"
                 min={today}
                 value={openDate}
                 onChange={handleOpenDateChange}
@@ -103,7 +118,7 @@ export default function CartDatesForm() {
             <Grid>
               <Input
                 type="date"
-                label="Fecha de cierre"
+                label="Nueva fecha de cierre"
                 disabled={openDate === ""}
                 min={getMinCloseDate()}
                 value={closeDate}
@@ -112,6 +127,12 @@ export default function CartDatesForm() {
               <Text color="error">{closeDateError}</Text>
             </Grid>
           </Grid.Container>
+          <Button
+            onClick={() => setEditing(false)}
+            className={fetching.loading ? "button-total-disabled" : "button-cancel"}
+          >
+            Cancelar
+          </Button>
           <Button
             onClick={handleSubmit}
             className={fetching.loading ? "button-total-disabled" : "button-total"}
@@ -122,14 +143,13 @@ export default function CartDatesForm() {
             {fetching.loading && (
               <Loading color="warning"></Loading>
             )}
-            {fetching.done && (
-              fetching.error ? (
+            {(fetching.done && fetching.error) && (
                 <Text>{fetching.error}</Text>
-              ) : (
-                <Text>Las fechas se guardaron exitosamente</Text>
               )
-            )}
+            }
           </Grid.Container>
       </Container>
   );
 };
+
+export default CartDatesForm;

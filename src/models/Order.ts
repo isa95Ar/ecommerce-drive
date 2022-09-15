@@ -6,7 +6,8 @@ interface Product {
   price: number;
   minimum: string;
   qty: number;
-  total: number
+  total: number;
+  picture: string;
 };
 
 export interface OrderI {
@@ -17,8 +18,8 @@ export interface OrderI {
 interface BaseOrderDocument extends OrderI,Document {}
 
 const Order = new Schema<BaseOrderDocument>({
-  email: { type: "string" },
-  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total:"number" }]
+  email: { type: "string", unique: true },
+  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total: "number", picture: "string" }]
 });
 
 Order.statics.createOrder = async function(order: OrderI) {
@@ -31,9 +32,35 @@ Order.statics.getOrdersCount = async function() {
 };
 
 Order.statics.getUserOrder = async function(email: string) {
-  const order = await this.find({email});
+  const order = await this.findOne({email}).lean();
   return order;
 };
+
+Order.statics.getOrdersToPost = async function() {
+  const allOrders = await this.find({});
+  const formattedOrders = [];
+  allOrders.map((order) => {
+    order.products.map((product) => {
+      const newOrder = {
+        email: order.email,
+        product: product.name,
+        code: product.code,
+        cantidad: product.qty
+      }
+      formattedOrders.push(newOrder);
+    })
+  });
+  return formattedOrders;
+}
+
+Order.statics.updateOrder = async function (orderId, products) {
+  const updatedOrder = await this.findByIdAndUpdate(orderId, {products}, {new: true});
+  return updatedOrder;
+}
+
+Order.statics.deleteAllOrders = async function() {
+  await this.deleteMany({});
+}
 
 if (!mongoose.models.Order){
   model<BaseOrderDocument>("Order", Order); 

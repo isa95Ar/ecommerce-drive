@@ -1,17 +1,8 @@
 import  mongoose, { Schema, model, Document } from "mongoose";
+import { ProductModel } from "../global/types";
 
-export interface ProductI {
-  stock: boolean,
-  code: number,
-  name: string,
-  minimum: string,
-  price: number,
-  category: string,
-  seller: string,
-  google_sheet_id?:string
-};
 
-interface BaseProductDocument extends ProductI,Document {}
+interface BaseProductDocument extends ProductModel,Document {}
 
 const Product = new Schema<BaseProductDocument>({
   stock: { type: "boolean" },
@@ -20,7 +11,8 @@ const Product = new Schema<BaseProductDocument>({
   minimum: { type: "string" },
   price: { type: "number" },
   category: { type: "string" },
-  seller: {type: "string"}
+  seller: {type: "string"},
+  picture: {type: "string"}
 });
 
 Product.statics.getProducts = async function(page: number) {
@@ -31,13 +23,13 @@ Product.statics.getProducts = async function(page: number) {
   const products = await this.find({})
     .select({_id: 0, __v: 0})
     .limit(limit)
-    .skip(limit * page)
+    .skip(limit * (page - 1))
 
   const totalPages = Math.ceil(productsCount / limit);  
   return {products, totalPages};
 }
 
-Product.statics.createProduct = async function(product: ProductI) {
+Product.statics.createProduct = async function(product: ProductModel) {
   await this.create(product); 
 }
 

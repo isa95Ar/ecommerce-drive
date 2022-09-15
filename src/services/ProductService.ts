@@ -1,6 +1,7 @@
 import { singleton } from "tsyringe";
 import ApiException from "../exceptions/ApiExeption";
-import Product, { ProductI } from "../models/Product";
+import { ProductModel } from "../global/types";
+import Product from "../models/Product";
 import BaseService from "./BaseService";
 
 
@@ -11,7 +12,7 @@ class ProductService extends  BaseService{
         super();
     }
 
-    async saveProduct(product:ProductI) {
+    async saveProduct(product:ProductModel) {
         try {
             await Product.createProduct(product);
             return {error: false};

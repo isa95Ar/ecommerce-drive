@@ -5,6 +5,7 @@ export type ProductCart = {
   total: number;
   price?:number;
   minimum: string;
+  picture?: string;
 };
 
 export type UserLogged = {
@@ -20,5 +21,20 @@ export type Cart = {
   total: number;
 };
 
+export type GoogleSheetDataType = Array<Array<string>>;
 
-export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>
+export type OrderType = Array<{email:string,product:string,cantidad:string,code:number}>;
+
+export type FileInfoType = Array<{webViewLink:string,code:number}>;
+
+export type ProductModel = {
+  stock: boolean,
+  code: number,
+  name: string,
+  minimum: string,
+  price: number,
+  category: string,
+  seller: string,
+  google_sheet_id?:string
+  picture?:string
+};

@@ -1,8 +1,8 @@
 import { getIronSession, IronSessionData } from "iron-session";
 import { container } from "tsyringe";
-import OrderService from "../../src/services/OrderService";
-import { sessionOptions } from "../../src/utils/withIronSession";
-import sendEmail from "../../helpers/sendEmail";
+import OrderService from "../../../src/services/OrderService";
+import { sessionOptions } from "../../../src/utils/withIronSession";
+import sendEmail from "../../../helpers/sendEmail";
 
 export default async function postOrder(req, res) {
   if (req.method !== 'POST') {

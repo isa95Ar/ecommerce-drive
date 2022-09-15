@@ -1,24 +1,24 @@
 import "reflect-metadata";
 import "../sass/base.scss";
+import 'react-toastify/dist/ReactToastify.css';
 import { NextUIProvider } from "@nextui-org/react";
 import { sessionOptions } from "../src/utils/withIronSession";
 import App, { AppContext } from "next/app";
 import { getIronSession, IronSessionData } from "iron-session";
 import { UserLogged } from "../src/global/types";
-import { updateProducts } from "../commands/UpdateProducts";
+import {ToastContainer} from 'react-toastify';
+
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <NextUIProvider>
       <Component {...pageProps} />
+      <ToastContainer />
     </NextUIProvider>
   );
 };
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-
-  await updateProducts();
-
   const ironSession: IronSessionData = await getIronSession(
     appContext.ctx.req,
     appContext.ctx.res,

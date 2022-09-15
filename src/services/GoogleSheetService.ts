@@ -1,30 +1,31 @@
 import config from '../../constants/config';
 import GoogleAuthService from './GoogleAuthService';
 import { google, sheets_v4 } from 'googleapis';
-import { OrderType } from '../global/types';
+import { GoogleSheetDataType, OrderType } from '../global/types';
 
 interface googleSheetDataOptions {
-	getGoogleSheetData(): Promise<Array<Array<string>>>;
+	getGoogleSheetData(): Promise<GoogleSheetDataType>;
+	insertOnGoogleSheet(data: OrderType): Promise<{ status: string; message: any }>;
 }
 
 class GoogleSheetService extends GoogleAuthService implements googleSheetDataOptions {
-	private googleSheetsImplements: sheets_v4.Sheets;
+	private googleSheetService: sheets_v4.Sheets;
 	private module: string;
 
 	constructor(module: string) {
 		super();
 		this.module = module;
-		this.googleSheetsImplements = google.sheets({
+		this.googleSheetService = google.sheets({
 			version: 'v4',
 			auth: this.GoogleClient
 		});
 	}
 
-	public async getGoogleSheetData(): Promise<Array<Array<string>>> {
+	public async getGoogleSheetData(): Promise<GoogleSheetDataType> {
 		try {
 			await this.startGoogleAuthentification();
 			const sheetName = this.getSheetName();
-			const rows = await this.googleSheetsImplements.spreadsheets.values.get({
+			const rows = await this.googleSheetService.spreadsheets.values.get({
 				auth: this.GoogleAuth,
 				spreadsheetId: config.gapi.SPREADSHEET_ID,
 				range: sheetName
@@ -36,20 +37,19 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 		}
 	}
 
-	public async insertOnGoogleSheet(): Promise<{ status: string; message: any }> {
+	public async insertOnGoogleSheet(data: OrderType): Promise<{ status: string; message: any }> {
 		return new Promise(async (resolve, reject) => {
 			try {
-                await this.startGoogleAuthentification();
+				await this.startGoogleAuthentification();
 				const sheetName = this.getSheetName();
-             
-				const response = this.googleSheetsImplements.spreadsheets.values.append({
+				const response = this.googleSheetService.spreadsheets.values.append({
 					spreadsheetId: config.gapi.SPREADSHEET_ID,
-                    auth: this.GoogleAuth,
-                    range: sheetName,
-                    valueInputOption:"RAW",
-					requestBody: {  range: sheetName, values: [['hola', 'mundo']] }
+					auth: this.GoogleAuth,
+					range: sheetName,
+					valueInputOption: 'RAW',
+					requestBody: { range: sheetName, values: this.serializeGoogleRows(data) }
 				});
-				resolve({ status: 'success',message:response });
+				resolve({ status: 'success', message: response });
 			} catch (e) {
 				reject({ status: 'Error', message: e.message });
 			}
@@ -58,14 +58,14 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 
 	protected getSheetName(): string {
 		let sheetName;
-		
+
 		switch (this.module) {
 			case 'products':
 				sheetName = config.gapi.PRODUCT_SHEET_NAME;
 				break;
 			case 'users':
 				sheetName = config.gapi.USERS_SHEET_NAME;
-                break;
+				break;
 			case 'orders':
 				sheetName = config.gapi.ORDERS_SHEET_NAME;
 				break;
@@ -76,6 +76,10 @@ class GoogleSheetService extends GoogleAuthService implements googleSheetDataOpt
 		if (!sheetName) throw new Error('Module Name incorrect!');
 
 		return sheetName;
+	}
+
+	protected serializeGoogleRows(data: OrderType) {
+		return data.map(person => Object.values(person).map(value => value));
 	}
 }
 

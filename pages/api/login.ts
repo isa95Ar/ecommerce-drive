@@ -10,7 +10,6 @@ const login = async(req:NextApiRequest, res:NextApiResponse) => {
 
     try {
        const url:string = await googleAuth.getAuthUrl();
-       
        res.redirect(url);
     }catch (e) {
         res.json(e);

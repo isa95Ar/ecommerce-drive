@@ -1,8 +1,8 @@
+
 import {
   Card,
   Grid,
   Text,
-  Image,
   Row,
   Button,
   Popover,
@@ -10,10 +10,18 @@ import {
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCart } from "../../src/hooks/CartHook";
+
 
 export default function ProductCard({ item, addProduct }) {
+  const cart = useCart();
   const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    const qty = cart.getCartProductQty(item.code);
+    setQuantity(qty);
+  }, [cart.Cart])
   return (
     <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card css={{ margin: 0 }}>
@@ -23,7 +31,7 @@ export default function ProductCard({ item, addProduct }) {
               <Avatar
                 css={{width:100,height:100}}
                 className="product-image"
-                src="https://s3-alpha-sig.figma.com/img/1a50/6114/accaeeb408d6dfb78fad323b25d00302?Expires=1662940800&Signature=Z8l8tNl7-LjlkbXM79cDGZGhKjLUw49mS3yn~iuOANWb-CewZF6E0Eo3U3lqLtRsk2V4I5y74~pXTiw-P88HPP2cUf3BUCfm3LGUnk0TsZ9kQflS0BaP2lldIA174tZpUo82eHnIPZENYjeT7dcXj7siOGMAEYS26JVT7WbrHZZcmteXs01Fpy4xU-NYQjnxEIsUEd0BZftl-yiAZgjWNU8uJU71eIiJqc5HhsxBj0izH-AKkI5OIi7454TRm-CsOgB93WgACpWxCATgU2m0lR5G1qYkGJfr5kA97De-Wgm6khozCXc1BlfSbFIJxvgFsHGoCRVAwHzEMIMDrnf6IA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+                src={item.picture}
               />
             </Grid>
             <Grid className="details-container" lg={6} md={6} xl={6}>
@@ -67,7 +75,7 @@ export default function ProductCard({ item, addProduct }) {
             <Grid sm={3} xs={3} lg={6} md={6} xl={6}>
               <Popover>
                 <Popover.Trigger>
-                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" color={"warning"} auto flat>
+                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" css={{backgroundColor:"#F29400",color:"black"}} auto flat>
                     Agregar
                   </Button>
                 </Popover.Trigger>
