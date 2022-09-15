@@ -7,7 +7,7 @@ interface Product {
   minimum: string;
   qty: number;
   total: number;
-  picture:string;
+  picture: string;
 };
 
 export interface OrderI {
@@ -18,8 +18,8 @@ export interface OrderI {
 interface BaseOrderDocument extends OrderI,Document {}
 
 const Order = new Schema<BaseOrderDocument>({
-  email: { type: "string" },
-  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total:"number",picture:"string" }]
+  email: { type: "string", unique: true },
+  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total: "number", picture: "string" }]
 });
 
 Order.statics.createOrder = async function(order: OrderI) {
@@ -51,6 +51,11 @@ Order.statics.getOrdersToPost = async function() {
     })
   });
   return formattedOrders;
+}
+
+Order.statics.updateOrder = async function (orderId, products) {
+  const updatedOrder = await this.findByIdAndUpdate(orderId, {products}, {new: true});
+  return updatedOrder;
 }
 
 Order.statics.deleteAllOrders = async function() {
