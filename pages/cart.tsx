@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 
 export default function Cart(props) {
-  
+  const isEditingOrder = props.orderId !== null; 
 	const cart = useCart(props.cart);
 	const router = useRouter();
 
@@ -22,10 +22,18 @@ export default function Cart(props) {
 
 	const sendOrder = async () => {
 		try {
-			await fetch('/api/orders', {
-				method: 'POST',
-				body: JSON.stringify({ products: cart.Cart.products })
-			});
+			console.log(isEditingOrder)
+			if (isEditingOrder) {
+				await fetch(`/api/orders/${props.orderId}`, {
+					method: 'PUT',
+					body: JSON.stringify({ products: cart.Cart.products })
+				});
+			} else {
+				await fetch('/api/orders', {
+					method: 'POST',
+					body: JSON.stringify({ products: cart.Cart.products })
+				});
+			}
 			cart.removeCart();
 			router.push('/#orderstored');
 		} catch (e) {
@@ -37,7 +45,7 @@ export default function Cart(props) {
 		<Layout {...props}>
 			{props.user.logged && (
 				<>
-					<Header user={props.user} title={props.cart && props.cart.products ? 'Edita tu pedido' : 'Tu carrito'} cart={cart.Cart} />
+					<Header user={props.user} title={isEditingOrder ? 'Edita tu pedido' : 'Tu carrito'} cart={cart.Cart} />
 					<Container>
 						<Grid.Container justify="center" gap={2}>
 							<Grid direction="column" xs={12} sm={12} md={4} xl={8} lg={8}>
@@ -55,7 +63,7 @@ export default function Cart(props) {
 									className={`${cart.Cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
 									onClick={sendOrder}
 								>
-									Realizar pedido
+									{isEditingOrder ? "Modificar pedido" : "Realizar pedido"}
 								</Button>
 							</Grid>
 						</Grid.Container>
@@ -70,15 +78,17 @@ export async function getServerSideProps(context) {
 	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
 
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	let cart:any = {};
+	const cart: any = {};
+	let orderId = null;
 
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(user.email);
     if(ModelResponse){
-        cart.products = ModelResponse.products.map(({code,name,price,minimum,qty,total,picture}) => ({code,name,price,minimum,qty,total,picture}));
+			orderId = ModelResponse._id.toString();
+      cart.products = ModelResponse.products.map(({code,name,price,minimum,qty,total,picture}) => ({code,name,price,minimum,qty,total,picture}));
     }
-	}else{
+	} else {
     return {
 			redirect: {
 				permanent: false,
@@ -89,6 +99,6 @@ export async function getServerSideProps(context) {
   }
  
 	return {
-		props: { user, cart }
+		props: { user, cart, orderId }
 	};
 }

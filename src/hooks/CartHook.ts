@@ -89,6 +89,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 		addProduct,
 		removeProduct,
 		removeCart,
+		updateProducts,
 		getCartProductQty
 	};
 }

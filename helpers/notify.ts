@@ -1,4 +1,4 @@
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export const infoMessages = () => {
 	const action = location.href.split('#');
