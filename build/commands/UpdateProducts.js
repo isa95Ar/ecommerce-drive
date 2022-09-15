@@ -42,19 +42,23 @@ var ProductService_1 = require("../src/services/ProductService");
 var CategoryService_1 = require("../src/services/CategoryService");
 var GoogleSheetService_1 = require("../src/services/GoogleSheetService");
 var slug_1 = require("../helpers/slug");
-function serializingProducts(products) {
+var GoogleDriveFilesService_1 = require("../src/services/GoogleDriveFilesService");
+var config_1 = require("../constants/config");
+function serializingProducts(products, files) {
     var serializeProducts = [];
     products.map(function (product, i) {
         if (i !== 0) {
+            var fileInfo = files.find(function (file) { return file.code == parseInt(product[1]); });
             serializeProducts.push({
-                stock: product[0] == "1",
-                code: parseInt(product[1]),
-                name: product[2],
-                minimum: product[3],
-                price: parseFloat(product[4]),
-                category: (0, slug_1.slugify)(product[5]),
-                categoryName: product[5],
-                seller: product[6]
+                stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
+                code: parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
+                name: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.NAME_COLUMN],
+                minimum: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.MINIUM_COLUMN],
+                price: parseFloat(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.PRICE_COLUMN]),
+                category: (0, slug_1.slugify)(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN]),
+                categoryName: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
+                seller: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
+                picture: fileInfo ? fileInfo.webViewLink : ''
             });
         }
     });
@@ -136,28 +140,32 @@ function saveCategories(products) {
 }
 function updateProducts() {
     return __awaiter(this, void 0, void 0, function () {
-        var googleSheetInstance, products, productsFormated, e_3;
+        var googleSheetInstance, products, GDservice, filesInfo, productsFormated, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
+                    _a.trys.push([0, 5, , 6]);
                     googleSheetInstance = new GoogleSheetService_1["default"]("products");
                     return [4 /*yield*/, googleSheetInstance.getGoogleSheetData()];
                 case 1:
                     products = _a.sent();
-                    productsFormated = serializingProducts(products);
-                    return [4 /*yield*/, saveProductsOnMongo(productsFormated)];
+                    GDservice = new GoogleDriveFilesService_1["default"]();
+                    return [4 /*yield*/, GDservice.retrieveFilesFromPicturesFolder()];
                 case 2:
-                    _a.sent();
-                    return [4 /*yield*/, saveCategories(productsFormated)];
+                    filesInfo = _a.sent();
+                    productsFormated = serializingProducts(products, filesInfo);
+                    return [4 /*yield*/, saveProductsOnMongo(productsFormated)];
                 case 3:
                     _a.sent();
-                    return [2 /*return*/, { success: true }];
+                    return [4 /*yield*/, saveCategories(productsFormated)];
                 case 4:
+                    _a.sent();
+                    return [2 /*return*/, { success: true }];
+                case 5:
                     e_3 = _a.sent();
                     console.log(e_3, "??");
                     return [2 /*return*/, { error: e_3 }];
-                case 5: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });

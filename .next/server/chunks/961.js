@@ -12,7 +12,7 @@ exports.modules = {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
-function useCart() {
+function useCart(userCart) {
     const { 0: cart , 1: setCart  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
         products: [],
         total: 0
@@ -29,7 +29,9 @@ function useCart() {
             name: product1.name,
             qty,
             price: product1.price,
-            total: product1.price * qty
+            minimum: product1.minimum,
+            total: product1.price * qty,
+            picture: product1.picture
         };
         let products = cart.products;
         if (products.find((product)=>product.code == productCart.code
@@ -68,17 +70,35 @@ function useCart() {
         });
         localStorage.removeItem("cart");
     };
+    const getCartProductQty = (code)=>{
+        const product2 = cart.products.find((product)=>{
+            return product.code === code;
+        });
+        if (!product2) {
+            return 1;
+        }
+        return product2.qty;
+    };
     (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{
         const actualCart = localStorage.getItem("cart");
+        let products = [];
         if (actualCart) {
-            setCart(JSON.parse(actualCart));
+            const storedCart = JSON.parse(actualCart);
+            products = products.concat(storedCart.products);
         }
+        if (userCart && userCart.products) {
+            products = products.concat(userCart.products);
+        }
+        products.map((product)=>addProduct(product, product.qty)
+        );
     }, []);
     return {
         Cart: cart,
         addProduct,
         removeProduct,
-        removeCart
+        removeCart,
+        updateProducts,
+        getCartProductQty
     };
 }
 

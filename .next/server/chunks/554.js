@@ -46,13 +46,18 @@ var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mong
 
 const Order = new external_mongoose_.Schema({
     email: {
-        type: "string"
+        type: "string",
+        unique: true
     },
     products: [
         {
             code: "number",
             name: "string",
-            qty: "number"
+            price: "number",
+            minimum: "string",
+            qty: "number",
+            total: "number",
+            picture: "string"
         }
     ]
 });
@@ -62,6 +67,39 @@ Order.statics.createOrder = async function(order) {
 Order.statics.getOrdersCount = async function() {
     const count = await this.countDocuments({});
     return count;
+};
+Order.statics.getUserOrder = async function(email) {
+    const order = await this.findOne({
+        email
+    }).lean();
+    return order;
+};
+Order.statics.getOrdersToPost = async function() {
+    const allOrders = await this.find({});
+    const formattedOrders = [];
+    allOrders.map((order)=>{
+        order.products.map((product)=>{
+            const newOrder = {
+                email: order.email,
+                product: product.name,
+                code: product.code,
+                cantidad: product.qty
+            };
+            formattedOrders.push(newOrder);
+        });
+    });
+    return formattedOrders;
+};
+Order.statics.updateOrder = async function(orderId, products) {
+    const updatedOrder = await this.findByIdAndUpdate(orderId, {
+        products
+    }, {
+        new: true
+    });
+    return updatedOrder;
+};
+Order.statics.deleteAllOrders = async function() {
+    await this.deleteMany({});
 };
 if (!(external_mongoose_default()).models.Order) {
     (0,external_mongoose_.model)("Order", Order);
@@ -92,9 +130,39 @@ class OrderService extends BaseService/* default */.Z {
     async getOrdersCount() {
         try {
             const ordersCount = await models_Order.getOrdersCount();
-            return {
-                ordersCount
-            };
+            return ordersCount;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async getUserOrder(email) {
+        try {
+            const userOrder = await models_Order.getUserOrder(email);
+            return userOrder;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async getOrdersToPost() {
+        try {
+            const orders = await models_Order.getOrdersToPost();
+            return orders;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async updateOrder(orderId, products) {
+        try {
+            console.log(orderId, products);
+            const updatedOrder = await models_Order.updateOrder(orderId, products);
+            return updatedOrder;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async clearLocalOrders() {
+        try {
+            await models_Order.deleteAllOrders();
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

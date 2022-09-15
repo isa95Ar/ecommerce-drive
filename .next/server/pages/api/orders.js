@@ -26,32 +26,7 @@ module.exports = import("iron-session");;
 
 /***/ }),
 
-/***/ 5684:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-    gapi: {
-        SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: process.env.SCOPES,
-        PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
-        USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
-        OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
-        OAUTH_CLIENT_KEY: process.env.OAUTH_CLIENT_KEY,
-        OAUTH_REDIRECT_URL: process.env.OAUTH_REDIRECT_URL,
-        OAUTH_SCOPES: [
-            process.env.OAUTH_SCOPES
-        ]
-    },
-    IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD
-});
-
-
-/***/ }),
-
-/***/ 799:
+/***/ 6448:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
@@ -86,17 +61,17 @@ async function postOrder(req, res) {
                 message: "Missing products"
             });
         }
-        products = products.map((product)=>{
-            const { name , code , qty  } = product;
-            return {
-                name,
-                code,
-                qty
-            };
-        });
         const currentSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_0__.getIronSession)(req, res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__/* .sessionOptions */ .d);
         const userEmail = currentSession.user.email;
-        await orderService.saveOrder({
+        // Enviar mail
+        /* const mailData = {
+      from: 'Compras Almargen',
+      to: userEmail,
+      subject: `Tu pedido fue guardado`,
+      text: "Aca van los productos",
+     }
+
+     sendEmail(mailData); */ await orderService.saveOrder({
             products,
             email: userEmail
         });
@@ -151,7 +126,7 @@ __webpack_async_result__();
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [534,96,554], () => (__webpack_exec__(799)));
+var __webpack_exports__ = __webpack_require__.X(0, [534,96,554,684], () => (__webpack_exec__(6448)));
 module.exports = __webpack_exports__;
 
 })();

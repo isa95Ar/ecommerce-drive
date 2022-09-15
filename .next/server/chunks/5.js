@@ -54,7 +54,7 @@ const Product = new external_mongoose_.Schema({
     name: {
         type: "string"
     },
-    minium: {
+    minimum: {
         type: "string"
     },
     price: {
@@ -65,6 +65,9 @@ const Product = new external_mongoose_.Schema({
     },
     seller: {
         type: "string"
+    },
+    picture: {
+        type: "string"
     }
 });
 Product.statics.getProducts = async function(page) {
@@ -73,7 +76,7 @@ Product.statics.getProducts = async function(page) {
     const products = await this.find({}).select({
         _id: 0,
         __v: 0
-    }).limit(limit).skip(limit * page);
+    }).limit(limit).skip(limit * (page - 1));
     const totalPages = Math.ceil(productsCount / limit);
     return {
         products,
