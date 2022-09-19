@@ -9,7 +9,7 @@ import {
   Avatar,
 } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
+import { faFaceLaughBeam } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import { useCart } from "../../src/hooks/CartHook";
 
@@ -24,7 +24,7 @@ export default function ProductCard({ item, addProduct }) {
   }, [cart.Cart])
   return (
     <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
-      <Card css={{ margin: 0 }}>
+      <Card css={{ margin: 0, letterSpacing: 0 }}>
         <Card.Body className="product-container">
           <Row className="text-container">
             <Grid sm={7} xs={7} lg={6} md={6} xl={6} justify="center">
@@ -44,7 +44,7 @@ export default function ProductCard({ item, addProduct }) {
               <Text className="product-price">${item.price}</Text>
             </Grid>
           </Row>
-          <Row>
+          <Row align="">
             <Grid
               sm={7}
               xs={7}
@@ -75,7 +75,7 @@ export default function ProductCard({ item, addProduct }) {
             <Grid sm={3} xs={3} lg={6} md={6} xl={6}>
               <Popover>
                 <Popover.Trigger>
-                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" css={{backgroundColor:"#F29400",color:"black"}} auto flat>
+                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" css={{backgroundColor:"#F29400",color:"black", fontWeight: 400}} auto flat>
                     Agregar
                   </Button>
                 </Popover.Trigger>

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Text, Button, Badge } from '@nextui-org/react';
+import { Text, Button, Badge, Image } from '@nextui-org/react';
 import { Cart, UserLogged } from '../../src/global/types';
 import { useRouter } from 'next/router';
 import { CartIcon } from '../svg/CartIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 
 type HeaderProps = {
 	title: string;
@@ -19,12 +18,12 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
 		<div className="header">
 			{user.logged && (
 				<div className="buttons-container">
-					<div>
-						<FontAwesomeIcon onClick={() => router.push('/')}  size={'lg'} icon={faHomeAlt} style={{ color: 'white' }} />
+					<div style={{cursor: "pointer"}}>
+					<Image width={100} onClick={() => router.push('/')} src="/../../img/logo-desktop.png" objectFit='contain'/>
 					</div>
 					<div className="sessions-buttons">
 						<Button className="logout-button" onClick={() => router.push('/api/logout')}>
-							Cerrar Session ({user.name})
+							Cerrar Sesión ({user.name})
 						</Button>
 						{cart && (
 							<Badge css={{ cursor: 'pointer' }} color="warning" content={cart.products.length} shape="circle">
@@ -34,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
 					</div>
 				</div>
 			)}
-			<Text className="header-text">{title}</Text>
+			<Text className="header-text" css={{fontWeight: '700'}}>{title}</Text>
 		</div>
 	);
 };
