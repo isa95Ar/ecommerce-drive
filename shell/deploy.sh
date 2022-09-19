@@ -1,6 +1,7 @@
 #Pushing main
 echo "Moving to builded-version branch"
  git checkout builded-version
+ git pull
  git merge main
 
 echo "Building Apps"
