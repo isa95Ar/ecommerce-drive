@@ -1,4 +1,4 @@
-import { Grid, Container, Row, Pagination, Loading } from '@nextui-org/react';
+import { Grid, Container, Row, Pagination, Loading, Button } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
@@ -12,10 +12,12 @@ import { getIronSession, IronSessionData } from 'iron-session';
 import { UserLogged } from '../src/global/types';
 import OrderService from '../src/services/OrderService';
 import { infoMessages } from '../helpers/notify';
+import { useRouter } from 'next/router';
+import Layout from './layout';
 
 export default function Products(props) {
-
 	const cart = useCart(props.cart);
+	const router = useRouter();
 	const [products, setProducts] = useState([]);
 	const [categories, setCategories] = useState([{ key: '', name: 'Todos' }]);
 	const [category, setCategory] = useState({ key: '', name: 'Todos' });
@@ -54,9 +56,9 @@ export default function Products(props) {
 	}, [category]);
 
 	return (
-		<>
+		<Layout>
 			<Header title="Elegí el rubro y encontrá tus productos" user={props.user} cart={cart.Cart} />
-			<Container css={{ backgroundColor: '#fff' }}>
+			<Container css={{ backgroundColor: '#fff',maxWidth:"1260px" }}>
 				<Row css={{ backgroundColor: '#fff' }}>
 					<CategorySelector categories={categories} setCategory={val => setCategory(val)} category={category} />
 				</Row>
@@ -66,7 +68,7 @@ export default function Products(props) {
 					</Loading>
 				) : (
 					<>
-						<Grid.Container gap={2} css={{ padding: 0, backgroundColor: '#fff' }}>
+						<Grid.Container gap={1} css={{ padding: 0, backgroundColor: '#fff' }}>
 							{products.map(item => (
 								<Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
 									<ProductCard
@@ -80,6 +82,7 @@ export default function Products(props) {
 						<Grid.Container gap={2} css={{ padding: 0 }}>
 							<Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
 								<Pagination
+									className={"paginator"}
 									initialPage={1}
 									total={totalPages}
 									onChange={page => fetchData(page, category)}
@@ -91,7 +94,10 @@ export default function Products(props) {
 					</>
 				)}
 			</Container>
-		</>
+			<div className={'container-floating'}>
+				<Button onClick={() => router.push('cart')} size={"xs"} className={'button-floating'}>Tu carrito</Button>
+			</div>
+		</Layout>
 	);
 }
 
@@ -109,7 +115,7 @@ export async function getServerSideProps(context) {
 		};
 	}
 
-	let cart:any = {};
+	let cart: any = {};
 
 	const user: UserLogged = ironSession.user ?? { logged: false };
 
@@ -127,5 +133,5 @@ export async function getServerSideProps(context) {
 		}));
 	}
 
-	return { props: { cartStatus: getIsOpen, user,cart } };
+	return { props: { cartStatus: getIsOpen, user, cart } };
 }
