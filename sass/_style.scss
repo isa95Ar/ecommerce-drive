@@ -59,9 +59,8 @@ p {
 
 }
 .product-quantity {
-  flex: auto;
-  display: inline-flex;
-  align-self: center;
+  display: flex;
+  align-items: center;
 }
 .quantity-border {
   background-color: #f2f2f2;
