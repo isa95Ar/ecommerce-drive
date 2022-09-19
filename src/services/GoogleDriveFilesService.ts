@@ -16,14 +16,18 @@ class GoogleDriveFilesService extends GoogleAuthService {
 
 			this.googleFileService = google.drive({ version: 'v3', auth: this.GoogleAuth });
 
+            let NextPageToken = "";
 			const responseFileList = await this.googleFileService.files.list({
-				corpora: 'allDrives',
-				includeItemsFromAllDrives: true,
-				supportsAllDrives: true,
+                corpora: 'allDrives',
+                pageSize: 10,
+                pageToken: NextPageToken || "",
+                includeItemsFromAllDrives: true,
+                supportsAllDrives: true,
 				q: `'${config.gapi.PICTURES_FOLDERS_ID}' in parents`,
-				fields: '*'
+                fields: 'nextPageToken, files(id, name, webContentLink)'
 			});
-
+            console.log(responseFileList.data.nextPageToken);
+            NextPageToken = responseFileList.data.nextPageToken;
 			const filesFields:FileInfoType = responseFileList.data.files.map(file => {
                 const newName = file.name.replace(' ', '');
 				return { webViewLink: file.webContentLink, code: parseInt(newName.split('.')[0]) };

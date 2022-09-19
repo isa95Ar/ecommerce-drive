@@ -61,7 +61,7 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
     }
     GoogleDriveFilesService.prototype.retrieveFilesFromPicturesFolder = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var responseFileList, filesFields, e_1;
+            var NextPageToken, responseFileList, filesFields, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -70,15 +70,20 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         this.googleFileService = googleapis_1.google.drive({ version: 'v3', auth: this.GoogleAuth });
+                        NextPageToken = "";
                         return [4 /*yield*/, this.googleFileService.files.list({
                                 corpora: 'allDrives',
+                                pageSize: 10,
+                                pageToken: NextPageToken || "",
                                 includeItemsFromAllDrives: true,
                                 supportsAllDrives: true,
                                 q: "'".concat(config_1["default"].gapi.PICTURES_FOLDERS_ID, "' in parents"),
-                                fields: '*'
+                                fields: 'nextPageToken, files(id, name, webContentLink)'
                             })];
                     case 2:
                         responseFileList = _a.sent();
+                        console.log(responseFileList.data.nextPageToken);
+                        NextPageToken = responseFileList.data.nextPageToken;
                         filesFields = responseFileList.data.files.map(function (file) {
                             var newName = file.name.replace(' ', '');
                             return { webViewLink: file.webContentLink, code: parseInt(newName.split('.')[0]) };
