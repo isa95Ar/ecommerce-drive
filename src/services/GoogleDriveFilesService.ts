@@ -25,7 +25,8 @@ class GoogleDriveFilesService extends GoogleAuthService {
 			});
 
 			const filesFields:FileInfoType = responseFileList.data.files.map(file => {
-				return { webViewLink: file.webContentLink, code: parseInt(file.name.split('.')[0]) };
+                const newName = file.name.replace(' ', '');
+				return { webViewLink: file.webContentLink, code: parseInt(newName.split('.')[0]) };
 			});
 
 			return filesFields;

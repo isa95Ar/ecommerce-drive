@@ -28,7 +28,7 @@ function serializingProducts(
 
   products.map((product, i) => {
     if (i !== 0) {
-      const fileInfo = files.find(file => file.code == parseInt(product[1]));
+      const fileInfo = files.find(file => file.code === parseInt(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]));
       serializeProducts.push({
         stock: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
         code: parseInt(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
