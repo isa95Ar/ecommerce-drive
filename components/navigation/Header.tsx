@@ -18,9 +18,8 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
 		<div className="header">
 			{user.logged && (
 				<div className="buttons-container">
-					<div>
+					<div style={{cursor: "pointer"}}>
 					<Image width={100} onClick={() => router.push('/')} src="/../../img/logo-desktop.png" objectFit='contain'/>
-						{/* <FontAwesomeIcon onClick={() => router.push('/')}  size={'lg'} icon={faHomeAlt} style={{ color: 'white' }} /> */}
 					</div>
 					<div className="sessions-buttons">
 						<Button className="logout-button" onClick={() => router.push('/api/logout')}>
