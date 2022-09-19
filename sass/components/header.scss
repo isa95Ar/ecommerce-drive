@@ -2,7 +2,7 @@
     height: 168px;
     background : linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/img/header.jpeg');
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: top;
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -13,8 +13,9 @@
     padding-right: 15px;
 
     .header-text {
+        letter-spacing: 0px;
         color: #ffff;
-        font-weight: 500;
+        font-weight: 500!important;
         font-style: normal;
         font-family: 'Roboto';
         font-size: 20px;
@@ -63,6 +64,7 @@
        
     }
     .header-text {
+        letter-spacing: 0px;
         font-family: 'Roboto';
         text-align: center;
         font-style: normal;

@@ -13,7 +13,7 @@ p {
 // Product component styles
 .product-name {
   margin-top: 10px !important;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   line-height: 18px;
   color: #333333 !important;
@@ -37,8 +37,7 @@ p {
 .product-supplier {
   margin-top: 10px !important;
   line-height: 13px;
-  font-size: 12px;
-  text-decoration: underline;
+  font-size: 14px;
   svg {
     margin-right: 5px;
     color: #db8704 !important;
@@ -59,9 +58,8 @@ p {
 
 }
 .product-quantity {
-  flex: auto;
-  display: inline-flex;
-  align-self: center;
+  display: flex;
+  align-items: center;
 }
 .quantity-border {
   background-color: #f2f2f2;
