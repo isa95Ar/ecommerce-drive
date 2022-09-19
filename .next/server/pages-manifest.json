@@ -1,8 +1,8 @@
 {
   "/_middleware": "pages/_middleware.js",
   "/_app": "pages/_app.js",
-  "/api/admin/cart/dates": "pages/api/admin/cart/dates.js",
   "/api/admin/orders/count": "pages/api/admin/orders/count.js",
+  "/api/admin/cart/dates": "pages/api/admin/cart/dates.js",
   "/api/admin/orders": "pages/api/admin/orders.js",
   "/api/admin/orders/to-post": "pages/api/admin/orders/to-post.js",
   "/api/cart/status": "pages/api/cart/status.js",
@@ -15,10 +15,10 @@
   "/api/products/[category]": "pages/api/products/[category].js",
   "/api/products": "pages/api/products.js",
   "/layout": "pages/layout.js",
-  "/": "pages/index.js",
   "/_error": "pages/_error.js",
-  "/products": "pages/products.js",
+  "/": "pages/index.js",
   "/admin": "pages/admin.js",
+  "/products": "pages/products.js",
   "/cart": "pages/cart.js",
   "/_document": "pages/_document.js"
 }
