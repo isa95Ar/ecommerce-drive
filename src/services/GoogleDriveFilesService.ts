@@ -19,7 +19,7 @@ class GoogleDriveFilesService extends GoogleAuthService {
             let NextPageToken = "";
 			const responseFileList = await this.googleFileService.files.list({
                 corpora: 'allDrives',
-                pageSize: 10,
+                pageSize: 1000,
                 pageToken: NextPageToken || "",
                 includeItemsFromAllDrives: true,
                 supportsAllDrives: true,

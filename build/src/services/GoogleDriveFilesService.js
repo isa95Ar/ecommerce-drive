@@ -73,7 +73,7 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                         NextPageToken = "";
                         return [4 /*yield*/, this.googleFileService.files.list({
                                 corpora: 'allDrives',
-                                pageSize: 10,
+                                pageSize: 1000,
                                 pageToken: NextPageToken || "",
                                 includeItemsFromAllDrives: true,
                                 supportsAllDrives: true,
