@@ -80,7 +80,8 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                     case 2:
                         responseFileList = _a.sent();
                         filesFields = responseFileList.data.files.map(function (file) {
-                            return { webViewLink: file.webContentLink, code: parseInt(file.name.split('.')[0]) };
+                            var newName = file.name.replace(' ', '');
+                            return { webViewLink: file.webContentLink, code: parseInt(newName.split('.')[0]) };
                         });
                         return [2 /*return*/, filesFields];
                     case 3:

@@ -48,7 +48,7 @@ function serializingProducts(products, files) {
     var serializeProducts = [];
     products.map(function (product, i) {
         if (i !== 0) {
-            var fileInfo = files.find(function (file) { return file.code == parseInt(product[1]); });
+            var fileInfo = files.find(function (file) { return file.code === parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]); });
             serializeProducts.push({
                 stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
                 code: parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
