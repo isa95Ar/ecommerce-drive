@@ -75,7 +75,7 @@ export default function ProductCard({ item, addProduct }) {
             <Grid sm={3} xs={3} lg={6} md={6} xl={6}>
               <Popover>
                 <Popover.Trigger>
-                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" css={{backgroundColor:"#F29400",color:"black"}} auto flat>
+                  <Button  onClick={() => addProduct(item, quantity)} className="button-text" css={{backgroundColor:"#F29400",color:"black", fontWeight: 400}} auto flat>
                     Agregar
                   </Button>
                 </Popover.Trigger>
