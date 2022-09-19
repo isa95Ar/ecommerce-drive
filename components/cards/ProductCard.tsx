@@ -8,8 +8,9 @@ import {
   Popover,
   Avatar,
 } from "@nextui-org/react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceLaughBeam } from "@fortawesome/free-regular-svg-icons";
+import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useCart } from "../../src/hooks/CartHook";
 
