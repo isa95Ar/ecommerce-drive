@@ -45,7 +45,7 @@ export default function ProductCard({ item, addProduct }) {
               <Text className="product-price">${item.price}</Text>
             </Grid>
           </Row>
-          <Row align="">
+          <Row>
             <Grid
               sm={7}
               xs={7}
