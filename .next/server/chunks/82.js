@@ -103,6 +103,8 @@ const Header = ({ title , user , cart  })=>{
                                 color: "warning",
                                 content: cart.products.length,
                                 shape: "circle",
+                                onClick: ()=>router.push("/cart")
+                                ,
                                 children: /*#__PURE__*/ jsx_runtime_.jsx(CartIcon, {
                                     fill: "white",
                                     size: 30,

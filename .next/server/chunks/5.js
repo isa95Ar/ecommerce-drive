@@ -71,7 +71,7 @@ const Product = new external_mongoose_.Schema({
     }
 });
 Product.statics.getProducts = async function(page) {
-    const limit = 12;
+    const limit = 60;
     const productsCount = await this.countDocuments();
     const products = await this.find({}).select({
         _id: 0,
@@ -87,7 +87,7 @@ Product.statics.createProduct = async function(product) {
     await this.create(product);
 };
 Product.statics.getByCategory = async function(category, page) {
-    const limit = 12;
+    const limit = 60;
     const productsCount = await this.countDocuments({
         category
     });

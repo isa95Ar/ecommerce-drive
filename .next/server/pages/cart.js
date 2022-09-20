@@ -284,6 +284,13 @@ function Cart(props) {
                                     className: `${cart.Cart.products.length > 0 ? "button-total" : "button-total-disabled"}`,
                                     onClick: sendOrder,
                                     children: isEditingOrder ? "Modificar pedido" : "Realizar pedido"
+                                }),
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
+                                    className: "button-continue",
+                                    onClick: ()=>{
+                                        router.push("/");
+                                    },
+                                    children: "Seguir comprando"
                                 })
                             ]
                         })

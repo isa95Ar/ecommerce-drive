@@ -53,7 +53,7 @@ Product.statics.getProducts = function (page) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    limit = 12;
+                    limit = 60;
                     return [4 /*yield*/, this.countDocuments()];
                 case 1:
                     productsCount = _a.sent();
@@ -87,7 +87,7 @@ Product.statics.getByCategory = function (category, page) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    limit = 12;
+                    limit = 60;
                     return [4 /*yield*/, this.countDocuments({ category: category })];
                 case 1:
                     productsCount = _a.sent();
