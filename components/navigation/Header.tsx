@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
 							Cerrar Sesión ({user.name})
 						</Button>
 						{cart && (
-							<Badge css={{ cursor: 'pointer' }} color="warning" content={cart.products.length} shape="circle">
+							<Badge css={{ cursor: 'pointer' }} color="warning" content={cart.products.length} shape="circle" onClick={() => router.push('/cart')}>
 								<CartIcon fill="white" size={30} width={24} height={24} onClick={() => router.push('/cart')} />
 							</Badge>
 						)}
