@@ -8,8 +8,9 @@ import {
   Popover,
   Avatar,
 } from "@nextui-org/react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceLaughBeam } from "@fortawesome/free-regular-svg-icons";
+import { faFaceLaughBeam } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useCart } from "../../src/hooks/CartHook";
 
@@ -44,7 +45,7 @@ export default function ProductCard({ item, addProduct }) {
               <Text className="product-price">${item.price}</Text>
             </Grid>
           </Row>
-          <Row align="">
+          <Row>
             <Grid
               sm={7}
               xs={7}
