@@ -65,6 +65,12 @@ export default function Cart(props) {
 								>
 									{isEditingOrder ? "Modificar pedido" : "Realizar pedido"}
 								</Button>
+                                <Button
+									className="button-continue"
+									onClick={() => {router.push('/')}}
+								>
+									Seguir comprando
+								</Button>
 							</Grid>
 						</Grid.Container>
 					</Container>

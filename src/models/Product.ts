@@ -16,7 +16,7 @@ const Product = new Schema<BaseProductDocument>({
 });
 
 Product.statics.getProducts = async function(page: number) {
-  const limit = 12;
+  const limit = 60;
 
   const productsCount = await this.countDocuments();
 
@@ -34,7 +34,7 @@ Product.statics.createProduct = async function(product: ProductModel) {
 }
 
 Product.statics.getByCategory = async function(category: string, page: number) {
-  const limit = 12;
+  const limit = 60;
 
   const productsCount = await this.countDocuments({category});
 
