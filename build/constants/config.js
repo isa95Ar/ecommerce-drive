@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var dotEnv = require('dotenv');
+var dotEnv = require("dotenv");
 dotEnv.config();
 exports["default"] = {
     gapi: {
