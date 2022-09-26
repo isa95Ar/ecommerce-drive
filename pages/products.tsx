@@ -58,7 +58,7 @@ export default function Products(props) {
 	return (
 		<Layout>
 			<Header title="Elegí el rubro y encontrá tus productos" user={props.user} cart={cart.Cart} />
-			<Container css={{ backgroundColor: '#fff',maxWidth:"1260px" }}>
+			<Container css={{ backgroundColor: '#fff', maxWidth: '1260px' }}>
 				<Row css={{ backgroundColor: '#fff' }}>
 					<CategorySelector categories={categories} setCategory={val => setCategory(val)} category={category} />
 				</Row>
@@ -82,7 +82,7 @@ export default function Products(props) {
 						<Grid.Container gap={2} css={{ padding: 0 }}>
 							<Grid justify="center" md={12} lg={12} xl={12} xs={12} sm={12}>
 								<Pagination
-									className={"paginator"}
+									className={'paginator'}
 									initialPage={1}
 									total={totalPages}
 									onChange={page => fetchData(page, category)}
@@ -95,7 +95,9 @@ export default function Products(props) {
 				)}
 			</Container>
 			<div className={'container-floating'}>
-				<Button onClick={() => router.push('cart')} size={"xs"} className={'button-floating'}>Tu carrito</Button>
+				<Button onClick={() => router.push('cart')} size={'xs'} className={'button-floating'}>
+					Tu carrito
+				</Button>
 			</div>
 		</Layout>
 	);
