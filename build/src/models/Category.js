@@ -38,10 +38,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var slug_1 = require("../../helpers/slug");
-;
 var Category = new mongoose_1.Schema({
-    name: { type: "string" },
-    slug: { type: "string" }
+    name: { type: 'string' },
+    slug: { type: 'string' }
 });
 Category.statics.getAll = function () {
     return __awaiter(this, void 0, void 0, function () {
@@ -85,6 +84,6 @@ Category.statics.deleteAll = function () {
     });
 };
 if (!mongoose_1["default"].models.Category) {
-    (0, mongoose_1.model)("Category", Category);
+    (0, mongoose_1.model)('Category', Category);
 }
 exports["default"] = mongoose_1["default"].models.Category;

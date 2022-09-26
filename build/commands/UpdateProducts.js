@@ -50,7 +50,7 @@ function serializingProducts(products, files) {
         if (i !== 0) {
             var fileInfo = files.find(function (file) { return file.code === parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]); });
             serializeProducts.push({
-                stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
+                stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == '1',
                 code: parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
                 name: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.NAME_COLUMN],
                 minimum: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.MINIUM_COLUMN],
@@ -88,7 +88,7 @@ function saveProductsOnMongo(products) {
                         }); }))];
                 case 2:
                     _a.sent();
-                    console.log("Products saved succesfully");
+                    console.log('Products saved succesfully');
                     return [2 /*return*/, { success: true }];
                 case 3:
                     e_1 = _a.sent();
@@ -127,7 +127,7 @@ function saveCategories(products) {
                             }
                         });
                     }); }));
-                    console.log("Categories saved succesfully");
+                    console.log('Categories saved succesfully');
                     return [2 /*return*/, { success: true }];
                 case 2:
                     e_2 = _a.sent();
@@ -145,7 +145,7 @@ function updateProducts() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 5, , 6]);
-                    googleSheetInstance = new GoogleSheetService_1["default"]("products");
+                    googleSheetInstance = new GoogleSheetService_1["default"]('products');
                     return [4 /*yield*/, googleSheetInstance.getGoogleSheetData()];
                 case 1:
                     products = _a.sent();
@@ -163,7 +163,7 @@ function updateProducts() {
                     return [2 /*return*/, { success: true }];
                 case 5:
                     e_3 = _a.sent();
-                    console.log(e_3, "??");
+                    console.log(e_3, '??');
                     return [2 /*return*/, { error: e_3 }];
                 case 6: return [2 /*return*/];
             }

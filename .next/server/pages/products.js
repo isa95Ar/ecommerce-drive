@@ -20,7 +20,7 @@ exports.modules = {
 
 
 
-const CategorySelector = ({ categories , category , setCategory ,  })=>{
+const CategorySelector = ({ categories , category , setCategory  })=>{
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         className: "selector-container",
         children: categories.length > 1 && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Dropdown, {
@@ -72,8 +72,10 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(961);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3590);
+/* harmony import */ var _svg_CartIcon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(428);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([react_toastify__WEBPACK_IMPORTED_MODULE_6__]);
 react_toastify__WEBPACK_IMPORTED_MODULE_6__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
 
 
 
@@ -199,7 +201,15 @@ function ProductCard({ item , addProduct  }) {
                                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
                                     onClick: ()=>{
                                         addProduct(item, quantity);
-                                        react_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.success("Agregado exitosamente");
+                                        react_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.warn("Agregado exitosamente", {
+                                            autoClose: 1500,
+                                            icon: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_svg_CartIcon__WEBPACK_IMPORTED_MODULE_7__/* .CartIcon */ .w, {
+                                                fill: "#EA903C",
+                                                size: 24,
+                                                width: 16,
+                                                height: 16
+                                            })
+                                        });
                                     },
                                     className: "button-text",
                                     css: {
@@ -285,7 +295,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9231);
 /* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(724);
-/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8277);
+/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3883);
 /* harmony import */ var _components_CategorySelector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1850);
 /* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(961);
 /* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5869);
@@ -298,8 +308,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(8366);
+/* harmony import */ var _components_svg_CartIcon__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(428);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
 ([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -453,14 +465,40 @@ function Products(props) {
                     })
                 ]
             }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+            cart.Cart.products.length && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                 className: "container-floating",
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
                     onClick: ()=>router.push("cart")
                     ,
                     size: "xs",
                     className: "button-floating",
-                    children: "Tu carrito"
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                        className: "button-content",
+                        children: [
+                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                                className: "cart-total",
+                                children: [
+                                    "$ ",
+                                    cart.Cart.total
+                                ]
+                            }),
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Badge, {
+                                color: "warning",
+                                size: "sm",
+                                content: cart.Cart.products.length,
+                                shape: "circle",
+                                onClick: ()=>router.push("/cart")
+                                ,
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_svg_CartIcon__WEBPACK_IMPORTED_MODULE_16__/* .CartIcon */ .w, {
+                                    fill: "white",
+                                    size: 24,
+                                    width: 24,
+                                    height: 24,
+                                    onClick: ()=>router.push("/cart")
+                                })
+                            })
+                        ]
+                    })
                 })
             })
         ]
@@ -595,7 +633,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,82,507,961], () => (__webpack_exec__(3351)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,279,507,961], () => (__webpack_exec__(3351)));
 module.exports = __webpack_exports__;
 
 })();

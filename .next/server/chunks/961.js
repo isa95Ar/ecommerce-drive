@@ -19,7 +19,7 @@ function useCart(userCart) {
     });
     const sumTotals = (products)=>{
         let totalCart = 0;
-        products.map((product)=>totalCart += product.total
+        products.map((product)=>totalCart = Number((totalCart + product.total).toFixed(2))
         );
         return totalCart;
     };

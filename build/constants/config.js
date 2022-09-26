@@ -1,11 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var dotEnv = require('dotenv');
+var dotEnv = require("dotenv");
 dotEnv.config();
 exports["default"] = {
     gapi: {
         SPREADSHEET_ID: process.env.SPREADSHEET_ID,
-        SCOPES: ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"],
+        SCOPES: ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'],
         PRODUCT_SHEET_NAME: process.env.PRODUCT_SHEET_NAME,
         USERS_SHEET_NAME: process.env.USERS_SHEET_NAME,
         ORDERS_SHEET_NAME: process.env.ORDERS_SHEET_NAME,

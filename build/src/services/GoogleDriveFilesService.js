@@ -70,11 +70,11 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                     case 1:
                         _a.sent();
                         this.googleFileService = googleapis_1.google.drive({ version: 'v3', auth: this.GoogleAuth });
-                        NextPageToken = "";
+                        NextPageToken = '';
                         return [4 /*yield*/, this.googleFileService.files.list({
                                 corpora: 'allDrives',
                                 pageSize: 1000,
-                                pageToken: NextPageToken || "",
+                                pageToken: NextPageToken || '',
                                 includeItemsFromAllDrives: true,
                                 supportsAllDrives: true,
                                 q: "'".concat(config_1["default"].gapi.PICTURES_FOLDERS_ID, "' in parents"),

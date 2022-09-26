@@ -46,7 +46,8 @@ var tsyringe_1 = require("tsyringe");
 var mongoose_1 = require("mongoose");
 var BaseService = /** @class */ (function () {
     function BaseService() {
-        this.mongoInit().then(function (res) {
+        this.mongoInit()
+            .then(function (res) {
             console.log("mongo db connection actual Status ".concat(res));
         })["catch"](function (e) { return console.log(e); });
     }
@@ -62,7 +63,7 @@ var BaseService = /** @class */ (function () {
                                     _a.trys.push([0, 2, , 3]);
                                     if (this.isDbConnected)
                                         return [2 /*return*/];
-                                    return [4 /*yield*/, (0, mongoose_1.connect)("mongodb://localhost:27017/almargen")];
+                                    return [4 /*yield*/, (0, mongoose_1.connect)('mongodb://localhost:27017/almargen')];
                                 case 1:
                                     db = _a.sent();
                                     this.isDbConnected = db.connections[0].readyState;

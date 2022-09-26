@@ -52,19 +52,19 @@ Config.statics.getCartStatus = function () {
                     openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
                     closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
                     if (!openTime || !closeTime) {
-                        return [2 /*return*/, { openDate: null, closeDate: null, status: "closed" }];
+                        return [2 /*return*/, { openDate: null, closeDate: null, status: 'closed' }];
                     }
                     today = new Date();
                     isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
-                    status = "";
+                    status = '';
                     if (isOpen) {
-                        status = "open";
+                        status = 'open';
                     }
                     else if (today.getTime() < openTime) {
-                        status = "toOpen";
+                        status = 'toOpen';
                     }
                     else {
-                        status = "closed";
+                        status = 'closed';
                     }
                     formatDate = function (date) {
                         var day = date.getUTCDate();
@@ -72,13 +72,11 @@ Config.statics.getCartStatus = function () {
                         var month = date.getUTCMonth() + 1;
                         var formattedMonth = month.toString();
                         if (formattedDay.length === 1) {
-                            formattedDay = "0" + formattedDay;
+                            formattedDay = '0' + formattedDay;
                         }
-                        ;
                         if (formattedMonth.length === 1) {
-                            formattedMonth = "0" + formattedMonth;
+                            formattedMonth = '0' + formattedMonth;
                         }
-                        ;
                         return "".concat(formattedDay, "/").concat(formattedMonth);
                     };
                     openDate = formatDate(currentConfig.openDate);
@@ -101,6 +99,6 @@ Config.statics.updateDates = function (openDate, closeDate) {
     });
 };
 if (!mongoose_1["default"].models.Config) {
-    (0, mongoose_1.model)("Config", Config);
+    (0, mongoose_1.model)('Config', Config);
 }
 exports["default"] = mongoose_1["default"].models.Config;

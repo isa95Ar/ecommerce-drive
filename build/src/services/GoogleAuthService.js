@@ -101,7 +101,7 @@ var GoogleAuthService = /** @class */ (function (_super) {
                                 case 0:
                                     _a.trys.push([0, 2, , 3]);
                                     googleAuth = new google_auth_library_1.GoogleAuth({
-                                        keyFile: "./google-credentials.json",
+                                        keyFile: './google-credentials.json',
                                         scopes: config_1["default"].gapi.SCOPES
                                     });
                                     return [4 /*yield*/, googleAuth.getClient()];

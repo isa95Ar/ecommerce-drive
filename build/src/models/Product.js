@@ -38,14 +38,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var Product = new mongoose_1.Schema({
-    stock: { type: "boolean" },
-    code: { type: "number" },
-    name: { type: "string" },
-    minimum: { type: "string" },
-    price: { type: "number" },
-    category: { type: "string" },
-    seller: { type: "string" },
-    picture: { type: "string" }
+    stock: { type: 'boolean' },
+    code: { type: 'number' },
+    name: { type: 'string' },
+    minimum: { type: 'string' },
+    price: { type: 'number' },
+    category: { type: 'string' },
+    seller: { type: 'string' },
+    picture: { type: 'string' }
 });
 Product.statics.getProducts = function (page) {
     return __awaiter(this, void 0, void 0, function () {
@@ -119,6 +119,6 @@ Product.statics.deleteAll = function () {
     });
 };
 if (!mongoose_1["default"].models.Product) {
-    (0, mongoose_1.model)("Product", Product);
+    (0, mongoose_1.model)('Product', Product);
 }
 exports["default"] = mongoose_1["default"].models.Product;
