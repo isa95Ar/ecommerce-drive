@@ -12,7 +12,7 @@ export default function LoginCard() {
 					<Button className="google-button" onClick={() => (location.href = '/api/login')}>
 						<div className="button-container">
 							<GoogleIcon width={30} height={30} />
-							<Text style={{marginLeft:5}}>Ingresá con Google</Text>
+							<Text style={{ marginLeft: 5 }}>Ingresá con Google</Text>
 						</div>
 					</Button>
 				</Grid>

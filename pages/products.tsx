@@ -96,21 +96,19 @@ export default function Products(props) {
 				)}
 			</Container>
 			{cart.Cart.products.length && (
-				<div className='container-floating'>
-					<Button onClick={() => router.push('cart')} size={"xs"}  className={'button-floating'}>
-						<div className='button-content'>
-							<div className='cart-total'>
-							$ {cart.Cart.total}
-							</div>
+				<div className="container-floating">
+					<Button onClick={() => router.push('cart')} size={'xs'} className={'button-floating'}>
+						<div className="button-content">
+							<div className="cart-total">$ {cart.Cart.total}</div>
 							<Badge
 								color="warning"
-								size={"sm"}
+								size={'sm'}
 								content={cart.Cart.products.length}
 								shape="circle"
 								onClick={() => router.push('/cart')}
-								>
+							>
 								<CartIcon fill="white" size={24} width={24} height={24} onClick={() => router.push('/cart')} />
-							</Badge>			
+							</Badge>
 						</div>
 					</Button>
 				</div>

@@ -76,7 +76,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 			const storedCart = JSON.parse(actualCart);
 			products = products.concat(storedCart.products);
 		}
-		
+
 		if (userCart && userCart.products) {
 			products = products.concat(userCart.products);
 		}
@@ -90,6 +90,6 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 		removeProduct,
 		removeCart,
 		updateProducts,
-		getCartProductQty,
+		getCartProductQty
 	};
 }
