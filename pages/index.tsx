@@ -10,12 +10,11 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 
-
 export default function Home(props) {
 	const router = useRouter();
 
 	useEffect(() => {
-		infoMessages()
+		infoMessages();
 		if (props.user.logged && props.cartStatus.status === 'open') {
 			router.push('/products');
 		}

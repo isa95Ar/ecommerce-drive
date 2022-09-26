@@ -1,8 +1,16 @@
 import React from 'react';
 
-export const GoogleIcon = ({ height=48, width=48 }) => {
+export const GoogleIcon = ({ height = 48, width = 48 }) => {
 	return (
-		<div style={{ cursor: 'pointer',display:"flex",alignSelf:"center",justifyItems:"center",alignContent:"center" }}>
+		<div
+			style={{
+				cursor: 'pointer',
+				display: 'flex',
+				alignSelf: 'center',
+				justifyItems: 'center',
+				alignContent: 'center'
+			}}
+		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width={`${width}px`} height={`${height}px`}>
 				<path
 					fill="#FFC107"

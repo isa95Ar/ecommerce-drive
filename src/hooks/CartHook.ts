@@ -9,7 +9,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 
 	const sumTotals = (products: Array<ProductCart>): number => {
 		let totalCart = 0;
-		products.map(product => (totalCart += product.total));
+		products.map(product => (totalCart = Number((totalCart + product.total).toFixed(2))));
 		return totalCart;
 	};
 
@@ -76,7 +76,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 			const storedCart = JSON.parse(actualCart);
 			products = products.concat(storedCart.products);
 		}
-		
+
 		if (userCart && userCart.products) {
 			products = products.concat(userCart.products);
 		}

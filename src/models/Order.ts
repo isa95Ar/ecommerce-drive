@@ -1,69 +1,79 @@
-import  mongoose, { Schema, model,Document } from "mongoose";
+import mongoose, { Schema, model, Document } from 'mongoose';
 
 interface Product {
-  code: number;
-  name: string;
-  price: number;
-  minimum: string;
-  qty: number;
-  total: number;
-  picture: string;
-};
+	code: number;
+	name: string;
+	price: number;
+	minimum: string;
+	qty: number;
+	total: number;
+	picture: string;
+}
 
 export interface OrderI {
-  email: string;
-  products: Product[];
-};
+	email: string;
+	products: Product[];
+}
 
-interface BaseOrderDocument extends OrderI,Document {}
+interface BaseOrderDocument extends OrderI, Document {}
 
 const Order = new Schema<BaseOrderDocument>({
-  email: { type: "string", unique: true },
-  products: [{ code: "number", name: "string", price: "number", minimum: "string", qty: "number", total: "number", picture: "string" }]
+	email: { type: 'string', unique: true },
+	products: [
+		{
+			code: 'number',
+			name: 'string',
+			price: 'number',
+			minimum: 'string',
+			qty: 'number',
+			total: 'number',
+			picture: 'string'
+		}
+	]
 });
 
-Order.statics.createOrder = async function(order: OrderI) {
-  await this.create(order);
+Order.statics.createOrder = async function (order: OrderI) {
+	await this.create(order);
 };
 
-Order.statics.getOrdersCount = async function() {
-  const count = await this.countDocuments({});
-  return count;
+Order.statics.getOrdersCount = async function () {
+	const count = await this.countDocuments({});
+	return count;
 };
 
-Order.statics.getUserOrder = async function(email: string) {
-  const order = await this.findOne({email}).lean();
-  return order;
+Order.statics.getUserOrder = async function (email: string) {
+	const order = await this.findOne({ email }).lean();
+	return order;
 };
 
-Order.statics.getOrdersToPost = async function() {
-  const allOrders = await this.find({});
-  const formattedOrders = [];
-  allOrders.map((order) => {
-    order.products.map((product) => {
-      const newOrder = {
-        email: order.email,
-        product: product.name,
-        code: product.code,
-        cantidad: product.qty
-      }
-      formattedOrders.push(newOrder);
-    })
-  });
-  return formattedOrders;
-}
+Order.statics.getOrdersToPost = async function () {
+	const allOrders = await this.find({});
+	const formattedOrders = [];
+	allOrders.map(order => {
+		order.products.map(product => {
+			const newOrder = {
+				email: order.email,
+				product: product.name,
+				code: product.code,
+				cantidad: product.qty
+			};
+			formattedOrders.push(newOrder);
+		});
+	});
+	return formattedOrders;
+};
 
 Order.statics.updateOrder = async function (orderId, products) {
-  const updatedOrder = await this.findByIdAndUpdate(orderId, {products}, {new: true});
-  return updatedOrder;
-}
+	const updatedOrder = await this.findByIdAndUpdate(orderId, { products }, { new: true });
+	return updatedOrder;
+};
 
-Order.statics.deleteAllOrders = async function() {
-  await this.deleteMany({});
-}
+Order.statics.deleteAllOrders = async function () {
+	await this.deleteMany({});
+};
 
-if (!mongoose.models.Order){
-  model<BaseOrderDocument>("Order", Order); 
+if (!mongoose.models.Order) {
+	model<BaseOrderDocument>('Order', Order);
 }
 
 export default mongoose.models.Order;

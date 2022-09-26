@@ -14,9 +14,9 @@ async function initExport() {
 			if (cartStatus.status === 'open') {
 				await updateProducts();
 			}
-            resolve({status:'success'})
+			resolve({ status: 'success' });
 		} catch (e) {
-			reject({status:'error',error:e});
+			reject({ status: 'error', error: e });
 		}
 	});
 }

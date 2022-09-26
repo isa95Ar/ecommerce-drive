@@ -119,3 +119,7 @@ p {
 .infinite-scroll {
   overflow: hidden!important;
 }
+
+.Toastify__progress-bar--warning {
+    --toastify-color-progress-warning: #EA903C !important;
+}
