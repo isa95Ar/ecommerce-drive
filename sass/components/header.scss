@@ -35,18 +35,20 @@
         justify-content: end;
         
         .logout-button {
-            background-color: $main;
-            color:black;
+            background-color: transparent;
+            color:white;
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
             font-size: 14px;
             line-height: 110%;
             height: 31px;
-            border-radius: 8px;    
+            min-width: -webkit-fill-available;
         }
     }
-
+    .logout-icon {
+        margin-left: 10px!important;
+    }
 }
 
 @media (min-width: 668px) and (max-width: 2200px) {
