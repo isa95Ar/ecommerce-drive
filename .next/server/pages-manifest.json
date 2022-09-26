@@ -4,7 +4,6 @@
   "/api/admin/cart/dates": "pages/api/admin/cart/dates.js",
   "/api/admin/orders/count": "pages/api/admin/orders/count.js",
   "/api/admin/orders": "pages/api/admin/orders.js",
-  "/_error": "pages/_error.js",
   "/api/admin/orders/to-post": "pages/api/admin/orders/to-post.js",
   "/api/cart/status": "pages/api/cart/status.js",
   "/api/categories": "pages/api/categories.js",
@@ -16,8 +15,9 @@
   "/api/products/[category]": "pages/api/products/[category].js",
   "/api/products": "pages/api/products.js",
   "/layout": "pages/layout.js",
-  "/": "pages/index.js",
+  "/_error": "pages/_error.js",
   "/admin": "pages/admin.js",
+  "/": "pages/index.js",
   "/cart": "pages/cart.js",
   "/products": "pages/products.js",
   "/_document": "pages/_document.js"
