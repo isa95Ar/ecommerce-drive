@@ -5,6 +5,7 @@ import { faFaceLaughBeam } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useCart } from '../../src/hooks/CartHook';
 import { toast } from 'react-toastify';
+import { CartIcon } from '../svg/CartIcon';
 
 export default function ProductCard({ item, addProduct }) {
 	const cart = useCart();
@@ -56,7 +57,10 @@ export default function ProductCard({ item, addProduct }) {
 							<Button
 								onClick={() => {
 									addProduct(item, quantity);
-									toast.success('Agregado exitosamente');
+									toast.warn('Agregado exitosamente', {
+										autoClose: 1500,
+										icon: <CartIcon fill="#EA903C" size={24} width={16} height={16} />
+									});
 								}}
 								className="button-text"
 								css={{ backgroundColor: '#F29400', color: 'black', fontWeight: 400 }}

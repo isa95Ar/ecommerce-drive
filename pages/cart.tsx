@@ -14,15 +14,15 @@ import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 
 export default function Cart(props) {
-  const isEditingOrder = props.orderId !== null; 
+	const isEditingOrder = props.orderId !== null;
 	const cart = useCart(props.cart);
 	const router = useRouter();
 
-	useEffect(()=> infoMessages(),[]);
+	useEffect(() => infoMessages(), []);
 
 	const sendOrder = async () => {
 		try {
-			console.log(isEditingOrder)
+			console.log(isEditingOrder);
 			if (isEditingOrder) {
 				await fetch(`/api/orders/${props.orderId}`, {
 					method: 'PUT',
@@ -63,11 +63,13 @@ export default function Cart(props) {
 									className={`${cart.Cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
 									onClick={sendOrder}
 								>
-									{isEditingOrder ? "Modificar pedido" : "Realizar pedido"}
+									{isEditingOrder ? 'Modificar pedido' : 'Realizar pedido'}
 								</Button>
-                <Button
+								<Button
 									className="button-continue"
-									onClick={() => {router.push('/')}}
+									onClick={() => {
+										router.push('/');
+									}}
 								>
 									Seguir comprando
 								</Button>
@@ -90,20 +92,28 @@ export async function getServerSideProps(context) {
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(user.email);
-    if(ModelResponse){
+		if (ModelResponse) {
 			orderId = ModelResponse._id.toString();
-      cart.products = ModelResponse.products.map(({code,name,price,minimum,qty,total,picture}) => ({code,name,price,minimum,qty,total,picture}));
-    }
+			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
+				code,
+				name,
+				price,
+				minimum,
+				qty,
+				total,
+				picture
+			}));
+		}
 	} else {
-    return {
+		return {
 			redirect: {
 				permanent: false,
 				destination: '/login'
 			},
 			props: {}
 		};
-  }
- 
+	}
+
 	return {
 		props: { user, cart, orderId }
 	};
