@@ -1,4 +1,4 @@
-import { Grid, Container, Row, Pagination, Loading, Button } from '@nextui-org/react';
+import { Grid, Container, Row, Pagination, Loading, Button, Badge } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
@@ -14,6 +14,7 @@ import OrderService from '../src/services/OrderService';
 import { infoMessages } from '../helpers/notify';
 import { useRouter } from 'next/router';
 import Layout from './layout';
+import { CartIcon } from '../components/svg/CartIcon';
 
 export default function Products(props) {
 	const cart = useCart(props.cart);
@@ -94,9 +95,26 @@ export default function Products(props) {
 					</>
 				)}
 			</Container>
-			<div className={'container-floating'}>
-				<Button onClick={() => router.push('cart')} size={"xs"} className={'button-floating'}>Tu carrito</Button>
-			</div>
+			{cart.Cart.products.length && (
+				<div className='container-floating'>
+					<Button onClick={() => router.push('cart')} size={"xs"}  className={'button-floating'}>
+						<div className='button-content'>
+							<div className='cart-total'>
+							$ {cart.Cart.total}
+							</div>
+							<Badge
+								color="warning"
+								size={"sm"}
+								content={cart.Cart.products.length}
+								shape="circle"
+								onClick={() => router.push('/cart')}
+								>
+								<CartIcon fill="white" size={24} width={24} height={24} onClick={() => router.push('/cart')} />
+							</Badge>			
+						</div>
+					</Button>
+				</div>
+			)}
 		</Layout>
 	);
 }

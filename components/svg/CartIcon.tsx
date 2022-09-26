@@ -9,7 +9,7 @@ export const CartIcon = ({
     ...props
   }) => {
     return (
-      <div style={{cursor: "pointer"}} >
+      <div style={{cursor: "pointer", display: "flex", alignItems: "center"}} >
         <svg
           width={size || width || 24}
           height={size || height || 24}

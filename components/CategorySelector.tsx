@@ -20,6 +20,7 @@ const CategorySelector: React.FC<CategoryProps> = ({
             {category.name}
           </Dropdown.Button>
           <Dropdown.Menu
+            css={{width: "100%"}}
             aria-label="Dynamic Actions"
             items={categories}
             selectedKeys={category.key}
