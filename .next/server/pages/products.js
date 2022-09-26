@@ -54,8 +54,9 @@ const CategorySelector = ({ categories , category , setCategory ,  })=>{
 /***/ }),
 
 /***/ 9231:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": () => (/* binding */ ProductCard)
 /* harmony export */ });
@@ -70,6 +71,10 @@ const CategorySelector = ({ categories , category , setCategory ,  })=>{
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(961);
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3590);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([react_toastify__WEBPACK_IMPORTED_MODULE_6__]);
+react_toastify__WEBPACK_IMPORTED_MODULE_6__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
 
 
 
@@ -191,32 +196,20 @@ function ProductCard({ item , addProduct  }) {
                                 lg: 6,
                                 md: 6,
                                 xl: 6,
-                                children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Popover, {
-                                    children: [
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Popover.Trigger, {
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                                                onClick: ()=>addProduct(item, quantity)
-                                                ,
-                                                className: "button-text",
-                                                css: {
-                                                    backgroundColor: "#F29400",
-                                                    color: "black",
-                                                    fontWeight: 400
-                                                },
-                                                auto: true,
-                                                flat: true,
-                                                children: "Agregar"
-                                            })
-                                        }),
-                                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Popover.Content, {
-                                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                                                css: {
-                                                    p: "$10"
-                                                },
-                                                children: "Agregado exitosamente!"
-                                            })
-                                        })
-                                    ]
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                                    onClick: ()=>{
+                                        addProduct(item, quantity);
+                                        react_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.success("Agregado exitosamente");
+                                    },
+                                    className: "button-text",
+                                    css: {
+                                        backgroundColor: "#F29400",
+                                        color: "black",
+                                        fontWeight: 400
+                                    },
+                                    auto: true,
+                                    flat: true,
+                                    children: "Agregar"
                                 })
                             })
                         ]
@@ -227,6 +220,8 @@ function ProductCard({ item , addProduct  }) {
     });
 };
 
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
 
 /***/ }),
 
@@ -303,8 +298,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(8366);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
-([_src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
+([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, iron_session__WEBPACK_IMPORTED_MODULE_11__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 

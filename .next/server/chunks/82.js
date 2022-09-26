@@ -57,7 +57,13 @@ const CartIcon = ({ fill ="currentColor" , size , height , width , ...props })=>
     });
 };
 
+// EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
+var react_fontawesome_ = __webpack_require__(7197);
+// EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
+var free_solid_svg_icons_ = __webpack_require__(6466);
 ;// CONCATENATED MODULE: ./components/navigation/Header.tsx
+
+
 
 
 
@@ -79,7 +85,7 @@ const Header = ({ title , user , cart  })=>{
                             width: 100,
                             onClick: ()=>router.push("/")
                             ,
-                            src: "/../../img/logo-desktop.png",
+                            src: "/../../img/almargen-header.png",
                             objectFit: "contain"
                         })
                     }),
@@ -91,9 +97,11 @@ const Header = ({ title , user , cart  })=>{
                                 onClick: ()=>router.push("/api/logout")
                                 ,
                                 children: [
-                                    "Cerrar Sesi\xf3n (",
-                                    user.name,
-                                    ")"
+                                    "Salir",
+                                    /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
+                                        className: "logout-icon",
+                                        icon: free_solid_svg_icons_.faArrowRightFromBracket
+                                    })
                                 ]
                             }),
                             cart && /*#__PURE__*/ jsx_runtime_.jsx(react_.Badge, {
