@@ -7,13 +7,15 @@ $fa-font-path: '/fonts';
 // Styles
 @import 'style';
 
-@import './components/header.scss';
-
 @import './screens/login.scss';
+
+@import './screens/products.scss';
+
+@import './screens/cart.scss';
 
 @import './components/categorySelector.scss';
 
-@import './screens/products.scss';
+@import './components/header.scss';
 
 @import './components/cartProduct';
 

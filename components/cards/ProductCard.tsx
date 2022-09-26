@@ -1,4 +1,4 @@
-import { Card, Grid, Text, Row, Button, Popover, Avatar } from '@nextui-org/react';
+import { Card, Grid, Text, Row, Button, Popover, Avatar, Image } from '@nextui-org/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceLaughBeam } from '@fortawesome/free-solid-svg-icons';
@@ -19,11 +19,11 @@ export default function ProductCard({ item, addProduct }) {
 		<Grid xs={12} sm={12} md={12} lg={12} xl={12}>
 			<Card css={{ margin: 0, letterSpacing: 0 }}>
 				<Card.Body className="product-container">
-					<Row className="text-container">
-						<Grid sm={7} xs={7} lg={6} md={6} xl={6} justify="center">
-							<Avatar css={{ width: 100, height: 100 }} className="product-image" src={item.picture} />
+					<Grid.Container gap={1} justify="space-around">
+						<Grid xs={4}>
+							<Image objectFit="contain" src={item.picture} />
 						</Grid>
-						<Grid className="details-container" lg={6} md={6} xl={6}>
+						<Grid xs={8} className="details-container" lg={6} md={6} xl={6}>
 							<Text className="product-name">{item.name}</Text>
 							<Text className="product-reference">{item.minimum}</Text>
 							<Text className="product-supplier">
@@ -32,7 +32,7 @@ export default function ProductCard({ item, addProduct }) {
 							</Text>
 							<Text className="product-price">${item.price}</Text>
 						</Grid>
-					</Row>
+					</Grid.Container>
 					<Row>
 						<Grid sm={7} xs={7} lg={6} md={6} xl={6} className="product-quantity" justify="center">
 							<Text
