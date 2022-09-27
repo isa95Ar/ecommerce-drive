@@ -48,7 +48,7 @@ export default function Cart(props) {
 					<Header user={props.user} title={isEditingOrder ? 'Edita tu pedido' : 'Tu carrito'} cart={cart.Cart} />
 					<Container className="cart-container">
 						<Grid.Container justify="center" gap={2}>
-							<Grid direction="column" xs={12} sm={12} md={4} xl={8} lg={8}>
+							<Grid direction="column" xs={12} sm={10} md={7} lg={6} xl={4}>
 								{cart.Cart.products.map((product: productType) => (
 									<ProductCart
 										key={product.code}
