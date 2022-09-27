@@ -7,7 +7,7 @@ export default function Footer() {
 	const today = new Date();
 	const year = today.getFullYear();
 	return (
-		<>
+		<div className="footer-container">
 			<Grid.Container css={{ backgroundColor: '#F9F9F9', overflowX: 'hidden', margin: '0px' }} gap={2}>
 				<Grid xs={12} sm={12} md={3} lg={4} xl={4}>
 					<Image width={200} src="/../../img/almargen.png" />
@@ -46,6 +46,6 @@ export default function Footer() {
 			>
 				<Text css={{ color: 'white', fontSize: 15 }}>© Copyright - {year} Al Margen compras comunitarias</Text>
 			</div>
-		</>
+		</div>
 	);
 }
