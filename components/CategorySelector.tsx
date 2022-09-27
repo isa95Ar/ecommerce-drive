@@ -11,11 +11,12 @@ const CategorySelector: React.FC<CategoryProps> = ({ categories, category, setCa
 	return (
 		<div className="selector-container">
 			{categories.length > 1 && (
-				<Dropdown triggerType="listbox">
+				<Dropdown triggerType="listbox" disableTriggerPressedAnimation>
 					<Dropdown.Button className="selector">{category.name}</Dropdown.Button>
 					<Dropdown.Menu
 						aria-label="Dynamic Actions"
 						items={categories}
+						css={{ width: 1500 }}
 						selectedKeys={category.key}
 						onAction={val => {
 							setCategory(categories.find(option => option.key === val));

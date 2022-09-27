@@ -15,8 +15,8 @@ const ProductCart: FC<ProductCartProps> = ({ product, deleteProduct, addProduct 
 
 	return (
 		<Grid.Container className="product-cart">
-			<Grid xs={4} className="product-image-container" justify='center'>
-				<Avatar src={product.picture} size={'xl'} />
+			<Grid xs={4} className="product-image-container" justify="center">
+				<Avatar src={product.picture} css={{ size: '$20' }} />
 			</Grid>
 			<Grid xs={8} className="product-info">
 				<div className="title-buttons">

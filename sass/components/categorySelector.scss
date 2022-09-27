@@ -2,6 +2,7 @@
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
+    padding-bottom: 25px;
  
     .selector {
         background-color: #fff !important;
@@ -14,10 +15,10 @@
         line-height: 110%;
         color: #333333 !important;
         width: 100% !important;
-        height: 50px;
+        height: 60px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        
+        margin-top: -1.4rem;
     }
 }
