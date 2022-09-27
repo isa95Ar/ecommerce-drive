@@ -37,7 +37,9 @@ const ProductCart = ({ product , deleteProduct , addProduct  })=>{
                 justify: "center",
                 children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Avatar, {
                     src: product.picture,
-                    size: "xl"
+                    css: {
+                        size: "$20"
+                    }
                 })
             }),
             /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {

@@ -36,7 +36,8 @@ var external_react_ = __webpack_require__(6689);
 function Footer() {
     const today = new Date();
     const year = today.getFullYear();
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
+    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+        className: "footer-container",
         children: [
             /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
                 css: {
@@ -171,6 +172,7 @@ const Layout = ({ children  })=>{
                 ]
             }),
             /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                className: "page-wrapper",
                 children: [
                     children,
                     /*#__PURE__*/ jsx_runtime_.jsx(Footer, {})

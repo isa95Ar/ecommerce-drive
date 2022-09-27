@@ -25,6 +25,7 @@ const CategorySelector = ({ categories , category , setCategory  })=>{
         className: "selector-container",
         children: categories.length > 1 && /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Dropdown, {
             triggerType: "listbox",
+            disableTriggerPressedAnimation: true,
             children: [
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Dropdown.Button, {
                     className: "selector",
@@ -33,6 +34,9 @@ const CategorySelector = ({ categories , category , setCategory  })=>{
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Dropdown.Menu, {
                     "aria-label": "Dynamic Actions",
                     items: categories,
+                    css: {
+                        width: 1500
+                    },
                     selectedKeys: category.key,
                     onAction: (val)=>{
                         setCategory(categories.find((option)=>option.key === val
