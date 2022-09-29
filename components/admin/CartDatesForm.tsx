@@ -1,6 +1,7 @@
 import { Button, Container, Grid, Input, Loading, Text } from '@nextui-org/react';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { datesFormType, errorsFormType, statusCart } from '../../src/global/types';
+import { Fetch } from '../../src/hooks/fetchHook';
 import { useFormValidation } from '../../src/hooks/formHook';
 import { formatDate, getMinCloseDate } from '../../src/utils/helpers';
 
@@ -21,33 +22,26 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 
 	const handleChangeField = (e,property:keyof datesFormType) => {
 		const value = e.target.value;
-	
 		form.setValue(property,value);
 	}
 
-	const submitDates = async () => {
-		try {
-			setFetching({ error: null, done: false, loading: true });
+	const submitDates = () => {
+		setFetching({ error: null, done: false, loading: true });
+		Fetch<datesFormType>({
+			url:'/api/admin/cart/dates',
+			method:'POST',
+			data:form.fields,
+			onSuccess:submitSuccess,
+			onError:(e) => setFetching({error: 'Ocurrió un error enviando las fechas',loading: false,done: true})
+		});
+		setEditing(false);
+	}
 
-			const response = await fetch('/api/admin/cart/dates', {
-				method: 'POST',
-				body: JSON.stringify({ openDate:form.openDate, closeDate:form.closeDate })
-			});
-			const newStatus = await response.json();
+	const submitSuccess = (response) => {
+		setCurrentStatus(response);
+		setFetching({ error: null, loading: false, done: true });
+	}
 
-			setCurrentStatus(newStatus);
-
-			setFetching({ error: null, loading: false, done: true });
-			setEditing(false);
-		} catch (e) {
-			setFetching({
-				error: 'Ocurrió un error enviando las fechas',
-				loading: false,
-				done: true
-			});
-			console.log(e);
-		}
-	};
 
 	const validate = () => {
 		let localErrors:errorsFormType = form.validateFields({openDate:'Debe ingresar una fecha de apertura',closeDate:'Debe ingresar una fecha de cierre'});

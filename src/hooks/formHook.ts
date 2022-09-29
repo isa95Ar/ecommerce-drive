@@ -23,6 +23,6 @@ export function useFormValidation<T>(form:T)
 
     
 
-    return {...fields,setValue,validateFields};
+    return {...fields,setValue,validateFields,fields};
 
 }
