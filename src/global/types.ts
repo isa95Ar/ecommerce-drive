@@ -38,3 +38,19 @@ export type ProductModel = {
 	google_sheet_id?: string;
 	picture?: string;
 };
+
+export type statusCart = {
+	status: string;
+	openDate: string;
+	closeDate: string;
+};
+
+export type datesFormType = {
+	openDate:string,
+	closeDate:string
+}
+
+export type errorsFormType = {
+	openDate?:string,
+	closeDate?:string
+}
