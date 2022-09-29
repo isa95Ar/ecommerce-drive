@@ -22,7 +22,7 @@ export default function Cart(props) {
 	useEffect(() => infoMessages(), []);
 
 	const sendOrder = async () => {
-		Fetch<{ products: Array<productType>, total: number }>({
+		Fetch<{ products: Array<productType>; total: number }>({
 			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
 			data: { products: cart.Cart.products, total: cart.Cart.total },

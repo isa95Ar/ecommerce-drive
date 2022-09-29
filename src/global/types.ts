@@ -71,8 +71,14 @@ export type sheetOrder = Array<{
 	cantidad: number;
 }>;
 
-export type statusCart = {
-	status: string;
-	openDate: string;
-	closeDate: string;
+export type productType = {
+	stock: boolean;
+	code: number;
+	name: string;
+	minimum: string;
+	price: number;
+	category: string;
+	categoryName: string;
+	seller: string;
+	picture: string;
 };

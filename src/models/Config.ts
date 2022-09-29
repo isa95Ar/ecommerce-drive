@@ -33,7 +33,7 @@ Config.statics.getCartStatus = async function () {
 		status = 'closed';
 	}
 
-	const {openDate, closeDate} = currentConfig;
+	const { openDate, closeDate } = currentConfig;
 
 	return { openDate, closeDate, status };
 };

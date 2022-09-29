@@ -1,9 +1,9 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Spacer, Link } from '@nextui-org/react';
-import React from 'react';
+import { Link } from '@nextui-org/react';
+import React, { FC } from 'react';
 
-export default function Links() {
+const Links:FC = () => {
 	return (
 		<>
 			<div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -23,3 +23,6 @@ export default function Links() {
 		</>
 	);
 }
+
+
+export default Links;

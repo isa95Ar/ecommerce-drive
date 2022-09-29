@@ -4,20 +4,8 @@ import CategoryService from '../src/services/CategoryService';
 import GoogleSheetService from '../src/services/GoogleSheetService';
 import { slugify } from '../helpers/slug';
 import GoogleDriveFilesService from '../src/services/GoogleDriveFilesService';
-import { FileInfoType } from '../src/global/types';
+import { FileInfoType, productType } from '../src/global/types';
 import config from '../constants/config';
-
-type productType = {
-	stock: boolean;
-	code: number;
-	name: string;
-	minimum: string;
-	price: number;
-	category: string;
-	categoryName: string;
-	seller: string;
-	picture: string;
-};
 
 function serializingProducts(products: Array<Array<string>>, files: FileInfoType): Array<productType> {
 	const serializeProducts = [];

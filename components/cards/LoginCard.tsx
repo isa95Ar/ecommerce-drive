@@ -1,7 +1,8 @@
 import { Grid, Button, Image, Text } from '@nextui-org/react';
+import { FC } from 'react';
 import { GoogleIcon } from '../svg/GoogleIcon';
 
-export default function LoginCard() {
+const LoginCard: FC = () => {
 	return (
 		<Grid className="login">
 			<Grid.Container justify="center" alignContent="center">
@@ -19,4 +20,6 @@ export default function LoginCard() {
 			</Grid.Container>
 		</Grid>
 	);
-}
+};
+
+export default LoginCard;

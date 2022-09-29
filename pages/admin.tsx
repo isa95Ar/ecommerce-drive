@@ -30,15 +30,17 @@ export default function Admin(props) {
 					</Grid>
 					<Grid xs={12} sm={10} md={8} lg={6}>
 						{editingDates ? (
-							<CartDatesForm setEditing={setEditingDates} setCurrentStatus={setCurrentStatus} initialStatus={currentStatus}/>
+							<CartDatesForm
+								setEditing={setEditingDates}
+								setCurrentStatus={setCurrentStatus}
+								initialStatus={currentStatus}
+							/>
 						) : (
 							<CurrentStatus status={currentStatus} setEditing={setEditingDates} />
 						)}
 					</Grid>
 				</Grid.Container>
-					{ordersCount && (
-						<OrdersList orders={props.currentOrders.orders} />
-					)}
+				{ordersCount && <OrdersList orders={props.currentOrders.orders} />}
 			</Container>
 		</Layout>
 	);

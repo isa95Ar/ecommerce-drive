@@ -1,13 +1,20 @@
-import { Card, Grid, Text, Row, Button, Popover, Avatar, Image } from '@nextui-org/react';
-
+import { Card, Grid, Text, Row, Button, Image } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceLaughBeam } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useCart } from '../../src/hooks/CartHook';
 import { toast } from 'react-toastify';
 import { CartIcon } from '../svg/CartIcon';
+import { FC } from 'react';
+import { productType } from '../../src/global/types';
+import QuantityControls from '../QuantityControls';
 
-export default function ProductCard({ item, addProduct }) {
+type props = {
+	item: productType;
+	addProduct(product: productType, qty: number): void;
+};
+
+const ProductCard: FC<props> = ({ item, addProduct }) => {
 	const cart = useCart();
 	const [quantity, setQuantity] = useState(1);
 
@@ -35,23 +42,15 @@ export default function ProductCard({ item, addProduct }) {
 					</Grid.Container>
 					<Row>
 						<Grid sm={7} xs={7} lg={6} md={6} xl={6} className="product-quantity" justify="center">
-							<Text
-								className="quantity-border"
-								onClick={() => {
-									if (quantity > 1) setQuantity(prev => prev - 1);
-								}}
-							>
-								-
-							</Text>
-							<Text className="quantity">{quantity}</Text>
-							<Text
-								className="quantity-border"
-								onClick={() => {
+							<QuantityControls
+								qty={quantity}
+								addProduct={() => {
 									setQuantity(prev => prev + 1);
 								}}
-							>
-								+
-							</Text>
+								deleteProduct={() => {
+									if (quantity > 1) setQuantity(prev => prev - 1);
+								}}
+							/>
 						</Grid>
 						<Grid sm={3} xs={3} lg={6} md={6} xl={6}>
 							<Button
@@ -75,4 +74,6 @@ export default function ProductCard({ item, addProduct }) {
 			</Card>
 		</Grid>
 	);
-}
+};
+
+export default ProductCard;

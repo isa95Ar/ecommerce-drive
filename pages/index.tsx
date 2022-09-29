@@ -2,7 +2,7 @@ import Layout from './layout';
 import LoginCard from '../components/cards/LoginCard';
 import { container } from 'tsyringe';
 import ConfigService from '../src/services/ConfigService';
-import AvisoCarrito from '../components/AvisoCarrito';
+import MessageCard from '../components/cards/MessageCard';
 import { getIronSession, IronSessionData } from 'iron-session';
 import { sessionOptions } from '../src/utils/withIronSession';
 import { UserLogged } from '../src/global/types';
@@ -25,7 +25,7 @@ export default function Home(props) {
 			return <LoginCard />;
 		}
 
-		return <AvisoCarrito status={props.cartStatus} />;
+		return <MessageCard status={props.cartStatus} />;
 	};
 
 	return <Layout {...props}>{RenderComponent()}</Layout>;

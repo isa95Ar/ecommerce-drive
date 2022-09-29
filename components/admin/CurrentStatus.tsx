@@ -21,12 +21,14 @@ const CurrentStatus: FC<props> = ({ status, setEditing }) => {
 				<Text h4>{statusToText[status.status]}</Text>
 				<Grid>
 					<Text>
-						Abre: <strong>{getDayFromDate(status.openDate)}</strong> a las <strong>{getTimeFromDate(status.openDate)}</strong>
+						Abre: <strong>{getDayFromDate(status.openDate)}</strong> a las{' '}
+						<strong>{getTimeFromDate(status.openDate)}</strong>
 					</Text>
 				</Grid>
 				<Grid>
 					<Text>
-						Cierra: <strong>{getDayFromDate(status.closeDate)}</strong> a las <strong>{getTimeFromDate(status.closeDate)}</strong>
+						Cierra: <strong>{getDayFromDate(status.closeDate)}</strong> a las{' '}
+						<strong>{getTimeFromDate(status.closeDate)}</strong>
 					</Text>
 				</Grid>
 				<Button onClick={() => setEditing(true)} className="button-total">

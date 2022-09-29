@@ -3,6 +3,7 @@ import { Avatar, Grid, Text } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ProductCart } from '../../src/global/types';
+import QuantityControls from '../QuantityControls';
 
 type ProductCartProps = {
 	product: ProductCart;
@@ -25,27 +26,19 @@ const ProductDetailCard: FC<ProductCartProps> = ({ product, deleteProduct, addPr
 						<small className="product-description">{product.minimum}</small>
 					</div>
 					<div className="product-buttons">
-						<Text
-							className="quantity-border"
-							onClick={() => {
+						<QuantityControls
+							qty={quantity}
+							addProduct={() => {
+								setQuantity(prev => prev + 1);
+								addProduct(product, quantity + 1);
+							}}
+							deleteProduct={() => {
 								if (quantity > 1) {
 									setQuantity(prev => prev - 1);
 									addProduct(product, quantity - 1);
 								}
 							}}
-						>
-							-
-						</Text>
-						<Text className="quantity">{quantity}</Text>
-						<Text
-							className="quantity-border"
-							onClick={() => {
-								setQuantity(prev => prev + 1);
-								addProduct(product, quantity + 1);
-							}}
-						>
-							+
-						</Text>
+						/>
 					</div>
 				</div>
 				<div className="button-price">

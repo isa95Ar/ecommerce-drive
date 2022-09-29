@@ -1,9 +1,9 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid, Image, Text, Row, Link } from '@nextui-org/react';
-import React from 'react';
+import React, { FC } from 'react';
 
-export default function Footer() {
+const Footer:FC  = () => {
 	const today = new Date();
 	const year = today.getFullYear();
 	return (
@@ -37,3 +37,5 @@ export default function Footer() {
 		</div>
 	);
 }
+
+export default Footer;
