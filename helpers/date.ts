@@ -1,5 +1,5 @@
 /* Formating Date*/
-export const formatDate = (date: Date) => date.toLocaleString();
+export const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
 /* Function to get Close Date*/
 export const getMinCloseDate = (date: string) => {

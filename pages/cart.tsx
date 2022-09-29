@@ -1,8 +1,8 @@
 import Layout from './layout';
 import Header from '../components/navigation/Header';
 import { Button, Container, Grid } from '@nextui-org/react';
-import ProductCart from '../components/ProductCart';
-import TotalCart from '../components/TotalCart';
+import ProductDetailCard from '../components/cards/ProductDetailCard';
+import TotalCard from '../components/cards/TotalCard';
 import { useCart } from '../src/hooks/CartHook';
 import { ProductCart as productType, UserLogged } from '../src/global/types';
 import { getIronSession, IronSessionData } from 'iron-session';
@@ -12,6 +12,7 @@ import OrderService from '../src/services/OrderService';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
+import { Fetch } from '../src/hooks/fetchHook';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
@@ -21,24 +22,18 @@ export default function Cart(props) {
 	useEffect(() => infoMessages(), []);
 
 	const sendOrder = async () => {
-		try {
-			console.log(isEditingOrder);
-			if (isEditingOrder) {
-				await fetch(`/api/orders/${props.orderId}`, {
-					method: 'PUT',
-					body: JSON.stringify({ products: cart.Cart.products, total: cart.Cart.total })
-				});
-			} else {
-				await fetch('/api/orders', {
-					method: 'POST',
-					body: JSON.stringify({ products: cart.Cart.products, total: cart.Cart.total })
-				});
+		Fetch<{ products: Array<productType>, total: number }>({
+			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
+			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
+			data: { products: cart.Cart.products, total: cart.Cart.total },
+			onSuccess: () => {
+				cart.removeCart();
+				router.push('/#orderstored');
+			},
+			onError: e => {
+				console.warn(`error on saving order`, e);
 			}
-			cart.removeCart();
-			router.push('/#orderstored');
-		} catch (e) {
-			console.warn(`error on saving order`, e);
-		}
+		});
 	};
 
 	return (
@@ -50,14 +45,14 @@ export default function Cart(props) {
 						<Grid.Container justify="center" gap={2}>
 							<Grid direction="column" xs={12} sm={10} md={7} lg={6} xl={4}>
 								{cart.Cart.products.map((product: productType) => (
-									<ProductCart
+									<ProductDetailCard
 										key={product.code}
 										deleteProduct={(product: productType) => cart.removeProduct(product)}
 										addProduct={(product: productType, qty) => cart.addProduct(product, qty)}
 										product={product}
 									/>
 								))}
-								<TotalCart total={cart.Cart.total} />
+								<TotalCard total={cart.Cart.total} />
 								<Button
 									disabled={cart.Cart.products.length < 0}
 									className={`${cart.Cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}

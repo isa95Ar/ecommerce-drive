@@ -54,3 +54,25 @@ export type errorsFormType = {
 	openDate?: string;
 	closeDate?: string;
 };
+
+export type fetchData<T> = {
+	url: string;
+	method?: string;
+	data?: T;
+	query?: T;
+	onSuccess?(response: any): void;
+	onError?(error: any): void;
+};
+
+export type sheetOrder = Array<{
+	email: string;
+	product: string;
+	code: number;
+	cantidad: number;
+}>;
+
+export type statusCart = {
+	status: string;
+	openDate: string;
+	closeDate: string;
+};

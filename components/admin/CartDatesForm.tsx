@@ -3,17 +3,17 @@ import { FC, useState } from 'react';
 import { datesFormType, errorsFormType, statusCart } from '../../src/global/types';
 import { Fetch } from '../../src/hooks/fetchHook';
 import { useFormValidation } from '../../src/hooks/formHook';
-import { formatDate, getMinCloseDate } from '../../src/utils/helpers';
+import { formatDate, getMinCloseDate } from '../../helpers/date';
 
 type props = {
 	setEditing(status: boolean): void;
 	setCurrentStatus(status: statusCart): void;
 };
 
-const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
-	const initialFormFields: datesFormType = { openDate: '', closeDate: '' };
-	const initialFormErrors: errorsFormType = {};
+const initialFormFields: datesFormType = { openDate: '', closeDate: '' };
+const initialFormErrors: errorsFormType = {};
 
+const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 	const form = useFormValidation<datesFormType>(initialFormFields);
 	const [errors, setErrors] = useState(initialFormErrors);
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
@@ -31,15 +31,13 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 			url: '/api/admin/cart/dates',
 			method: 'POST',
 			data: form.fields,
-			onSuccess: submitSuccess,
+			onSuccess: response => {
+				setCurrentStatus(response);
+				setFetching({ error: null, loading: false, done: true });
+			},
 			onError: e => setFetching({ error: 'Ocurrió un error enviando las fechas', loading: false, done: true })
 		});
 		setEditing(false);
-	};
-
-	const submitSuccess = response => {
-		setCurrentStatus(response);
-		setFetching({ error: null, loading: false, done: true });
 	};
 
 	const validate = () => {
@@ -54,14 +52,6 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 		}
 
 		return !localErrors;
-	};
-
-	const handleSubmit = () => {
-		const isValid = validate();
-		if (!isValid) {
-			return;
-		}
-		submitDates();
 	};
 
 	return (
@@ -95,7 +85,10 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 			>
 				Cancelar
 			</Button>
-			<Button onClick={handleSubmit} className={fetching.loading ? 'button-total-disabled' : 'button-total'}>
+			<Button
+				onClick={() => validate() && submitDates()}
+				className={fetching.loading ? 'button-total-disabled' : 'button-total'}
+			>
 				Confirmar
 			</Button>
 			<Grid.Container gap={2} direction="column" justify="center">

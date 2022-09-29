@@ -1,15 +1,10 @@
 import { Button, Container, Grid, Text } from '@nextui-org/react';
 import { FC } from 'react';
 import { getDayFromDate, getTimeFromDate } from '../../helpers/formatDate';
-
-type status = {
-	status: string;
-	openDate: string;
-	closeDate: string;
-};
+import { statusCart } from '../../src/global/types';
 
 type props = {
-	status: status;
+	status: statusCart;
 	setEditing(editing: boolean): void;
 };
 
