@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Input, Loading, Text } from '@nextui-org/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { datesFormType, errorsFormType, statusCart } from '../../src/global/types';
 import { useFormValidation } from '../../src/hooks/formHook';
 import { formatDate, getMinCloseDate } from '../../src/utils/helpers';
@@ -21,12 +21,8 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 
 	const handleChangeField = (e,property:keyof datesFormType) => {
 		const value = e.target.value;
-		form.setValue(property,value ?? '');
-		if(value && property === 'openDate'){
-			let newCloseDate = new Date(value)
-			newCloseDate.setDate(newCloseDate.getDate() + 1);
-			form.setValue('closeDate',formatDate(newCloseDate));
-		}
+	
+		form.setValue(property,value);
 	}
 
 	const submitDates = async () => {
