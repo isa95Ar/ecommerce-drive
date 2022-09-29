@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Text } from '@nextui-org/react';
 import { FC } from 'react';
+import { getDayFromDate, getTimeFromDate } from '../../helpers/formatDate';
 
 type status = {
 	status: string;
@@ -23,18 +24,16 @@ const CurrentStatus: FC<props> = ({ status, setEditing }) => {
 			<Grid.Container justify="center" direction="column" alignItems="center">
 				<Text h3>Estado actual del carrito</Text>
 				<Text h4>{statusToText[status.status]}</Text>
-				<Grid.Container justify="space-around">
-					<Grid>
-						<Text>
-							Fecha de apertura: <strong>{status.openDate}</strong>
-						</Text>
-					</Grid>
-					<Grid>
-						<Text>
-							Fecha de cierre: <strong>{status.closeDate}</strong>
-						</Text>
-					</Grid>
-				</Grid.Container>
+				<Grid>
+					<Text>
+						Abre: <strong>{getDayFromDate(status.openDate)}</strong> a las <strong>{getTimeFromDate(status.openDate)}</strong>
+					</Text>
+				</Grid>
+				<Grid>
+					<Text>
+						Cierra: <strong>{getDayFromDate(status.closeDate)}</strong> a las <strong>{getTimeFromDate(status.closeDate)}</strong>
+					</Text>
+				</Grid>
 				<Button onClick={() => setEditing(true)} className="button-total">
 					Editar fechas
 				</Button>

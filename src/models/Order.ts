@@ -13,6 +13,7 @@ interface Product {
 export interface OrderI {
 	email: string;
 	products: Product[];
+	total: number;
 }
 
 interface BaseOrderDocument extends OrderI, Document {}
@@ -29,16 +30,18 @@ const Order = new Schema<BaseOrderDocument>({
 			total: 'number',
 			picture: 'string'
 		}
-	]
+	],
+	total: 'number'
 });
 
 Order.statics.createOrder = async function (order: OrderI) {
 	await this.create(order);
 };
 
-Order.statics.getOrdersCount = async function () {
-	const count = await this.countDocuments({});
-	return count;
+Order.statics.getCurrentOrders = async function () {
+	const orders = await this.find({}).select({ _id: 0, __v: 0, products: 0 });
+	const count = orders.length;
+	return { orders, count };
 };
 
 Order.statics.getUserOrder = async function (email: string) {

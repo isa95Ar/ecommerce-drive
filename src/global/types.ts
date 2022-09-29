@@ -46,11 +46,11 @@ export type statusCart = {
 };
 
 export type datesFormType = {
-	openDate:string,
-	closeDate:string
-}
+	openDate: string;
+	closeDate: string;
+};
 
 export type errorsFormType = {
-	openDate?:string,
-	closeDate?:string
-}
+	openDate?: string;
+	closeDate?: string;
+};

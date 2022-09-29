@@ -3,18 +3,24 @@ import GoogleSheetService from '../../../../src/services/GoogleSheetService';
 import OrderService from '../../../../src/services/OrderService';
 
 export default async function postOrders(req, res) {
-	if (req.method !== 'POST') {
-		return res.status(405).send({ message: 'Invalid method. Only POST requests allowed' });
-	}
-	try {
-		const orderService = container.resolve(OrderService);
-		const googleService = new GoogleSheetService('orders');
-		const body = JSON.parse(req.body);
-		let orders = body.orders;
-		await googleService.insertOnGoogleSheet(orders);
-		await orderService.clearLocalOrders();
-		res.status(200).json({ success: true, error: false });
-	} catch (error) {
-		res.status(500).json(error);
+	const orderService = container.resolve(OrderService);
+	if (req.method === 'POST') {
+		try {
+			const googleService = new GoogleSheetService('orders');
+			const body = JSON.parse(req.body);
+			let orders = body.orders;
+			await googleService.insertOnGoogleSheet(orders);
+			await orderService.clearLocalOrders();
+			res.status(200).json({ success: true, error: false });
+		} catch (error) {
+			res.status(500).json(error);
+		}
+	} else {
+		try {
+			const currentOrders = await orderService.getCurrentOrders();
+			res.status(200).json(currentOrders);
+		} catch (error) {
+			res.status(500).json(error);
+		}
 	}
 }

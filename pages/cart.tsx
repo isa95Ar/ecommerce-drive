@@ -26,12 +26,12 @@ export default function Cart(props) {
 			if (isEditingOrder) {
 				await fetch(`/api/orders/${props.orderId}`, {
 					method: 'PUT',
-					body: JSON.stringify({ products: cart.Cart.products })
+					body: JSON.stringify({ products: cart.Cart.products, total: cart.Cart.total })
 				});
 			} else {
 				await fetch('/api/orders', {
 					method: 'POST',
-					body: JSON.stringify({ products: cart.Cart.products })
+					body: JSON.stringify({ products: cart.Cart.products, total: cart.Cart.total })
 				});
 			}
 			cart.removeCart();

@@ -11,7 +11,7 @@ export default async function postOrder(req, res) {
 	try {
 		const orderService = container.resolve(OrderService);
 		const body = JSON.parse(req.body);
-		let products = body.products;
+		const { products, total } = body;
 
 		if (!products) {
 			return res.status(400).json({ error: true, message: 'Missing products' });
@@ -32,7 +32,7 @@ export default async function postOrder(req, res) {
 
      sendEmail(mailData); */
 
-		await orderService.saveOrder({ products, email: userEmail });
+		await orderService.saveOrder({ products, email: userEmail, total });
 		res.status(200).json({ success: true, error: false });
 	} catch (error) {
 		res.status(500).json(error);

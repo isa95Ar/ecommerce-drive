@@ -7,7 +7,7 @@ type props = {
 	setOrdersCount(count: number): void;
 };
 
-const CurrentOrders: FC<props> = ({ ordersCount, setOrdersCount }) => {
+const OrdersCount: FC<props> = ({ ordersCount, setOrdersCount }) => {
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const postOrdersOnSheets = async () => {
@@ -46,4 +46,4 @@ const CurrentOrders: FC<props> = ({ ordersCount, setOrdersCount }) => {
 	);
 };
 
-export default CurrentOrders;
+export default OrdersCount;
