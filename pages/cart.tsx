@@ -12,6 +12,7 @@ import OrderService from '../src/services/OrderService';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
+import { Fetch } from '../src/hooks/fetchHook';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
@@ -21,24 +22,18 @@ export default function Cart(props) {
 	useEffect(() => infoMessages(), []);
 
 	const sendOrder = async () => {
-		try {
-			console.log(isEditingOrder);
-			if (isEditingOrder) {
-				await fetch(`/api/orders/${props.orderId}`, {
-					method: 'PUT',
-					body: JSON.stringify({ products: cart.Cart.products })
-				});
-			} else {
-				await fetch('/api/orders', {
-					method: 'POST',
-					body: JSON.stringify({ products: cart.Cart.products })
-				});
+		Fetch<{ products: Array<productType> }>({
+			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
+			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
+			data: { products: cart.Cart.products },
+			onSuccess: () => {
+				cart.removeCart();
+				router.push('/#orderstored');
+			},
+			onError: e => {
+				console.warn(`error on saving order`, e);
 			}
-			cart.removeCart();
-			router.push('/#orderstored');
-		} catch (e) {
-			console.warn(`error on saving order`, e);
-		}
+		});
 	};
 
 	return (

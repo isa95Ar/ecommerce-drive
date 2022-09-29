@@ -1,6 +1,8 @@
 import { Button, Container, Grid, Loading, Text } from '@nextui-org/react';
 import { FC, useState } from 'react';
 import { getOrdersToPost } from '../../helpers/content';
+import { sheetOrder } from '../../src/global/types';
+import { Fetch } from '../../src/hooks/fetchHook';
 
 type props = {
 	ordersCount: number;
@@ -11,21 +13,19 @@ const CurrentOrders: FC<props> = ({ ordersCount, setOrdersCount }) => {
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const postOrdersOnSheets = async () => {
-		try {
-			setFetching({ error: null, loading: true, done: false });
-			const { orders } = await getOrdersToPost();
-			const response = await fetch('/api/admin/orders', {
-				method: 'POST',
-				body: JSON.stringify({ orders })
-			});
-			const result = await response.json();
-			if (!result.error) {
+		const { orders } = await getOrdersToPost();
+		Fetch<{ orders: sheetOrder }>({
+			url: '/api/admin/orders',
+			method: 'POST',
+			data: { orders },
+			onSuccess: () => {
 				setOrdersCount(0);
 				setFetching({ error: null, loading: false, done: true });
-			} else throw new Error('Error enviando los pedidos');
-		} catch (error) {
-			setFetching({ error: 'Ocurrió un error enviando los pedidos', loading: false, done: true });
-		}
+			},
+			onError: () => {
+				setFetching({ error: 'Ocurrió un error enviando los pedidos', loading: false, done: true });
+			}
+		});
 	};
 
 	return (

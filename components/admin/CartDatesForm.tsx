@@ -10,47 +10,47 @@ type props = {
 	setCurrentStatus(status: statusCart): void;
 };
 
-const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
-	const initialFormFields:datesFormType = {openDate:'',closeDate:''};
-	const initialFormErrors:errorsFormType = {};
+const initialFormFields: datesFormType = { openDate: '', closeDate: '' };
+const initialFormErrors: errorsFormType = {};
 
+const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 	const form = useFormValidation<datesFormType>(initialFormFields);
-	const [errors,setErrors] = useState(initialFormErrors);
+	const [errors, setErrors] = useState(initialFormErrors);
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const today = formatDate(new Date());
 
-	const handleChangeField = (e,property:keyof datesFormType) => {
+	const handleChangeField = (e, property: keyof datesFormType) => {
 		const value = e.target.value;
-		form.setValue(property,value);
-	}
+		form.setValue(property, value);
+	};
 
-	const submitDates = () => {
+	const submitDates = async () => {
 		setFetching({ error: null, done: false, loading: true });
-		Fetch<datesFormType>({
-			url:'/api/admin/cart/dates',
-			method:'POST',
-			data:form.fields,
-			onSuccess:submitSuccess,
-			onError:(e) => setFetching({error: 'Ocurrió un error enviando las fechas',loading: false,done: true})
+		await Fetch<datesFormType>({
+			url: '/api/admin/cart/dates',
+			method: 'POST',
+			data: form.fields,
+			onSuccess: response => {
+				setCurrentStatus(response);
+				setFetching({ error: null, loading: false, done: true });
+			},
+			onError: e => setFetching({ error: 'Ocurrió un error enviando las fechas', loading: false, done: true })
 		});
 		setEditing(false);
-	}
-
-	const submitSuccess = (response) => {
-		setCurrentStatus(response);
-		setFetching({ error: null, loading: false, done: true });
-	}
-
+	};
 
 	const validate = () => {
-		let localErrors:errorsFormType = form.validateFields({openDate:'Debe ingresar una fecha de apertura',closeDate:'Debe ingresar una fecha de cierre'});
+		let localErrors: errorsFormType = form.validateFields({
+			openDate: 'Debe ingresar una fecha de apertura',
+			closeDate: 'Debe ingresar una fecha de cierre'
+		});
 		const validateIntervalDates = new Date(form.closeDate) <= new Date(form.openDate);
-		
-		if(localErrors || validateIntervalDates){
-			setErrors(localErrors ?? {openDate : 'La fecha de cierre debe ser mayor que la de apertura'});
+
+		if (localErrors || validateIntervalDates) {
+			setErrors(localErrors ?? { openDate: 'La fecha de cierre debe ser mayor que la de apertura' });
 		}
-		
+
 		return !localErrors;
 	};
 
@@ -71,7 +71,7 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 						label="Nueva fecha de apertura"
 						min={today}
 						value={form.openDate}
-						onChange={(e) => handleChangeField(e,'openDate')}
+						onChange={e => handleChangeField(e, 'openDate')}
 					/>
 					<Text color="error">{errors.openDate ?? ''}</Text>
 				</Grid>
@@ -82,8 +82,7 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 						disabled={form.openDate === ''}
 						min={getMinCloseDate(form.openDate)}
 						value={form.closeDate}
-						onChange={(e) => handleChangeField(e,'closeDate')}
-
+						onChange={e => handleChangeField(e, 'closeDate')}
 					/>
 					<Text color="error">{errors.closeDate ?? ''}</Text>
 				</Grid>

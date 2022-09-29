@@ -1,32 +1,17 @@
-import ApiException from '../src/exceptions/ApiExeption';
+import { Fetch } from '../src/hooks/fetchHook';
 
 export const getProducts = async (page = 1, category = null) => {
-	let url = '/api/products';
-	if (category) {
-		url += '/' + category;
-	}
-	let products = await fetch(`${url}?page=${page}`).then(data => data.json());
-
-	return products;
+	return await Fetch<{ page: Number }>({ url: `/api/products${category ? `/${category}` : ''}`, query: { page } });
 };
 
 export const getCategories = async () => {
-	let categories = await fetch('/api/categories').then(data => data.json());
-
-	return categories;
+	return await Fetch({ url: '/api/categories' });
 };
 
 export const getCartStatus = async () => {
-	let cartStatus = await fetch('/api/cart/status').then(data => data.json());
-
-	return cartStatus;
+	return await Fetch({ url: '/api/cart/status' });
 };
 
 export const getOrdersToPost = async () => {
-	try {
-		const orders = await fetch('/api/admin/orders/to-post').then(data => data.json());
-		return orders;
-	} catch (error) {
-		throw new ApiException(error);
-	}
+	return await Fetch({ url: '/api/admin/orders/to-post' });
 };
