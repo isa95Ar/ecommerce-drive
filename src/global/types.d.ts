@@ -70,3 +70,9 @@ export type sheetOrder = Array<{
 	code: number;
 	cantidad: number;
 }>;
+
+export type statusCart = {
+	status: string;
+	openDate: string;
+	closeDate: string;
+};

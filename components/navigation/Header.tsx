@@ -29,7 +29,6 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart }) => {
 					</div>
 					<div className="sessions-buttons">
 						<Button className="logout-button" onClick={() => router.push('/api/logout')}>
-							{/* Cerrar Sesión ({user.name}) */}
 							Salir
 							<FontAwesomeIcon className="logout-icon" icon={faArrowRightFromBracket}></FontAwesomeIcon>
 						</Button>

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Avatar, Grid, Text } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { ProductCart } from '../src/global/types';
+import { ProductCart } from '../../src/global/types';
 
 type ProductCartProps = {
 	product: ProductCart;
@@ -10,7 +10,7 @@ type ProductCartProps = {
 	addProduct(product: ProductCart, qty: number);
 };
 
-const ProductCart: FC<ProductCartProps> = ({ product, deleteProduct, addProduct }) => {
+const ProductDetailCard: FC<ProductCartProps> = ({ product, deleteProduct, addProduct }) => {
 	const [quantity, setQuantity] = useState(product.qty);
 
 	return (
@@ -57,4 +57,4 @@ const ProductCart: FC<ProductCartProps> = ({ product, deleteProduct, addProduct 
 	);
 };
 
-export default ProductCart;
+export default ProductDetailCard;
