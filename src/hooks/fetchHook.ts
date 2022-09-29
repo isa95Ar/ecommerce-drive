@@ -6,7 +6,7 @@ export async function Fetch<T>({ url, method = 'GET', data, query, onSuccess, on
 		let qs: string = '?';
 		Object.keys(q).map(field => (qs += `${encodeURIComponent(field)}=${encodeURIComponent(q[field])}&`));
 
-		return `?${qs.slice(0, -1)}`;
+		return `${qs.slice(0, -1)}`;
 	};
 	const buildedUrl = `${url}${query && Object.keys(query).length > 0 ? serializeToString(query) : ''}`;
 
