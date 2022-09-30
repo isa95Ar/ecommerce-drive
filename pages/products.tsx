@@ -15,7 +15,7 @@ export default function Products(props) {
 	const cart = useCart(props.cart);
 
 	const [products, setProducts] = useState([]);
-	const [search, setSearch] = useState();
+	const [search, setSearch] = useState('');
 	const [categories, setCategories] = useState([{ key: '', name: 'Todos' }]);
 	const [category, setCategory] = useState({ key: '', name: 'Todos' });
 	const [totalPages, setTotalPages] = useState(1);
