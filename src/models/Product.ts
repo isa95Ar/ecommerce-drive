@@ -64,7 +64,6 @@ Product.statics.search = async function (query) {
 	 ).sort({
 		score: {$meta: "textScore"}
 	 })
-	 console.log(products);
 	 return products;
 }
 
