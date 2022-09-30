@@ -1,5 +1,8 @@
 /* Formating Date*/
-export const formatDate = (date: Date) => date.toISOString().split('T')[0];
+export const formatDate = (date: Date) => {
+    date.setSeconds(0,0);
+    return date.toISOString().replace(/:00.\d+Z$/g, "");
+};
 
 /* Function to get Close Date*/
 export const getMinCloseDate = (date: string) => {
