@@ -1,7 +1,7 @@
 .selector-container {
     padding-left: 15px;
     padding-right: 15px;
-    width: 100%;
+    width: 30%;
     padding-bottom: 25px;
  
     .selector {
@@ -19,6 +19,11 @@
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        margin-top: -1.4rem;
+    }
+}
+.input-search {
+    height: 60px!important;
+    input {
+        height: 60px;
     }
 }
