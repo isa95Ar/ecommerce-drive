@@ -58,7 +58,7 @@ Product.statics.deleteAll = async function () {
 };
 
 Product.statics.search = async function (query) {
-	 const products = this.find(
+	 const products = await this.find(
 		{$text: {$search: query}},
 		{score: {$meta: "textScore"}}
 	 ).sort({
