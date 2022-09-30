@@ -299,10 +299,11 @@ __webpack_async_result__();
 /* unused harmony export getCartStatus */
 /* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3382);
 
-const getProducts = async (page = 1, category = null)=>{
+const getProducts = async (page = 1, category = null, search = "")=>{
     return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
         url: `/api/products${category ? `/${category}` : ""}`,
         query: {
+            search,
             page
         }
     });
@@ -333,7 +334,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Products),
-/* harmony export */   "getServerSideProps": () => (/* reexport safe */ _src_ssp_products__WEBPACK_IMPORTED_MODULE_11__.N)
+/* harmony export */   "getServerSideProps": () => (/* reexport safe */ _src_ssp_products__WEBPACK_IMPORTED_MODULE_12__.N)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
@@ -349,9 +350,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8662);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8366);
 /* harmony import */ var _components_ButtonCart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3142);
-/* harmony import */ var _src_ssp_products__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(4451);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_products__WEBPACK_IMPORTED_MODULE_11__]);
-([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_products__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _src_hooks_debounceHook__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(433);
+/* harmony import */ var _src_ssp_products__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(4451);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_products__WEBPACK_IMPORTED_MODULE_12__]);
+([_components_cards_ProductCard__WEBPACK_IMPORTED_MODULE_3__, _helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_products__WEBPACK_IMPORTED_MODULE_12__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -367,6 +370,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_com
 function Products(props) {
     const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_7__/* .useCart */ .j)(props.cart);
     const { 0: products , 1: setProducts  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]);
+    const { 0: search , 1: setSearch  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
     const { 0: categories , 1: setCategories  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([
         {
             key: "",
@@ -380,6 +384,7 @@ function Products(props) {
     const { 0: totalPages , 1: setTotalPages  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1);
     const { 0: currentPage , 1: setCurrentPage  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(1);
     const { 0: loading , 1: setLoading  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true);
+    const debouncedSearch1 = (0,_src_hooks_debounceHook__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)(search, 750);
     const addProductToCart = (product, qty)=>{
         cart.addProduct(product, qty);
     };
@@ -406,8 +411,8 @@ function Products(props) {
             ]);
         });
     }, []);
-    const fetchData = (page, category)=>{
-        (0,_helpers_content__WEBPACK_IMPORTED_MODULE_4__/* .getProducts */ .Xp)(page, category.key).then((res)=>{
+    const fetchData = (page, category, debouncedSearch)=>{
+        (0,_helpers_content__WEBPACK_IMPORTED_MODULE_4__/* .getProducts */ .Xp)(page, category.key, debouncedSearch).then((res)=>{
             setCurrentPage(page);
             setTotalPages(res.totalPages);
             setProducts(res.products);
@@ -415,9 +420,10 @@ function Products(props) {
     };
     (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(()=>{
         setCurrentPage(1);
-        fetchData(1, category1);
+        fetchData(1, category1, debouncedSearch1);
     }, [
-        category1
+        category1,
+        debouncedSearch1
     ]);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_layout__WEBPACK_IMPORTED_MODULE_9__["default"], {
         children: [
@@ -432,16 +438,25 @@ function Products(props) {
                     maxWidth: "1260px"
                 },
                 children: [
-                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Row, {
+                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Row, {
                         css: {
-                            backgroundColor: "#fff"
+                            backgroundColor: "transparent",
+                            marginTop: "-1.4rem"
                         },
-                        children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_CategorySelector__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
-                            categories: categories,
-                            setCategory: (val)=>setCategory(val)
-                            ,
-                            category: category1
-                        })
+                        children: [
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Input, {
+                                clearable: true,
+                                fullWidth: true,
+                                className: "input-search",
+                                onChange: (e)=>setSearch(e.target.value)
+                            }),
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_CategorySelector__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
+                                categories: categories,
+                                setCategory: (val)=>setCategory(val)
+                                ,
+                                category: category1
+                            })
+                        ]
                     }),
                     loading ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Loading, {
                         className: "loading-text-container",
@@ -455,7 +470,7 @@ function Products(props) {
                                     padding: 0,
                                     backgroundColor: "#fff"
                                 },
-                                children: products.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+                                children: products && products.map((item)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
                                         xs: 12,
                                         sm: 12,
                                         md: 6,
@@ -485,7 +500,7 @@ function Products(props) {
                                         className: "paginator",
                                         initialPage: 1,
                                         total: totalPages,
-                                        onChange: (page)=>fetchData(page, category1)
+                                        onChange: (page)=>fetchData(page, category1, debouncedSearch1)
                                         ,
                                         color: "warning",
                                         page: currentPage
@@ -505,6 +520,34 @@ function Products(props) {
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 433:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (/* binding */ useDebounce)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function useDebounce(value, delay) {
+    const { 0: debouncedValue , 1: setDebouncedValue  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(value);
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{
+        const handler = setTimeout(()=>{
+            setDebouncedValue(value);
+        }, delay);
+        return ()=>{
+            clearTimeout(handler);
+        };
+    }, [
+        value,
+        delay
+    ]);
+    return debouncedValue;
+};
+
 
 /***/ }),
 

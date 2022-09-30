@@ -53,8 +53,10 @@ function useFormValidation(form) {
 }
 
 ;// CONCATENATED MODULE: ./helpers/date.ts
-/* Formating Date*/ const formatDate = (date)=>date.toISOString().split("T")[0]
-;
+/* Formating Date*/ const formatDate = (date)=>{
+    date.setSeconds(0, 0);
+    return date.toISOString().replace(/:00.\d+Z$/g, "");
+};
 /* Function to get Close Date*/ const getMinCloseDate = (date)=>{
     if (!date) {
         return "";
@@ -85,6 +87,7 @@ const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
         done: false
     });
     const today = formatDate(new Date());
+    console.log(formatDate(new Date()));
     const handleChangeField = (e, property)=>{
         const value = e.target.value;
         form.setValue(property, value);
@@ -439,10 +442,11 @@ const OrderList = ({ orders  })=>{
 /* unused harmony export getCartStatus */
 /* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3382);
 
-const getProducts = async (page = 1, category = null)=>{
+const getProducts = async (page = 1, category = null, search = "")=>{
     return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
         url: `/api/products${category ? `/${category}` : ""}`,
         query: {
+            search,
             page
         }
     });
