@@ -92,7 +92,7 @@ function saveProductsOnMongo(products) {
                     return [2 /*return*/, { success: true }];
                 case 3:
                     e_1 = _a.sent();
-                    console.log(e_1);
+                    console.log('error saving products', e_1);
                     return [2 /*return*/, { error: e_1 }];
                 case 4: return [2 /*return*/];
             }
@@ -131,7 +131,7 @@ function saveCategories(products) {
                     return [2 /*return*/, { success: true }];
                 case 2:
                     e_2 = _a.sent();
-                    console.log(e_2);
+                    console.log('error saving categories', e_2);
                     return [2 /*return*/, { error: e_2 }];
                 case 3: return [2 /*return*/];
             }
@@ -163,7 +163,7 @@ function updateProducts() {
                     return [2 /*return*/, { success: true }];
                 case 5:
                     e_3 = _a.sent();
-                    console.log(e_3, '??');
+                    console.log(e_3, 'Error updating products');
                     return [2 /*return*/, { error: e_3 }];
                 case 6: return [2 /*return*/];
             }

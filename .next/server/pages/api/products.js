@@ -32,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getProducts(req, res) {
-    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
+    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__["default"]);
     try {
         const result = await productService.getProducts(req.query.page);
         res.status(200).json(result);

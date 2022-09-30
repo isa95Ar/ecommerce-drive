@@ -76,7 +76,7 @@ var ConfigService = /** @class */ (function (_super) {
                         return [4 /*yield*/, Config_1["default"].getCartStatus()];
                     case 1:
                         status_1 = _a.sent();
-                        return [2 /*return*/, status_1];
+                        return [2 /*return*/, JSON.parse(JSON.stringify(status_1))];
                     case 2:
                         e_1 = _a.sent();
                         throw new ApiExeption_1["default"](e_1);

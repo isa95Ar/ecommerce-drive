@@ -59,14 +59,23 @@ const Order = new external_mongoose_.Schema({
             total: "number",
             picture: "string"
         }
-    ]
+    ],
+    total: "number"
 });
 Order.statics.createOrder = async function(order) {
     await this.create(order);
 };
-Order.statics.getOrdersCount = async function() {
-    const count = await this.countDocuments({});
-    return count;
+Order.statics.getCurrentOrders = async function() {
+    const orders = await this.find({}).select({
+        _id: 0,
+        __v: 0,
+        products: 0
+    });
+    const count = orders.length;
+    return {
+        orders,
+        count
+    };
 };
 Order.statics.getUserOrder = async function(email) {
     const order = await this.findOne({
@@ -127,10 +136,10 @@ class OrderService extends BaseService/* default */.Z {
             throw new ApiExeption/* default */.Z(e);
         }
     }
-    async getOrdersCount() {
+    async getCurrentOrders() {
         try {
-            const ordersCount = await models_Order.getOrdersCount();
-            return ordersCount;
+            const currentOrders = await models_Order.getCurrentOrders();
+            return JSON.parse(JSON.stringify(currentOrders));
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }
@@ -153,7 +162,6 @@ class OrderService extends BaseService/* default */.Z {
     }
     async updateOrder(orderId, products) {
         try {
-            console.log(orderId, products);
             const updatedOrder = await models_Order.updateOrder(orderId, products);
             return updatedOrder;
         } catch (e) {

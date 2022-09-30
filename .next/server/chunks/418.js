@@ -1,6 +1,6 @@
 "use strict";
-exports.id = 279;
-exports.ids = [279];
+exports.id = 418;
+exports.ids = [418];
 exports.modules = {
 
 /***/ 3883:
@@ -151,6 +151,45 @@ const CartIcon = ({ fill ="currentColor" , size , height , width , ...props })=>
 
 /***/ }),
 
+/***/ 3382:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "U": () => (/* binding */ Fetch)
+/* harmony export */ });
+/* harmony import */ var _exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7393);
+
+async function Fetch({ url , method ="GET" , data , query , onSuccess , onError  }) {
+    const serializeToString = (q)=>{
+        let qs = "?";
+        Object.keys(q).map((field)=>qs += `${encodeURIComponent(field)}=${encodeURIComponent(q[field])}&`
+        );
+        return `${qs.slice(0, -1)}`;
+    };
+    const buildedUrl = `${url}${query && Object.keys(query).length > 0 ? serializeToString(query) : ""}`;
+    return await fetch(buildedUrl, {
+        method,
+        ...data && {
+            body: JSON.stringify(data)
+        }
+    }).then(async (res)=>{
+        const response = await res.json();
+        if (onSuccess) {
+            onSuccess(response);
+        }
+        return response;
+    }).catch((e)=>{
+        if (onError) {
+            onError(e);
+        } else {
+            throw new _exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z(e);
+        }
+    });
+}
+
+
+/***/ }),
+
 /***/ 1751:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -184,14 +223,23 @@ const Order = new external_mongoose_.Schema({
             total: "number",
             picture: "string"
         }
-    ]
+    ],
+    total: "number"
 });
 Order.statics.createOrder = async function(order) {
     await this.create(order);
 };
-Order.statics.getOrdersCount = async function() {
-    const count = await this.countDocuments({});
-    return count;
+Order.statics.getCurrentOrders = async function() {
+    const orders = await this.find({}).select({
+        _id: 0,
+        __v: 0,
+        products: 0
+    });
+    const count = orders.length;
+    return {
+        orders,
+        count
+    };
 };
 Order.statics.getUserOrder = async function(email) {
     const order = await this.findOne({
@@ -252,10 +300,10 @@ class OrderService extends BaseService/* default */.Z {
             throw new ApiExeption/* default */.Z(e);
         }
     }
-    async getOrdersCount() {
+    async getCurrentOrders() {
         try {
-            const ordersCount = await models_Order.getOrdersCount();
-            return ordersCount;
+            const currentOrders = await models_Order.getCurrentOrders();
+            return JSON.parse(JSON.stringify(currentOrders));
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }
@@ -278,7 +326,6 @@ class OrderService extends BaseService/* default */.Z {
     }
     async updateOrder(orderId, products) {
         try {
-            console.log(orderId, products);
             const updatedOrder = await models_Order.updateOrder(orderId, products);
             return updatedOrder;
         } catch (e) {

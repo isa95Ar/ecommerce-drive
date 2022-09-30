@@ -73,7 +73,7 @@ const oauthCallback = async (req, res)=>{
         }
         /* Get Profile from Google OAuth2*/ const clientCredentials = await googleAuth.getUserTokens(code);
         const profile = await googleAuth.getProfileInfo(clientCredentials);
-        /* Get User's List from Google Sheet*/ const googleSheetInstance = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z("users");
+        /* Get User's List from Google Sheet*/ const googleSheetInstance = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__["default"]("users");
         const users = await googleSheetInstance.getGoogleSheetData();
         const MatchEmail = users.find((user)=>user[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === profile.email
         );

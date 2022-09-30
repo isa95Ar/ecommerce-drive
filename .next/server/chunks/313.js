@@ -3,36 +3,15 @@ exports.id = 313;
 exports.ids = [313];
 exports.modules = {
 
-/***/ 8646:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-class ApiException extends Error {
-    constructor(message){
-        super(message);
-        Object.setPrototypeOf(this, ApiException.prototype);
-    }
-    jsonOutPut() {
-        return {
-            error: true,
-            message: this.message
-        };
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ApiException);
-
-
-/***/ }),
-
 /***/ 2313:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ services_ConfigService)
+  "default": () => (/* binding */ services_ConfigService)
 });
 
 // EXTERNAL MODULE: external "tsyringe"
@@ -73,21 +52,7 @@ Config.statics.getCartStatus = async function() {
     } else {
         status = "closed";
     }
-    const formatDate = (date)=>{
-        const day = date.getUTCDate();
-        let formattedDay = day.toString();
-        const month = date.getUTCMonth() + 1;
-        let formattedMonth = month.toString();
-        if (formattedDay.length === 1) {
-            formattedDay = "0" + formattedDay;
-        }
-        if (formattedMonth.length === 1) {
-            formattedMonth = "0" + formattedMonth;
-        }
-        return `${formattedDay}/${formattedMonth}`;
-    };
-    const openDate = formatDate(currentConfig.openDate);
-    const closeDate = formatDate(currentConfig.closeDate);
+    const { openDate , closeDate  } = currentConfig;
     return {
         openDate,
         closeDate,
@@ -96,8 +61,8 @@ Config.statics.getCartStatus = async function() {
 };
 Config.statics.updateDates = async function(openDate, closeDate) {
     await this.findOneAndUpdate({
-        openDate,
-        closeDate
+        openDate: openDate.toString(),
+        closeDate: closeDate.toString()
     });
 };
 if (!(external_mongoose_default()).models.Config) {
@@ -121,7 +86,7 @@ let ConfigService = _class = _dec2(_class = _dec1(_class = _dec((_class = class 
     async getCartStatus() {
         try {
             const status = await models_Config.getCartStatus();
-            return status;
+            return JSON.parse(JSON.stringify(status));
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

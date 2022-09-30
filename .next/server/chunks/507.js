@@ -50,21 +50,7 @@ Config.statics.getCartStatus = async function() {
     } else {
         status = "closed";
     }
-    const formatDate = (date)=>{
-        const day = date.getUTCDate();
-        let formattedDay = day.toString();
-        const month = date.getUTCMonth() + 1;
-        let formattedMonth = month.toString();
-        if (formattedDay.length === 1) {
-            formattedDay = "0" + formattedDay;
-        }
-        if (formattedMonth.length === 1) {
-            formattedMonth = "0" + formattedMonth;
-        }
-        return `${formattedDay}/${formattedMonth}`;
-    };
-    const openDate = formatDate(currentConfig.openDate);
-    const closeDate = formatDate(currentConfig.closeDate);
+    const { openDate , closeDate  } = currentConfig;
     return {
         openDate,
         closeDate,
@@ -73,8 +59,8 @@ Config.statics.getCartStatus = async function() {
 };
 Config.statics.updateDates = async function(openDate, closeDate) {
     await this.findOneAndUpdate({
-        openDate,
-        closeDate
+        openDate: openDate.toString(),
+        closeDate: closeDate.toString()
     });
 };
 if (!(external_mongoose_default()).models.Config) {
@@ -98,7 +84,7 @@ let ConfigService = _class = _dec2(_class = _dec1(_class = _dec((_class = class 
     async getCartStatus() {
         try {
             const status = await models_Config.getCartStatus();
-            return status;
+            return JSON.parse(JSON.stringify(status));
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

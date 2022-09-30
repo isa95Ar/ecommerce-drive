@@ -43,7 +43,7 @@ var Config = new mongoose_1.Schema({
 });
 Config.statics.getCartStatus = function () {
     return __awaiter(this, void 0, void 0, function () {
-        var currentConfig, openTime, closeTime, today, isOpen, status, formatDate, openDate, closeDate;
+        var currentConfig, openTime, closeTime, today, isOpen, status, openDate, closeDate;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, this.findOne({})];
@@ -66,21 +66,7 @@ Config.statics.getCartStatus = function () {
                     else {
                         status = 'closed';
                     }
-                    formatDate = function (date) {
-                        var day = date.getUTCDate();
-                        var formattedDay = day.toString();
-                        var month = date.getUTCMonth() + 1;
-                        var formattedMonth = month.toString();
-                        if (formattedDay.length === 1) {
-                            formattedDay = '0' + formattedDay;
-                        }
-                        if (formattedMonth.length === 1) {
-                            formattedMonth = '0' + formattedMonth;
-                        }
-                        return "".concat(formattedDay, "/").concat(formattedMonth);
-                    };
-                    openDate = formatDate(currentConfig.openDate);
-                    closeDate = formatDate(currentConfig.closeDate);
+                    openDate = currentConfig.openDate, closeDate = currentConfig.closeDate;
                     return [2 /*return*/, { openDate: openDate, closeDate: closeDate, status: status }];
             }
         });
@@ -90,7 +76,7 @@ Config.statics.updateDates = function (openDate, closeDate) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, this.findOneAndUpdate({ openDate: openDate, closeDate: closeDate })];
+                case 0: return [4 /*yield*/, this.findOneAndUpdate({ openDate: openDate.toString(), closeDate: closeDate.toString() })];
                 case 1:
                     _a.sent();
                     return [2 /*return*/];

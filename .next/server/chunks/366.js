@@ -33,18 +33,14 @@ var external_react_ = __webpack_require__(6689);
 
 
 
-function Footer() {
+const Footer = ()=>{
     const today = new Date();
     const year = today.getFullYear();
     return /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
         className: "footer-container",
         children: [
             /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
-                css: {
-                    backgroundColor: "#F9F9F9",
-                    overflowX: "hidden",
-                    margin: "0px"
-                },
+                className: "footer-container",
                 gap: 2,
                 children: [
                     /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
@@ -65,15 +61,10 @@ function Footer() {
                         lg: 4,
                         xl: 4,
                         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Row, {
-                            css: {
-                                display: "block",
-                                marginTop: 15
-                            },
+                            className: "footer-text",
                             children: [
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                    css: {
-                                        fontWeight: 600
-                                    },
+                                    className: "footer-title",
                                     children: "\xbfC\xf3mo funciona?"
                                 }),
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
@@ -97,9 +88,7 @@ function Footer() {
                             },
                             children: [
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                    css: {
-                                        fontWeight: 600
-                                    },
+                                    className: "footer-title",
                                     children: "Contactanos"
                                 }),
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
@@ -126,22 +115,9 @@ function Footer() {
                 ]
             }),
             /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                style: {
-                    display: "flex",
-                    backgroundColor: "#333333",
-                    justifyContent: "center",
-                    paddingBottom: 17,
-                    paddingTop: 17,
-                    width: "100%",
-                    height: "100%",
-                    marginBottom: 0,
-                    overflowX: "hidden"
-                },
+                className: "footer-last-container",
                 children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
-                    css: {
-                        color: "white",
-                        fontSize: 15
-                    },
+                    className: "footer-text-copy",
                     children: [
                         "\xa9 Copyright - ",
                         year,
@@ -152,6 +128,7 @@ function Footer() {
         ]
     });
 };
+/* harmony default export */ const navigation_Footer = (Footer);
 
 ;// CONCATENATED MODULE: ./pages/layout.tsx
 
@@ -175,7 +152,7 @@ const Layout = ({ children  })=>{
                 className: "page-wrapper",
                 children: [
                     children,
-                    /*#__PURE__*/ jsx_runtime_.jsx(Footer, {})
+                    /*#__PURE__*/ jsx_runtime_.jsx(navigation_Footer, {})
                 ]
             })
         ]

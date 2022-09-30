@@ -75,7 +75,7 @@ function initExport() {
         });
     });
 }
-initExport().then(function (res) { return console.log("result of first exportation ".concat(res)); });
+initExport().then(function (res) { return console.log("result of first exportation ".concat(res.status)); });
 //our Cron on Node :v
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

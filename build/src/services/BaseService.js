@@ -46,10 +46,7 @@ var tsyringe_1 = require("tsyringe");
 var mongoose_1 = require("mongoose");
 var BaseService = /** @class */ (function () {
     function BaseService() {
-        this.mongoInit()
-            .then(function (res) {
-            console.log("mongo db connection actual Status ".concat(res));
-        })["catch"](function (e) { return console.log(e); });
+        this.mongoInit()["catch"](function (e) { return console.log(e, 'error on mongo connection'); });
     }
     BaseService.prototype.mongoInit = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -67,7 +64,6 @@ var BaseService = /** @class */ (function () {
                                 case 1:
                                     db = _a.sent();
                                     this.isDbConnected = db.connections[0].readyState;
-                                    console.log("connected succesfully =)");
                                     resolve(db.connections[0].readyState);
                                     return [3 /*break*/, 3];
                                 case 2:

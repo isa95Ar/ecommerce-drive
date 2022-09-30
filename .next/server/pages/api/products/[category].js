@@ -32,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getByCategory(req, res) {
-    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
+    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__["default"]);
     try {
         const { category , page  } = req.query;
         const result = await productService.getByCategory(category, page);

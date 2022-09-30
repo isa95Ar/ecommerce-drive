@@ -75,9 +75,7 @@ var _class;
 var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__.singleton)();
 let BaseService = _class = _dec2(_class = _dec1(_class = _dec((_class = class BaseService {
     constructor(){
-        this.mongoInit().then((res)=>{
-            console.log(`mongo db connection actual Status ${res}`);
-        }).catch((e)=>console.log(e)
+        this.mongoInit().catch((e)=>console.log(e, "error on mongo connection")
         );
     }
     async mongoInit() {
@@ -86,7 +84,6 @@ let BaseService = _class = _dec2(_class = _dec1(_class = _dec((_class = class Ba
                 if (this.isDbConnected) return;
                 const db = await (0,mongoose__WEBPACK_IMPORTED_MODULE_1__.connect)("mongodb://localhost:27017/almargen");
                 this.isDbConnected = db.connections[0].readyState;
-                console.log(`connected succesfully =)`);
                 resolve(db.connections[0].readyState);
             } catch (e) {
                 reject(e);

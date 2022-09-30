@@ -5,7 +5,7 @@ exports.id = 190;
 exports.ids = [190,777];
 exports.modules = {
 
-/***/ 9673:
+/***/ 1683:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -21,12 +21,14 @@ exports.modules = {
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6466);
 /* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _QuantityControls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5634);
 
 
 
 
 
-const ProductCart = ({ product , deleteProduct , addProduct  })=>{
+
+const ProductDetailCard = ({ product , deleteProduct , addProduct  })=>{
     const { 0: quantity , 1: setQuantity  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(product.qty);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid.Container, {
         className: "product-cart",
@@ -61,34 +63,23 @@ const ProductCart = ({ product , deleteProduct , addProduct  })=>{
                                     })
                                 ]
                             }),
-                            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
                                 className: "product-buttons",
-                                children: [
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-                                        className: "quantity-border",
-                                        onClick: ()=>{
-                                            if (quantity > 1) {
-                                                setQuantity((prev)=>prev - 1
-                                                );
-                                                addProduct(product, quantity - 1);
-                                            }
-                                        },
-                                        children: "-"
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-                                        className: "quantity",
-                                        children: quantity
-                                    }),
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-                                        className: "quantity-border",
-                                        onClick: ()=>{
-                                            setQuantity((prev)=>prev + 1
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_QuantityControls__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                                    qty: quantity,
+                                    addProduct: ()=>{
+                                        setQuantity((prev)=>prev + 1
+                                        );
+                                        addProduct(product, quantity + 1);
+                                    },
+                                    deleteProduct: ()=>{
+                                        if (quantity > 1) {
+                                            setQuantity((prev)=>prev - 1
                                             );
-                                            addProduct(product, quantity + 1);
-                                        },
-                                        children: "+"
-                                    })
-                                ]
+                                            addProduct(product, quantity - 1);
+                                        }
+                                    }
+                                })
                             })
                         ]
                     }),
@@ -116,12 +107,12 @@ const ProductCart = ({ product , deleteProduct , addProduct  })=>{
         ]
     });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductCart);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ProductDetailCard);
 
 
 /***/ }),
 
-/***/ 3918:
+/***/ 3804:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -190,7 +181,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Cart),
-/* harmony export */   "getServerSideProps": () => (/* binding */ getServerSideProps)
+/* harmony export */   "getServerSideProps": () => (/* reexport safe */ _src_ssp_cart__WEBPACK_IMPORTED_MODULE_11__.N)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
@@ -198,23 +189,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3883);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6735);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _components_ProductCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9673);
-/* harmony import */ var _components_TotalCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3918);
+/* harmony import */ var _components_cards_ProductDetailCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1683);
+/* harmony import */ var _components_cards_TotalCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3804);
 /* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(961);
-/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4014);
-/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5869);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6896);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1751);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(1853);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(6689);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8662);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_7__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
-
-
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8662);
+/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3382);
+/* harmony import */ var _src_ssp_cart__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(3753);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_helpers_notify__WEBPACK_IMPORTED_MODULE_9__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_11__]);
+([_helpers_notify__WEBPACK_IMPORTED_MODULE_9__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_11__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -230,32 +216,25 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 function Cart(props) {
     const isEditingOrder = props.orderId !== null;
     const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)(props.cart);
-    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_11__.useRouter)();
-    (0,react__WEBPACK_IMPORTED_MODULE_12__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_13__/* .infoMessages */ .o)()
+    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
+    (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_9__/* .infoMessages */ .o)()
     , []);
     const sendOrder = async ()=>{
-        try {
-            console.log(isEditingOrder);
-            if (isEditingOrder) {
-                await fetch(`/api/orders/${props.orderId}`, {
-                    method: "PUT",
-                    body: JSON.stringify({
-                        products: cart.Cart.products
-                    })
-                });
-            } else {
-                await fetch("/api/orders", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        products: cart.Cart.products
-                    })
-                });
+        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_10__/* .Fetch */ .U)({
+            url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ""}`,
+            method: `${isEditingOrder ? "PUT" : "POST"}`,
+            data: {
+                products: cart.products,
+                total: cart.total
+            },
+            onSuccess: ()=>{
+                cart.removeCart();
+                router.push("/#orderstored");
+            },
+            onError: (e)=>{
+                console.warn(`error on saving order`, e);
             }
-            cart.removeCart();
-            router.push("/#orderstored");
-        } catch (e) {
-            console.warn(`error on saving order`, e);
-        }
+        });
     };
     return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_layout__WEBPACK_IMPORTED_MODULE_1__["default"], {
         ...props,
@@ -264,7 +243,7 @@ function Cart(props) {
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_navigation_Header__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z, {
                     user: props.user,
                     title: isEditingOrder ? "Edita tu pedido" : "Tu carrito",
-                    cart: cart.Cart
+                    cart: cart
                 }),
                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__.Container, {
                     className: "cart-container",
@@ -279,7 +258,7 @@ function Cart(props) {
                             lg: 6,
                             xl: 4,
                             children: [
-                                cart.Cart.products.map((product1)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ProductCart__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
+                                cart.products.map((product1)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_cards_ProductDetailCard__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
                                         deleteProduct: (product)=>cart.removeProduct(product)
                                         ,
                                         addProduct: (product, qty)=>cart.addProduct(product, qty)
@@ -287,12 +266,12 @@ function Cart(props) {
                                         product: product1
                                     }, product1.code)
                                 ),
-                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_TotalCart__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
-                                    total: cart.Cart.total
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_cards_TotalCard__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                                    total: cart.total
                                 }),
                                 /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-                                    disabled: cart.Cart.products.length < 0,
-                                    className: `${cart.Cart.products.length > 0 ? "button-total" : "button-total-disabled"}`,
+                                    disabled: cart.products.length < 0,
+                                    className: `${cart.products.length > 0 ? "button-total" : "button-total-disabled"}`,
                                     onClick: sendOrder,
                                     children: isEditingOrder ? "Modificar pedido" : "Realizar pedido"
                                 }),
@@ -311,15 +290,39 @@ function Cart(props) {
         })
     });
 };
+
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 3753:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "N": () => (/* binding */ getServerSideProps)
+/* harmony export */ });
+/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4014);
+/* harmony import */ var _utils_withIronSession__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5869);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services_OrderService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1751);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_0__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_1__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_0__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
+
+
 async function getServerSideProps(context) {
-    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_7__.getIronSession)(context.req, context.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_8__/* .sessionOptions */ .d);
+    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_0__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_1__/* .sessionOptions */ .d);
     const user = ironSession.user ?? {
         logged: false
     };
     const cart = {};
     let orderId = null;
     if (user.logged) {
-        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_9__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z);
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_2__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
         const ModelResponse = await orderService.getUserOrder(user.email);
         if (ModelResponse) {
             orderId = ModelResponse._id.toString();
@@ -441,7 +444,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,279,961], () => (__webpack_exec__(1404)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,164], () => (__webpack_exec__(1404)));
 module.exports = __webpack_exports__;
 
 })();

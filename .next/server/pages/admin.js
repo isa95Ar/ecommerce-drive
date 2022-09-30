@@ -5,7 +5,202 @@ exports.id = 964;
 exports.ids = [964,777];
 exports.modules = {
 
-/***/ 5344:
+/***/ 3735:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ admin_CartDatesForm)
+});
+
+// EXTERNAL MODULE: external "react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(997);
+// EXTERNAL MODULE: external "@nextui-org/react"
+var react_ = __webpack_require__(6735);
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(6689);
+// EXTERNAL MODULE: ./src/hooks/fetchHook.ts
+var fetchHook = __webpack_require__(3382);
+;// CONCATENATED MODULE: ./src/hooks/formHook.ts
+
+function useFormValidation(form) {
+    const { 0: fields , 1: setFields  } = (0,external_react_.useState)(form);
+    const setValue = (property, value)=>{
+        setFields({
+            ...fields,
+            [property]: value
+        });
+    };
+    const validateFields = (messages)=>{
+        let errors = {};
+        Object.keys(fields).forEach((field)=>{
+            if (!fields[field]) {
+                errors = {
+                    ...errors,
+                    [field]: `${messages[field]}`
+                };
+            }
+        });
+        return Object.keys(errors).length > 0 ? errors : false;
+    };
+    return {
+        ...fields,
+        setValue,
+        validateFields,
+        fields
+    };
+}
+
+;// CONCATENATED MODULE: ./helpers/date.ts
+/* Formating Date*/ const formatDate = (date)=>date.toISOString().split("T")[0]
+;
+/* Function to get Close Date*/ const getMinCloseDate = (date)=>{
+    if (!date) {
+        return "";
+    }
+    let minDate = new Date(date);
+    minDate.setDate(minDate.getDate() + 1);
+    return formatDate(minDate);
+};
+
+;// CONCATENATED MODULE: ./components/admin/CartDatesForm.tsx
+
+
+
+
+
+
+const initialFormFields = {
+    openDate: "",
+    closeDate: ""
+};
+const initialFormErrors = {};
+const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
+    const form = useFormValidation(initialFormFields);
+    const { 0: errors , 1: setErrors  } = (0,external_react_.useState)(initialFormErrors);
+    const { 0: fetching , 1: setFetching  } = (0,external_react_.useState)({
+        error: null,
+        loading: false,
+        done: false
+    });
+    const today = formatDate(new Date());
+    const handleChangeField = (e, property)=>{
+        const value = e.target.value;
+        form.setValue(property, value);
+    };
+    const submitDates = ()=>{
+        setFetching({
+            error: null,
+            done: false,
+            loading: true
+        });
+        (0,fetchHook/* Fetch */.U)({
+            url: "/api/admin/cart/dates",
+            method: "POST",
+            data: form.fields,
+            onSuccess: (response)=>{
+                setCurrentStatus(response);
+                setFetching({
+                    error: null,
+                    loading: false,
+                    done: true
+                });
+            },
+            onError: (e)=>setFetching({
+                    error: "Ocurri\xf3 un error enviando las fechas",
+                    loading: false,
+                    done: true
+                })
+        });
+        setEditing(false);
+    };
+    const validate = ()=>{
+        let localErrors = form.validateFields({
+            openDate: "Debe ingresar una fecha de apertura",
+            closeDate: "Debe ingresar una fecha de cierre"
+        });
+        const validateIntervalDates = new Date(form.closeDate) <= new Date(form.openDate);
+        if (localErrors || validateIntervalDates) {
+            setErrors(localErrors ?? {
+                openDate: "La fecha de cierre debe ser mayor que la de apertura"
+            });
+        }
+        return !localErrors;
+    };
+    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Container, {
+        children: [
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
+                gap: 3,
+                justify: "center",
+                children: [
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid, {
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Input, {
+                                type: "datetime-local",
+                                label: "Fecha y hora de apertura",
+                                min: today,
+                                value: form.openDate,
+                                onChange: (e)=>handleChangeField(e, "openDate")
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
+                                color: "error",
+                                children: errors.openDate ?? ""
+                            })
+                        ]
+                    }),
+                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid, {
+                        children: [
+                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Input, {
+                                type: "datetime-local",
+                                label: "Fecha y hora de cierre",
+                                disabled: form.openDate === "",
+                                min: getMinCloseDate(form.openDate),
+                                value: form.closeDate,
+                                onChange: (e)=>handleChangeField(e, "closeDate")
+                            }),
+                            /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
+                                color: "error",
+                                children: errors.closeDate ?? ""
+                            })
+                        ]
+                    })
+                ]
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx(react_.Button, {
+                onClick: ()=>setEditing(false)
+                ,
+                className: fetching.loading ? "button-total-disabled" : "button-cancel",
+                children: "Cancelar"
+            }),
+            /*#__PURE__*/ jsx_runtime_.jsx(react_.Button, {
+                onClick: ()=>validate() && submitDates()
+                ,
+                className: fetching.loading ? "button-total-disabled" : "button-total",
+                children: "Confirmar"
+            }),
+            /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
+                gap: 2,
+                direction: "column",
+                justify: "center",
+                children: [
+                    fetching.loading && /*#__PURE__*/ jsx_runtime_.jsx(react_.Loading, {
+                        color: "warning"
+                    }),
+                    fetching.done && fetching.error && /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
+                        children: fetching.error
+                    })
+                ]
+            })
+        ]
+    });
+};
+/* harmony default export */ const admin_CartDatesForm = (CartDatesForm);
+
+
+/***/ }),
+
+/***/ 7866:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -15,175 +210,76 @@ exports.modules = {
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6689);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2235);
 
 
 
-const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
-    const formatDate = (date)=>date.toISOString().split("T")[0]
-    ;
-    const { 0: openDate , 1: setOpenDate  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const { 0: closeDate , 1: setCloseDate  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const { 0: openDateError , 1: setOpenDateError  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const { 0: closeDateError , 1: setCloseDateError  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const { 0: fetching , 1: setFetching  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
-        error: null,
-        loading: false,
-        done: false
-    });
-    const today = formatDate(new Date());
-    const handleOpenDateChange = (e)=>{
-        const newDate = e.target.value;
-        setOpenDateError("");
-        setCloseDateError("");
-        setOpenDate(newDate);
-        let newCloseDate = new Date(newDate);
-        if (newDate) {
-            newCloseDate.setDate(newCloseDate.getDate() + 1);
-            setCloseDate(formatDate(newCloseDate));
-        }
+const CurrentStatus = ({ status , setEditing  })=>{
+    const statusToText = {
+        open: "Abierto",
+        toOpen: "Abre pronto",
+        closed: "Cerrado"
     };
-    const handleCloseDateChange = (e)=>{
-        setCloseDateError("");
-        setCloseDate(e.target.value);
-    };
-    const getMinCloseDate = ()=>{
-        if (!openDate) {
-            return "";
-        }
-        let minDate = new Date(openDate);
-        minDate.setDate(minDate.getDate() + 1);
-        return formatDate(minDate);
-    };
-    const submitDates = async ()=>{
-        try {
-            setFetching({
-                error: null,
-                done: false,
-                loading: true
-            });
-            const response = await fetch("/api/admin/cart/dates", {
-                method: "POST",
-                body: JSON.stringify({
-                    openDate,
-                    closeDate
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
+        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
+            justify: "center",
+            direction: "column",
+            alignItems: "center",
+            children: [
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                    h3: true,
+                    children: "Estado actual del carrito"
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                    h4: true,
+                    children: statusToText[status.status]
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        children: [
+                            "Abre: ",
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: (0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getDayFromDate */ .f)(status.openDate)
+                            }),
+                            " a las",
+                            " ",
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: (0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getTimeFromDate */ .D)(status.openDate)
+                            })
+                        ]
+                    })
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                        children: [
+                            "Cierra: ",
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: (0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getDayFromDate */ .f)(status.closeDate)
+                            }),
+                            " a las",
+                            " ",
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
+                                children: (0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getTimeFromDate */ .D)(status.closeDate)
+                            })
+                        ]
+                    })
+                }),
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+                    onClick: ()=>setEditing(true)
+                    ,
+                    className: "button-total",
+                    children: "Editar fechas"
                 })
-            });
-            const newStatus = await response.json();
-            setCurrentStatus(newStatus);
-            setFetching({
-                error: null,
-                loading: false,
-                done: true
-            });
-            setEditing(false);
-        } catch (e) {
-            setFetching({
-                error: "Ocurri\xf3 un error enviando las fechas",
-                loading: false,
-                done: true
-            });
-            console.log(e);
-        }
-    };
-    const validate = ()=>{
-        setOpenDateError("");
-        setCloseDateError("");
-        let isValid = true;
-        if (!openDate) {
-            setOpenDateError("Debe ingresar una fecha de apertura");
-            isValid = false;
-        }
-        if (!closeDate) {
-            setCloseDateError("Debe ingresar una fecha de cierre");
-            isValid = false;
-        }
-        if (openDate && closeDate && new Date(closeDate) <= new Date(openDate)) {
-            setCloseDateError("La fecha de cierre debe ser mayor que la de apertura");
-            isValid = false;
-        }
-        return isValid;
-    };
-    const handleSubmit = ()=>{
-        const isValid = validate();
-        if (!isValid) {
-            return;
-        }
-        submitDates();
-    };
-    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
-        children: [
-            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
-                gap: 3,
-                justify: "center",
-                children: [
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
-                        children: [
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Input, {
-                                type: "date",
-                                label: "Nueva fecha de apertura",
-                                min: today,
-                                value: openDate,
-                                onChange: handleOpenDateChange
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                                color: "error",
-                                children: openDateError
-                            })
-                        ]
-                    }),
-                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
-                        children: [
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Input, {
-                                type: "date",
-                                label: "Nueva fecha de cierre",
-                                disabled: openDate === "",
-                                min: getMinCloseDate(),
-                                value: closeDate,
-                                onChange: handleCloseDateChange
-                            }),
-                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                                color: "error",
-                                children: closeDateError
-                            })
-                        ]
-                    })
-                ]
-            }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                onClick: ()=>setEditing(false)
-                ,
-                className: fetching.loading ? "button-total-disabled" : "button-cancel",
-                children: "Cancelar"
-            }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                onClick: handleSubmit,
-                className: fetching.loading ? "button-total-disabled" : "button-total",
-                children: "Confirmar"
-            }),
-            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
-                gap: 2,
-                direction: "column",
-                justify: "center",
-                children: [
-                    fetching.loading && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Loading, {
-                        color: "warning"
-                    }),
-                    fetching.done && fetching.error && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                        children: fetching.error
-                    })
-                ]
-            })
-        ]
+            ]
+        })
     });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartDatesForm);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CurrentStatus);
 
 
 /***/ }),
 
-/***/ 1061:
+/***/ 5855:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -196,46 +292,42 @@ const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(724);
+/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3382);
 
 
 
 
-const CurrentOrders = ({ ordersCount , setOrdersCount  })=>{
+
+const OrdersCount = ({ ordersCount , setOrdersCount  })=>{
     const { 0: fetching , 1: setFetching  } = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
         error: null,
         loading: false,
         done: false
     });
     const postOrdersOnSheets = async ()=>{
-        try {
-            setFetching({
-                error: null,
-                loading: true,
-                done: false
-            });
-            const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_3__/* .getOrdersToPost */ .g4)();
-            const response = await fetch("/api/admin/orders", {
-                method: "POST",
-                body: JSON.stringify({
-                    orders
-                })
-            });
-            const result = await response.json();
-            if (!result.error) {
+        const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_3__/* .getOrdersToPost */ .g4)();
+        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_4__/* .Fetch */ .U)({
+            url: "/api/admin/orders",
+            method: "POST",
+            data: {
+                orders
+            },
+            onSuccess: ()=>{
                 setOrdersCount(0);
                 setFetching({
                     error: null,
                     loading: false,
                     done: true
                 });
-            } else throw new Error("Error enviando los pedidos");
-        } catch (error) {
-            setFetching({
-                error: "Ocurri\xf3 un error enviando los pedidos",
-                loading: false,
-                done: true
-            });
-        }
+            },
+            onError: ()=>{
+                setFetching({
+                    error: "Ocurri\xf3 un error enviando los pedidos",
+                    loading: false,
+                    done: true
+                });
+            }
+        });
     };
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
         children: [
@@ -278,12 +370,12 @@ const CurrentOrders = ({ ordersCount , setOrdersCount  })=>{
         ]
     });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CurrentOrders);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OrdersCount);
 
 
 /***/ }),
 
-/***/ 7866:
+/***/ 477:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -295,62 +387,43 @@ const CurrentOrders = ({ ordersCount , setOrdersCount  })=>{
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
 
 
-const CurrentStatus = ({ status , setEditing  })=>{
-    const statusToText = {
-        open: "Abierto",
-        toOpen: "Abre pronto",
-        closed: "Cerrado"
-    };
-    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
-        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
-            justify: "center",
-            direction: "column",
-            alignItems: "center",
+const OrderList = ({ orders  })=>{
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table, {
+            className: "orders-table",
             children: [
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                    h3: true,
-                    children: "Estado actual del carrito"
-                }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                    h4: true,
-                    children: statusToText[status.status]
-                }),
-                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid.Container, {
-                    justify: "space-around",
+                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Header, {
                     children: [
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                                children: [
-                                    "Fecha de apertura: ",
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                        children: status.openDate
-                                    })
-                                ]
-                            })
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Column, {
+                            children: "Usuario"
                         }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Grid, {
-                            children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-                                children: [
-                                    "Fecha de cierre: ",
-                                    /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("strong", {
-                                        children: status.closeDate
-                                    })
-                                ]
-                            })
+                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Column, {
+                            children: "Total"
                         })
                     ]
                 }),
-                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
-                    onClick: ()=>setEditing(true)
-                    ,
-                    className: "button-total",
-                    children: "Editar fechas"
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Body, {
+                    children: orders.map((order)=>{
+                        return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Row, {
+                            children: [
+                                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Cell, {
+                                    children: order.email
+                                }),
+                                /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Table.Cell, {
+                                    children: [
+                                        "$ ",
+                                        order.total
+                                    ]
+                                })
+                            ]
+                        }, order.email);
+                    })
                 })
             ]
         })
     });
 };
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CurrentStatus);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OrderList);
 
 
 /***/ }),
@@ -364,36 +437,68 @@ const CurrentStatus = ({ status , setEditing  })=>{
 /* harmony export */   "g4": () => (/* binding */ getOrdersToPost)
 /* harmony export */ });
 /* unused harmony export getCartStatus */
-/* harmony import */ var _src_exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7393);
+/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3382);
 
 const getProducts = async (page = 1, category = null)=>{
-    let url = "/api/products";
-    if (category) {
-        url += "/" + category;
-    }
-    let products = await fetch(`${url}?page=${page}`).then((data)=>data.json()
-    );
-    return products;
+    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
+        url: `/api/products${category ? `/${category}` : ""}`,
+        query: {
+            page
+        }
+    });
 };
 const getCategories = async ()=>{
-    let categories = await fetch("/api/categories").then((data)=>data.json()
-    );
-    return categories;
+    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
+        url: "/api/categories"
+    });
 };
 const getCartStatus = async ()=>{
-    let cartStatus = await fetch("/api/cart/status").then((data)=>data.json()
-    );
-    return cartStatus;
+    return await Fetch({
+        url: "/api/cart/status"
+    });
 };
 const getOrdersToPost = async ()=>{
-    try {
-        const orders = await fetch("/api/admin/orders/to-post").then((data)=>data.json()
-        );
-        return orders;
-    } catch (error) {
-        throw new _src_exceptions_ApiExeption__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z(error);
-    }
+    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
+        url: "/api/admin/orders/to-post"
+    });
 };
+
+
+/***/ }),
+
+/***/ 2235:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "D": () => (/* binding */ getTimeFromDate),
+/* harmony export */   "f": () => (/* binding */ getDayFromDate)
+/* harmony export */ });
+function getDayFromDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getUTCDate();
+    let formattedDay = day.toString();
+    const month = date.getUTCMonth() + 1;
+    let formattedMonth = month.toString();
+    if (formattedDay.length === 1) {
+        formattedDay = "0" + formattedDay;
+    }
+    if (formattedMonth.length === 1) {
+        formattedMonth = "0" + formattedMonth;
+    }
+    return `${formattedDay}/${formattedMonth}`;
+}
+function getTimeFromDate(dateString) {
+    const date = new Date(dateString);
+    let hours = date.getHours().toString();
+    if (hours.length === 1) {
+        hours = "0" + hours;
+    }
+    let minutes = date.getMinutes().toString();
+    if (minutes.length === 1) {
+        minutes = "0" + minutes;
+    }
+    return `${hours}:${minutes}`;
+}
 
 
 /***/ }),
@@ -405,7 +510,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Admin),
-/* harmony export */   "getServerSideProps": () => (/* binding */ getServerSideProps)
+/* harmony export */   "getServerSideProps": () => (/* reexport safe */ _src_ssp_admin__WEBPACK_IMPORTED_MODULE_10__.N)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
@@ -413,23 +518,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6735);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6896);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4014);
-/* harmony import */ var _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5869);
-/* harmony import */ var _src_services_OrderService__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1751);
-/* harmony import */ var _src_services_ConfigService__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(3507);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8366);
-/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(3883);
-/* harmony import */ var _components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5344);
-/* harmony import */ var _components_admin_CurrentOrders__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(1061);
-/* harmony import */ var _components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7866);
-/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(8662);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__]);
-([iron_session__WEBPACK_IMPORTED_MODULE_4__, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__, _helpers_notify__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
-
-
-
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8366);
+/* harmony import */ var _components_navigation_Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3883);
+/* harmony import */ var _components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3735);
+/* harmony import */ var _components_admin_OrdersCount__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5855);
+/* harmony import */ var _components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7866);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8662);
+/* harmony import */ var _components_admin_OrdersList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(477);
+/* harmony import */ var _src_ssp_admin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8328);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_admin__WEBPACK_IMPORTED_MODULE_10__]);
+([_helpers_notify__WEBPACK_IMPORTED_MODULE_8__, _src_ssp_admin__WEBPACK_IMPORTED_MODULE_10__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -443,65 +541,98 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron
 
 function Admin(props) {
     const { 0: editingDates , 1: setEditingDates  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false);
-    const { 0: ordersCount , 1: setOrdersCount  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.ordersCount);
+    const { 0: ordersCount , 1: setOrdersCount  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.currentOrders.count);
     const { 0: currentStatus , 1: setCurrentStatus  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.currentStatus);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_13__/* .infoMessages */ .o)()
+    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_8__/* .infoMessages */ .o)()
     , []);
-    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_layout__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_layout__WEBPACK_IMPORTED_MODULE_3__["default"], {
         children: [
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_navigation_Header__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_navigation_Header__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
                 user: props.user,
                 title: "Panel de administrador"
             }),
-            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Container, {
-                children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid.Container, {
-                    justify: "center",
-                    alignItems: "center",
-                    gap: 4,
-                    children: [
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {
-                            xs: 12,
-                            sm: 10,
-                            md: 6,
-                            lg: 4,
-                            children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentOrders__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z, {
-                                ordersCount: ordersCount,
-                                setOrdersCount: setOrdersCount
+            /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Container, {
+                children: [
+                    /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid.Container, {
+                        justify: "center",
+                        alignItems: "center",
+                        gap: 3,
+                        direction: "column",
+                        children: [
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {
+                                xs: 12,
+                                sm: 10,
+                                md: 8,
+                                lg: 6,
+                                children: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_OrdersCount__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z, {
+                                    ordersCount: ordersCount,
+                                    setOrdersCount: setOrdersCount
+                                })
+                            }),
+                            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {
+                                xs: 12,
+                                sm: 10,
+                                md: 8,
+                                lg: 6,
+                                children: editingDates ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z, {
+                                    setEditing: setEditingDates,
+                                    setCurrentStatus: setCurrentStatus,
+                                    initialStatus: currentStatus
+                                }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z, {
+                                    status: currentStatus,
+                                    setEditing: setEditingDates
+                                })
                             })
-                        }),
-                        /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid, {
-                            xs: 12,
-                            sm: 10,
-                            md: 6,
-                            lg: 4,
-                            children: editingDates ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CartDatesForm__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
-                                setEditing: setEditingDates,
-                                setCurrentStatus: setCurrentStatus
-                            }) : /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_CurrentStatus__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
-                                status: currentStatus,
-                                setEditing: setEditingDates
-                            })
-                        })
-                    ]
-                })
+                        ]
+                    }),
+                    ordersCount && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_admin_OrdersList__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
+                        orders: props.currentOrders.orders
+                    })
+                ]
             })
         ]
     });
 };
+
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 8328:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "N": () => (/* binding */ getServerSideProps)
+/* harmony export */ });
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4014);
+/* harmony import */ var _utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5869);
+/* harmony import */ var _services_OrderService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1751);
+/* harmony import */ var _services_ConfigService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3507);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_1__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__]);
+([iron_session__WEBPACK_IMPORTED_MODULE_1__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
+
+
+
 async function getServerSideProps(context) {
-    const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_3__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z);
-    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_3__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_7__/* ["default"] */ .Z);
-    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_4__.getIronSession)(context.req, context.res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_5__/* .sessionOptions */ .d);
+    const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
+    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_ConfigService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
+    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_1__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_2__/* .sessionOptions */ .d);
     const user = ironSession.user ?? {
         logged: false
     };
     const currentStatus = await configService.getCartStatus();
-    const ordersCount = await orderService.getOrdersCount();
+    const currentOrders = await orderService.getCurrentOrders();
     return {
         props: {
             user,
             currentStatus,
-            ordersCount
+            currentOrders
         }
     };
 }
@@ -595,7 +726,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,279,507], () => (__webpack_exec__(2285)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,507], () => (__webpack_exec__(2285)));
 module.exports = __webpack_exports__;
 
 })();

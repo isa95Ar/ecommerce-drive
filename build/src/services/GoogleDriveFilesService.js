@@ -82,7 +82,6 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                             })];
                     case 2:
                         responseFileList = _a.sent();
-                        console.log(responseFileList.data.nextPageToken);
                         NextPageToken = responseFileList.data.nextPageToken;
                         filesFields = responseFileList.data.files.map(function (file) {
                             var newName = file.name.replace(' ', '');
