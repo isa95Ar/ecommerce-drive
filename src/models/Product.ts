@@ -1,3 +1,4 @@
+import { truncate } from 'fs/promises';
 import mongoose, { Schema, model, Document } from 'mongoose';
 import { ProductModel } from '../global/types';
 
@@ -6,13 +7,15 @@ interface BaseProductDocument extends ProductModel, Document {}
 const Product = new Schema<BaseProductDocument>({
 	stock: { type: 'boolean' },
 	code: { type: 'number' },
-	name: { type: 'string' },
+	name: { type: 'string', index: true },
 	minimum: { type: 'string' },
 	price: { type: 'number' },
 	category: { type: 'string' },
 	seller: { type: 'string' },
 	picture: { type: 'string' }
 });
+
+Product.index({name: "text"});
 
 Product.statics.getProducts = async function (page: number) {
 	const limit = 60;
@@ -54,8 +57,19 @@ Product.statics.deleteAll = async function () {
 	await this.deleteMany({});
 };
 
+Product.statics.search = async function (query) {
+	 const products = await this.find(
+		{$text: {$search: query}},
+		{score: {$meta: "textScore"}}
+	 ).sort({
+		score: {$meta: "textScore"}
+	 })
+	 return {products};
+}
+
 if (!mongoose.models.Product) {
-	model<BaseProductDocument>('Product', Product);
+	const productModel = model<BaseProductDocument>('Product', Product);
+	productModel.createIndexes();
 }
 
 export default mongoose.models.Product;
