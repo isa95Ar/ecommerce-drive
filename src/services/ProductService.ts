@@ -37,6 +37,15 @@ class ProductService extends BaseService {
 		}
 	}
 
+	async searchProduct(query) {
+		try {
+			const products = await Product.search(query);
+			return products;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	} 
+
 	async clearAll() {
 		try {
 			return Product.deleteAll();
