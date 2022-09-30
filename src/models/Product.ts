@@ -64,7 +64,7 @@ Product.statics.search = async function (query) {
 	 ).sort({
 		score: {$meta: "textScore"}
 	 })
-	 return products;
+	 return {products};
 }
 
 if (!mongoose.models.Product) {
