@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Container, Grid } from '@nextui-org/react';
-import { container } from 'tsyringe';
-import { getIronSession, IronSessionData } from 'iron-session';
-import { UserLogged } from '../src/global/types';
-import { sessionOptions } from '../src/utils/withIronSession';
-import OrderService from '../src/services/OrderService';
-import ConfigService from '../src/services/ConfigService';
 import Layout from './layout';
 import Header from '../components/navigation/Header';
 import CartDatesForm from '../components/admin/CartDatesForm';
@@ -13,6 +7,7 @@ import OrdersCount from '../components/admin/OrdersCount';
 import CurrentStatus from '../components/admin/CurrentStatus';
 import { infoMessages } from '../helpers/notify';
 import OrdersList from '../components/admin/OrdersList';
+export {getServerSideProps} from '../src/ssp/admin';
 
 export default function Admin(props) {
 	const [editingDates, setEditingDates] = useState(false);
@@ -46,18 +41,4 @@ export default function Admin(props) {
 	);
 }
 
-export async function getServerSideProps(context) {
-	const orderService = container.resolve(OrderService);
-	const configService = container.resolve(ConfigService);
 
-	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
-	const user: UserLogged = ironSession.user ?? { logged: false };
-
-	const currentStatus = await configService.getCartStatus();
-
-	const currentOrders = await orderService.getCurrentOrders();
-
-	return {
-		props: { user, currentStatus, currentOrders }
-	};
-}

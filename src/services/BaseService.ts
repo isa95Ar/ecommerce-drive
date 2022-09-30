@@ -7,10 +7,7 @@ class BaseService {
 
 	constructor() {
 		this.mongoInit()
-			.then(res => {
-				console.log(`mongo db connection actual Status ${res}`);
-			})
-			.catch(e => console.log(e));
+			.catch(e => console.log(e,'error on mongo connection'));
 	}
 
 	async mongoInit(): Promise<ConnectionStates> {
@@ -19,7 +16,6 @@ class BaseService {
 				if (this.isDbConnected) return;
 				const db = await connect('mongodb://localhost:27017/almargen');
 				this.isDbConnected = db.connections[0].readyState;
-				console.log(`connected succesfully =)`);
 				resolve(db.connections[0].readyState);
 			} catch (e) {
 				reject(e);

@@ -8,6 +8,7 @@ import { formatDate, getMinCloseDate } from '../../helpers/date';
 type props = {
 	setEditing(status: boolean): void;
 	setCurrentStatus(status: statusCart): void;
+	initialStatus:statusCart
 };
 
 const initialFormFields: datesFormType = { openDate: '', closeDate: '' };

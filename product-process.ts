@@ -6,7 +6,12 @@ import { container } from 'tsyringe';
 
 dotEnv.config();
 
-async function initExport() {
+type exportResult = {
+	status:string,
+	error?:string
+}
+
+async function initExport():Promise<exportResult> {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const configService = container.resolve(ConfigService);
@@ -21,7 +26,7 @@ async function initExport() {
 	});
 }
 
-initExport().then(res => console.log(`result of first exportation ${res}`));
+initExport().then(res => console.log(`result of first exportation ${res.status}`));
 //our Cron on Node :v
 setInterval(async () => {
 	await initExport();

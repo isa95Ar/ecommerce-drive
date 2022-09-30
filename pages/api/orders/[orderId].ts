@@ -12,7 +12,7 @@ export default async function updateOrder(req, res) {
 		await orderService.updateOrder(orderId, body.products);
 		res.status(200).json({ error: false, message: 'Order updated successfully' });
 	} catch (error) {
-		console.log(error);
+		console.log(error,'error on update order');
 		res.status(500).json(error);
 	}
 }
