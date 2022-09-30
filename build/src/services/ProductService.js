@@ -125,6 +125,25 @@ var ProductService = /** @class */ (function (_super) {
             });
         });
     };
+    ProductService.prototype.searchProduct = function (query) {
+        return __awaiter(this, void 0, void 0, function () {
+            var products, e_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, Product_1["default"].search(query)];
+                    case 1:
+                        products = _a.sent();
+                        return [2 /*return*/, products];
+                    case 2:
+                        e_4 = _a.sent();
+                        throw new ApiExeption_1["default"](e_4);
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     ProductService.prototype.clearAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {

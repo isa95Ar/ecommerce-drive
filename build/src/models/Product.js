@@ -40,13 +40,14 @@ var mongoose_1 = require("mongoose");
 var Product = new mongoose_1.Schema({
     stock: { type: 'boolean' },
     code: { type: 'number' },
-    name: { type: 'string' },
+    name: { type: 'string', index: true },
     minimum: { type: 'string' },
     price: { type: 'number' },
     category: { type: 'string' },
     seller: { type: 'string' },
     picture: { type: 'string' }
 });
+Product.index({ name: "text" });
 Product.statics.getProducts = function (page) {
     return __awaiter(this, void 0, void 0, function () {
         var limit, productsCount, products, totalPages;
@@ -118,7 +119,23 @@ Product.statics.deleteAll = function () {
         });
     });
 };
+Product.statics.search = function (query) {
+    return __awaiter(this, void 0, void 0, function () {
+        var products;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, this.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({
+                        score: { $meta: "textScore" }
+                    })];
+                case 1:
+                    products = _a.sent();
+                    return [2 /*return*/, { products: products }];
+            }
+        });
+    });
+};
 if (!mongoose_1["default"].models.Product) {
-    (0, mongoose_1.model)('Product', Product);
+    var productModel = (0, mongoose_1.model)('Product', Product);
+    productModel.createIndexes();
 }
 exports["default"] = mongoose_1["default"].models.Product;

@@ -93,7 +93,7 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 				Confirmar
 			</Button>
 			<Grid.Container gap={2} direction="column" justify="center">
-				{fetching.loading && <Loading color="warning"></Loading>}
+				{fetching.loading && <Loading color="warning" />}
 				{fetching.done && fetching.error && <Text>{fetching.error}</Text>}
 			</Grid.Container>
 		</Container>

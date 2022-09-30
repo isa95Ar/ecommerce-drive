@@ -63,7 +63,9 @@ const GoogleIcon = ({ height =48 , width =48  })=>{
 
 
 
+
 const LoginCard = ()=>{
+    const { 0: loading , 1: setLoading  } = (0,external_react_.useState)(false);
     return /*#__PURE__*/ jsx_runtime_.jsx(react_.Grid, {
         className: "login",
         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Grid.Container, {
@@ -87,11 +89,17 @@ const LoginCard = ()=>{
                     sm: 6,
                     md: 3,
                     lg: 3,
+                    justify: "center",
                     children: /*#__PURE__*/ jsx_runtime_.jsx(react_.Button, {
                         className: "google-button",
-                        onClick: ()=>location.href = "/api/login"
-                        ,
-                        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                        onClick: ()=>{
+                            setLoading(true);
+                            location.href = "/api/login";
+                        },
+                        children: loading ? /*#__PURE__*/ jsx_runtime_.jsx(react_.Loading, {
+                            color: "warning",
+                            size: "sm"
+                        }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
                             className: "button-container",
                             children: [
                                 /*#__PURE__*/ jsx_runtime_.jsx(GoogleIcon, {

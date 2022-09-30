@@ -54,7 +54,8 @@ const Product = new external_mongoose_.Schema({
         type: "number"
     },
     name: {
-        type: "string"
+        type: "string",
+        index: true
     },
     minimum: {
         type: "string"
@@ -71,6 +72,9 @@ const Product = new external_mongoose_.Schema({
     picture: {
         type: "string"
     }
+});
+Product.index({
+    name: "text"
 });
 Product.statics.getProducts = async function(page) {
     const limit = 60;
@@ -111,8 +115,27 @@ Product.statics.getByCategory = async function(category, page) {
 Product.statics.deleteAll = async function() {
     await this.deleteMany({});
 };
+Product.statics.search = async function(query) {
+    const products = await this.find({
+        $text: {
+            $search: query
+        }
+    }, {
+        score: {
+            $meta: "textScore"
+        }
+    }).sort({
+        score: {
+            $meta: "textScore"
+        }
+    });
+    return {
+        products
+    };
+};
 if (!(external_mongoose_default()).models.Product) {
-    (0,external_mongoose_.model)("Product", Product);
+    const productModel = (0,external_mongoose_.model)("Product", Product);
+    productModel.createIndexes();
 }
 /* harmony default export */ const models_Product = ((external_mongoose_default()).models.Product);
 
@@ -150,6 +173,14 @@ let ProductService = _class = _dec2(_class = _dec1(_class = _dec((_class = class
     async getByCategory(category, page = 1) {
         try {
             const products = await models_Product.getByCategory(category, page);
+            return products;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async searchProduct(query) {
+        try {
+            const products = await models_Product.search(query);
             return products;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
