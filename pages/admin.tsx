@@ -35,7 +35,7 @@ export default function Admin(props) {
 						)}
 					</Grid>
 				</Grid.Container>
-				{ordersCount && <OrdersList orders={props.currentOrders.orders} />}
+				{ordersCount ? <OrdersList orders={props.currentOrders.orders} /> : ""}
 			</Container>
 		</Layout>
 	);
