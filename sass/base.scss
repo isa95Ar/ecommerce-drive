@@ -13,6 +13,8 @@ $fa-font-path: '/fonts';
 
 @import './screens/cart.scss';
 
+@import './screens/admin.scss';
+
 @import './components/categorySelector.scss';
 
 @import './components/header.scss';
@@ -22,3 +24,7 @@ $fa-font-path: '/fonts';
 @import './components/cartTotal';
 
 @import './components/cartButton';
+
+@import './components/footer';
+
+@import './components/cartMessage';

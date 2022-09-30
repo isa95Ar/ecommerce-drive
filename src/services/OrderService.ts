@@ -19,10 +19,10 @@ class OrderService extends BaseService {
 		}
 	}
 
-	async getOrdersCount() {
+	async getCurrentOrders() {
 		try {
-			const ordersCount = await Order.getOrdersCount();
-			return ordersCount;
+			const currentOrders = await Order.getCurrentOrders();
+			return JSON.parse(JSON.stringify(currentOrders));
 		} catch (e) {
 			throw new ApiException(e);
 		}
@@ -48,7 +48,7 @@ class OrderService extends BaseService {
 
 	async updateOrder(orderId: string, products) {
 		try {
-			console.log(orderId, products);
+		
 			const updatedOrder = await Order.updateOrder(orderId, products);
 			return updatedOrder;
 		} catch (e) {

@@ -33,30 +33,13 @@ Config.statics.getCartStatus = async function () {
 		status = 'closed';
 	}
 
-	const formatDate = (date: Date) => {
-		const day = date.getUTCDate();
-		let formattedDay = day.toString();
-		const month = date.getUTCMonth() + 1;
-		let formattedMonth = month.toString();
-
-		if (formattedDay.length === 1) {
-			formattedDay = '0' + formattedDay;
-		}
-		if (formattedMonth.length === 1) {
-			formattedMonth = '0' + formattedMonth;
-		}
-
-		return `${formattedDay}/${formattedMonth}`;
-	};
-
-	const openDate = formatDate(currentConfig.openDate);
-	const closeDate = formatDate(currentConfig.closeDate);
+	const { openDate, closeDate } = currentConfig;
 
 	return { openDate, closeDate, status };
 };
 
 Config.statics.updateDates = async function (openDate, closeDate) {
-	await this.findOneAndUpdate({ openDate, closeDate });
+	await this.findOneAndUpdate({ openDate: openDate.toString(), closeDate: closeDate.toString() });
 };
 
 if (!mongoose.models.Config) {

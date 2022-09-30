@@ -4,20 +4,8 @@ import CategoryService from '../src/services/CategoryService';
 import GoogleSheetService from '../src/services/GoogleSheetService';
 import { slugify } from '../helpers/slug';
 import GoogleDriveFilesService from '../src/services/GoogleDriveFilesService';
-import { FileInfoType } from '../src/global/types';
+import { FileInfoType, productType } from '../src/global/types';
 import config from '../constants/config';
-
-type productType = {
-	stock: boolean;
-	code: number;
-	name: string;
-	minimum: string;
-	price: number;
-	category: string;
-	categoryName: string;
-	seller: string;
-	picture: string;
-};
 
 function serializingProducts(products: Array<Array<string>>, files: FileInfoType): Array<productType> {
 	const serializeProducts = [];
@@ -58,7 +46,7 @@ async function saveProductsOnMongo(products: Array<productType>): Promise<object
 		console.log('Products saved succesfully');
 		return { success: true };
 	} catch (e) {
-		console.log(e);
+		console.log('error saving products',e);
 		return { error: e };
 	}
 }
@@ -86,7 +74,7 @@ async function saveCategories(products: Array<productType>): Promise<object> {
 		console.log('Categories saved succesfully');
 		return { success: true };
 	} catch (e) {
-		console.log(e);
+		console.log('error saving categories',e);
 		return { error: e };
 	}
 }
@@ -106,7 +94,7 @@ export async function updateProducts(): Promise<object> {
 
 		return { success: true };
 	} catch (e) {
-		console.log(e, '??');
+		console.log(e, 'Error updating products');
 		return { error: e };
 	}
 }

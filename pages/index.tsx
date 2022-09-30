@@ -1,14 +1,10 @@
 import Layout from './layout';
 import LoginCard from '../components/cards/LoginCard';
-import { container } from 'tsyringe';
-import ConfigService from '../src/services/ConfigService';
-import AvisoCarrito from '../components/AvisoCarrito';
-import { getIronSession, IronSessionData } from 'iron-session';
-import { sessionOptions } from '../src/utils/withIronSession';
-import { UserLogged } from '../src/global/types';
+import MessageCard from '../components/cards/MessageCard';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
+export {getServerSideProps} from '../src/ssp/index';
 
 export default function Home(props) {
 	const router = useRouter();
@@ -25,27 +21,8 @@ export default function Home(props) {
 			return <LoginCard />;
 		}
 
-		return <AvisoCarrito status={props.cartStatus} />;
+		return <MessageCard status={props.cartStatus} />;
 	};
 
 	return <Layout {...props}>{RenderComponent()}</Layout>;
-}
-
-export async function getServerSideProps(context) {
-	const configService = container.resolve(ConfigService);
-	const getIsOpen = await configService.getCartStatus();
-	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
-
-	if (ironSession.user && getIsOpen.status === 'open') {
-		return {
-			redirect: {
-				permanent: false,
-				destination: '/products'
-			},
-			props: {}
-		};
-	}
-
-	const user: UserLogged = ironSession.user ?? { logged: false };
-	return { props: { cartStatus: getIsOpen, user } };
 }
