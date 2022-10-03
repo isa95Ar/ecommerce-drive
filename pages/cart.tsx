@@ -9,7 +9,10 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
-export {getServerSideProps} from '../src/ssp/cart';
+import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
@@ -26,6 +29,9 @@ export default function Cart(props) {
 			onSuccess: () => {
 				cart.removeCart();
 				router.push('/#orderstored');
+				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {
+					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
+				});
 			},
 			onError: e => {
 				console.warn(`error on saving order`, e);
@@ -73,4 +79,3 @@ export default function Cart(props) {
 		</Layout>
 	);
 }
-

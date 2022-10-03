@@ -19,27 +19,27 @@ class ProductService extends BaseService {
 		}
 	}
 
-	async getProducts(page: number = 1) {
+	async getProducts(category, page: number = 1) {
 		try {
-			const products = await Product.getProducts(page);
+			const products = await Product.getProducts(category, page);
 			return products;
 		} catch (e) {
 			throw new ApiException(e);
 		}
 	}
 
-	async getByCategory(category: string, page: number = 1) {
-		try {
-			const products = await Product.getByCategory(category, page);
-			return products;
-		} catch (e) {
-			throw new ApiException(e);
-		}
-	}
+	// async getByCategory(category: string, page: number = 1) {
+	// 	try {
+	// 		const products = await Product.getByCategory(category, page);
+	// 		return products;
+	// 	} catch (e) {
+	// 		throw new ApiException(e);
+	// 	}
+	// }
 
-	async searchProduct(query) {
+	async searchProduct(query, category) {
 		try {
-			const products = await Product.search(query);
+			const products = await Product.search(query, category);
 			return products;
 		} catch (e) {
 			throw new ApiException(e);

@@ -16,8 +16,8 @@ export default function Products(props) {
 
 	const [products, setProducts] = useState([]);
 	const [search, setSearch] = useState('');
-	const [categories, setCategories] = useState([{ key: '', name: 'Todos' }]);
-	const [category, setCategory] = useState({ key: '', name: 'Todos' });
+	const [categories, setCategories] = useState([{ key: '', name: 'Todas las categorías' }]);
+	const [category, setCategory] = useState({ key: '', name: 'Todas las categorías' });
 	const [totalPages, setTotalPages] = useState(1);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ export default function Products(props) {
 		getCategories().then(res => {
 			let categoriesParsed = [];
 			res.map(category => categoriesParsed.push({ key: category.slug, name: category.name }));
-			setCategories([{ key: '', name: 'Todos' }, ...categoriesParsed]);
+			setCategories([{ key: '', name: 'Todas las categorías' }, ...categoriesParsed]);
 		});
 	}, []);
 
@@ -56,8 +56,14 @@ export default function Products(props) {
 		<Layout>
 			<Header title="Elegí el rubro y encontrá tus productos" user={props.user} cart={cart} />
 			<Container css={{ backgroundColor: '#fff', maxWidth: '1260px' }}>
-				<Row css={{ backgroundColor: 'transparent', marginTop: '-1.4rem' }}>
-					<Input clearable fullWidth className="input-search" onChange={e => setSearch(e.target.value)}></Input>
+				<Row css={{ backgroundColor: 'transparent', marginTop: '-1.4rem' }} className="search-row">
+					<Input
+						placeholder="Buscá un producto..."
+						clearable
+						fullWidth
+						className="input-search"
+						onChange={e => setSearch(e.target.value)}
+					></Input>
 					<CategorySelector categories={categories} setCategory={val => setCategory(val)} category={category} />
 				</Row>
 				{loading ? (
