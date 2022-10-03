@@ -66,7 +66,7 @@ function initExport() {
                                 return [3 /*break*/, 5];
                             case 4:
                                 e_1 = _a.sent();
-                                reject({ status: 'error', error: e_1 });
+                                reject(e_1);
                                 return [3 /*break*/, 5];
                             case 5: return [2 /*return*/];
                         }
@@ -75,7 +75,7 @@ function initExport() {
         });
     });
 }
-initExport().then(function (res) { return console.log("result of first exportation ".concat(res.status)); });
+initExport().then(function (res) { return console.log("result of first exportation ".concat(res.status)); })["catch"](function (e) { return console.log(e); });
 //our Cron on Node :v
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

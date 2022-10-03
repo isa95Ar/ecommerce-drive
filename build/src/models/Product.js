@@ -47,23 +47,32 @@ var Product = new mongoose_1.Schema({
     seller: { type: 'string' },
     picture: { type: 'string' }
 });
-Product.index({ name: "text" });
-Product.statics.getProducts = function (page) {
+Product.index({ name: 'text' });
+Product.statics.getProducts = function (category, page) {
     return __awaiter(this, void 0, void 0, function () {
-        var limit, productsCount, products, totalPages;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var limit, productsCount, _a, query, products, totalPages;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     limit = 60;
-                    return [4 /*yield*/, this.countDocuments()];
+                    if (!category) return [3 /*break*/, 2];
+                    return [4 /*yield*/, this.countDocuments({ category: category })];
                 case 1:
-                    productsCount = _a.sent();
-                    return [4 /*yield*/, this.find({})
+                    _a = _b.sent();
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, this.countDocuments()];
+                case 3:
+                    _a = _b.sent();
+                    _b.label = 4;
+                case 4:
+                    productsCount = _a;
+                    query = category ? { category: category } : {};
+                    return [4 /*yield*/, this.find(query)
                             .select({ _id: 0, __v: 0 })
                             .limit(limit)
                             .skip(limit * (page - 1))];
-                case 2:
-                    products = _a.sent();
+                case 5:
+                    products = _b.sent();
                     totalPages = Math.ceil(productsCount / limit);
                     return [2 /*return*/, { products: products, totalPages: totalPages }];
             }
@@ -82,31 +91,19 @@ Product.statics.createProduct = function (product) {
         });
     });
 };
-Product.statics.getByCategory = function (category, page) {
-    return __awaiter(this, void 0, void 0, function () {
-        var limit, productsCount, products, totalPages;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    limit = 60;
-                    return [4 /*yield*/, this.countDocuments({ category: category })];
-                case 1:
-                    productsCount = _a.sent();
-                    return [4 /*yield*/, this.find({ category: category })
-                            .select({ _id: 0, __v: 0 })
-                            .limit(limit)
-                            .skip(limit * (page - 1))];
-                case 2:
-                    products = _a.sent();
-                    if (!products.length) {
-                        throw new Error("No products found on category ".concat(category));
-                    }
-                    totalPages = Math.ceil(productsCount / limit);
-                    return [2 /*return*/, { products: products, totalPages: totalPages }];
-            }
-        });
-    });
-};
+// Product.statics.getByCategory = async function (category: string, page: number) {
+// 	const limit = 60;
+// 	const productsCount = await this.countDocuments({ category });
+// 	const products = await this.find({ category })
+// 		.select({ _id: 0, __v: 0 })
+// 		.limit(limit)
+// 		.skip(limit * (page - 1));
+// 	if (!products.length) {
+// 		throw new Error(`No products found on category ${category}`);
+// 	}
+// 	const totalPages = Math.ceil(productsCount / limit);
+// 	return { products, totalPages };
+// };
 Product.statics.deleteAll = function () {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
@@ -119,14 +116,16 @@ Product.statics.deleteAll = function () {
         });
     });
 };
-Product.statics.search = function (query) {
+Product.statics.search = function (category, search) {
     return __awaiter(this, void 0, void 0, function () {
-        var products;
+        var query, products;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, this.find({ $text: { $search: query } }, { score: { $meta: "textScore" } }).sort({
-                        score: { $meta: "textScore" }
-                    })];
+                case 0:
+                    query = category ? { category: category, $text: { $search: search } } : { $text: { $search: search } };
+                    return [4 /*yield*/, this.find(query, { score: { $meta: "textScore" } }).sort({
+                            score: { $meta: "textScore" }
+                        })];
                 case 1:
                     products = _a.sent();
                     return [2 /*return*/, { products: products }];

@@ -85,7 +85,7 @@ var ProductService = /** @class */ (function (_super) {
             });
         });
     };
-    ProductService.prototype.getProducts = function (page) {
+    ProductService.prototype.getProducts = function (category, page) {
         if (page === void 0) { page = 1; }
         return __awaiter(this, void 0, void 0, function () {
             var products, e_2;
@@ -93,7 +93,7 @@ var ProductService = /** @class */ (function (_super) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, Product_1["default"].getProducts(page)];
+                        return [4 /*yield*/, Product_1["default"].getProducts(category, page)];
                     case 1:
                         products = _a.sent();
                         return [2 /*return*/, products];
@@ -105,40 +105,28 @@ var ProductService = /** @class */ (function (_super) {
             });
         });
     };
-    ProductService.prototype.getByCategory = function (category, page) {
-        if (page === void 0) { page = 1; }
+    // async getByCategory(category: string, page: number = 1) {
+    // 	try {
+    // 		const products = await Product.getByCategory(category, page);
+    // 		return products;
+    // 	} catch (e) {
+    // 		throw new ApiException(e);
+    // 	}
+    // }
+    ProductService.prototype.searchProduct = function (query, category) {
         return __awaiter(this, void 0, void 0, function () {
             var products, e_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, Product_1["default"].getByCategory(category, page)];
+                        return [4 /*yield*/, Product_1["default"].search(query, category)];
                     case 1:
                         products = _a.sent();
                         return [2 /*return*/, products];
                     case 2:
                         e_3 = _a.sent();
                         throw new ApiExeption_1["default"](e_3);
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ProductService.prototype.searchProduct = function (query) {
-        return __awaiter(this, void 0, void 0, function () {
-            var products, e_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, Product_1["default"].search(query)];
-                    case 1:
-                        products = _a.sent();
-                        return [2 /*return*/, products];
-                    case 2:
-                        e_4 = _a.sent();
-                        throw new ApiExeption_1["default"](e_4);
                     case 3: return [2 /*return*/];
                 }
             });
