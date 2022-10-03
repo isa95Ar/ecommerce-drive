@@ -26,7 +26,7 @@ class GoogleDriveFilesService extends GoogleAuthService {
 				q: `'${config.gapi.PICTURES_FOLDERS_ID}' in parents`,
 				fields: 'nextPageToken, files(id, name, webContentLink)'
 			});
-			
+
 			NextPageToken = responseFileList.data.nextPageToken;
 			const filesFields: FileInfoType = responseFileList.data.files.map(file => {
 				const newName = file.name.replace(' ', '');

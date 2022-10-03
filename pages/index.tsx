@@ -4,7 +4,7 @@ import MessageCard from '../components/cards/MessageCard';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
-export {getServerSideProps} from '../src/ssp/index';
+export { getServerSideProps } from '../src/ssp/index';
 
 export default function Home(props) {
 	const router = useRouter();

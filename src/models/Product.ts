@@ -15,7 +15,7 @@ const Product = new Schema<BaseProductDocument>({
 	picture: { type: 'string' }
 });
 
-Product.index({name: "text"});
+Product.index({ name: 'text' });
 
 Product.statics.getProducts = async function (category:string, page: number) {
 	const limit = 60;
@@ -23,7 +23,6 @@ Product.statics.getProducts = async function (category:string, page: number) {
 	const productsCount = category ? await this.countDocuments({ category }) : await this.countDocuments();
 
     const query = category ? { category } : {};
-    // console.log(query);
 	const products = await this.find(query)
 		.select({ _id: 0, __v: 0 })
 		.limit(limit)
@@ -61,8 +60,6 @@ Product.statics.deleteAll = async function () {
 
 Product.statics.search = async function (category, search) {
     const query = category ? { category, $text: {$search: search}} : {$text: {$search: search}};
-    console.log(category);
-    console.log(search);
 	 const products = await this.find(
         query,
 		{score: {$meta: "textScore"}}

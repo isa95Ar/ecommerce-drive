@@ -44,7 +44,7 @@ class ProductService extends BaseService {
 		} catch (e) {
 			throw new ApiException(e);
 		}
-	} 
+	}
 
 	async clearAll() {
 		try {

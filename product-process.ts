@@ -7,11 +7,11 @@ import { container } from 'tsyringe';
 dotEnv.config();
 
 type exportResult = {
-	status:string,
-	error?:string
-}
+	status: string;
+	error?: string;
+};
 
-async function initExport():Promise<exportResult> {
+async function initExport(): Promise<exportResult> {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const configService = container.resolve(ConfigService);

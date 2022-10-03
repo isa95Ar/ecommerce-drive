@@ -7,7 +7,7 @@ import OrdersCount from '../components/admin/OrdersCount';
 import CurrentStatus from '../components/admin/CurrentStatus';
 import { infoMessages } from '../helpers/notify';
 import OrdersList from '../components/admin/OrdersList';
-export {getServerSideProps} from '../src/ssp/admin';
+export { getServerSideProps } from '../src/ssp/admin';
 
 export default function Admin(props) {
 	const [editingDates, setEditingDates] = useState(false);
@@ -40,5 +40,3 @@ export default function Admin(props) {
 		</Layout>
 	);
 }
-
-

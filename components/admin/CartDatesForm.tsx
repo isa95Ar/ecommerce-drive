@@ -8,7 +8,7 @@ import { formatDate, getMinCloseDate } from '../../helpers/date';
 type props = {
 	setEditing(status: boolean): void;
 	setCurrentStatus(status: statusCart): void;
-	initialStatus:statusCart
+	initialStatus: statusCart;
 };
 
 const initialFormFields: datesFormType = { openDate: '', closeDate: '' };
@@ -20,7 +20,7 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const today = formatDate(new Date());
-    console.log(formatDate(new Date()));
+	console.log(formatDate(new Date()));
 	const handleChangeField = (e, property: keyof datesFormType) => {
 		const value = e.target.value;
 		form.setValue(property, value);

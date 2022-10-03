@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from '@nextui-org/react';
 import React, { FC } from 'react';
 
-const Links:FC = () => {
+const Links: FC = () => {
 	return (
 		<>
 			<div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -22,7 +22,6 @@ const Links:FC = () => {
 			</div>
 		</>
 	);
-}
-
+};
 
 export default Links;

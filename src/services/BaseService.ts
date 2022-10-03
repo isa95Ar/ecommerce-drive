@@ -6,8 +6,7 @@ class BaseService {
 	public isDbConnected: ConnectionStates;
 
 	constructor() {
-		this.mongoInit()
-			.catch(e => console.log(e,'error on mongo connection'));
+		this.mongoInit().catch(e => console.log(e, 'error on mongo connection'));
 	}
 
 	async mongoInit(): Promise<ConnectionStates> {
