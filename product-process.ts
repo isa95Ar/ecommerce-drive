@@ -21,12 +21,12 @@ async function initExport():Promise<exportResult> {
 			}
 			resolve({ status: 'success' });
 		} catch (e) {
-			reject({ status: 'error', error: e });
+			reject(e);
 		}
 	});
 }
 
-initExport().then(res => console.log(`result of first exportation ${res.status}`));
+initExport().then(res => console.log(`result of first exportation ${res.status}`)).catch((e) => console.log(e));
 //our Cron on Node :v
 setInterval(async () => {
 	await initExport();
