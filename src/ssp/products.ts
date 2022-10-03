@@ -1,4 +1,3 @@
-
 import { sessionOptions } from '../utils/withIronSession';
 import { container } from 'tsyringe';
 import ConfigService from '../services/ConfigService';

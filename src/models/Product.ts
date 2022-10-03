@@ -15,7 +15,7 @@ const Product = new Schema<BaseProductDocument>({
 	picture: { type: 'string' }
 });
 
-Product.index({name: "text"});
+Product.index({ name: 'text' });
 
 Product.statics.getProducts = async function (page: number) {
 	const limit = 60;
@@ -58,14 +58,11 @@ Product.statics.deleteAll = async function () {
 };
 
 Product.statics.search = async function (query) {
-	 const products = await this.find(
-		{$text: {$search: query}},
-		{score: {$meta: "textScore"}}
-	 ).sort({
-		score: {$meta: "textScore"}
-	 })
-	 return {products};
-}
+	const products = await this.find({ $text: { $search: query } }, { score: { $meta: 'textScore' } }).sort({
+		score: { $meta: 'textScore' }
+	});
+	return { products };
+};
 
 if (!mongoose.models.Product) {
 	const productModel = model<BaseProductDocument>('Product', Product);

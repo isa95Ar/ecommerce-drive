@@ -86,7 +86,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 
 	return {
 		...cart,
-		data:cart,
+		data: cart,
 		addProduct,
 		removeProduct,
 		removeCart,

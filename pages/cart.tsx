@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
-export {getServerSideProps} from '../src/ssp/cart';
+export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
@@ -73,4 +73,3 @@ export default function Cart(props) {
 		</Layout>
 	);
 }
-

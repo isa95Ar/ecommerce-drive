@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 
 export default function sendEmail(mailData: MailData) {
 	return transporter.sendMail(mailData, function (err) {
-		if (err) console.log(err,'error sending mail');
+		if (err) console.log(err, 'error sending mail');
 		else console.log('Order email sent succesfully');
 	});
 }

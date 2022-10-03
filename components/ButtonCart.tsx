@@ -31,5 +31,4 @@ const ButtonCart: FC<props> = ({ cart }) => {
 	);
 };
 
-
 export default ButtonCart;
