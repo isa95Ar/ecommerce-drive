@@ -2,7 +2,7 @@ import { getIronSession, IronSessionData } from 'iron-session';
 import { sessionOptions } from '../utils/withIronSession';
 import { container } from 'tsyringe';
 import OrderService from '../services/OrderService';
-import {  UserLogged } from '../global/types';
+import { UserLogged } from '../global/types';
 
 export async function getServerSideProps(context) {
 	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);

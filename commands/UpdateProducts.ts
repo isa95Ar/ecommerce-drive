@@ -46,7 +46,7 @@ async function saveProductsOnMongo(products: Array<productType>): Promise<object
 		console.log('Products saved succesfully');
 		return { success: true };
 	} catch (e) {
-		console.log('error saving products',e);
+		console.log('error saving products', e);
 		return { error: e };
 	}
 }
@@ -74,7 +74,7 @@ async function saveCategories(products: Array<productType>): Promise<object> {
 		console.log('Categories saved succesfully');
 		return { success: true };
 	} catch (e) {
-		console.log('error saving categories',e);
+		console.log('error saving categories', e);
 		return { error: e };
 	}
 }

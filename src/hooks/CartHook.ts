@@ -27,7 +27,7 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 		if (products.find(product => product.code == productCart.code)) {
 			products = products.map(cartProduct => {
 				if (cartProduct.code == productCart.code) {
-					return productCart;
+					return {...productCart, qty: productCart.qty + cartProduct.qty, total: productCart.total + cartProduct.total };
 				} else {
 					return cartProduct;
 				}
@@ -75,18 +75,16 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 		if (actualCart) {
 			const storedCart = JSON.parse(actualCart);
 			products = products.concat(storedCart.products);
-		}
-
-		if (userCart && userCart.products) {
+		} else if (userCart && userCart.products) {
 			products = products.concat(userCart.products);
 		}
-
-		products.map(product => addProduct(product, product.qty));
+        setCart({...cart, products, total: sumTotals(products)});
 	}, []);
 
 	return {
-		...cart,
-		data:cart,
+		products:cart.products,
+        total:cart.total,
+		data: cart,
 		addProduct,
 		removeProduct,
 		removeCart,

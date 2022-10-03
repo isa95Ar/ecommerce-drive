@@ -48,7 +48,6 @@ class OrderService extends BaseService {
 
 	async updateOrder(orderId: string, products) {
 		try {
-		
 			const updatedOrder = await Order.updateOrder(orderId, products);
 			return updatedOrder;
 		} catch (e) {

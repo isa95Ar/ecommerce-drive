@@ -4,7 +4,7 @@ export const infoMessages = () => {
 	const action = location.href.split('#');
 	switch (action[1]) {
 		case 'logout':
-			toast.info('Se ha deslogeado');
+			toast.warn('Se ha deslogeado');
 			break;
 		case 'logged':
 			toast.success('Inicio de sesion exitoso!');

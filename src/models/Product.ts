@@ -15,14 +15,15 @@ const Product = new Schema<BaseProductDocument>({
 	picture: { type: 'string' }
 });
 
-Product.index({name: "text"});
+Product.index({ name: 'text' });
 
-Product.statics.getProducts = async function (page: number) {
+Product.statics.getProducts = async function (category:string, page: number) {
 	const limit = 60;
 
-	const productsCount = await this.countDocuments();
+	const productsCount = category ? await this.countDocuments({ category }) : await this.countDocuments();
 
-	const products = await this.find({})
+    const query = category ? { category } : {};
+	const products = await this.find(query)
 		.select({ _id: 0, __v: 0 })
 		.limit(limit)
 		.skip(limit * (page - 1));
@@ -35,31 +36,32 @@ Product.statics.createProduct = async function (product: ProductModel) {
 	await this.create(product);
 };
 
-Product.statics.getByCategory = async function (category: string, page: number) {
-	const limit = 60;
+// Product.statics.getByCategory = async function (category: string, page: number) {
+// 	const limit = 60;
 
-	const productsCount = await this.countDocuments({ category });
+// 	const productsCount = await this.countDocuments({ category });
 
-	const products = await this.find({ category })
-		.select({ _id: 0, __v: 0 })
-		.limit(limit)
-		.skip(limit * (page - 1));
+// 	const products = await this.find({ category })
+// 		.select({ _id: 0, __v: 0 })
+// 		.limit(limit)
+// 		.skip(limit * (page - 1));
 
-	if (!products.length) {
-		throw new Error(`No products found on category ${category}`);
-	}
+// 	if (!products.length) {
+// 		throw new Error(`No products found on category ${category}`);
+// 	}
 
-	const totalPages = Math.ceil(productsCount / limit);
-	return { products, totalPages };
-};
+// 	const totalPages = Math.ceil(productsCount / limit);
+// 	return { products, totalPages };
+// };
 
 Product.statics.deleteAll = async function () {
 	await this.deleteMany({});
 };
 
-Product.statics.search = async function (query) {
+Product.statics.search = async function (category, search) {
+    const query = category ? { category, $text: {$search: search}} : {$text: {$search: search}};
 	 const products = await this.find(
-		{$text: {$search: query}},
+        query,
 		{score: {$meta: "textScore"}}
 	 ).sort({
 		score: {$meta: "textScore"}

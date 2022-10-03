@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Grid, Image, Text, Row, Link } from '@nextui-org/react';
 import React, { FC } from 'react';
 
-const Footer:FC  = () => {
+const Footer: FC = () => {
 	const today = new Date();
 	const year = today.getFullYear();
 	return (
@@ -36,6 +36,6 @@ const Footer:FC  = () => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Footer;

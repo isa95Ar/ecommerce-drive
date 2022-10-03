@@ -11,19 +11,21 @@ const LoginCard: FC = () => {
 					<Image src="/img/logoCoop.png" alt="Default Image" />
 				</Grid>
 				<Grid xs={12} xl={3} sm={6} md={3} lg={3} justify="center">
-					<Button className="google-button" onClick={() => {
+					<Button
+						className="google-button"
+						onClick={() => {
 							setLoading(true);
-							location.href = '/api/login'
-						}}>
+							location.href = '/api/login';
+						}}
+					>
 						{loading ? (
-							<Loading color="warning" size="sm"/>
+							<Loading color="warning" size="sm" />
 						) : (
 							<div className="button-container">
-							<GoogleIcon width={30} height={30} />
-							<Text style={{ marginLeft: 5 }}>Ingresá con Google</Text>
-						</div>
-						)}	
-						
+								<GoogleIcon width={30} height={30} />
+								<Text style={{ marginLeft: 5 }}>Ingresá con Google</Text>
+							</div>
+						)}
 					</Button>
 				</Grid>
 			</Grid.Container>

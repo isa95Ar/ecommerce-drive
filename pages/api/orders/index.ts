@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import OrderService from '../../../src/services/OrderService';
 import { sessionOptions } from '../../../src/utils/withIronSession';
 import sendEmail from '../../../helpers/sendEmail';
+import RenderMail from '../../../src/utils/Mail';
 
 export default async function postOrder(req, res) {
 	if (req.method !== 'POST') {
@@ -19,20 +20,21 @@ export default async function postOrder(req, res) {
 
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
 
-		const userEmail = currentSession.user.email;
+		const { email, name } = currentSession.user;
 
 		// Enviar mail
 
-		/* const mailData = {
-      from: 'Compras Almargen',
-      to: userEmail,
-      subject: `Tu pedido fue guardado`,
-      text: "Aca van los productos",
-     }
+		const mailData = {
+			from: 'Compras Almargen',
+			to: email,
+			subject: `Tu pedido fue guardado`,
+			html: RenderMail({ products, total, name }),
+			text: ''
+		};
 
-     sendEmail(mailData); */
+		sendEmail(mailData);
 
-		await orderService.saveOrder({ products, email: userEmail, total });
+		await orderService.saveOrder({ products, email, total });
 		res.status(200).json({ success: true, error: false });
 	} catch (error) {
 		res.status(500).json(error);
