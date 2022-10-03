@@ -11,7 +11,7 @@ import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
