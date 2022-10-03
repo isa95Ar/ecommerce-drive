@@ -79,7 +79,6 @@ export function useCart(userCart?: { _id?; email?; products? }) {
 			products = products.concat(userCart.products);
 		}
         setCart({...cart, products, total: sumTotals(products)});
-		// products.map(product => addProduct(product, product.qty));
 	}, []);
 
 	return {

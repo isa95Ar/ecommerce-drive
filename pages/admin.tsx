@@ -7,6 +7,7 @@ import OrdersCount from '../components/admin/OrdersCount';
 import CurrentStatus from '../components/admin/CurrentStatus';
 import { infoMessages } from '../helpers/notify';
 import OrdersList from '../components/admin/OrdersList';
+import UpdateProductsBtn from '../components/admin/UpdateProductsBtn';
 export { getServerSideProps } from '../src/ssp/admin';
 
 export default function Admin(props) {
@@ -20,6 +21,9 @@ export default function Admin(props) {
 			<Header user={props.user} title="Panel de administrador"></Header>
 			<Container>
 				<Grid.Container justify="center" alignItems="center" gap={3} direction="column">
+					<Grid>
+						<UpdateProductsBtn />
+					</Grid>
 					<Grid xs={12} sm={10} md={8} lg={6}>
 						<OrdersCount ordersCount={ordersCount} setOrdersCount={setOrdersCount} />
 					</Grid>
