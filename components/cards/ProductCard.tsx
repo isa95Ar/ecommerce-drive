@@ -18,10 +18,10 @@ const ProductCard: FC<props> = ({ item, addProduct }) => {
 	const cart = useCart();
 	const [quantity, setQuantity] = useState(1);
 
-	useEffect(() => {
-		const qty = cart.getCartProductQty(item.code);
-		setQuantity(qty);
-	}, [cart.data]);
+	// useEffect(() => {
+	// 	const qty = cart.getCartProductQty(item.code);
+	// 	setQuantity(qty);
+	// }, [cart.data]);
 	return (
 		<Grid xs={12} sm={12} md={12} lg={12} xl={12}>
 			<Card css={{ margin: 0, letterSpacing: 0 }}>
