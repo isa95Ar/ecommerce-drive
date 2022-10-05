@@ -383,6 +383,7 @@ function Products(props) {
             qty
         });
     };
+    console.log();
     (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(()=>{
         cart.updateCart(props.cart);
         (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_8__/* .infoMessages */ .o)();
@@ -509,7 +510,7 @@ function Products(props) {
                     })
                 ]
             }),
-            cart.products.length && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ButtonCart__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
+            cart.products.length > 0 && /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_ButtonCart__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
                 cart: cart
             })
         ]
