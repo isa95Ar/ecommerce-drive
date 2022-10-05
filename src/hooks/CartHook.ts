@@ -1,94 +1,80 @@
 import { useEffect, useState } from 'react';
-import { ProductCart } from '../global/types';
+import { Cart, ProductCart } from '../global/types';
 
-export function useCart(userCart?: { _id?; email?; products? }) {
-	const [cart, setCart] = useState({
-		products: [],
-		total: 0
-	});
+export function useCart() {
+	const [cart, setCart] = useState({ products: [], total: 0 });
 
-	const sumTotals = (products: Array<ProductCart>): number => {
-		let totalCart = 0;
-		products.map(product => (totalCart = Number((totalCart + product.total).toFixed(2))));
-		return totalCart;
+	const sumTotals = products => products.reduce((total, product) => product.total + total, 0);
+
+	const updateLocalStorage = (newCart:Cart) => localStorage.setItem('cart', JSON.stringify(newCart));;
+
+	const updateProduct = (productToUpdate: ProductCart) => {
+
+		const products = cart.products.map(product => {
+			if (product.code === productToUpdate.code) {
+				return {...productToUpdate, total:productToUpdate.price*productToUpdate.qty};
+			}
+			return product;
+		});
+		const newCart = { products, total: sumTotals(products) };
+		setCart(newCart);
+		updateLocalStorage(newCart)
 	};
 
-	const addProduct = (product: ProductCart, qty: number) => {
-		const productCart: ProductCart = {
-			code: product.code,
-			name: product.name,
-			qty,
-			price: product.price,
-			minimum: product.minimum,
-			total: product.price * qty,
-			picture: product.picture
-		};
+	const addProduct = (productToAdd: ProductCart) => {
 		let products = cart.products;
-		if (products.find(product => product.code == productCart.code)) {
-			products = products.map(cartProduct => {
-				if (cartProduct.code == productCart.code) {
-					return {...productCart, qty: productCart.qty + cartProduct.qty, total: productCart.total + cartProduct.total };
-				} else {
-					return cartProduct;
+		
+
+		if (productExists(productToAdd.code)) {
+			products = products.map(product => {
+				if (product.code === productToAdd.code) {
+					const newQuantity = product.qty + productToAdd.qty;
+					return { ...productToAdd, qty: newQuantity, total: productToAdd.price * newQuantity };
 				}
+				return product;
 			});
 		} else {
-			products.push(productCart);
+			products.push({...productToAdd, total: productToAdd.price * productToAdd.qty});
 		}
 
-		updateProducts(products);
+		const newCart = { products, total: sumTotals(products) };
+		setCart(newCart);
+		updateLocalStorage(newCart);
 	};
 
-	const removeProduct = (product: ProductCart) => {
-		const products = cart.products.filter(cartProduct => cartProduct.code !== product.code);
-		updateProducts(products);
+	const deleteProduct = (productToDelete: ProductCart) => {
+		const products = cart.products.filter(product => product.code !== productToDelete.code);
+		const newCart = { products, total: sumTotals(products) };
+		setCart(newCart);
+		updateLocalStorage(newCart);
 	};
 
-	const updateProducts = (products: Array<ProductCart>) => {
-		setCart({ total: sumTotals(products), products });
+	const productExists = code => cart.products.find(product => product.code === code);
 
-		localStorage.setItem('cart', JSON.stringify({ total: sumTotals(products), products }));
-	};
+    const removeCart = () => {
+        setCart({products:[],total:0});
+        localStorage.removeItem('cart');
+    }
 
-	const removeCart = (): any => {
-		setCart({
-			products: [],
-			total: 0
-		});
-		localStorage.removeItem('cart');
-	};
+    const updateCart = (sessionCart:Cart) => {
+		const localCart = localStorage.getItem('cart');
 
-	const getCartProductQty = (code: number): number => {
-		const product = cart.products.find(product => {
-			return product.code === code;
-		});
-		if (!product) {
-			return 1;
-		}
-		return product.qty;
-	};
+		if(sessionCart.products && !localCart){
+		
+			const currentCart = {products:sessionCart.products,total:sumTotals(sessionCart.products)};
+            localStorage.setItem('cart', JSON.stringify(currentCart));
+            setCart(currentCart);
+        }
+    }
 
 	useEffect(() => {
-		const actualCart = localStorage.getItem('cart');
-		let products: any = [];
-
-		if (actualCart) {
-			const storedCart = JSON.parse(actualCart);
-			products = products.concat(storedCart.products);
-		} else if (userCart && userCart.products) {
-			products = products.concat(userCart.products);
-		}
-        setCart({...cart, products, total: sumTotals(products)});
+		const localCart = localStorage.getItem('cart');
+		
+		if (localCart) setCart(JSON.parse(localCart));
 	}, []);
 
-	return {
-		products:cart.products,
-        total:cart.total,
-		data: cart,
-		addProduct,
-		removeProduct,
-		removeCart,
-		updateProducts,
-		getCartProductQty
-	};
+	
+
+	return { ...cart, updateProduct,addProduct,deleteProduct,removeCart,updateCart };
 }
+

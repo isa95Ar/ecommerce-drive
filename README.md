@@ -13,16 +13,6 @@ npm install -g typescript
 npm install -g ts-node
 ```
 
-## Pasos para correr
+## para el deploy
 
-```
-npm run build  //para buildear next
-npm run build-command //buildear comandos
-```
-
-## Make it running
-
-```
-npm run start
-node build/product-process.js //para correr migracion
-```
+./shell/deploy.sh

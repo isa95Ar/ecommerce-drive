@@ -1,10 +1,10 @@
 import { Grid, Container, Row, Pagination, Loading, Input } from '@nextui-org/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
 import Header from '../components/navigation/Header';
 import CategorySelector from '../components/CategorySelector';
-import { useCart } from '../src/hooks/CartHookNew';
+import { useCart } from '../src/hooks/CartHook';
 import { infoMessages } from '../helpers/notify';
 import Layout from './layout';
 import ButtonCart from '../components/ButtonCart';
@@ -28,7 +28,7 @@ export default function Products(props) {
 		cart.addProduct({...product,qty});
 	};
 
-	console.log()
+
 	useEffect(() => {
 		cart.updateCart(props.cart);
 		infoMessages();

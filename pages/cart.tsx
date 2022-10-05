@@ -3,10 +3,10 @@ import Header from '../components/navigation/Header';
 import { Button, Container, Grid } from '@nextui-org/react';
 import ProductDetailCard from '../components/cards/ProductDetailCard';
 import TotalCard from '../components/cards/TotalCard';
-import { useCart } from '../src/hooks/CartHookNew';
+import { useCart } from '../src/hooks/CartHook';
 import { ProductCart as productType } from '../src/global/types';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
 import { toast } from 'react-toastify';
@@ -20,13 +20,16 @@ export default function Cart(props) {
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(props.cart);
 		cart.updateCart(props.cart);
 		infoMessages()
 	}, []);
 
 
 	const sendOrder = async () => {
+		if(!cart.products.length){
+			console.warn(`No puedes actualizar tu orden sin productos`);
+			return;
+		}
 		Fetch<{ products: Array<productType>; total: number }>({
 			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
