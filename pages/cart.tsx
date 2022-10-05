@@ -3,10 +3,10 @@ import Header from '../components/navigation/Header';
 import { Button, Container, Grid } from '@nextui-org/react';
 import ProductDetailCard from '../components/cards/ProductDetailCard';
 import TotalCard from '../components/cards/TotalCard';
-import { useCart } from '../src/hooks/CartHook';
+import { useCart } from '../src/hooks/CartHookNew';
 import { ProductCart as productType } from '../src/global/types';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
 import { toast } from 'react-toastify';
@@ -16,10 +16,15 @@ export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
-	const cart = useCart(props.cart);
+	const cart = useCart();
 	const router = useRouter();
 
-	useEffect(() => infoMessages(), []);
+	useEffect(() => {
+		console.log(props.cart);
+		cart.updateCart(props.cart);
+		infoMessages()
+	}, []);
+
 
 	const sendOrder = async () => {
 		Fetch<{ products: Array<productType>; total: number }>({
@@ -50,8 +55,8 @@ export default function Cart(props) {
 								{cart.products.map((product: productType) => (
 									<ProductDetailCard
 										key={product.code}
-										deleteProduct={(product: productType) => cart.removeProduct(product)}
-										addProduct={(product: productType, qty) => cart.addProduct(product, qty)}
+										deleteProduct={(product: productType) => cart.deleteProduct(product)}
+										updateProduct={(product: productType, qty) => cart.updateProduct({...product,qty})}
 										product={product}
 									/>
 								))}

@@ -25,6 +25,7 @@ export async function getServerSideProps(context) {
 				total,
 				picture
 			}));
+			cart.total = cart.products.reduce((total,product) => total+product.total,0);
 		}
 	} else {
 		return {

@@ -8,10 +8,10 @@ import QuantityControls from '../QuantityControls';
 type ProductCartProps = {
 	product: ProductCart;
 	deleteProduct(product: ProductCart): void;
-	addProduct(product: ProductCart, qty: number);
+	updateProduct(product: ProductCart, qty: number);
 };
 
-const ProductDetailCard: FC<ProductCartProps> = ({ product, deleteProduct, addProduct }) => {
+const ProductDetailCard: FC<ProductCartProps> = ({ product, deleteProduct, updateProduct }) => {
 	const [quantity, setQuantity] = useState(product.qty);
 
 	return (
@@ -30,12 +30,12 @@ const ProductDetailCard: FC<ProductCartProps> = ({ product, deleteProduct, addPr
 							qty={quantity}
 							addProduct={() => {
 								setQuantity(prev => prev + 1);
-								addProduct(product, quantity + 1);
+								updateProduct(product, quantity + 1);
 							}}
 							deleteProduct={() => {
 								if (quantity > 1) {
 									setQuantity(prev => prev - 1);
-									addProduct(product, quantity - 1);
+									updateProduct(product, quantity - 1);
 								}
 							}}
 						/>

@@ -31,6 +31,7 @@ class OrderService extends BaseService {
 	async getUserOrder(email: string) {
 		try {
 			const userOrder = await Order.getUserOrder(email);
+			console.log(userOrder);
 			return userOrder;
 		} catch (e) {
 			throw new ApiException(e);

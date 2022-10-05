@@ -1,11 +1,9 @@
 import { Card, Grid, Text, Row, Button, Image } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceLaughBeam } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
-import { useCart } from '../../src/hooks/CartHook';
 import { toast } from 'react-toastify';
 import { CartIcon } from '../svg/CartIcon';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { productType } from '../../src/global/types';
 import QuantityControls from '../QuantityControls';
 
@@ -15,13 +13,9 @@ type props = {
 };
 
 const ProductCard: FC<props> = ({ item, addProduct }) => {
-	const cart = useCart();
+
 	const [quantity, setQuantity] = useState(1);
 
-	// useEffect(() => {
-	// 	const qty = cart.getCartProductQty(item.code);
-	// 	setQuantity(qty);
-	// }, [cart.data]);
 	return (
 		<Grid xs={12} sm={12} md={12} lg={12} xl={12}>
 			<Card css={{ margin: 0, letterSpacing: 0 }}>
