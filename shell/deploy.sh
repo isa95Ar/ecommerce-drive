@@ -8,16 +8,11 @@ echo "Building Apps"
  npm i
  npm run build
  npm run build-command
-<<<<<<< HEAD
-sed -i"" "3i\var dotEnv = require('dotenv');" build/constants/config.js
-sed -i"" '4i\dotEnv.config();' build/constants/config.js
-=======
  if [[ $OSTYPE == 'darwin'* ]]; then
   alias sed=gsed
  fi
  sed -i"" "3i\var dotEnv = require('dotenv');" build/constants/config.js
  sed -i""  "4i\dotEnv.config();" build/constants/config.js
->>>>>>> main
 
 #getting version
 PACKAGE_VERSION=$(cat package.json \

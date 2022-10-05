@@ -147,7 +147,6 @@ class OrderService extends BaseService/* default */.Z {
     async getUserOrder(email) {
         try {
             const userOrder = await models_Order.getUserOrder(email);
-            console.log(userOrder);
             return userOrder;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);

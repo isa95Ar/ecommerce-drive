@@ -87,7 +87,6 @@ const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
         done: false
     });
     const today = formatDate(new Date());
-    console.log(formatDate(new Date()));
     const handleChangeField = (e, property)=>{
         const value = e.target.value;
         form.setValue(property, value);
