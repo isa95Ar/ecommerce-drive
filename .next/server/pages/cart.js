@@ -28,7 +28,7 @@ exports.modules = {
 
 
 
-const ProductDetailCard = ({ product , deleteProduct , addProduct  })=>{
+const ProductDetailCard = ({ product , deleteProduct , updateProduct  })=>{
     const { 0: quantity , 1: setQuantity  } = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(product.qty);
     return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_2__.Grid.Container, {
         className: "product-cart",
@@ -70,13 +70,13 @@ const ProductDetailCard = ({ product , deleteProduct , addProduct  })=>{
                                     addProduct: ()=>{
                                         setQuantity((prev)=>prev + 1
                                         );
-                                        addProduct(product, quantity + 1);
+                                        updateProduct(product, quantity + 1);
                                     },
                                     deleteProduct: ()=>{
                                         if (quantity > 1) {
                                             setQuantity((prev)=>prev - 1
                                             );
-                                            addProduct(product, quantity - 1);
+                                            updateProduct(product, quantity - 1);
                                         }
                                     }
                                 })
@@ -191,7 +191,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_cards_ProductDetailCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1683);
 /* harmony import */ var _components_cards_TotalCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3804);
-/* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(961);
+/* harmony import */ var _src_hooks_CartHookNew__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6893);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6689);
@@ -223,10 +223,13 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_hel
 
 function Cart(props) {
     const isEditingOrder = props.orderId !== null;
-    const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)(props.cart);
+    const cart = (0,_src_hooks_CartHookNew__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)();
     const router = (0,next_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
-    (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(()=>(0,_helpers_notify__WEBPACK_IMPORTED_MODULE_9__/* .infoMessages */ .o)()
-    , []);
+    (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(()=>{
+        console.log(props.cart);
+        cart.updateCart(props.cart);
+        (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_9__/* .infoMessages */ .o)();
+    }, []);
     const sendOrder = async ()=>{
         (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_10__/* .Fetch */ .U)({
             url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ""}`,
@@ -273,9 +276,12 @@ function Cart(props) {
                             xl: 4,
                             children: [
                                 cart.products.map((product1)=>/*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_components_cards_ProductDetailCard__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {
-                                        deleteProduct: (product)=>cart.removeProduct(product)
+                                        deleteProduct: (product)=>cart.deleteProduct(product)
                                         ,
-                                        addProduct: (product, qty)=>cart.addProduct(product, qty)
+                                        updateProduct: (product, qty)=>cart.updateProduct({
+                                                ...product,
+                                                qty
+                                            })
                                         ,
                                         product: product1
                                     }, product1.code)
@@ -350,6 +356,8 @@ async function getServerSideProps(context) {
                     picture
                 })
             );
+            cart.total = cart.products.reduce((total, product)=>total + product.total
+            , 0);
         }
     } else {
         return {
@@ -458,7 +466,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,164], () => (__webpack_exec__(1404)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,318], () => (__webpack_exec__(1404)));
 module.exports = __webpack_exports__;
 
 })();

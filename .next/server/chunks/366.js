@@ -19,17 +19,11 @@ var jsx_runtime_ = __webpack_require__(997);
 // EXTERNAL MODULE: external "next/head"
 var head_ = __webpack_require__(968);
 var head_default = /*#__PURE__*/__webpack_require__.n(head_);
-// EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
-var free_solid_svg_icons_ = __webpack_require__(6466);
-// EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
-var react_fontawesome_ = __webpack_require__(7197);
 // EXTERNAL MODULE: external "@nextui-org/react"
 var react_ = __webpack_require__(6735);
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
 ;// CONCATENATED MODULE: ./components/navigation/Footer.tsx
-
-
 
 
 
@@ -68,10 +62,10 @@ const Footer = ()=>{
                                     children: "\xbfC\xf3mo funciona?"
                                 }),
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                    children: "El carrito abre los Mi\xe9rcoles a partir de las 16 hs y cierra los pedidos el Domingo a las 23 hs."
+                                    children: "El lunes a las 20 hs cierra el carrito y enviamos el pedido a los distintos proveedores."
                                 }),
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                    children: "Podes pasar a buscar tu pedido los Lunes y Martes de 8 a 16 hs por Mitre 8400."
+                                    children: "El pr\xf3ximo viernes pod\xe9s retirar tu pedido en el local de Ruiz Moreno 960 en los horarios informados en el mail y en el grupo de WhatsApp."
                                 })
                             ]
                         })
@@ -92,22 +86,7 @@ const Footer = ()=>{
                                     children: "Contactanos"
                                 }),
                                 /*#__PURE__*/ jsx_runtime_.jsx(react_.Text, {
-                                    children: "Por dudas o consultas de tus pedidos podes escribirnos por mail o conicarte por WhatsApp."
-                                }),
-                                /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Link, {
-                                    block: true,
-                                    href: "#",
-                                    className: "link-container link-container-black",
-                                    underline: true,
-                                    children: [
-                                        "mail@mail.com.ar ",
-                                        /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-                                            style: {
-                                                marginLeft: 12
-                                            },
-                                            icon: free_solid_svg_icons_.faArrowRight
-                                        })
-                                    ]
+                                    children: "Por dudas o consultas de tus pedidos pod\xe9s escribirnos a comprascomunitariasalmargen@gmail.com o contactarte con cualquiera de los referentes del grupo."
                                 })
                             ]
                         })

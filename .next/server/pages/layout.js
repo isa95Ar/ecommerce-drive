@@ -5,20 +5,6 @@ exports.id = 777;
 exports.ids = [777];
 exports.modules = {
 
-/***/ 6466:
-/***/ ((module) => {
-
-module.exports = require("@fortawesome/free-solid-svg-icons");
-
-/***/ }),
-
-/***/ 7197:
-/***/ ((module) => {
-
-module.exports = require("@fortawesome/react-fontawesome");
-
-/***/ }),
-
 /***/ 6735:
 /***/ ((module) => {
 
