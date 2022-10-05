@@ -28,6 +28,7 @@ export default function Products(props) {
 		cart.addProduct({...product,qty});
 	};
 
+	console.log()
 	useEffect(() => {
 		cart.updateCart(props.cart);
 		infoMessages();
@@ -42,7 +43,6 @@ export default function Products(props) {
 			setCategories([{ key: '', name: 'Todas las categorías' }, ...categoriesParsed]);
 		});
 	}, []);
-
 	const fetchData = (page, category, debouncedSearch) => {
 		getProducts(page, category.key, debouncedSearch).then(res => {
 			setCurrentPage(page);
@@ -101,7 +101,7 @@ export default function Products(props) {
 					</>
 				)}
 			</Container>
-			{cart.products.length && <ButtonCart cart={cart} />}
+			{cart.products.length > 0 && <ButtonCart cart={cart} />}
 		</Layout>
 	);
 }
