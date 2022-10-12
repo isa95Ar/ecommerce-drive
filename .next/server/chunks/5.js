@@ -3,15 +3,36 @@ exports.id = 5;
 exports.ids = [5];
 exports.modules = {
 
+/***/ 8646:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+class ApiException extends Error {
+    constructor(message){
+        super(message);
+        Object.setPrototypeOf(this, ApiException.prototype);
+    }
+    jsonOutPut() {
+        return {
+            error: true,
+            message: this.message
+        };
+    }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ApiException);
+
+
+/***/ }),
+
 /***/ 2005:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ services_ProductService)
+  "Z": () => (/* binding */ services_ProductService)
 });
 
 // EXTERNAL MODULE: external "tsyringe"

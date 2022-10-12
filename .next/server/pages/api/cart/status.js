@@ -32,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getCartStatus(req, res) {
-    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_0__["default"]);
+    const configService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z);
     try {
         const cartStatus = await configService.getCartStatus();
         res.status(200).json(cartStatus);

@@ -38,7 +38,7 @@ async function updateCartDates(req, res) {
                 message: "Invalid method. Only POST requests allowed"
             });
         }
-        const configService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_1__["default"]);
+        const configService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ConfigService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
         const body = JSON.parse(req.body);
         let { openDate , closeDate  } = body;
         if (!openDate || !closeDate) {

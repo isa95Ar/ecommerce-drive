@@ -32,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getProducts(req, res) {
-    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    const productService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_ProductService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
     try {
         const { search , category , page  } = req.query;
         if (search) {
@@ -47,29 +47,6 @@ async function getProducts(req, res) {
         });
     }
 };
-
-
-/***/ }),
-
-/***/ 8646:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-class ApiException extends Error {
-    constructor(message){
-        super(message);
-        Object.setPrototypeOf(this, ApiException.prototype);
-    }
-    jsonOutPut() {
-        return {
-            error: true,
-            message: this.message
-        };
-    }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ApiException);
 
 
 /***/ })

@@ -51,7 +51,7 @@ async function postOrders(req, res) {
     const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
     if (req.method === "POST") {
         try {
-            const googleService = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_1__["default"]("orders");
+            const googleService = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z("orders");
             const body = JSON.parse(req.body);
             let orders = body.orders;
             await googleService.insertOnGoogleSheet(orders);

@@ -29,12 +29,10 @@ class ApiException extends Error {
 /***/ 2313:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ services_ConfigService)
+  "Z": () => (/* binding */ services_ConfigService)
 });
 
 // EXTERNAL MODULE: external "tsyringe"

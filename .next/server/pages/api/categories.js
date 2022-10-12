@@ -32,7 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 async function getCategories(req, res) {
-    const categoryService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_CategoryService__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    const categoryService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_CategoryService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
     try {
         const categories = await categoryService.getAll();
         res.status(200).json(categories);
