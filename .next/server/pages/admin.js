@@ -97,10 +97,15 @@ const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
             done: false,
             loading: true
         });
+        console.log(form.fields);
         (0,fetchHook/* Fetch */.U)({
             url: "/api/admin/cart/dates",
             method: "POST",
-            data: form.fields,
+            data: {
+                ...form.fields,
+                openDate: form.fields.openDate.replace(".000Z", ""),
+                closeDate: form.fields.closeDate.replace(".000Z", "")
+            },
             onSuccess: (response)=>{
                 setCurrentStatus(response);
                 setFetching({
