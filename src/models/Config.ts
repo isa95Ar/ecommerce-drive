@@ -16,6 +16,7 @@ Config.statics.getCartStatus = async function () {
 	const currentConfig = await this.findOne({});
 	const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
 	const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+	
 
 	if (!openTime || !closeTime) {
 		return { openDate: null, closeDate: null, status: 'closed' };
@@ -32,7 +33,7 @@ Config.statics.getCartStatus = async function () {
 	} else {
 		status = 'closed';
 	}
-
+	console.log(status);
 	const { openDate, closeDate } = currentConfig;
 
 	return { openDate, closeDate, status };

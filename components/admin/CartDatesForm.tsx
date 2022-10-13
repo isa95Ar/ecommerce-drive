@@ -20,7 +20,7 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const today = formatDate(new Date());
-	
+
 	const handleChangeField = (e, property: keyof datesFormType) => {
 		const value = e.target.value;
 		form.setValue(property, value);
@@ -28,10 +28,15 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 
 	const submitDates = () => {
 		setFetching({ error: null, done: false, loading: true });
+		console.log(form.fields);
 		Fetch<datesFormType>({
 			url: '/api/admin/cart/dates',
 			method: 'POST',
-			data: form.fields,
+			data: {
+				...form.fields,
+				openDate: form.fields.openDate.replace('.000Z', ''),
+				closeDate: form.fields.closeDate.replace('.000Z', '')
+			},
 			onSuccess: response => {
 				setCurrentStatus(response);
 				setFetching({ error: null, loading: false, done: true });
