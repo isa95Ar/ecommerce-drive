@@ -17,7 +17,7 @@ class ConfigService extends BaseService {
 		}
 	}
 
-	async setDates(openDate: Date, closeDate: Date) {
+	async setDates(openDate: string, closeDate: string) {
 		try {
 			await Config.updateDates(openDate, closeDate);
 			return { error: false };

@@ -1,21 +1,21 @@
 import mongoose, { Schema, model, Document } from 'mongoose';
 
 export interface ConfigI {
-	openDate: Date | null;
-	closeDate: Date | null;
+	openDate: String | null;
+	closeDate: String | null;
 }
 
 interface BaseConfigDocument extends ConfigI, Document {}
 
 const Config = new Schema<BaseConfigDocument>({
-	openDate: { type: Date || null },
-	closeDate: { type: Date || null }
+	openDate: { type: "string" || null },
+	closeDate: { type: "string" || null }
 });
 
 Config.statics.getCartStatus = async function () {
 	const currentConfig = await this.findOne({});
-	const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
-	const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+	const openTime = currentConfig.openDate ? new Date(currentConfig.openDate).getTime() : null;
+	const closeTime = currentConfig.closeDate ? new Date(currentConfig.closeDate).getTime() : null;
 
 	if (!openTime || !closeTime) {
 		return { openDate: null, closeDate: null, status: 'closed' };
