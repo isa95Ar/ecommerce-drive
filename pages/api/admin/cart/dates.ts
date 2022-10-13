@@ -12,8 +12,7 @@ export default async function updateCartDates(req, res) {
 		if (!openDate || !closeDate) {
 			return res.status(400).json({ error: true, message: 'Missing dates' });
 		}
-		//openDate = new Date(openDate);
-		//closeDate = new Date(closeDate);
+		//const datesToSend = {openDate, closeDate}
 		await configService.setDates(openDate, closeDate);
 		const newStatus = await configService.getCartStatus();
 		res.status(200).json({ ...newStatus });
