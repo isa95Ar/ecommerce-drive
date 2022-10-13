@@ -38,8 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var Config = new mongoose_1.Schema({
-    openDate: { type: Date || null },
-    closeDate: { type: Date || null }
+    openDate: { type: "string" || null },
+    closeDate: { type: "string" || null }
 });
 Config.statics.getCartStatus = function () {
     return __awaiter(this, void 0, void 0, function () {
@@ -49,8 +49,8 @@ Config.statics.getCartStatus = function () {
                 case 0: return [4 /*yield*/, this.findOne({})];
                 case 1:
                     currentConfig = _a.sent();
-                    openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
-                    closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+                    openTime = currentConfig.openDate ? new Date(currentConfig.openDate).getTime() : null;
+                    closeTime = currentConfig.closeDate ? new Date(currentConfig.closeDate).getTime() : null;
                     if (!openTime || !closeTime) {
                         return [2 /*return*/, { openDate: null, closeDate: null, status: 'closed' }];
                     }

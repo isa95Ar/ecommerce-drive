@@ -46,16 +46,16 @@ var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mong
 
 const Config = new external_mongoose_.Schema({
     openDate: {
-        type: Date || null
+        type: "string" || 0
     },
     closeDate: {
-        type: Date || null
+        type: "string" || 0
     }
 });
 Config.statics.getCartStatus = async function() {
     const currentConfig = await this.findOne({});
-    const openTime = currentConfig.openDate ? currentConfig.openDate.getTime() : null;
-    const closeTime = currentConfig.closeDate ? currentConfig.closeDate.getTime() : null;
+    const openTime = currentConfig.openDate ? new Date(currentConfig.openDate).getTime() : null;
+    const closeTime = currentConfig.closeDate ? new Date(currentConfig.closeDate).getTime() : null;
     if (!openTime || !closeTime) {
         return {
             openDate: null,
