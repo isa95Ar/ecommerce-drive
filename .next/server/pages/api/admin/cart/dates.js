@@ -47,10 +47,7 @@ async function updateCartDates(req, res) {
                 message: "Missing dates"
             });
         }
-        const datesToSend = {
-            openDate,
-            closeDate
-        };
+        //const datesToSend = {openDate, closeDate}
         await configService.setDates(openDate, closeDate);
         const newStatus = await configService.getCartStatus();
         res.status(200).json({

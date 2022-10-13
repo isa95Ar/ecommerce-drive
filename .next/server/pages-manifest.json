@@ -18,6 +18,6 @@
   "/admin": "pages/admin.js",
   "/cart": "pages/cart.js",
   "/": "pages/index.js",
-  "/products": "pages/products.js",
-  "/_document": "pages/_document.js"
+  "/_document": "pages/_document.js",
+  "/products": "pages/products.js"
 }
