@@ -8,7 +8,7 @@ export async function getServerSideProps(context) {
 	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
 
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	const cart: any = {};
+	const cart = { products: [], total: 0 };
 	let orderId = null;
 
 	if (user.logged) {
@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
 				total,
 				picture
 			}));
-			cart.total = cart.products.reduce((total,product) => total+product.total,0);
+			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
 		}
 	} else {
 		return {
@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
 				permanent: false,
 				destination: '/login'
 			},
-			props: {}
+			props: { cart }
 		};
 	}
 

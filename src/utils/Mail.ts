@@ -1,4 +1,4 @@
-const RenderMail = (order) => {
+const RenderMail = order => {
 	return `<div style="
    padding: 15px;
    border-radius: 15px;
@@ -20,8 +20,9 @@ const RenderMail = (order) => {
             </tr>
          <thead>
          <tbody style="font-size:13px;color:#11181C;font-weigh:200;">
-         ${order.products.map(product => 
-            `<tr>
+         ${order.products.map(
+						product =>
+							`<tr>
             <th>
                ${product.code}
             </th>
@@ -34,7 +35,8 @@ const RenderMail = (order) => {
             <th>
               $${product.total} 
             </th>
-         </tr>`)}
+         </tr>`
+					)}
          </tbody>
          <tfoot style="background-color:#f1f3f5;border-radius:15px;color:#7e868c;font-size:15px;">
             <tr>
