@@ -54,7 +54,7 @@ Config.statics.getCartStatus = function () {
                     if (!openTime || !closeTime) {
                         return [2 /*return*/, { openDate: null, closeDate: null, status: 'closed' }];
                     }
-                    today = new Date();
+                    today = new Date(new Date().toLocaleString("es-ar", { timeZone: "/America/Argentina/Tucuman" }));
                     isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
                     status = '';
                     if (isOpen) {

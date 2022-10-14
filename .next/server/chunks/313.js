@@ -63,7 +63,9 @@ Config.statics.getCartStatus = async function() {
             status: "closed"
         };
     }
-    const today = new Date();
+    const today = new Date(new Date().toLocaleString("es-ar", {
+        timeZone: "/America/Argentina/Tucuman"
+    }));
     const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
     let status = "";
     if (isOpen) {
