@@ -43,18 +43,24 @@ var Config = new mongoose_1.Schema({
 });
 Config.statics.getCartStatus = function () {
     return __awaiter(this, void 0, void 0, function () {
-        var currentConfig, openTime, closeTime, today, isOpen, status, openDate, closeDate;
+        var currentConfig, openDate, closeDate, formattedOpenDate, formattedClosedDate, openTime, closeTime, today, isOpen, status;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, this.findOne({})];
                 case 1:
                     currentConfig = _a.sent();
-                    openTime = currentConfig.openDate ? new Date(currentConfig.openDate).getTime() : null;
-                    closeTime = currentConfig.closeDate ? new Date(currentConfig.closeDate).getTime() : null;
-                    if (!openTime || !closeTime) {
+                    openDate = currentConfig.openDate, closeDate = currentConfig.closeDate;
+                    if (!openDate || !closeDate) {
                         return [2 /*return*/, { openDate: null, closeDate: null, status: 'closed' }];
                     }
-                    today = new Date(new Date().toLocaleString("es-ar", { timeZone: "/America/Argentina/Tucuman" }));
+                    formattedOpenDate = new Date(currentConfig.openDate);
+                    formattedClosedDate = new Date(currentConfig.closeDate);
+                    formattedOpenDate.setHours(formattedOpenDate.getHours() + 3);
+                    formattedClosedDate.setHours(formattedClosedDate.getHours() + 3);
+                    openTime = formattedOpenDate.getTime();
+                    closeTime = formattedClosedDate.getTime();
+                    today = new Date();
+                    console.log(today, new Date(currentConfig.openDate));
                     isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
                     status = '';
                     if (isOpen) {
@@ -66,8 +72,6 @@ Config.statics.getCartStatus = function () {
                     else {
                         status = 'closed';
                     }
-                    console.log(status);
-                    openDate = currentConfig.openDate, closeDate = currentConfig.closeDate;
                     return [2 /*return*/, { openDate: openDate, closeDate: closeDate, status: status }];
             }
         });

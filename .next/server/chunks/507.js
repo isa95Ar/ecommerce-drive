@@ -31,15 +31,20 @@ const Config = new external_mongoose_.Schema({
 });
 Config.statics.getCartStatus = async function() {
     const currentConfig = await this.findOne({});
-    const openTime = currentConfig.openDate ? new Date(currentConfig.openDate).getTime() : null;
-    const closeTime = currentConfig.closeDate ? new Date(currentConfig.closeDate).getTime() : null;
-    if (!openTime || !closeTime) {
+    const { openDate , closeDate  } = currentConfig;
+    if (!openDate || !closeDate) {
         return {
             openDate: null,
             closeDate: null,
             status: "closed"
         };
     }
+    let formattedOpenDate = new Date(currentConfig.openDate);
+    let formattedClosedDate = new Date(currentConfig.closeDate);
+    formattedOpenDate.setHours(formattedOpenDate.getHours() + 3);
+    formattedClosedDate.setHours(formattedClosedDate.getHours() + 3);
+    const openTime = formattedOpenDate.getTime();
+    const closeTime = formattedClosedDate.getTime();
     const today = new Date();
     console.log(today, new Date(currentConfig.openDate));
     const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
@@ -51,8 +56,6 @@ Config.statics.getCartStatus = async function() {
     } else {
         status = "closed";
     }
-    console.log(status);
-    const { openDate , closeDate  } = currentConfig;
     return {
         openDate,
         closeDate,
