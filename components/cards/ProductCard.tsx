@@ -13,7 +13,6 @@ type props = {
 };
 
 const ProductCard: FC<props> = ({ item, addProduct }) => {
-
 	const [quantity, setQuantity] = useState(1);
 
 	return (

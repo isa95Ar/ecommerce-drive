@@ -11,7 +11,7 @@ class ConfigService extends BaseService {
 	async getCartStatus() {
 		try {
 			const status = await Config.getCartStatus();
-			
+
 			return JSON.parse(JSON.stringify(status));
 		} catch (e) {
 			throw new ApiException(e);

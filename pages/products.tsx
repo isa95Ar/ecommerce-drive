@@ -12,7 +12,6 @@ import { useAppCtx } from '../src/context';
 export { getServerSideProps } from '../src/ssp/products';
 
 export default function Products(props) {
-
 	const cart = useAppCtx();
 
 	const [products, setProducts] = useState([]);
@@ -25,10 +24,10 @@ export default function Products(props) {
 
 	const debouncedSearch = useDebounce(search, 750);
 	const addProductToCart = (product, qty) => {
-		cart.addProduct({...product,qty});
+		cart.addProduct({ ...product, qty });
 	};
 
-
+	console.log(cart);
 	useEffect(() => {
 		infoMessages();
 		getProducts().then(res => {

@@ -1,16 +1,15 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { Cart, ProductCart } from '../global/types';
 
-export function useCart(cartSSR:Cart) {
+export function useCart(cartSSR: Cart) {
 	const [cart, setCart] = useState(cartSSR);
 
 	const sumTotals = products => products.reduce((total, product) => product.total + total, 0);
 
 	const updateProduct = (productToUpdate: ProductCart) => {
-
 		const products = cart.products.map(product => {
 			if (product.code === productToUpdate.code) {
-				return {...productToUpdate, total:productToUpdate.price*productToUpdate.qty};
+				return { ...productToUpdate, total: productToUpdate.price * productToUpdate.qty };
 			}
 			return product;
 		});
@@ -20,7 +19,6 @@ export function useCart(cartSSR:Cart) {
 
 	const addProduct = (productToAdd: ProductCart) => {
 		let products = cart.products;
-		
 
 		if (productExists(productToAdd.code)) {
 			products = products.map(product => {
@@ -31,7 +29,7 @@ export function useCart(cartSSR:Cart) {
 				return product;
 			});
 		} else {
-			products.push({...productToAdd, total: productToAdd.price * productToAdd.qty});
+			products.push({ ...productToAdd, total: productToAdd.price * productToAdd.qty });
 		}
 
 		const newCart = { products, total: sumTotals(products) };
@@ -46,9 +44,5 @@ export function useCart(cartSSR:Cart) {
 
 	const productExists = code => cart.products.find(product => product.code === code);
 
-
-	
-
-	return { ...cart, updateProduct,addProduct,deleteProduct };
+	return { ...cart, updateProduct, addProduct, deleteProduct };
 }
-

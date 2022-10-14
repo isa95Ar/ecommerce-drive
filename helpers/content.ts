@@ -1,7 +1,10 @@
 import { Fetch } from '../src/hooks/fetchHook';
 
 export const getProducts = async (page = 1, category = '', search = '') => {
-	return await Fetch<{ category: String, search: String, page: Number }>({ url: `/api/products`, query: { category, search, page } });
+	return await Fetch<{ category: String; search: String; page: Number }>({
+		url: `/api/products`,
+		query: { category, search, page }
+	});
 };
 
 export const getCategories = async () => {

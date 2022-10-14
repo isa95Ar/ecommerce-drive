@@ -4,7 +4,7 @@ import ProductService from '../../../src/services/ProductService';
 export default async function getProducts(req, res) {
 	const productService = container.resolve(ProductService);
 	try {
-		const {search, category, page} = req.query;
+		const { search, category, page } = req.query;
 		if (search) {
 			const products = await productService.searchProduct(category, search);
 			return res.status(200).json(products);

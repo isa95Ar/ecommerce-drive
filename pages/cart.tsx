@@ -20,13 +20,11 @@ export default function Cart(props) {
 	const router = useRouter();
 
 	useEffect(() => {
-		
-		infoMessages()
+		infoMessages();
 	}, []);
 
-
 	const sendOrder = async () => {
-		if(!cart.products.length){
+		if (!cart.products.length) {
 			console.warn(`No puedes actualizar tu orden sin productos`);
 			return;
 		}
@@ -35,7 +33,6 @@ export default function Cart(props) {
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
 			data: { products: cart.products, total: cart.total },
 			onSuccess: () => {
-				
 				router.push('/#orderstored');
 				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {
 					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
@@ -59,7 +56,7 @@ export default function Cart(props) {
 									<ProductDetailCard
 										key={product.code}
 										deleteProduct={(product: productType) => cart.deleteProduct(product)}
-										updateProduct={(product: productType, qty) => cart.updateProduct({...product,qty})}
+										updateProduct={(product: productType, qty) => cart.updateProduct({ ...product, qty })}
 										product={product}
 									/>
 								))}

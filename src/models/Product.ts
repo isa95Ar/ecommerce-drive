@@ -17,12 +17,12 @@ const Product = new Schema<BaseProductDocument>({
 
 Product.index({ name: 'text' });
 
-Product.statics.getProducts = async function (category:string, page: number) {
+Product.statics.getProducts = async function (category: string, page: number) {
 	const limit = 60;
 
 	const productsCount = category ? await this.countDocuments({ category }) : await this.countDocuments();
 
-    const query = category ? { category } : {};
+	const query = category ? { category } : {};
 	const products = await this.find(query)
 		.select({ _id: 0, __v: 0 })
 		.limit(limit)
@@ -59,15 +59,12 @@ Product.statics.deleteAll = async function () {
 };
 
 Product.statics.search = async function (category, search) {
-    const query = category ? { category, $text: {$search: search}} : {$text: {$search: search}};
-	 const products = await this.find(
-        query,
-		{score: {$meta: "textScore"}}
-	 ).sort({
-		score: {$meta: "textScore"}
-	 })
-	 return {products};
-}
+	const query = category ? { category, $text: { $search: search } } : { $text: { $search: search } };
+	const products = await this.find(query, { score: { $meta: 'textScore' } }).sort({
+		score: { $meta: 'textScore' }
+	});
+	return { products };
+};
 
 if (!mongoose.models.Product) {
 	const productModel = model<BaseProductDocument>('Product', Product);
