@@ -38,8 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var mongoose_1 = require("mongoose");
 var Config = new mongoose_1.Schema({
-    openDate: { type: "string" || null },
-    closeDate: { type: "string" || null }
+    openDate: { type: 'string' || null },
+    closeDate: { type: 'string' || null }
 });
 Config.statics.getCartStatus = function () {
     return __awaiter(this, void 0, void 0, function () {

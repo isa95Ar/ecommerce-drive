@@ -5,6 +5,46 @@ exports.id = 190;
 exports.ids = [190,777];
 exports.modules = {
 
+/***/ 5634:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+const QuantityControls = ({ addProduct , deleteProduct , qty  })=>{
+    return /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+        children: [
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                className: "quantity-border",
+                onClick: deleteProduct,
+                children: "-"
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                className: "quantity",
+                children: qty
+            }),
+            /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+                className: "quantity-border",
+                onClick: addProduct,
+                children: "+"
+            })
+        ]
+    });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (QuantityControls);
+
+
+/***/ }),
+
 /***/ 1683:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -191,21 +231,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _components_cards_ProductDetailCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1683);
 /* harmony import */ var _components_cards_TotalCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3804);
-/* harmony import */ var _src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(961);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1853);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(6689);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8662);
-/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3382);
-/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(3590);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(7197);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(6466);
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _helpers_notify__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8662);
+/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(3382);
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(3590);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(7197);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(6466);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _src_context__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(9684);
 /* harmony import */ var _src_ssp_cart__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(3753);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_helpers_notify__WEBPACK_IMPORTED_MODULE_9__, react_toastify__WEBPACK_IMPORTED_MODULE_11__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_14__]);
-([_helpers_notify__WEBPACK_IMPORTED_MODULE_9__, react_toastify__WEBPACK_IMPORTED_MODULE_11__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_14__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_helpers_notify__WEBPACK_IMPORTED_MODULE_8__, react_toastify__WEBPACK_IMPORTED_MODULE_10__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_14__]);
+([_helpers_notify__WEBPACK_IMPORTED_MODULE_8__, react_toastify__WEBPACK_IMPORTED_MODULE_10__, _src_ssp_cart__WEBPACK_IMPORTED_MODULE_14__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -223,18 +263,17 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_hel
 
 function Cart(props) {
     const isEditingOrder = props.orderId !== null;
-    const cart = (0,_src_hooks_CartHook__WEBPACK_IMPORTED_MODULE_6__/* .useCart */ .j)();
-    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_7__.useRouter)();
-    (0,react__WEBPACK_IMPORTED_MODULE_8__.useEffect)(()=>{
-        cart.updateCart(props.cart);
-        (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_9__/* .infoMessages */ .o)();
+    const cart = (0,_src_context__WEBPACK_IMPORTED_MODULE_13__/* .useAppCtx */ .rq)();
+    const router = (0,next_router__WEBPACK_IMPORTED_MODULE_6__.useRouter)();
+    (0,react__WEBPACK_IMPORTED_MODULE_7__.useEffect)(()=>{
+        (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_8__/* .infoMessages */ .o)();
     }, []);
     const sendOrder = async ()=>{
         if (!cart.products.length) {
             console.warn(`No puedes actualizar tu orden sin productos`);
             return;
         }
-        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_10__/* .Fetch */ .U)({
+        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_9__/* .Fetch */ .U)({
             url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ""}`,
             method: `${isEditingOrder ? "PUT" : "POST"}`,
             data: {
@@ -242,11 +281,10 @@ function Cart(props) {
                 total: cart.total
             },
             onSuccess: ()=>{
-                cart.removeCart();
                 router.push("/#orderstored");
-                react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.warn(`Su pedido se ha ${isEditingOrder ? "modificado" : "realizado"} con éxito`, {
-                    icon: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_12__.FontAwesomeIcon, {
-                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_13__.faCheckCircle,
+                react_toastify__WEBPACK_IMPORTED_MODULE_10__.toast.warn(`Su pedido se ha ${isEditingOrder ? "modificado" : "realizado"} con éxito`, {
+                    icon: /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_11__.FontAwesomeIcon, {
+                        icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_12__.faCheckCircle,
                         color: "#EA903C"
                     })
                 });
@@ -342,7 +380,10 @@ async function getServerSideProps(context) {
     const user = ironSession.user ?? {
         logged: false
     };
-    const cart = {};
+    const cart = {
+        products: [],
+        total: 0
+    };
     let orderId = null;
     if (user.logged) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_2__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
@@ -368,7 +409,9 @@ async function getServerSideProps(context) {
                 permanent: false,
                 destination: "/login"
             },
-            props: {}
+            props: {
+                cart
+            }
         };
     }
     return {
@@ -469,7 +512,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,164], () => (__webpack_exec__(1404)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,878,386,22], () => (__webpack_exec__(1404)));
 module.exports = __webpack_exports__;
 
 })();

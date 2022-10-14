@@ -707,13 +707,36 @@ async function getServerSideProps(context) {
     const user = ironSession.user ?? {
         logged: false
     };
+    const cart = {
+        products: [],
+        total: 0
+    };
+    if (user.logged) {
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
+        const ModelResponse = await orderService.getUserOrder(user.email);
+        if (ModelResponse) {
+            cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
+                    code,
+                    name,
+                    price,
+                    minimum,
+                    qty,
+                    total,
+                    picture
+                })
+            );
+            cart.total = cart.products.reduce((total, product)=>total + product.total
+            , 0);
+        }
+    }
     const currentStatus = await configService.getCartStatus();
     const currentOrders = await orderService.getCurrentOrders();
     return {
         props: {
             user,
             currentStatus,
-            currentOrders
+            currentOrders,
+            cart
         }
     };
 }
@@ -807,7 +830,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,418,507], () => (__webpack_exec__(2285)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,878,386,507], () => (__webpack_exec__(2285)));
 module.exports = __webpack_exports__;
 
 })();

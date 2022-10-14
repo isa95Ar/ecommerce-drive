@@ -123,8 +123,8 @@ Product.statics.search = function (category, search) {
             switch (_a.label) {
                 case 0:
                     query = category ? { category: category, $text: { $search: search } } : { $text: { $search: search } };
-                    return [4 /*yield*/, this.find(query, { score: { $meta: "textScore" } }).sort({
-                            score: { $meta: "textScore" }
+                    return [4 /*yield*/, this.find(query, { score: { $meta: 'textScore' } }).sort({
+                            score: { $meta: 'textScore' }
                         })];
                 case 1:
                     products = _a.sent();

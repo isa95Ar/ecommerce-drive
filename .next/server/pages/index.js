@@ -391,8 +391,10 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _services_ConfigService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3507);
 /* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4014);
 /* harmony import */ var _utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5869);
+/* harmony import */ var _services_OrderService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1751);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([iron_session__WEBPACK_IMPORTED_MODULE_2__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__]);
 ([iron_session__WEBPACK_IMPORTED_MODULE_2__, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -401,13 +403,38 @@ async function getServerSideProps(context) {
     const configService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_ConfigService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z);
     const getIsOpen = await configService.getCartStatus();
     const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_2__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__/* .sessionOptions */ .d);
+    const cart = {
+        products: [],
+        total: 0
+    };
     if (ironSession.user && getIsOpen.status === "open") {
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
+        const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
+        if (ModelResponse) {
+            cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
+                    code,
+                    name,
+                    price,
+                    minimum,
+                    qty,
+                    total,
+                    picture
+                })
+            );
+            cart.total = cart.products.reduce((total, product)=>total + product.total
+            , 0);
+        }
         return {
             redirect: {
                 permanent: false,
                 destination: "/products"
             },
-            props: {}
+            props: {
+                cart,
+                user: {
+                    logged: false
+                }
+            }
         };
     }
     const user = ironSession.user ?? {
@@ -416,7 +443,8 @@ async function getServerSideProps(context) {
     return {
         props: {
             cartStatus: getIsOpen,
-            user
+            user,
+            cart
         }
     };
 }
@@ -510,7 +538,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,869,885,507], () => (__webpack_exec__(4186)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,878,507], () => (__webpack_exec__(4186)));
 module.exports = __webpack_exports__;
 
 })();
