@@ -7,12 +7,15 @@ import App, { AppContext } from 'next/app';
 import { getIronSession, IronSessionData } from 'iron-session';
 import { UserLogged } from '../src/global/types';
 import { ToastContainer } from 'react-toastify';
+import { AppCtxProvider } from '../src/context';
 
 const MyApp = ({ Component, pageProps }) => {
 	return (
 		<NextUIProvider>
-			<Component {...pageProps} />
-			<ToastContainer />
+			<AppCtxProvider cart={pageProps.Cart}>
+				<Component {...pageProps} />
+				<ToastContainer />
+			</AppCtxProvider>
 		</NextUIProvider>
 	);
 };

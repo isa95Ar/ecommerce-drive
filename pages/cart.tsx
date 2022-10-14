@@ -3,7 +3,6 @@ import Header from '../components/navigation/Header';
 import { Button, Container, Grid } from '@nextui-org/react';
 import ProductDetailCard from '../components/cards/ProductDetailCard';
 import TotalCard from '../components/cards/TotalCard';
-import { useCart } from '../src/hooks/CartHook';
 import { ProductCart as productType } from '../src/global/types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -12,15 +11,16 @@ import { Fetch } from '../src/hooks/fetchHook';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useAppCtx } from '../src/context';
 export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
 	const isEditingOrder = props.orderId !== null;
-	const cart = useCart();
+	const cart = useAppCtx();
 	const router = useRouter();
 
 	useEffect(() => {
-		cart.updateCart(props.cart);
+		
 		infoMessages()
 	}, []);
 
@@ -35,7 +35,7 @@ export default function Cart(props) {
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
 			data: { products: cart.products, total: cart.total },
 			onSuccess: () => {
-				cart.removeCart();
+				
 				router.push('/#orderstored');
 				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {
 					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />

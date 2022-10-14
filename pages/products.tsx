@@ -4,16 +4,16 @@ import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
 import Header from '../components/navigation/Header';
 import CategorySelector from '../components/CategorySelector';
-import { useCart } from '../src/hooks/CartHook';
 import { infoMessages } from '../helpers/notify';
 import Layout from './layout';
 import ButtonCart from '../components/ButtonCart';
 import useDebounce from '../src/hooks/debounceHook';
+import { useAppCtx } from '../src/context';
 export { getServerSideProps } from '../src/ssp/products';
 
 export default function Products(props) {
 
-	const cart = useCart();
+	const cart = useAppCtx();
 
 	const [products, setProducts] = useState([]);
 	const [search, setSearch] = useState('');
@@ -30,7 +30,6 @@ export default function Products(props) {
 
 
 	useEffect(() => {
-		cart.updateCart(props.cart);
 		infoMessages();
 		getProducts().then(res => {
 			setProducts(res.products);
