@@ -135,7 +135,9 @@ async function saveProductsOnMongo(products) {
         const productService = external_tsyringe_.container.resolve(ProductService/* default */.Z);
         await productService.clearAll();
         await Promise.all(products.map(async (product)=>{
-            await productService.saveProduct(product);
+            if (product.stock) {
+                await productService.saveProduct(product);
+            }
         }));
         console.log("Products saved succesfully");
         return {

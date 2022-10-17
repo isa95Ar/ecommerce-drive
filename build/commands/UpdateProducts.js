@@ -79,10 +79,13 @@ function saveProductsOnMongo(products) {
                     return [4 /*yield*/, Promise.all(products.map(function (product) { return __awaiter(_this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
-                                    case 0: return [4 /*yield*/, productService_1.saveProduct(product)];
+                                    case 0:
+                                        if (!product.stock) return [3 /*break*/, 2];
+                                        return [4 /*yield*/, productService_1.saveProduct(product)];
                                     case 1:
                                         _a.sent();
-                                        return [2 /*return*/];
+                                        _a.label = 2;
+                                    case 2: return [2 /*return*/];
                                 }
                             });
                         }); }))];
