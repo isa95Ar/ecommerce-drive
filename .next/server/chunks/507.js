@@ -46,7 +46,6 @@ Config.statics.getCartStatus = async function() {
     const openTime = formattedOpenDate.getTime();
     const closeTime = formattedClosedDate.getTime();
     const today = new Date();
-    console.log(today, new Date(currentConfig.openDate));
     const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
     let status = "";
     if (isOpen) {

@@ -85,7 +85,9 @@ Product.statics.getProducts = async function(category, page) {
     const products = await this.find(query).select({
         _id: 0,
         __v: 0
-    }).limit(limit).skip(limit * (page - 1));
+    }).limit(limit).skip(limit * (page - 1)).sort({
+        code: 1
+    });
     const totalPages = Math.ceil(productsCount / limit);
     return {
         products,

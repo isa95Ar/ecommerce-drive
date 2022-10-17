@@ -423,7 +423,6 @@ function Products(props) {
             qty
         });
     };
-    console.log(cart);
     (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(()=>{
         (0,_helpers_notify__WEBPACK_IMPORTED_MODULE_7__/* .infoMessages */ .o)();
         (0,_helpers_content__WEBPACK_IMPORTED_MODULE_4__/* .getProducts */ .Xp)().then((res)=>{

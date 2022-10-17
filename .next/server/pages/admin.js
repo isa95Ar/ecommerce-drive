@@ -97,7 +97,6 @@ const CartDatesForm = ({ setEditing , setCurrentStatus  })=>{
             done: false,
             loading: true
         });
-        console.log(form.fields);
         (0,fetchHook/* Fetch */.U)({
             url: "/api/admin/cart/dates",
             method: "POST",
