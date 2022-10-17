@@ -27,7 +27,6 @@ export default function Products(props) {
 		cart.addProduct({ ...product, qty });
 	};
 
-	console.log(cart);
 	useEffect(() => {
 		infoMessages();
 		getProducts().then(res => {

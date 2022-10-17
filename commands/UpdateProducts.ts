@@ -39,7 +39,7 @@ async function saveProductsOnMongo(products: Array<productType>): Promise<object
 
 		await Promise.all(
 			products.map(async product => {
-				if(product.stock){
+				if (product.stock) {
 					await productService.saveProduct(product);
 				}
 			})

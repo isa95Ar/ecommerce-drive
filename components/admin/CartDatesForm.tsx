@@ -28,7 +28,6 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 
 	const submitDates = () => {
 		setFetching({ error: null, done: false, loading: true });
-		console.log(form.fields);
 		Fetch<datesFormType>({
 			url: '/api/admin/cart/dates',
 			method: 'POST',
