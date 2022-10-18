@@ -67,7 +67,10 @@ async function updateOrder(req, res) {
         const { orderId  } = req.query;
         const body = JSON.parse(req.body);
         const { products , total  } = body;
-        await orderService.updateOrder(orderId, body.products);
+        await orderService.updateOrder(orderId, {
+            products,
+            total
+        });
         const currentSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_0__.getIronSession)(req, res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_4__/* .sessionOptions */ .d);
         const { email , name  } = currentSession.user;
         const mailData = {

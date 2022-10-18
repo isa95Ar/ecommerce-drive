@@ -17,8 +17,8 @@
   "/layout": "pages/layout.html",
   "/_document": "pages/_document.js",
   "/admin": "pages/admin.js",
+  "/cart": "pages/cart.js",
   "/": "pages/index.js",
   "/products": "pages/products.js",
-  "/cart": "pages/cart.js",
   "/404": "pages/404.html"
 }

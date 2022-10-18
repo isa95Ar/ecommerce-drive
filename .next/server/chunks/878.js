@@ -214,9 +214,11 @@ Order.statics.getOrdersToPost = async function() {
     });
     return formattedOrders;
 };
-Order.statics.updateOrder = async function(orderId, products) {
+Order.statics.updateOrder = async function(orderId, order) {
+    const { products , total  } = order;
     const updatedOrder = await this.findByIdAndUpdate(orderId, {
-        products
+        products,
+        total
     }, {
         new: true
     });
@@ -239,8 +241,7 @@ var _class;
 
 
 var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,external_tsyringe_.singleton)();
-let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = //ToDo crear interfaz de config
-class OrderService extends BaseService/* default */.Z {
+let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = class OrderService extends BaseService/* default */.Z {
     constructor(){
         super();
     }
@@ -275,9 +276,9 @@ class OrderService extends BaseService/* default */.Z {
             throw new ApiExeption/* default */.Z(e);
         }
     }
-    async updateOrder(orderId, products) {
+    async updateOrder(orderId, order) {
         try {
-            const updatedOrder = await models_Order.updateOrder(orderId, products);
+            const updatedOrder = await models_Order.updateOrder(orderId, order);
             return updatedOrder;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
