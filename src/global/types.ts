@@ -82,3 +82,8 @@ export type productType = {
 	seller: string;
 	picture: string;
 };
+
+export type orderData = {
+	products: productType[];
+	total: number;
+}

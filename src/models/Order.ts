@@ -66,8 +66,9 @@ Order.statics.getOrdersToPost = async function () {
 	return formattedOrders;
 };
 
-Order.statics.updateOrder = async function (orderId, products) {
-	const updatedOrder = await this.findByIdAndUpdate(orderId, { products }, { new: true });
+Order.statics.updateOrder = async function (orderId, order) {
+	const { products, total } = order;
+	const updatedOrder = await this.findByIdAndUpdate(orderId, { products, total }, { new: true });
 	return updatedOrder;
 };
 
