@@ -15,7 +15,7 @@ export default async function updateOrder(req, res) {
 		const body = JSON.parse(req.body);
 		const { products, total } = body;
 
-		await orderService.updateOrder(orderId, body.products);
+		await orderService.updateOrder(orderId, {products, total});
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
 		const { email, name } = currentSession.user;
 

@@ -1,9 +1,8 @@
 import { singleton } from 'tsyringe';
 import ApiException from '../exceptions/ApiExeption';
+import { orderData } from '../global/types';
 import Order, { OrderI } from '../models/Order';
 import BaseService from './BaseService';
-
-//ToDo crear interfaz de config
 
 @singleton()
 class OrderService extends BaseService {
@@ -47,9 +46,9 @@ class OrderService extends BaseService {
 		}
 	}
 
-	async updateOrder(orderId: string, products) {
+	async updateOrder(orderId: string, order: orderData) {
 		try {
-			const updatedOrder = await Order.updateOrder(orderId, products);
+			const updatedOrder = await Order.updateOrder(orderId, order);
 			return updatedOrder;
 		} catch (e) {
 			throw new ApiException(e);
