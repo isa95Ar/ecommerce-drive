@@ -7,6 +7,7 @@ declare module 'iron-session' {
 	interface IronSessionData {
 		user?: {
 			id_google_sheet?: string;
+			id?: string;
 			name?: string;
 			email?: string;
 			profile_picture?: string;

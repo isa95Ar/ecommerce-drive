@@ -32,6 +32,7 @@ const oauthCallback = async (req: NextApiRequest, res: NextApiResponse) => {
 		} else {
 			req.session.user = {
 				id_google_sheet: profile.id,
+				id: MatchEmail[config.GOOGLE_SHEET_ROWS.USERS.ID_COLUMN],
 				name: profile.name,
 				email: profile.email,
 				profile_picture: profile.picture,

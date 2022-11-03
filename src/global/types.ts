@@ -10,6 +10,7 @@ export type ProductCart = {
 
 export type UserLogged = {
 	id_google_sheet?: string;
+	id?: string;
 	name?: string;
 	email?: string;
 	profile_picture?: string;
@@ -23,7 +24,7 @@ export type Cart = {
 
 export type GoogleSheetDataType = Array<Array<string>>;
 
-export type OrderType = Array<{ email: string; product: string; cantidad: string; code: number }>;
+export type OrderType = Array<{userId:string, email: string; product: string; cantidad: string; code: number }>;
 
 export type FileInfoType = Array<{ webViewLink: string; code: number }>;
 

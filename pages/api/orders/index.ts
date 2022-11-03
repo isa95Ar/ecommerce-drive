@@ -20,7 +20,7 @@ export default async function postOrder(req, res) {
 
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
 
-		const { email, name } = currentSession.user;
+		const { email, name, id } = currentSession.user;
 
 		// Enviar mail
 
@@ -34,7 +34,9 @@ export default async function postOrder(req, res) {
 
 		sendEmail(mailData);
 
-		await orderService.saveOrder({ products, email, total });
+		console.log(currentSession.user)
+
+		await orderService.saveOrder({ userId: id, products, email, total });
 		res.status(200).json({ success: true, error: false });
 	} catch (error) {
 		res.status(500).json(error);

@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
 
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
-		const ModelResponse = await orderService.getUserOrder(user.email);
+		const ModelResponse = await orderService.getUserOrder(user.id);
 		if (ModelResponse) {
 			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
 				code,
