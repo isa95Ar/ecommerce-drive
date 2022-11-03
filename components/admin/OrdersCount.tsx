@@ -13,11 +13,9 @@ const OrdersCount: FC<props> = ({ ordersCount, setOrdersCount }) => {
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
 
 	const postOrdersOnSheets = async () => {
-		const { orders } = await getOrdersToPost();
 		Fetch<{ orders: sheetOrder }>({
 			url: '/api/admin/orders',
 			method: 'POST',
-			data: { orders },
 			onSuccess: () => {
 				setOrdersCount(0);
 				setFetching({ error: null, loading: false, done: true });

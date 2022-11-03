@@ -11,6 +11,7 @@ interface Product {
 }
 
 export interface OrderI {
+	userId: string;
 	email: string;
 	products: Product[];
 	total: number;
@@ -19,6 +20,7 @@ export interface OrderI {
 interface BaseOrderDocument extends OrderI, Document {}
 
 const Order = new Schema<BaseOrderDocument>({
+	userId: { type: 'string', unique: true },
 	email: { type: 'string', unique: true },
 	products: [
 		{
@@ -44,8 +46,8 @@ Order.statics.getCurrentOrders = async function () {
 	return { orders, count };
 };
 
-Order.statics.getUserOrder = async function (email: string) {
-	const order = await this.findOne({ email }).lean();
+Order.statics.getUserOrder = async function (userId: string) {
+	const order = await this.findOne({ userId }).lean();
 	return order;
 };
 
@@ -55,6 +57,7 @@ Order.statics.getOrdersToPost = async function () {
 	allOrders.map(order => {
 		order.products.map(product => {
 			const newOrder = {
+				userId: order.userId,
 				email: order.email,
 				product: product.name,
 				code: product.code,

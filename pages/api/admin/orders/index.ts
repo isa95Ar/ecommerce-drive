@@ -6,10 +6,9 @@ export default async function postOrders(req, res) {
 	const orderService = container.resolve(OrderService);
 	if (req.method === 'POST') {
 		try {
+			const ordersToPost = await orderService.getOrdersToPost()
 			const googleService = new GoogleSheetService('orders');
-			const body = JSON.parse(req.body);
-			let orders = body.orders;
-			await googleService.insertOnGoogleSheet(orders);
+			await googleService.insertOnGoogleSheet(ordersToPost);
 			await orderService.clearLocalOrders();
 			res.status(200).json({ success: true, error: false });
 		} catch (error) {

@@ -27,9 +27,9 @@ class OrderService extends BaseService {
 		}
 	}
 
-	async getUserOrder(email: string) {
+	async getUserOrder(userId: string) {
 		try {
-			const userOrder = await Order.getUserOrder(email);
+			const userOrder = await Order.getUserOrder(userId);
 
 			return userOrder;
 		} catch (e) {
