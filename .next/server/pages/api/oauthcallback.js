@@ -82,6 +82,7 @@ const oauthCallback = async (req, res)=>{
         } else {
             req.session.user = {
                 id_google_sheet: profile.id,
+                id: MatchEmail[_constants_config__WEBPACK_IMPORTED_MODULE_4__/* ["default"].GOOGLE_SHEET_ROWS.USERS.ID_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.ID_COLUMN],
                 name: profile.name,
                 email: profile.email,
                 profile_picture: profile.picture,

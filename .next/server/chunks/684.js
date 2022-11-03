@@ -39,6 +39,7 @@ exports.modules = {
             SELLER_COLUMN: 6
         },
         USERS: {
+            ID_COLUMN: 0,
             EMAIL_COLUMN: 2,
             IS_ADMIN_COLUMN: 3
         }

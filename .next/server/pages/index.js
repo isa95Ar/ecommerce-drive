@@ -409,7 +409,7 @@ async function getServerSideProps(context) {
     };
     if (ironSession.user && getIsOpen.status === "open") {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
-        const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
+        const ModelResponse = await orderService.getUserOrder(ironSession.user.id);
         if (ModelResponse) {
             cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
                     code,

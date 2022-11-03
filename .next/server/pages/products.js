@@ -324,10 +324,9 @@ __webpack_async_result__();
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CP": () => (/* binding */ getCategories),
-/* harmony export */   "Xp": () => (/* binding */ getProducts),
-/* harmony export */   "g4": () => (/* binding */ getOrdersToPost)
+/* harmony export */   "Xp": () => (/* binding */ getProducts)
 /* harmony export */ });
-/* unused harmony export getCartStatus */
+/* unused harmony exports getCartStatus, getOrdersToPost */
 /* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3382);
 
 const getProducts = async (page = 1, category = "", search = "")=>{
@@ -351,7 +350,7 @@ const getCartStatus = async ()=>{
     });
 };
 const getOrdersToPost = async ()=>{
-    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
+    return await Fetch({
         url: "/api/admin/orders/to-post"
     });
 };
@@ -630,7 +629,7 @@ async function getServerSideProps(context) {
     };
     if (user.logged) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
-        const ModelResponse = await orderService.getUserOrder(user.email);
+        const ModelResponse = await orderService.getUserOrder(user.id);
         if (ModelResponse) {
             cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
                     code,

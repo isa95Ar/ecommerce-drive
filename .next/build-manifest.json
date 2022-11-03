@@ -5,9 +5,9 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/cOZavpM2RMbKxlaKru1xi/_buildManifest.js",
-    "static/cOZavpM2RMbKxlaKru1xi/_ssgManifest.js",
-    "static/cOZavpM2RMbKxlaKru1xi/_middlewareManifest.js"
+    "static/V06CbXc5SXRb0f9_SwwPI/_buildManifest.js",
+    "static/V06CbXc5SXRb0f9_SwwPI/_ssgManifest.js",
+    "static/V06CbXc5SXRb0f9_SwwPI/_middlewareManifest.js"
   ],
   "pages": {
     "/": [
@@ -40,7 +40,7 @@
       "static/chunks/871-6a375a37dd5b8ec9.js",
       "static/chunks/375-a62df67f2ff04a50.js",
       "static/chunks/849-5011522df28d5f13.js",
-      "static/chunks/pages/admin-a2d123a253da3014.js"
+      "static/chunks/pages/admin-f217db08746c8c71.js"
     ],
     "/cart": [
       "static/chunks/webpack-9b312e20a4e32339.js",
@@ -66,7 +66,7 @@
       "static/chunks/871-6a375a37dd5b8ec9.js",
       "static/chunks/583-cf858f3081710a96.js",
       "static/chunks/849-5011522df28d5f13.js",
-      "static/chunks/pages/products-b22ae23deac3bec2.js"
+      "static/chunks/pages/products-3843a0a51a2043bb.js"
     ]
   },
   "ampFirstPages": []

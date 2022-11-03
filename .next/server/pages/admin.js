@@ -297,9 +297,7 @@ const CurrentStatus = ({ status , setEditing  })=>{
 /* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _helpers_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(724);
-/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3382);
-
+/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3382);
 
 
 
@@ -311,13 +309,9 @@ const OrdersCount = ({ ordersCount , setOrdersCount  })=>{
         done: false
     });
     const postOrdersOnSheets = async ()=>{
-        const { orders  } = await (0,_helpers_content__WEBPACK_IMPORTED_MODULE_3__/* .getOrdersToPost */ .g4)();
-        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_4__/* .Fetch */ .U)({
+        (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_3__/* .Fetch */ .U)({
             url: "/api/admin/orders",
             method: "POST",
-            data: {
-                orders
-            },
             onSuccess: ()=>{
                 setOrdersCount(0);
                 setFetching({
@@ -501,46 +495,6 @@ __webpack_async_result__();
 
 /***/ }),
 
-/***/ 724:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CP": () => (/* binding */ getCategories),
-/* harmony export */   "Xp": () => (/* binding */ getProducts),
-/* harmony export */   "g4": () => (/* binding */ getOrdersToPost)
-/* harmony export */ });
-/* unused harmony export getCartStatus */
-/* harmony import */ var _src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3382);
-
-const getProducts = async (page = 1, category = "", search = "")=>{
-    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
-        url: `/api/products`,
-        query: {
-            category,
-            search,
-            page
-        }
-    });
-};
-const getCategories = async ()=>{
-    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
-        url: "/api/categories"
-    });
-};
-const getCartStatus = async ()=>{
-    return await Fetch({
-        url: "/api/cart/status"
-    });
-};
-const getOrdersToPost = async ()=>{
-    return await (0,_src_hooks_fetchHook__WEBPACK_IMPORTED_MODULE_0__/* .Fetch */ .U)({
-        url: "/api/admin/orders/to-post"
-    });
-};
-
-
-/***/ }),
-
 /***/ 2235:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -712,7 +666,7 @@ async function getServerSideProps(context) {
     };
     if (user.logged) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
-        const ModelResponse = await orderService.getUserOrder(user.email);
+        const ModelResponse = await orderService.getUserOrder(user.id);
         if (ModelResponse) {
             cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
                     code,

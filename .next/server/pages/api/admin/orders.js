@@ -51,10 +51,9 @@ async function postOrders(req, res) {
     const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
     if (req.method === "POST") {
         try {
+            const ordersToPost = await orderService.getOrdersToPost();
             const googleService = new _src_services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z("orders");
-            const body = JSON.parse(req.body);
-            let orders = body.orders;
-            await googleService.insertOnGoogleSheet(orders);
+            await googleService.insertOnGoogleSheet(ordersToPost);
             await orderService.clearLocalOrders();
             res.status(200).json({
                 success: true,
@@ -83,7 +82,7 @@ async function postOrders(req, res) {
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [96,684,554,74,419], () => (__webpack_exec__(1858)));
+var __webpack_exports__ = __webpack_require__.X(0, [96,684,74,554,419], () => (__webpack_exec__(1858)));
 module.exports = __webpack_exports__;
 
 })();

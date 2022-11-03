@@ -45,6 +45,10 @@ var external_mongoose_default = /*#__PURE__*/__webpack_require__.n(external_mong
 ;// CONCATENATED MODULE: ./src/models/Order.ts
 
 const Order = new external_mongoose_.Schema({
+    userId: {
+        type: "string",
+        unique: true
+    },
     email: {
         type: "string",
         unique: true
@@ -77,9 +81,9 @@ Order.statics.getCurrentOrders = async function() {
         count
     };
 };
-Order.statics.getUserOrder = async function(email) {
+Order.statics.getUserOrder = async function(userId) {
     const order = await this.findOne({
-        email
+        userId
     }).lean();
     return order;
 };
@@ -89,6 +93,7 @@ Order.statics.getOrdersToPost = async function() {
     allOrders.map((order)=>{
         order.products.map((product)=>{
             const newOrder = {
+                userId: order.userId,
                 email: order.email,
                 product: product.name,
                 code: product.code,
@@ -145,9 +150,9 @@ let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = class O
             throw new ApiExeption/* default */.Z(e);
         }
     }
-    async getUserOrder(email) {
+    async getUserOrder(userId) {
         try {
-            const userOrder = await models_Order.getUserOrder(email);
+            const userOrder = await models_Order.getUserOrder(userId);
             return userOrder;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
