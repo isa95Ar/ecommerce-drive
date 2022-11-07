@@ -36,7 +36,6 @@ const MessageCard: FC<props> = ({ status }) => {
 						</Text>
 					</div>
 				)}
-				<Links />
 			</Container>
 		</div>
 	);
