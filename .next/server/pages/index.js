@@ -125,112 +125,36 @@ const LoginCard = ()=>{
 
 /***/ }),
 
-/***/ 6370:
+/***/ 8701:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ cards_MessageCard)
-});
-
-// EXTERNAL MODULE: external "react/jsx-runtime"
-var jsx_runtime_ = __webpack_require__(997);
-// EXTERNAL MODULE: external "@nextui-org/react"
-var react_ = __webpack_require__(6735);
-// EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
-var free_solid_svg_icons_ = __webpack_require__(6466);
-// EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
-var react_fontawesome_ = __webpack_require__(7197);
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(6689);
-;// CONCATENATED MODULE: ./components/landing/Links.tsx
-
-
-
-
-
-const Links = ()=>{
-    return /*#__PURE__*/ (0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
-        children: [
-            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                style: {
-                    display: "flex",
-                    flexDirection: "row"
-                },
-                children: [
-                    /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-                        icon: free_solid_svg_icons_.faArrowRight,
-                        color: "white",
-                        style: {
-                            alignSelf: "center"
-                        }
-                    }),
-                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Link, {
-                        block: true,
-                        href: "#",
-                        className: "link-container",
-                        underline: true,
-                        children: [
-                            " ",
-                            "Visit\xe1 Nuestra p\xe1gina"
-                        ]
-                    })
-                ]
-            }),
-            /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
-                style: {
-                    display: "flex",
-                    flexDirection: "row"
-                },
-                children: [
-                    /*#__PURE__*/ jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-                        icon: free_solid_svg_icons_.faArrowRight,
-                        color: "white",
-                        style: {
-                            alignSelf: "center"
-                        }
-                    }),
-                    /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Link, {
-                        block: true,
-                        href: "#",
-                        className: "link-container",
-                        underline: true,
-                        children: [
-                            " ",
-                            "Unite a la comunidad"
-                        ]
-                    })
-                ]
-            })
-        ]
-    });
-};
-/* harmony default export */ const landing_Links = (Links);
-
-// EXTERNAL MODULE: ./helpers/formatDate.ts
-var formatDate = __webpack_require__(2235);
-;// CONCATENATED MODULE: ./components/cards/MessageCard.tsx
-
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6735);
+/* harmony import */ var _nextui_org_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2235);
 
 
 
 const MessageCard = ({ status  })=>{
-    const FechaHora = `${(0,formatDate/* getDayFromDate */.f)(status.openDate)} a las ${(0,formatDate/* getTimeFromDate */.D)(status.openDate)}`;
-    return /*#__PURE__*/ jsx_runtime_.jsx("div", {
+    const FechaHora = `${(0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getDayFromDate */ .f)(status.openDate)} a las ${(0,_helpers_formatDate__WEBPACK_IMPORTED_MODULE_2__/* .getTimeFromDate */ .D)(status.openDate)}`;
+    return /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
         className: "message-card-container",
-        children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Container, {
+        children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Container, {
             fluid: true,
             children: [
-                /*#__PURE__*/ jsx_runtime_.jsx(react_.Card, {
+                /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Card, {
                     css: {
                         height: "40vh",
                         background: "none"
                     },
                     children: " "
                 }),
-                status.status === "open" ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                status.status === "open" ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
                         h1: true,
                         css: {
                             color: "white"
@@ -240,8 +164,8 @@ const MessageCard = ({ status  })=>{
                             " "
                         ]
                     })
-                }) : status.status === "toOpen" ? /*#__PURE__*/ jsx_runtime_.jsx("div", {
-                    children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                }) : status.status === "toOpen" ? /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("div", {
+                    children: /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
                         h1: true,
                         css: {
                             color: "white"
@@ -251,9 +175,9 @@ const MessageCard = ({ status  })=>{
                             FechaHora
                         ]
                     })
-                }) : /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
+                }) : /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
                     children: [
-                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
                             h1: true,
                             css: {
                                 color: "white"
@@ -263,7 +187,7 @@ const MessageCard = ({ status  })=>{
                                 " "
                             ]
                         }),
-                        /*#__PURE__*/ (0,jsx_runtime_.jsxs)(react_.Text, {
+                        /*#__PURE__*/ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
                             h4: true,
                             css: {
                                 color: "white"
@@ -274,13 +198,12 @@ const MessageCard = ({ status  })=>{
                             ]
                         })
                     ]
-                }),
-                /*#__PURE__*/ jsx_runtime_.jsx(landing_Links, {})
+                })
             ]
         })
     });
 };
-/* harmony default export */ const cards_MessageCard = (MessageCard);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageCard);
 
 
 /***/ }),
@@ -335,7 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8366);
 /* harmony import */ var _components_cards_LoginCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(261);
-/* harmony import */ var _components_cards_MessageCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6370);
+/* harmony import */ var _components_cards_MessageCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8701);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6689);
@@ -451,20 +374,6 @@ async function getServerSideProps(context) {
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
-
-/***/ }),
-
-/***/ 6466:
-/***/ ((module) => {
-
-module.exports = require("@fortawesome/free-solid-svg-icons");
-
-/***/ }),
-
-/***/ 7197:
-/***/ ((module) => {
-
-module.exports = require("@fortawesome/react-fontawesome");
 
 /***/ }),
 
