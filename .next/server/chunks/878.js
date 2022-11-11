@@ -181,6 +181,8 @@ const Order = new external_mongoose_.Schema({
         }
     ],
     total: "number"
+}, {
+    timestamps: true
 });
 Order.statics.createOrder = async function(order) {
     await this.create(order);
