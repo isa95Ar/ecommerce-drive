@@ -34,7 +34,7 @@ const Order = new Schema<BaseOrderDocument>({
 		}
 	],
 	total: 'number'
-});
+}, {timestamps: true});
 
 Order.statics.createOrder = async function (order: OrderI) {
 	await this.create(order);
