@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
 
 	if (ironSession.user && getIsOpen.status === 'open') {
 		const orderService = container.resolve(OrderService);
-		const ModelResponse = await orderService.getUserOrder(ironSession.user.id);
+		const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
 		if (ModelResponse) {
 			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
 				code,
