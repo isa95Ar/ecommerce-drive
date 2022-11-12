@@ -34,8 +34,6 @@ export default async function postOrder(req, res) {
 
 		sendEmail(mailData);
 
-		console.log(currentSession.user)
-
 		await orderService.saveOrder({ userId: id, products, email, total });
 		res.status(200).json({ success: true, error: false });
 	} catch (error) {

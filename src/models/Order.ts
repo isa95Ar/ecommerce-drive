@@ -46,8 +46,8 @@ Order.statics.getCurrentOrders = async function () {
 	return { orders, count };
 };
 
-Order.statics.getUserOrder = async function (userId: string) {
-	const order = await this.findOne({ userId }).lean();
+Order.statics.getUserOrder = async function (email: string) {
+	const order = await this.findOne({ email });
 	return order;
 };
 
