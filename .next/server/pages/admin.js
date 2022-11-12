@@ -666,7 +666,7 @@ async function getServerSideProps(context) {
     };
     if (user.logged) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
-        const ModelResponse = await orderService.getUserOrder(user.id);
+        const ModelResponse = await orderService.getUserOrder(user.email);
         if (ModelResponse) {
             cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
                     code,

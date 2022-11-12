@@ -199,10 +199,10 @@ Order.statics.getCurrentOrders = async function() {
         count
     };
 };
-Order.statics.getUserOrder = async function(userId) {
+Order.statics.getUserOrder = async function(email) {
     const order = await this.findOne({
-        userId
-    }).lean();
+        email
+    });
     return order;
 };
 Order.statics.getOrdersToPost = async function() {
@@ -268,9 +268,9 @@ let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = class O
             throw new ApiExeption/* default */.Z(e);
         }
     }
-    async getUserOrder(userId) {
+    async getUserOrder(email) {
         try {
-            const userOrder = await models_Order.getUserOrder(userId);
+            const userOrder = await models_Order.getUserOrder(email);
             return userOrder;
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);

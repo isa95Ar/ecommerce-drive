@@ -87,7 +87,6 @@ async function postOrder(req, res) {
             text: ""
         };
         (0,_helpers_sendEmail__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)(mailData);
-        console.log(currentSession.user);
         await orderService.saveOrder({
             userId: id,
             products,
