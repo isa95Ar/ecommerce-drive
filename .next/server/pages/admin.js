@@ -664,6 +664,16 @@ async function getServerSideProps(context) {
         products: [],
         total: 0
     };
+    if (ironSession.user && !ironSession.user.id) {
+        context.req.session.destroy();
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            },
+            props: {}
+        };
+    }
     if (user.logged) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_0__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
         const ModelResponse = await orderService.getUserOrder(user.email);

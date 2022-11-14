@@ -611,6 +611,16 @@ async function getServerSideProps(context) {
     const configService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_services_ConfigService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
     const getIsOpen = await configService.getCartStatus();
     const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_3__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__/* .sessionOptions */ .d);
+    if (ironSession.user && !ironSession.user.id) {
+        context.req.session.destroy();
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            },
+            props: {}
+        };
+    }
     if (getIsOpen.status !== "open" || !ironSession.user) {
         return {
             redirect: {
