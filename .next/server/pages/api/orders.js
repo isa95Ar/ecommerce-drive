@@ -74,6 +74,12 @@ async function postOrder(req, res) {
         }
         const currentSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_0__.getIronSession)(req, res, _src_utils_withIronSession__WEBPACK_IMPORTED_MODULE_3__/* .sessionOptions */ .d);
         const { email , name , id  } = currentSession.user;
+        await orderService.saveOrder({
+            userId: id,
+            products,
+            email,
+            total
+        });
         // Enviar mail
         const mailData = {
             from: "Compras Almargen",
@@ -87,17 +93,12 @@ async function postOrder(req, res) {
             text: ""
         };
         (0,_helpers_sendEmail__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)(mailData);
-        await orderService.saveOrder({
-            userId: id,
-            products,
-            email,
-            total
-        });
         res.status(200).json({
             success: true,
             error: false
         });
     } catch (error) {
+        console.log(error, "Error saving order");
         res.status(500).json(error);
     }
 };

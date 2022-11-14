@@ -51,6 +51,7 @@ const login = async (req, res)=>{
         const url = await googleAuth.getAuthUrl();
         res.redirect(url);
     } catch (e) {
+        console.log(e, "Error in login");
         res.json(e);
     }
 };

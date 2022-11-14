@@ -54,6 +54,7 @@ async function updateCartDates(req, res) {
             ...newStatus
         });
     } catch (error) {
+        console.log(error, "Error updating cart dates");
         res.status(500).json({
             error: error.jsonOutPut()
         });
