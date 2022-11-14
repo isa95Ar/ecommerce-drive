@@ -93,6 +93,10 @@ async function postOrder(req, res) {
             text: ""
         };
         (0,_helpers_sendEmail__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z)(mailData);
+        console.log("Nuevo pedido", {
+            email,
+            products
+        });
         res.status(200).json({
             success: true,
             error: false

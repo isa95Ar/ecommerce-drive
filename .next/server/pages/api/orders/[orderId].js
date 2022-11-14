@@ -85,6 +85,10 @@ async function updateOrder(req, res) {
             text: ""
         };
         (0,_helpers_sendEmail__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)(mailData);
+        console.log("Pedido actualizado", {
+            email,
+            products
+        });
         res.status(200).json({
             error: false,
             message: "Order updated successfully"
