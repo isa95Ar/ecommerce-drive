@@ -19,6 +19,7 @@ export default async function postOrders(req, res) {
 			const currentOrders = await orderService.getCurrentOrders();
 			res.status(200).json(currentOrders);
 		} catch (error) {
+			console.log(error, "Error saving order");
 			res.status(500).json(error);
 		}
 	}

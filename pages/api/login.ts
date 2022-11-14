@@ -9,6 +9,8 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 		const url: string = await googleAuth.getAuthUrl();
 		res.redirect(url);
 	} catch (e) {
+		console.log(e, "Error in login");
+
 		res.json(e);
 	}
 };

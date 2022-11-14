@@ -7,6 +7,7 @@ export default async function getCartStatus(req, res) {
 		const cartStatus = await configService.getCartStatus();
 		res.status(200).json(cartStatus);
 	} catch (error) {
+		console.log(error, "Getting cart status");
 		res.status(500).json(error);
 	}
 }

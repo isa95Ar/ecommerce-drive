@@ -17,6 +17,7 @@ export default async function updateCartDates(req, res) {
 		const newStatus = await configService.getCartStatus();
 		res.status(200).json({ ...newStatus });
 	} catch (error) {
+		console.log(error, "Error updating cart dates");
 		res.status(500).json({ error: error.jsonOutPut() });
 	}
 }

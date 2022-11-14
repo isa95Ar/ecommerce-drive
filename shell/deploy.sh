@@ -7,7 +7,6 @@ echo "Moving to builded-version branch"
 echo "Building Apps"
  npm i
  npm run build
- npm run build-command
  if [[ $OSTYPE == 'darwin'* ]]; then
   alias sed=gsed
  fi
