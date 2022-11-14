@@ -29,6 +29,8 @@ export default async function updateOrder(req, res) {
 
 		sendEmail(mailData);
 
+		console.log("Pedido actualizado", {email, products})
+
 		res.status(200).json({ error: false, message: 'Order updated successfully' });
 	} catch (error) {
 		console.log(error, 'error on update order');
