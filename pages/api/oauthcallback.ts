@@ -41,6 +41,8 @@ const oauthCallback = async (req: NextApiRequest, res: NextApiResponse) => {
 			};
 
 			await req.session.save();
+
+			console.log("New login", req.session.user)
 			if (MatchEmail[config.GOOGLE_SHEET_ROWS.USERS.IS_ADMIN_COLUMN] === '1') {
 				return res.redirect('/admin#logged');
 			}

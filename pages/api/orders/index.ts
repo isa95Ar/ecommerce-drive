@@ -36,6 +36,7 @@ export default async function postOrder(req, res) {
 
 		sendEmail(mailData);
 
+		console.log("Nuevo pedido", {email, products})
 		res.status(200).json({ success: true, error: false });
 	} catch (error) {
 		console.log(error, "Error saving order");
