@@ -8,6 +8,8 @@ var dotEnv = require('dotenv');
 dotEnv.config();
 var dotEnv = require('dotenv');
 dotEnv.config();
+var dotEnv = require('dotenv');
+dotEnv.config();
 exports["default"] = {
     gapi: {
         SPREADSHEET_ID: process.env.SPREADSHEET_ID,
