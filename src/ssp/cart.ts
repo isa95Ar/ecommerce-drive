@@ -10,6 +10,17 @@ export async function getServerSideProps(context) {
 	const user: UserLogged = ironSession.user ?? { logged: false };
 	const cart = { products: [], total: 0 };
 	let orderId = null;
+	
+	if(ironSession.user && !ironSession.user.id){
+		context.req.session.destroy();
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/'
+			},
+			props: {}
+		};
+	}
 
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
