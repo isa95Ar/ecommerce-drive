@@ -40,6 +40,8 @@ export async function getServerSideProps(context) {
 			}));
 			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
 		}
+
+		console.log("Inicio de sesion", {user, cart})
 	}
 
 	const currentStatus = await configService.getCartStatus();
