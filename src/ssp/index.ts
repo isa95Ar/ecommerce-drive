@@ -12,6 +12,18 @@ export async function getServerSideProps(context) {
 
 	const cart = { products: [], total: 0 };
 
+	if(ironSession.user && !ironSession.user.id){
+		context.req.session.destroy();
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/'
+			},
+			props: {}
+		};
+	}
+
+	
 	if (ironSession.user && getIsOpen.status === 'open') {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
