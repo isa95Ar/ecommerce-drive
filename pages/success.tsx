@@ -8,6 +8,9 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
+import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { useAppCtx } from '../src/context';
 export { getServerSideProps } from '../src/ssp/cart';
 
@@ -30,50 +33,23 @@ export default function Cart(props) {
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
 			data: { products: cart.products, total: cart.total },
 			onSuccess: () => {
-				router.push('/success');
+				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {
+					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
+				});
 			},
 			onError: e => {
 				console.warn(`error on saving order`, e);
 			}
 		});
 	};
-
+	
 	return (
 		<Layout {...props}>
 			{props.user.logged && (
 				<>
-					<Header user={props.user} title={isEditingOrder ? 'Edita tu pedido' : 'Tu carrito'} cart={cart} />
+					<Header user={props.user} title={isEditingOrder ? 'Su pedido se actualizo existosamente' : 'Pedido exitoso'} cart={cart} />
 					<Container className="cart-container">
-						<Grid.Container justify="center" gap={2}>
-							<Grid direction="column" xs={12} sm={10} md={7} lg={6} xl={4}>
-								{cart.products.map((product: productType) => (
-									<ProductDetailCard
-										key={product.code}
-										deleteProduct={(product: productType) => cart.deleteProduct(product)}
-										updateProduct={(product: productType, qty) => cart.updateProduct({ ...product, qty })}
-										product={product}
-									/>
-								))}
-								<TotalCard total={cart.total} />
-								{cart.isModified ? (
-									<Button
-										disabled={cart.products.length < 0}
-										className={`${cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
-										onClick={sendOrder}
-									>
-										{isEditingOrder ? 'Actualizar pedido' : 'Realizar pedido'}
-									</Button>
-								) : null}
-								<Button
-									className="button-continue"
-									onClick={() => {
-										router.push('/');
-									}}
-								>
-									Seguir comprando
-								</Button>
-							</Grid>
-						</Grid.Container>
+
 					</Container>
 				</>
 			)}

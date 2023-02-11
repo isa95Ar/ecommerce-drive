@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
 			props: {}
 		};
 	}
-
+	
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(user.email);
