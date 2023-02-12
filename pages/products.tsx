@@ -1,5 +1,5 @@
 import { Grid, Container, Row, Pagination, Loading, Input } from '@nextui-org/react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ProductCard from '../components/cards/ProductCard';
 import { getCategories, getProducts } from '../helpers/content';
 import Header from '../components/navigation/Header';
@@ -9,11 +9,12 @@ import Layout from './layout';
 import ButtonCart from '../components/ButtonCart';
 import useDebounce from '../src/hooks/debounceHook';
 import { useAppCtx } from '../src/context';
+import { SalesCtx, useSalesCtx } from '../src/salescontext';
 export { getServerSideProps } from '../src/ssp/products';
 
 export default function Products(props) {
 	const cart = useAppCtx();
-
+	const { saleSelected } = useContext(SalesCtx);
 	const [products, setProducts] = useState([]);
 	const [search, setSearch] = useState('');
 	const [categories, setCategories] = useState([{ key: '', name: 'Todas las categorías' }]);
@@ -53,7 +54,12 @@ export default function Products(props) {
 	}, [category, debouncedSearch]);
 	return (
 		<Layout>
-			<Header title="Elegí el rubro y encontrá tus productos" user={props.user} cart={cart} />
+			<Header
+				saleName={saleSelected.name}
+				title="Elegí el rubro y encontrá tus productos"
+				user={props.user}
+				cart={cart}
+			/>
 			<Container css={{ backgroundColor: '#fff', maxWidth: '1260px' }}>
 				<Row css={{ backgroundColor: 'transparent', marginTop: '-1.4rem' }} className="search-row">
 					<Input
@@ -72,8 +78,8 @@ export default function Products(props) {
 				) : (
 					<>
 						<Grid.Container gap={1} css={{ padding: 0, backgroundColor: '#fff' }}>
-							{products &&
-								products.map(item => (
+							{saleSelected &&
+								saleSelected.products.map(item => (
 									<Grid xs={12} sm={12} md={6} lg={4} xl={4} key={item.code}>
 										<ProductCard
 											addProduct={(product, qty) => addProductToCart(product, qty)}

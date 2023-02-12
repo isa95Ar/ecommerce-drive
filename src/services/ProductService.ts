@@ -1,6 +1,7 @@
 import { singleton } from 'tsyringe';
 import ApiException from '../exceptions/ApiExeption';
 import { ProductModel } from '../global/types';
+import Config from '../models/Config';
 import Product from '../models/Product';
 import BaseService from './BaseService';
 
@@ -13,6 +14,17 @@ class ProductService extends BaseService {
 	async saveProduct(product: ProductModel) {
 		try {
 			await Product.createProduct(product);
+			return { error: false };
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
+	async saveProductForSale(products, salesId) {
+		try {
+			//hay que handlear el erro
+			const saleToUpdate = await Config.getSale(salesId);
+			await Config.updateProducts(products, saleToUpdate);
 			return { error: false };
 		} catch (e) {
 			throw new ApiException(e);

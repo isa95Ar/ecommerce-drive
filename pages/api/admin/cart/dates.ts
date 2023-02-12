@@ -3,21 +3,31 @@ import ConfigService from '../../../../src/services/ConfigService';
 
 export default async function updateCartDates(req, res) {
 	try {
-		if (req.method !== 'POST') {
-			return res.status(405).send({ message: 'Invalid method. Only POST requests allowed' });
+		if (req.method === 'PUT') {
+			const configService = container.resolve(ConfigService);
+			const body = JSON.parse(req.body);
+
+			let { openDate, closeDate, name, id } = body;
+			if (!openDate || !closeDate) {
+				return res.status(400).json({ error: true, message: 'Missing dates' });
+			}
+			//const datesToSend = {openDate, closeDate}
+			await configService.setDates(openDate, closeDate, name, id);
+			const newStatus = await configService.getCartStatus();
+			res.status(200).json({ ...newStatus });
+		} else {
+			const configService = container.resolve(ConfigService);
+			const body = JSON.parse(req.body);
+
+			let { openDate, closeDate, name } = body;
+			if (!openDate || !closeDate) {
+				return res.status(400).json({ error: true, message: 'Missing dates' });
+			}
+
+			await configService.createSale(openDate, closeDate, name);
 		}
-		const configService = container.resolve(ConfigService);
-		const body = JSON.parse(req.body);
-		let { openDate, closeDate } = body;
-		if (!openDate || !closeDate) {
-			return res.status(400).json({ error: true, message: 'Missing dates' });
-		}
-		//const datesToSend = {openDate, closeDate}
-		await configService.setDates(openDate, closeDate);
-		const newStatus = await configService.getCartStatus();
-		res.status(200).json({ ...newStatus });
 	} catch (error) {
-		console.log(error, "Error updating cart dates");
+		console.log(error, 'Error updating cart dates');
 		res.status(500).json({ error: error.jsonOutPut() });
 	}
 }

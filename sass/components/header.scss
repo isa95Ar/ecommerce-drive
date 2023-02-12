@@ -24,6 +24,19 @@
         margin-bottom: 20px;
     }
 
+    .header-compra {
+        letter-spacing: 0px;
+        font-family: 'Roboto';
+        text-align: center;
+        font-style: normal;
+        font-weight: 500 !important;
+        font-size: 42px !important;
+        line-height: 48px;
+        text-align: center;
+        padding-right: 0% !important;
+        margin-bottom: 50px !important;
+    }
+
     .buttons-container {
         display: flex;
         justify-content: space-between;
@@ -60,7 +73,7 @@
     .header{
         height: 300px !important;
         //bg-lg.jpeg
-        background: linear-gradient(0deg, rgba(50, 50, 50, 0.6), rgba(50, 50, 50, 0.6)), url('/img/header.jpeg');
+        background: url('/img/bgwave.jpg');
         background-position: 25% 20%;
         background-size: cover;
         justify-content:none;

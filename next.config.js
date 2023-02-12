@@ -12,6 +12,14 @@ const nextConfig = {
 
 		return config;
 	},
+	images: {
+		loader: 'default',
+		domains: [
+		'https://lh3.googleusercontent.com',
+		'lh3.googleusercontent.com',
+		'https://lh3.googleusercontent.com/'
+		],
+	},
 	future: {
 		webpack5: true
 	},

@@ -13,8 +13,8 @@ export async function getServerSideProps(context) {
 	const user: UserLogged = ironSession.user ?? { logged: false };
 
 	const cart = { products: [], total: 0 };
-	
-	if(ironSession.user && !ironSession.user.id){
+
+	if (ironSession.user && !ironSession.user.id) {
 		context.req.session.destroy();
 		return {
 			redirect: {
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
 			props: {}
 		};
 	}
-	
+
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(user.email);
@@ -40,15 +40,13 @@ export async function getServerSideProps(context) {
 			}));
 			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
 		}
-
-		console.log("Inicio de sesion", {user, cart})
 	}
 
 	const currentStatus = await configService.getCartStatus();
-
+	const allSales = await configService.getAllSales();
 	const currentOrders = await orderService.getCurrentOrders();
 
 	return {
-		props: { user, currentStatus, currentOrders, cart }
+		props: { user, currentStatus, currentOrders, cart, allSales }
 	};
 }
