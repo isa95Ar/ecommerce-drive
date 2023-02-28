@@ -1,3 +1,4 @@
+import config from '../../constants/config';
 import { singleton } from 'tsyringe';
 import { connection, connect, ConnectionStates } from 'mongoose';
 
@@ -13,7 +14,7 @@ class BaseService {
 		return new Promise(async (resolve, reject) => {
 			try {
 				if (this.isDbConnected) return;
-				const db = await connect('mongodb://localhost:27017/almargen');
+				const db = await connect(config.MONGODB_CONNECTION_URL);
 				this.isDbConnected = db.connections[0].readyState;
 				resolve(db.connections[0].readyState);
 			} catch (e) {
