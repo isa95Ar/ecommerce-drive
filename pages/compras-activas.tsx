@@ -29,7 +29,7 @@ export default function Admin(props) {
 			<Header title="Compras Activas" user={props.user} />
 			<Grid.Container gap={2} justify="center">
 				{compras.map(compra =>
-					compra.status === 'open' || 'toOpen' ? (
+					compra.status === 'closed' ? null : (
 						<Grid>
 							<Card css={{ mw: '330px' }}>
 								<Card.Header style={{ justifyContent: 'space-between' }}>
@@ -65,7 +65,7 @@ export default function Admin(props) {
 								</Card.Footer>
 							</Card>
 						</Grid>
-					) : null
+					)
 				)}
 			</Grid.Container>
 		</Layout>

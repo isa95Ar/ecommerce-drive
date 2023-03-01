@@ -10,12 +10,14 @@ import OrdersList from '../../components/admin/OrdersList';
 import UpdateProductToSaleBtn from '../../components/admin/UpdateProductToSaleBtn';
 import { SalesCtx } from '../../src/salescontext';
 import { useRouter } from 'next/router';
+import { getOrderBySale } from '../../helpers/content';
 export { getServerSideProps } from '../../src/ssp/admin';
 
 export default function Admin(props) {
 	const [editingDates, setEditingDates] = useState(false);
-	const [ordersCount, setOrdersCount] = useState(props.currentOrders.count);
+	const [ordersCount, setOrdersCount] = useState(0);
 	const [currentStatus, setCurrentStatus] = useState(props.currentStatus);
+	const [orderBySale, setorderBySale] = useState([])
 	const { saleSelected } = useContext(SalesCtx);
 	const router = useRouter();
 
@@ -23,6 +25,10 @@ export default function Admin(props) {
 		if (saleSelected._id.length === 0) {
 			router.push('/admin');
 		}
+		getOrderBySale(saleSelected._id).then(ordersBySale => {
+			setorderBySale(ordersBySale)
+			setOrdersCount(ordersBySale.length)
+		});
 		infoMessages();
 	}, []);
 
@@ -55,7 +61,7 @@ export default function Admin(props) {
 						/>
 					</Grid>
 				</Grid.Container>
-				{ordersCount && <OrdersList orders={props.currentOrders.orders} />}
+				{orderBySale.length === 0 ? null : <OrdersList orders={orderBySale} />}
 			</Container>
 		</Layout>
 	);

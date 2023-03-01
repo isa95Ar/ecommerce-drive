@@ -21,6 +21,8 @@ export type UserLogged = {
 export type Cart = {
 	products: Array<ProductCart>;
 	total: number;
+	orderId: string;
+	saleId: string
 };
 
 export type Sales = {

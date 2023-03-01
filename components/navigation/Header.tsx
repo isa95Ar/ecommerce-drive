@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName }) => {
 							<Badge
 								css={{ cursor: 'pointer' }}
 								color="warning"
-								content={cart.products.length}
+								content={cart.products?.length}
 								shape="circle"
 								onClick={() => router.push('/cart')}
 							>

@@ -40,6 +40,15 @@ class ProductService extends BaseService {
 		}
 	}
 
+	async getProductsBySale(id, query) {
+		try {
+			const products = await Config.getProductsBySale(id, query);
+			return products;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
 	// async getByCategory(category: string, page: number = 1) {
 	// 	try {
 	// 		const products = await Product.getByCategory(category, page);
@@ -50,6 +59,15 @@ class ProductService extends BaseService {
 	// }
 
 	async searchProduct(query, category) {
+		try {
+			const products = await Product.search(query, category);
+			return products;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
+	async searchProductBySale(query, category) {
 		try {
 			const products = await Product.search(query, category);
 			return products;

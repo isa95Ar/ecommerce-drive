@@ -8,7 +8,6 @@ import ConfigService from '../services/ConfigService';
 export async function getServerSideProps(context) {
 	const orderService = container.resolve(OrderService);
 	const configService = container.resolve(ConfigService);
-
 	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
 	const user: UserLogged = ironSession.user ?? { logged: false };
 
@@ -27,19 +26,19 @@ export async function getServerSideProps(context) {
 
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
-		const ModelResponse = await orderService.getUserOrder(user.email);
-		if (ModelResponse) {
-			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
-				code,
-				name,
-				price,
-				minimum,
-				qty,
-				total,
-				picture
-			}));
-			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
-		}
+		// const ModelResponse = await orderService.getUserOrder(user.email);
+		// if (ModelResponse) {
+		// 	cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
+		// 		code,
+		// 		name,
+		// 		price,
+		// 		minimum,
+		// 		qty,
+		// 		total,
+		// 		picture
+		// 	}));
+		// 	cart.total = cart.products.reduce((total, product) => total + product.total, 0);
+		// }
 	}
 
 	const currentStatus = await configService.getCartStatus();

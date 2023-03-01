@@ -18,7 +18,7 @@ const CurrentStatus: FC<props> = ({ status, setEditing, saleSelect }) => {
 			<Text h1>{saleSelect.name}</Text>
 			<Grid.Container justify="center" direction="column" alignItems="center">
 				<Text h4 color={dateStatus === 'open' ? 'success' : dateStatus === 'toOpen' ? 'warning' : 'error'}>
-					{dateStatus === 'open' ? 'Abierta' : dateStatus === 'toOpen' ? 'Abre pronto' : 'error'}
+					{dateStatus === 'open' ? 'Abierta' : dateStatus === 'toOpen' ? 'Abre pronto' : 'Cerrada'}
 				</Text>
 				<Grid>
 					<Text>

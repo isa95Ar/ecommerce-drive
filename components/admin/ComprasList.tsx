@@ -16,7 +16,7 @@ type props = {
 	compras: order[];
 };
 
-const ComprasList: FC<props> = ({ compras }) => {
+const  ComprasList: FC<props> = ({ compras }) => {
 	const sale = useSalesCtx();
 	const router = useRouter();
 	const navigateCompra = compra => {

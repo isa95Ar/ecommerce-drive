@@ -4,6 +4,7 @@ export interface ConfigI {
 	openDate: String | null;
 	closeDate: String | null;
 	name: String | null;
+	products: any | null;
 }
 
 interface BaseConfigDocument extends ConfigI, Document {}
@@ -77,6 +78,36 @@ Config.statics.updateProducts = async function (products, saleToUpdate) {
 		}
 	});
 	await this.updateOne({ _id: saleObj._id.toString() }, { $set: { products: saleObj.products } }, {});
+};
+
+Config.statics.getProductsBySale = async function (id: string, query) {
+	const limit = 60;
+	const { category, search, page } = query;
+	let products = {};
+	const startIndex = (page - 1) * limit;
+	const endIndex = page * limit;
+	const productList = await this.find({ _id: id });
+
+	if (productList.length === 0) {
+		throw new Error('No se encontro una compra para este id');
+	}
+
+	const filteredProductos = productList[0].products.filter(producto => {
+
+		if (category.length > 1) {
+			return producto.category === category && producto.name.includes(search && search.length > 1 ? search : '');
+		}
+		return producto.name.includes(search && search.length > 1 ? search : '');
+	});
+
+	const paginatedProductos = filteredProductos.slice(startIndex, endIndex);
+
+	products.totalProductos = filteredProductos.length;
+	products.totalPaginas = Math.ceil(filteredProductos.length / limit);
+	products.paginaActual = page;
+	products.productos = paginatedProductos;
+
+	return products;
 };
 
 if (!mongoose.models.Config) {

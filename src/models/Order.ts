@@ -15,26 +15,31 @@ export interface OrderI {
 	email: string;
 	products: Product[];
 	total: number;
+	saleId: string;
 }
 
 interface BaseOrderDocument extends OrderI, Document {}
 
-const Order = new Schema<BaseOrderDocument>({
-	userId: { type: 'string', unique: true },
-	email: { type: 'string', unique: true },
-	products: [
-		{
-			code: 'number',
-			name: 'string',
-			price: 'number',
-			minimum: 'string',
-			qty: 'number',
-			total: 'number',
-			picture: 'string'
-		}
-	],
-	total: 'number'
-}, {timestamps: true});
+const Order = new Schema<BaseOrderDocument>(
+	{
+		userId: 'string',
+		email: 'string',
+		products: [
+			{
+				code: 'number',
+				name: 'string',
+				price: 'number',
+				minimum: 'string',
+				qty: 'number',
+				total: 'number',
+				picture: 'string'
+			}
+		],
+		total: 'number',
+		saleId: 'string'
+	},
+	{ timestamps: true }
+);
 
 Order.statics.createOrder = async function (order: OrderI) {
 	await this.create(order);
@@ -49,6 +54,35 @@ Order.statics.getCurrentOrders = async function () {
 Order.statics.getUserOrder = async function (email: string) {
 	const order = await this.findOne({ email });
 	return order;
+};
+
+Order.statics.getUserOrderBySale = async function (userId: string, saleId: string) {
+	const userorder = await this.find({});
+	const userOrderToJSON = JSON.stringify(userorder);
+	const userOrderParse = JSON.parse(userOrderToJSON);
+	const order = userOrderParse.find(orderByUser => {
+		return orderByUser.saleId === saleId.toString() && orderByUser.userId === userId;
+	});
+	if (!order) {
+		const newOrder = {
+			userId: "",
+			email: "",
+			products: [],
+			total: 0
+		};
+	return newOrder
+	}
+	return order;
+};
+
+Order.statics.getOrderBySale = async function (saleId: string) {
+	const orders = await this.find({ saleId: saleId.toString() });
+	const ordersToJSON = JSON.stringify(orders);
+	const orderParse = JSON.parse(ordersToJSON);
+	const ordersBySale = orderParse.filter(orderByUser => {
+		return orderByUser.saleId === saleId.toString();
+	});
+	return ordersBySale;
 };
 
 Order.statics.getOrdersToPost = async function () {
