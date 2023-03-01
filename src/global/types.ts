@@ -19,6 +19,7 @@ export type UserLogged = {
 
 export type Cart = {
 	products: Array<ProductCart>;
+	balance?: number;
 	total: number;
 };
 
