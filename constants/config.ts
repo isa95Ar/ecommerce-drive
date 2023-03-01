@@ -26,7 +26,8 @@ export default {
 		USERS: {
 			ID_COLUMN: 0,
 			EMAIL_COLUMN: 2,
-			IS_ADMIN_COLUMN: 3
+			IS_ADMIN_COLUMN: 3,
+			BALANCE:4
 		}
 	}
 };

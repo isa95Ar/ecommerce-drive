@@ -60,7 +60,7 @@ export default function Cart(props) {
 										product={product}
 									/>
 								))}
-								<TotalCard total={cart.total} />
+								<TotalCard total={cart.total} balance={props.cart.balance}/>
 								<Button
 									disabled={cart.products.length < 0}
 									className={`${cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
