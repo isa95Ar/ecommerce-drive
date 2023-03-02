@@ -18,8 +18,7 @@ const TotalCart: FC<totalCartProps> = ({ total, balance }) => {
 				<div className="total-items">
 					<Text className="items-text">Saldo</Text>
 					<Text className="items-text">${balance.toFixed(2)}</Text>
-				</div>
-			}
+				</div>}
 			<div className="divider"></div>
 			<div className="total-items">
 				<Text className="total-text">Total</Text>
