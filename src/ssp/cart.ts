@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
 		const googleSheetInstance = new GoogleSheetService('users');
 		const users: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
 		const loggedUser = users.find(matchingUser => matchingUser[config.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === user.email);
-		cart.balance = parseFloat(loggedUser[config.GOOGLE_SHEET_ROWS.USERS.BALANCE]);
+		cart.balance = parseFloat(loggedUser[config.GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN]);
 		if (ModelResponse) {
 			orderId = ModelResponse._id.toString();
 			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
