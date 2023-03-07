@@ -42,6 +42,7 @@ export async function getServerSideProps(context) {
 				picture
 			}));
 			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
+			cart.balance = parseFloat(loggedUser[config.GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN]);
 		}
 	} else {
 		return {

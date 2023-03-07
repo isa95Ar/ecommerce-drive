@@ -28,10 +28,10 @@ export default function Cart(props) {
 			console.warn(`No puedes actualizar tu orden sin productos`);
 			return;
 		}
-		Fetch<{ products: Array<productType>; total: number }>({
+		Fetch<{ products: Array<productType>; balance?:number; total: number }>({
 			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
-			data: { products: cart.products, total: cart.total },
+			data: { products: cart.products, balance: cart.balance , total: cart.total },
 			onSuccess: () => {
 				router.push('/#orderstored');
 				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {

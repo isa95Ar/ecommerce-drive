@@ -45,6 +45,18 @@ const RenderMail = order => {
                <th>
                <th>$${order.total}</th>
             </tr>
+            <tr>
+            <th>Saldo</th>
+               <th>
+               <th>
+               <th>$${order.balance}</th>
+            </tr>
+            <tr>
+            <th>Total a pagar</th>
+               <th>
+               <th>
+               <th>$${order.subtotal}</th>
+            </tr>
          </tfoot>
       </table>
    </div>
