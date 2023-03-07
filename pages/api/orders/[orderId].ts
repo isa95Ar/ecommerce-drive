@@ -14,7 +14,7 @@ export default async function updateOrder(req, res) {
 		const { orderId } = req.query;
 		const body = JSON.parse(req.body);
 		const { products, balance, total } = body;
-		const subtotal = (total-balance) < 0 ? 0 : (total-balance);
+		const subtotal = (total+balance);
 
 		await orderService.updateOrder(orderId, {products, total});
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
