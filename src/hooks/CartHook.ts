@@ -13,7 +13,7 @@ export function useCart(cartSSR: Cart) {
 			}
 			return product;
 		});
-		const newCart = { products, balance:cart.balance , total: sumTotals(products) };
+		const newCart = { products, balance: cart.balance, total: sumTotals(products) };
 		setCart(newCart);
 	};
 
