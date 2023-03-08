@@ -12,6 +12,7 @@ export default async function postOrder(req, res) {
 	try {
 		const orderService = container.resolve(OrderService);
 		const body = JSON.parse(req.body);
+		
 		const { products, total } = body;
 
 		if (!products) {
@@ -33,7 +34,6 @@ export default async function postOrder(req, res) {
 			html: RenderMail({ products, total, name }),
 			text: ''
 		};
-
 		sendEmail(mailData);
 
 		console.log("Nuevo pedido", {email, id, products})

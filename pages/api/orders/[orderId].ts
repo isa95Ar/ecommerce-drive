@@ -13,7 +13,8 @@ export default async function updateOrder(req, res) {
 		const orderService = container.resolve(OrderService);
 		const { orderId } = req.query;
 		const body = JSON.parse(req.body);
-		const { products, total } = body;
+		const { products, balance, total } = body;
+		const subtotal = (total+balance);
 
 		await orderService.updateOrder(orderId, {products, total});
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
@@ -23,14 +24,13 @@ export default async function updateOrder(req, res) {
 			from: 'Compras Almargen',
 			to: email,
 			subject: `Tu pedido fue guardado`,
-			html: RenderMail({ products, total, name }),
+			html: RenderMail({ products, balance, subtotal, total, name }),
 			text: ''
 		};
-
 		sendEmail(mailData);
 
-		console.log("Pedido actualizado", {email, products})
-
+		console.log("Pedido actualizado", {email, products});
+		console.log(mailData)
 		res.status(200).json({ error: false, message: 'Order updated successfully' });
 	} catch (error) {
 		console.log(error, 'error on update order');
