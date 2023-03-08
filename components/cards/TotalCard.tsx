@@ -6,8 +6,7 @@ type totalCartProps = {
 	balance: number;
 };
 
-const TotalCart: FC<totalCartProps> = ({ total, balance }) => {
-	if (balance == undefined){balance = 0}
+const TotalCart: FC<totalCartProps> = ({ total, balance = 0}) => {
 	const contableTotal = total + balance;
 	return (
 		<div className="total-cart">
