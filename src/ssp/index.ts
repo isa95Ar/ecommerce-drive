@@ -26,19 +26,19 @@ export async function getServerSideProps(context) {
 	
 	if (ironSession.user && getIsOpen.status === 'open') {
 		const orderService = container.resolve(OrderService);
-		const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
-		if (ModelResponse) {
-			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
-				code,
-				name,
-				price,
-				minimum,
-				qty,
-				total,
-				picture
-			}));
-			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
-		}
+		// const ModelResponse = await orderService.getUserOrder(ironSession.user.email);
+		// if (ModelResponse) {
+		// 	cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
+		// 		code,
+		// 		name,
+		// 		price,
+		// 		minimum,
+		// 		qty,
+		// 		total,
+		// 		picture
+		// 	}));
+		// 	cart.total = cart.products.reduce((total, product) => total + product.total, 0);
+		// }
 		return {
 			redirect: {
 				permanent: false,

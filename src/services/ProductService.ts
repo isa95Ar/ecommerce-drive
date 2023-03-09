@@ -1,6 +1,7 @@
 import { singleton } from 'tsyringe';
 import ApiException from '../exceptions/ApiExeption';
 import { ProductModel } from '../global/types';
+import Config from '../models/Config';
 import Product from '../models/Product';
 import BaseService from './BaseService';
 
@@ -19,9 +20,29 @@ class ProductService extends BaseService {
 		}
 	}
 
+	async saveProductForSale(products, salesId) {
+		try {
+			//hay que handlear el erro
+			const saleToUpdate = await Config.getSale(salesId);
+			await Config.updateProducts(products, saleToUpdate);
+			return { error: false };
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
 	async getProducts(category, page: number = 1) {
 		try {
 			const products = await Product.getProducts(category, page);
+			return products;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
+	async getProductsBySale(id, query) {
+		try {
+			const products = await Config.getProductsBySale(id, query);
 			return products;
 		} catch (e) {
 			throw new ApiException(e);
@@ -38,6 +59,15 @@ class ProductService extends BaseService {
 	// }
 
 	async searchProduct(query, category) {
+		try {
+			const products = await Product.search(query, category);
+			return products;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
+	async searchProductBySale(query, category) {
 		try {
 			const products = await Product.search(query, category);
 			return products;

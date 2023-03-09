@@ -33,24 +33,5 @@ export async function getServerSideProps(context) {
 
 	const user: UserLogged = ironSession.user ?? { logged: false };
 
-	const cart = { products: [], total: 0 };
-
-	if (user.logged) {
-		const orderService = container.resolve(OrderService);
-		const ModelResponse = await orderService.getUserOrder(user.email);
-		if (ModelResponse) {
-			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
-				code,
-				name,
-				price,
-				minimum,
-				qty,
-				total,
-				picture
-			}));
-			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
-		}
-	}
-
-	return { props: { cartStatus: getIsOpen, user, cart } };
+	return { props: { cartStatus: getIsOpen, user } };
 }

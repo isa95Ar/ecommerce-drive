@@ -3,7 +3,7 @@ import { Cart, ProductCart } from '../global/types';
 
 export function useCart(cartSSR: Cart) {
 	let originCard: any = []
-	if (cartSSR.products.length > 0) {
+	if (cartSSR?.products.length > 0) {
 		originCard = cartSSR
 	}
 	const [cart, setCart] = useState(cartSSR);
@@ -11,6 +11,10 @@ export function useCart(cartSSR: Cart) {
 
 	const sumTotals = products => products.reduce((total, product) => product.total + total, 0);
 
+	const setCarBySale = (cartBysale) =>{
+		cartBysale.orderId = cartBysale._id
+		setCart(cartBysale)
+	}
 	const updateProduct = (productToUpdate: ProductCart) => {
 		const products = cart.products.map(product => {
 			if (product.code === productToUpdate.code) {
@@ -18,7 +22,7 @@ export function useCart(cartSSR: Cart) {
 			}
 			return product;
 		});
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products, total: sumTotals(products), orderId: cart.orderId };
 
 		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
 
@@ -40,7 +44,7 @@ export function useCart(cartSSR: Cart) {
 			products.push({ ...productToAdd, total: productToAdd.price * productToAdd.qty });
 		}
 
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products, total: sumTotals(products), orderId: cart.orderId };
 
 		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
 
@@ -49,7 +53,7 @@ export function useCart(cartSSR: Cart) {
 
 	const deleteProduct = (productToDelete: ProductCart) => {
 		const products = cart.products.filter(product => product.code !== productToDelete.code);
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products, total: sumTotals(products), orderId: cart.orderId };
 
 		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
 
@@ -58,5 +62,5 @@ export function useCart(cartSSR: Cart) {
 
 	const productExists = code => cart.products.find(product => product.code === code);
 
-	return { ...cart, updateProduct, addProduct, deleteProduct, isModified};
+	return { ...cart, updateProduct, addProduct, deleteProduct, isModified, setCarBySale};
 }

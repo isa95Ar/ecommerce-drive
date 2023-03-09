@@ -4,17 +4,19 @@ import { datesFormType, errorsFormType, statusCart } from '../../src/global/type
 import { Fetch } from '../../src/hooks/fetchHook';
 import { useFormValidation } from '../../src/hooks/formHook';
 import { formatDate, getMinCloseDate } from '../../helpers/date';
+import { useSalesCtx } from '../../src/salescontext';
 
 type props = {
 	setEditing(status: boolean): void;
 	setCurrentStatus(status: statusCart): void;
-	initialStatus: statusCart;
+	initialStatus: any;
 };
 
-const initialFormFields: datesFormType = { openDate: '', closeDate: '' };
+const initialFormFields: datesFormType = { openDate: '', closeDate: '', name: '' };
 const initialFormErrors: errorsFormType = {};
 
-const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
+const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus, initialStatus }) => {
+	const sale = useSalesCtx();
 	const form = useFormValidation<datesFormType>(initialFormFields);
 	const [errors, setErrors] = useState(initialFormErrors);
 	const [fetching, setFetching] = useState({ error: null, loading: false, done: false });
@@ -30,14 +32,16 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 		setFetching({ error: null, done: false, loading: true });
 		Fetch<datesFormType>({
 			url: '/api/admin/cart/dates',
-			method: 'POST',
+			method: 'PUT',
 			data: {
 				...form.fields,
 				openDate: form.fields.openDate.replace('.000Z', ''),
-				closeDate: form.fields.closeDate.replace('.000Z', '')
+				closeDate: form.fields.closeDate.replace('.000Z', ''),
+				name: form.fields.name,
+				id: initialStatus._id
 			},
 			onSuccess: response => {
-				setCurrentStatus(response);
+				sale.selectSale(response);
 				setFetching({ error: null, loading: false, done: true });
 			},
 			onError: e => setFetching({ error: 'Ocurrió un error enviando las fechas', loading: false, done: true })
@@ -48,7 +52,9 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 	const validate = () => {
 		let localErrors: errorsFormType = form.validateFields({
 			openDate: 'Debe ingresar una fecha de apertura',
-			closeDate: 'Debe ingresar una fecha de cierre'
+			closeDate: 'Debe ingresar una fecha de cierre',
+			name: 'Debe ingresar un nombre',
+			id: 'Debe tener un id'
 		});
 		const validateIntervalDates = new Date(form.closeDate) <= new Date(form.openDate);
 
@@ -61,6 +67,12 @@ const CartDatesForm: FC<props> = ({ setEditing, setCurrentStatus }) => {
 
 	return (
 		<Container>
+			<Grid.Container gap={2} justify="center">
+				<Grid>
+					<Input label="Nombre de la compra" value={form.name} onChange={e => handleChangeField(e, 'name')} />
+					<Text color="error">{errors.name ?? ''}</Text>
+				</Grid>
+			</Grid.Container>
 			<Grid.Container gap={3} justify="center">
 				<Grid>
 					<Input
