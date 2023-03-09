@@ -13,7 +13,8 @@ export default async function postOrder(req, res) {
 		const orderService = container.resolve(OrderService);
 		const body = JSON.parse(req.body);
 		
-		const { products, total } = body;
+		const { products, balance, total } = body;
+		const subtotal = (total+balance);
 
 		if (!products) {
 			return res.status(400).json({ error: true, message: 'Missing products' });
@@ -23,7 +24,7 @@ export default async function postOrder(req, res) {
 		
 		const { email, name, id } = currentSession.user;
 		
-		await orderService.saveOrder({ userId: id, products, email, total });
+		await orderService.saveOrder({ userId: id, products, email ,name: name, total });
 	
 		// Enviar mail
 
@@ -31,7 +32,7 @@ export default async function postOrder(req, res) {
 			from: 'Compras Almargen',
 			to: email,
 			subject: `Tu pedido fue guardado`,
-			html: RenderMail({ products, total, name }),
+			html: RenderMail({ products, balance, subtotal, total, name }),
 			text: ''
 		};
 		sendEmail(mailData);
