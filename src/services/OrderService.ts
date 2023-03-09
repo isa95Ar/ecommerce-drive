@@ -55,6 +55,15 @@ class OrderService extends BaseService {
 		}
 	}
 
+	async getOrdersByUser(userId: string) {
+		try {
+			const orders = await Order.getOrdersByUser(userId);
+			return orders;
+		} catch (e) {
+			throw new ApiException(e);
+		}
+	}
+
 	async getOrdersToPost() {
 		try {
 			const orders = await Order.getOrdersToPost();

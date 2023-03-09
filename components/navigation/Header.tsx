@@ -9,9 +9,10 @@ type HeaderProps = {
 	user: UserLogged;
 	cart?: Cart;
 	saleName?: string;
+	orderUserName?: string;
 };
 
-const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName }) => {
+const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName, orderUserName }) => {
 	const router = useRouter();
 
 	return (
@@ -21,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName }) => {
 					<div style={{ cursor: 'pointer' }}>
 						<Image
 							width={60}
-							onClick={() => router.push('/')}
+							onClick={() => router.push('/compras-activas')}
 							src="/../../img/logo-blanco-sin-fondo.png"
 							objectFit="contain"
 						/>
@@ -63,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName }) => {
 								<Dropdown.Item key="inicio" withDivider>
 									<Text onClick={() => router.push('/compras-activas')}>Inicio</Text>
 								</Dropdown.Item>
-								<Dropdown.Item key="mis-compras">Mis compras</Dropdown.Item>
+								<Dropdown.Item key="mis-compras"><Text onClick={() => router.push('/mis-compras')}>Mis compras</Text></Dropdown.Item>
 								{user.isAdmin ? (
 									<Dropdown.Item key="admin" withDivider>
 										<Text onClick={() => router.push('/admin')}>Administrar compras</Text>
@@ -83,11 +84,15 @@ const Header: React.FC<HeaderProps> = ({ title, user, cart, saleName }) => {
 				<Text className="header-compra" css={{ fontWeight: '700' }}>
 					{saleName}
 				</Text>
-			) : null}
-
+			) : null}	
 			<Text className="header-text" css={{ fontWeight: '700' }}>
 				{title}
 			</Text>
+			{orderUserName ? (
+				<Text className="header-compra" css={{ fontWeight: '700' }}>
+					{orderUserName}
+				</Text>
+			) : null}
 		</div>
 	);
 };

@@ -29,6 +29,13 @@ export const getOrderBySale = async (saleId) => {
 	});
 };
 
+export const getOrderByUser = async (userId) => {
+	return await Fetch<{ userId: string }>({
+		url: `/api/cart/order-by-user`,
+		query: { userId }
+	});
+};
+
 export const getCategories = async () => {
 	return await Fetch({ url: '/api/categories' });
 };

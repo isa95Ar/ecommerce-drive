@@ -1,4 +1,4 @@
-import { Badge, Col, Row, Table, Tooltip } from '@nextui-org/react';
+import { Badge, Table, Tooltip } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { statusDate } from '../../helpers/date';

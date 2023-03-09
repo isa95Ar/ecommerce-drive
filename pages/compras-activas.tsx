@@ -1,10 +1,9 @@
 import { Badge, Button, Card, Grid, Row, Text } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Header from '../components/navigation/Header';
 import { statusDate } from '../helpers/date';
 import { getDayFromDate } from '../helpers/formatDate';
-
 import { infoMessages } from '../helpers/notify';
 import { useSalesCtx } from '../src/salescontext';
 import Layout from './layout';

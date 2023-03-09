@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Button, Checkbox, Container, Grid, Input, Modal, Row, Text } from '@nextui-org/react';
+import { Button, Container, Grid, Text } from '@nextui-org/react';
 import Layout from '../layout';
 import Header from '../../components/navigation/Header';
 import { infoMessages } from '../../helpers/notify';
 import { statusDate } from '../../helpers/date';
 import ComprasList from '../../components/admin/ComprasList';
 import ModalCreateSale from '../../components/admin/ModalCreateSale';
+
 export { getServerSideProps } from '../../src/ssp/admin';
 
 export default function Admin(props) {

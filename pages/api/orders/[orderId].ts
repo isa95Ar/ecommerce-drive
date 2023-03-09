@@ -19,15 +19,15 @@ export default async function updateOrder(req, res) {
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
 		const { email, name } = currentSession.user;
 
-		const mailData = {
-			from: 'Compras Almargen',
-			to: email,
-			subject: `Tu pedido fue guardado`,
-			html: RenderMail({ products, total, name }),
-			text: ''
-		};
+		// const mailData = {
+		// 	from: 'Compras Almargen',
+		// 	to: email,
+		// 	subject: `Tu pedido fue guardado`,
+		// 	html: RenderMail({ products, total, name }),
+		// 	text: ''
+		// };
 
-		sendEmail(mailData);
+		// sendEmail(mailData);
 
 		console.log("Pedido actualizado", {email, products})
 

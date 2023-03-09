@@ -85,6 +85,16 @@ Order.statics.getOrderBySale = async function (saleId: string) {
 	return ordersBySale;
 };
 
+Order.statics.getOrdersByUser = async function (userId: string) {
+	const orders = await this.find({ userId: userId.toString() });
+	const ordersToJSON = JSON.stringify(orders);
+	const orderParse = JSON.parse(ordersToJSON);
+	const ordersByUser = orderParse.filter(orderByUser => {
+		return orderByUser.userId === userId.toString();
+	});
+	return ordersByUser;
+};
+
 Order.statics.getOrdersToPost = async function () {
 	const allOrders = await this.find({});
 	const formattedOrders = [];
