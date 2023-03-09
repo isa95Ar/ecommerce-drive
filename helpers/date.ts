@@ -13,3 +13,29 @@ export const getMinCloseDate = (date: string) => {
 	minDate.setDate(minDate.getDate() + 1);
 	return formatDate(minDate);
 };
+
+export const statusDate = (currentDate: any) => {
+	let formattedOpenDate = new Date(currentDate.openDate);
+	let formattedClosedDate = new Date(currentDate.closeDate);
+
+	formattedOpenDate.setHours(formattedOpenDate.getHours() + 3);
+	formattedClosedDate.setHours(formattedClosedDate.getHours() + 3);
+
+	const openTime = formattedOpenDate.getTime();
+	const closeTime = formattedClosedDate.getTime();
+
+	const today = new Date();
+	const isOpen = today.getTime() >= openTime && today.getTime() <= closeTime;
+
+	let status = '';
+
+	if (isOpen) {
+		status = 'open';
+	} else if (today.getTime() < openTime) {
+		status = 'toOpen';
+	} else {
+		status = 'closed';
+	}
+
+	return status;
+};

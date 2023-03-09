@@ -15,16 +15,26 @@ export type UserLogged = {
 	email?: string;
 	profile_picture?: string;
 	logged?: boolean;
+	isAdmin: boolean;
 };
 
 export type Cart = {
 	products: Array<ProductCart>;
 	total: number;
+	orderId: string;
+	saleId: string
+};
+
+export type Sales = {
+	_id: string;
+	openDate?: string;
+	closeDate?: string;
+	name?: string;
 };
 
 export type GoogleSheetDataType = Array<Array<string>>;
 
-export type OrderType = Array<{userId:string, email: string; product: string; cantidad: string; code: number }>;
+export type OrderType = Array<{ userId: string; email: string; product: string; cantidad: string; code: number }>;
 
 export type FileInfoType = Array<{ webViewLink: string; code: number }>;
 
@@ -44,16 +54,26 @@ export type statusCart = {
 	status: string;
 	openDate: string;
 	closeDate: string;
+	name: string;
 };
 
 export type datesFormType = {
 	openDate: string;
 	closeDate: string;
+	name: string;
+	id: string;
+};
+
+export type createSaleType = {
+	openDate: string;
+	closeDate: string;
+	name: string;
 };
 
 export type errorsFormType = {
 	openDate?: string;
 	closeDate?: string;
+	name?: string;
 };
 
 export type fetchData<T> = {
@@ -87,4 +107,4 @@ export type productType = {
 export type orderData = {
 	products: productType[];
 	total: number;
-}
+};

@@ -5,15 +5,16 @@ import ProductDetailCard from '../components/cards/ProductDetailCard';
 import TotalCard from '../components/cards/TotalCard';
 import { ProductCart as productType } from '../src/global/types';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { infoMessages } from '../helpers/notify';
 import { Fetch } from '../src/hooks/fetchHook';
 import { useAppCtx } from '../src/context';
+import { SalesCtx } from '../src/salescontext';
 export { getServerSideProps } from '../src/ssp/cart';
 
 export default function Cart(props) {
-	const isEditingOrder = props.orderId !== null;
 	const cart = useAppCtx();
+	const { saleSelected } = useContext(SalesCtx);
 	const router = useRouter();
 
 	useEffect(() => {
@@ -25,10 +26,10 @@ export default function Cart(props) {
 			console.warn(`No puedes actualizar tu orden sin productos`);
 			return;
 		}
-		Fetch<{ products: Array<productType>; total: number }>({
-			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
-			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
-			data: { products: cart.products, total: cart.total },
+		Fetch<{ products: Array<productType>; total: number; saleId: string }>({
+			url: `/api/orders${cart.orderId ? `/${cart.orderId}` : '/'}`,
+			method: `${cart.orderId ? 'PUT' : 'POST'}`,
+			data: { products: cart.products, total: cart.total, saleId: saleSelected._id },
 			onSuccess: () => {
 				router.push('/success');
 			},
@@ -42,7 +43,7 @@ export default function Cart(props) {
 		<Layout {...props}>
 			{props.user.logged && (
 				<>
-					<Header user={props.user} title={isEditingOrder ? 'Edita tu pedido' : 'Tu carrito'} cart={cart} />
+					<Header user={props.user} title={cart.orderId ? 'Edita tu pedido' : 'Tu carrito'} cart={cart} />
 					<Container className="cart-container">
 						<Grid.Container justify="center" gap={2}>
 							<Grid direction="column" xs={12} sm={10} md={7} lg={6} xl={4}>
@@ -61,7 +62,7 @@ export default function Cart(props) {
 										className={`${cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
 										onClick={sendOrder}
 									>
-										{isEditingOrder ? 'Actualizar pedido' : 'Realizar pedido'}
+										{cart.orderId ? 'Actualizar pedido' : 'Realizar pedido'}
 									</Button>
 								) : null}
 								<Button

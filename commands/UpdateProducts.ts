@@ -100,3 +100,37 @@ export async function updateProducts(): Promise<object> {
 		return { error: e };
 	}
 }
+
+export async function updateProductsForSale(saleId): Promise<object> {
+	try {
+		const googleSheetInstance = new GoogleSheetService('products');
+		const products: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
+
+		const GDservice = new GoogleDriveFilesService();
+		const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
+
+		const productsFormated: Array<productType> = serializingProducts(products, filesInfo);
+
+		await saveProductsOnMongoForSale(productsFormated, saleId);
+		await saveCategories(productsFormated);
+
+		return { success: true };
+	} catch (e) {
+		console.log(e, 'Error updating products');
+		return { error: e };
+	}
+}
+
+async function saveProductsOnMongoForSale(products: Array<productType>, saleId): Promise<object> {
+	try {
+		const productService = container.resolve(ProductService);
+
+		await productService.saveProductForSale(products, saleId);
+
+		console.log('Products saved succesfully');
+		return { success: true };
+	} catch (e) {
+		console.log('error update products to sale', e);
+		return { error: e };
+	}
+}
