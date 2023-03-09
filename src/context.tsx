@@ -3,9 +3,9 @@ import { Cart } from './global/types';
 import { useCart } from './hooks/CartHook';
 
 const useCartController = (cart: Cart) => {
-	const { total, products, updateProduct, addProduct, deleteProduct } = useCart(cart);
+	const { total, products, updateProduct, addProduct, deleteProduct, isModified } = useCart(cart);
 
-	return { total, products, updateProduct, addProduct, deleteProduct };
+	return { total, products, updateProduct, addProduct, deleteProduct, isModified };
 };
 
 export const AppCtx = createContext<ReturnType<typeof useCartController>>({
@@ -13,7 +13,8 @@ export const AppCtx = createContext<ReturnType<typeof useCartController>>({
 	products: [],
 	updateProduct: () => {},
 	addProduct: () => {},
-	deleteProduct: () => {}
+	deleteProduct: () => {},
+	isModified: false
 });
 
 export const AppCtxProvider = ({ cart, children }: { cart: Cart; children: React.ReactNode }) => {

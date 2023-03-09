@@ -22,7 +22,7 @@ export async function getServerSideProps(context) {
 			props: {}
 		};
 	}
-
+	
 	
 	if (ironSession.user && getIsOpen.status === 'open') {
 		const orderService = container.resolve(OrderService);

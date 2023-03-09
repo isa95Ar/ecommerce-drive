@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { Cart, ProductCart } from '../global/types';
 
 export function useCart(cartSSR: Cart) {
+	let originCard: any = []
+	if (cartSSR.products.length > 0) {
+		originCard = cartSSR
+	}
 	const [cart, setCart] = useState(cartSSR);
+	const [isModified, setIsModified] = useState(false)
 
 	const sumTotals = products => products.reduce((total, product) => product.total + total, 0);
 
@@ -14,6 +19,9 @@ export function useCart(cartSSR: Cart) {
 			return product;
 		});
 		const newCart = { products, total: sumTotals(products) };
+
+		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
+
 		setCart(newCart);
 	};
 
@@ -33,16 +41,22 @@ export function useCart(cartSSR: Cart) {
 		}
 
 		const newCart = { products, total: sumTotals(products) };
+
+		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
+
 		setCart(newCart);
 	};
 
 	const deleteProduct = (productToDelete: ProductCart) => {
 		const products = cart.products.filter(product => product.code !== productToDelete.code);
 		const newCart = { products, total: sumTotals(products) };
+
+		JSON.stringify(originCard) === JSON.stringify(newCart) ? setIsModified(false) : setIsModified(true)
+
 		setCart(newCart);
 	};
 
 	const productExists = code => cart.products.find(product => product.code === code);
 
-	return { ...cart, updateProduct, addProduct, deleteProduct };
+	return { ...cart, updateProduct, addProduct, deleteProduct, isModified};
 }

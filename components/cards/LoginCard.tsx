@@ -8,7 +8,7 @@ const LoginCard: FC = () => {
 		<Grid className="login">
 			<Grid.Container justify="center" alignContent="center">
 				<Grid xs={12} xl={12} css={{ zIndex: 9000 }}>
-					<Image src="/img/logoCoop.png" alt="Default Image" />
+					<Image src="/img/logo-sin-fondo.png" alt="Default Image" width={300} height={300}/>
 				</Grid>
 				<Grid xs={12} xl={3} sm={6} md={3} lg={3} justify="center">
 					<Button
