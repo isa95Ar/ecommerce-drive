@@ -27,7 +27,8 @@ Product.statics.getProducts = async function (category: string, page: number) {
 		.select({ _id: 0, __v: 0 })
 		.limit(limit)
 		.skip(limit * (page - 1))
-		.sort({ code: 1 });
+		.sort({ name: 1 }); 
+		
 
 	const totalPages = Math.ceil(productsCount / limit);
 	return { products, totalPages };
