@@ -26,8 +26,6 @@ const OrderList: FC<props> = ({ orders }) => {
 				<Table.Body>
 					<>
 						{orders.map(order => {
-							grandTotal = order.total + grandTotal;
-							console.log(grandTotal)
 							return (
 								<Table.Row key={order.email}>
 									<Table.Cell>{order.email}</Table.Cell>
