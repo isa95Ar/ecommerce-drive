@@ -44,6 +44,27 @@ export default function Cart(props) {
 		});
 	};
 
+	const cancelOrder = async () => {
+		if (!isEditingOrder) {
+			console.warn(`No puedes cancelar una orden si no existe`);
+			return;
+		}
+		Fetch<{ orderId: string;}>({
+			url: `/api/orders/cancel`,
+			method: "DELETE",
+			data: { orderId: props.orderId},
+			onSuccess: () => {
+				location.href = location.origin
+				toast.warn(`Su pedido se ha cancelado con éxito`, {
+					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
+				});
+			},
+			onError: e => {
+				console.warn(`error on deleting order`, e);
+			}
+		});
+	};
+
 	return (
 		<Layout {...props}>
 			{props.user.logged && (
@@ -75,6 +96,13 @@ export default function Cart(props) {
 									}}
 								>
 									Seguir comprando
+								</Button>
+								<Button
+									disabled={cart.products.length < 0}
+									className={`${isEditingOrder ? 'button-cancel' : 'button-cancel-disabled'}`}
+									onClick={cancelOrder}
+								>
+									Cancelar pedido
 								</Button>
 							</Grid>
 						</Grid.Container>
