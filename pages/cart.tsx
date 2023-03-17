@@ -99,7 +99,7 @@ export default function Cart(props) {
 									Seguir comprando
 								</Button>
 								<Button
-									disabled={cart.products.length < 0}
+									disabled={!isEditingOrder}
 									className={`${isEditingOrder ? 'button-cancel' : 'button-cancel-disabled'}`}
 									onClick={cancelOrder}
 								>
