@@ -54,7 +54,8 @@ export default function Cart(props) {
 			method: "DELETE",
 			data: { orderId: props.orderId},
 			onSuccess: () => {
-				location.href = location.origin
+				router.push('/');
+				cart.clearProducts()
 				toast.warn(`Su pedido se ha cancelado con éxito`, {
 					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
 				});
