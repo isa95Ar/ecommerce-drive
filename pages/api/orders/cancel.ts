@@ -11,10 +11,17 @@ export default async function cancelOrder(req, res) {
 	try {
 		const orderService = container.resolve(OrderService);
 		const body = JSON.parse(req.body);
+
         const { orderId } = body;
 
+		if (!orderId) {
+			return res.status(400).json({ error: true, message: 'Missing order' });
+		}
+
 		await orderService.deleteOrder(orderId);
+
 		const currentSession: IronSessionData = await getIronSession(req, res, sessionOptions);
+
 		const { email, name } = currentSession.user;
 
 		console.log("Pedido cancelado correctamente", {name , email});

@@ -15,7 +15,7 @@ export const AppCtx = createContext<ReturnType<typeof useCartController>>({
 	updateProduct: () => {},
 	addProduct: () => {},
 	deleteProduct: () => {},
-	clearProducts: () =>{}
+	clearProducts: () => {}
 });
 
 export const AppCtxProvider = ({ cart, children }: { cart: Cart; children: React.ReactNode }) => {

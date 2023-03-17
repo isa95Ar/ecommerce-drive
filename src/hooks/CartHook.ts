@@ -41,6 +41,7 @@ export function useCart(cartSSR: Cart) {
 		const newCart = { products , balance:cart.balance , total: sumTotals(products) };
 		setCart(newCart);
 	};
+	
 	const clearProducts = () =>{
 		const clearCart = { products: [] , balance:cart.balance , total: 0 };
 		setCart(clearCart);
