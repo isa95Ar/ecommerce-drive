@@ -2,13 +2,14 @@ import { getIronSession, IronSessionData } from 'iron-session';
 import { sessionOptions } from '../utils/withIronSession';
 import { container } from 'tsyringe';
 import OrderService from '../services/OrderService';
+import GoogleSheetService from '../services/GoogleSheetService';
 import { UserLogged } from '../global/types';
+import config from '../../constants/config';
 
 export async function getServerSideProps(context) {
 	const ironSession: IronSessionData = await getIronSession(context.req, context.res, sessionOptions);
-
 	const user: UserLogged = ironSession.user ?? { logged: false };
-	const cart = { products: [], total: 0 };
+	const cart = { products: [], balance: 0 ,total: 0 };
 	let orderId = null;
 	
 	if(ironSession.user && !ironSession.user.id){
@@ -25,6 +26,10 @@ export async function getServerSideProps(context) {
 	if (user.logged) {
 		const orderService = container.resolve(OrderService);
 		const ModelResponse = await orderService.getUserOrder(user.email);
+		const googleSheetInstance = new GoogleSheetService('users');
+		const users: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
+		const loggedUser = users.find(matchingUser => matchingUser[config.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === user.email);
+		cart.balance = parseFloat(loggedUser[config.GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN]);
 		if (ModelResponse) {
 			orderId = ModelResponse._id.toString();
 			cart.products = ModelResponse.products.map(({ code, name, price, minimum, qty, total, picture }) => ({
@@ -37,6 +42,7 @@ export async function getServerSideProps(context) {
 				picture
 			}));
 			cart.total = cart.products.reduce((total, product) => total + product.total, 0);
+			cart.balance = parseFloat(loggedUser[config.GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN]);
 		}
 	} else {
 		return {

@@ -13,6 +13,7 @@ interface Product {
 export interface OrderI {
 	userId: string;
 	email: string;
+	name: string;
 	products: Product[];
 	total: number;
 }
@@ -22,6 +23,7 @@ interface BaseOrderDocument extends OrderI, Document {}
 const Order = new Schema<BaseOrderDocument>({
 	userId: { type: 'string', unique: true },
 	email: { type: 'string', unique: true },
+	name: {type:'string', unique: false},
 	products: [
 		{
 			code: 'number',
@@ -51,7 +53,7 @@ Order.statics.getUserOrder = async function (email: string) {
 	return order;
 };
 
-Order.statics.getOrdersToPost = async function () {
+Order.statics.getOrdersToPost = async function () {	
 	const allOrders = await this.find({});
 	const formattedOrders = [];
 	allOrders.map(order => {
@@ -59,6 +61,7 @@ Order.statics.getOrdersToPost = async function () {
 			const newOrder = {
 				userId: order.userId,
 				email: order.email,
+				name: order.name,
 				product: product.name,
 				code: product.code,
 				cantidad: product.qty
@@ -73,6 +76,10 @@ Order.statics.updateOrder = async function (orderId, order) {
 	const { products, total } = order;
 	const updatedOrder = await this.findByIdAndUpdate(orderId, { products, total }, { new: true });
 	return updatedOrder;
+};
+
+Order.statics.deleteOrder = async function (orderId) {
+	await this.findByIdAndRemove(orderId);
 };
 
 Order.statics.deleteAllOrders = async function () {

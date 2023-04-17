@@ -28,10 +28,10 @@ export default function Cart(props) {
 			console.warn(`No puedes actualizar tu orden sin productos`);
 			return;
 		}
-		Fetch<{ products: Array<productType>; total: number }>({
+		Fetch<{ products: Array<productType>; balance?:number; total: number }>({
 			url: `/api/orders${isEditingOrder ? `/${props.orderId}` : ''}`,
 			method: `${isEditingOrder ? 'PUT' : 'POST'}`,
-			data: { products: cart.products, total: cart.total },
+			data: { products: cart.products, balance: cart.balance , total: cart.total },
 			onSuccess: () => {
 				router.push('/#orderstored');
 				toast.warn(`Su pedido se ha ${isEditingOrder ? 'modificado' : 'realizado'} con éxito`, {
@@ -40,6 +40,28 @@ export default function Cart(props) {
 			},
 			onError: e => {
 				console.warn(`error on saving order`, e);
+			}
+		});
+	};
+
+	const cancelOrder = async () => {
+		if (!isEditingOrder) {
+			console.warn(`No puedes cancelar una orden si no existe`);
+			return;
+		}
+		Fetch<{ orderId: string;}>({
+			url: `/api/orders/cancel`,
+			method: "DELETE",
+			data: { orderId: props.orderId},
+			onSuccess: () => {
+				router.push('/');
+				cart.clearProducts()
+				toast.warn(`Su pedido se ha cancelado con éxito`, {
+					icon: <FontAwesomeIcon icon={faCheckCircle} color="#EA903C" />
+				});
+			},
+			onError: e => {
+				console.warn(`error on deleting order`, e);
 			}
 		});
 	};
@@ -60,7 +82,7 @@ export default function Cart(props) {
 										product={product}
 									/>
 								))}
-								<TotalCard total={cart.total} />
+								<TotalCard total={cart.total} balance={cart.balance}/>
 								<Button
 									disabled={cart.products.length < 0}
 									className={`${cart.products.length > 0 ? 'button-total' : 'button-total-disabled'}`}
@@ -75,6 +97,13 @@ export default function Cart(props) {
 									}}
 								>
 									Seguir comprando
+								</Button>
+								<Button
+									disabled={!isEditingOrder}
+									className={`${isEditingOrder ? 'button-cancel' : 'button-cancel-disabled'}`}
+									onClick={cancelOrder}
+								>
+									Cancelar pedido
 								</Button>
 							</Grid>
 						</Grid.Container>

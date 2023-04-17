@@ -25,7 +25,11 @@ export default function Admin(props) {
 						<UpdateProductsBtn />
 					</Grid>
 					<Grid xs={12} sm={10} md={8} lg={6}>
-						<OrdersCount ordersCount={ordersCount} setOrdersCount={setOrdersCount} />
+						<OrdersCount
+							ordersCount={ordersCount}
+							setOrdersCount={setOrdersCount}
+							status={props.currentStatus.status}
+						/>
 					</Grid>
 					<Grid xs={12} sm={10} md={8} lg={6}>
 						{editingDates ? (

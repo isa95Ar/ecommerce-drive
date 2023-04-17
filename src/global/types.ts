@@ -19,6 +19,7 @@ export type UserLogged = {
 
 export type Cart = {
 	products: Array<ProductCart>;
+	balance?: number;
 	total: number;
 };
 
@@ -36,6 +37,7 @@ export type ProductModel = {
 	price: number;
 	category: string;
 	seller: string;
+	order: number;
 	google_sheet_id?: string;
 	picture?: string;
 };
@@ -81,6 +83,7 @@ export type productType = {
 	category: string;
 	categoryName: string;
 	seller: string;
+	order: number
 	picture: string;
 };
 

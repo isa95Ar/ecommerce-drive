@@ -15,7 +15,7 @@ const ButtonCart: FC<props> = ({ cart }) => {
 		<div className="container-floating">
 			<Button onClick={() => router.push('cart')} size={'xs'} className={'button-floating'}>
 				<div className="button-content">
-					<div className="cart-total">$ {cart.total}</div>
+					<div className="cart-total">$ {cart.total}  No olvides confirmar tu compra entrando aquí!</div>
 					<Badge
 						color="warning"
 						size={'sm'}
