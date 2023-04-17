@@ -41,7 +41,8 @@ const ButtonCart = ({ cart  })=>{
                         className: "cart-total",
                         children: [
                             "$ ",
-                            cart.total
+                            cart.total,
+                            "  No olvides confirmar tu compra entrando aqu\xed!"
                         ]
                     }),
                     /*#__PURE__*/ react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_nextui_org_react__WEBPACK_IMPORTED_MODULE_1__.Badge, {
@@ -598,10 +599,14 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6896);
 /* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _services_ConfigService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3507);
-/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4014);
-/* harmony import */ var _services_OrderService__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(1751);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__, iron_session__WEBPACK_IMPORTED_MODULE_3__]);
-([_utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__, iron_session__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3506);
+/* harmony import */ var iron_session__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4014);
+/* harmony import */ var _services_OrderService__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1751);
+/* harmony import */ var _constants_config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3075);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__, iron_session__WEBPACK_IMPORTED_MODULE_4__]);
+([_utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__, iron_session__WEBPACK_IMPORTED_MODULE_4__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
 
 
 
@@ -610,7 +615,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_uti
 async function getServerSideProps(context) {
     const configService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_services_ConfigService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
     const getIsOpen = await configService.getCartStatus();
-    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_3__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__/* .sessionOptions */ .d);
+    const ironSession = await (0,iron_session__WEBPACK_IMPORTED_MODULE_4__.getIronSession)(context.req, context.res, _utils_withIronSession__WEBPACK_IMPORTED_MODULE_0__/* .sessionOptions */ .d);
     if (ironSession.user && !ironSession.user.id) {
         context.req.session.destroy();
         return {
@@ -635,11 +640,17 @@ async function getServerSideProps(context) {
     };
     const cart = {
         products: [],
+        balance: 0,
         total: 0
     };
     if (user.logged) {
-        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z);
+        const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_services_OrderService__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z);
         const ModelResponse = await orderService.getUserOrder(user.email);
+        const googleSheetInstance = new _services_GoogleSheetService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z("users");
+        const users = await googleSheetInstance.getGoogleSheetData();
+        const loggedUser = users.find((matchingUser)=>matchingUser[_constants_config__WEBPACK_IMPORTED_MODULE_6__/* ["default"].GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.EMAIL_COLUMN] === user.email
+        );
+        cart.balance = parseFloat(loggedUser[_constants_config__WEBPACK_IMPORTED_MODULE_6__/* ["default"].GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN */ .Z.GOOGLE_SHEET_ROWS.USERS.BALANCE_COLUMN]);
         if (ModelResponse) {
             cart.products = ModelResponse.products.map(({ code , name , price , minimum , qty , total , picture  })=>({
                     code,
@@ -687,6 +698,20 @@ module.exports = require("@fortawesome/react-fontawesome");
 /***/ ((module) => {
 
 module.exports = require("@nextui-org/react");
+
+/***/ }),
+
+/***/ 6781:
+/***/ ((module) => {
+
+module.exports = require("google-auth-library");
+
+/***/ }),
+
+/***/ 9993:
+/***/ ((module) => {
+
+module.exports = require("googleapis");
 
 /***/ }),
 
@@ -753,7 +778,7 @@ module.exports = import("react-toastify");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [531,366,878,386,22,507], () => (__webpack_exec__(3351)));
+var __webpack_exports__ = __webpack_require__.X(0, [531,366,251,386,22,507], () => (__webpack_exec__(3351)));
 module.exports = __webpack_exports__;
 
 })();

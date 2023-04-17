@@ -144,7 +144,7 @@ __webpack_async_result__();
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [534,96,684,74,419], () => (__webpack_exec__(9944)));
+var __webpack_exports__ = __webpack_require__.X(0, [534,684,96,74,419], () => (__webpack_exec__(9944)));
 module.exports = __webpack_exports__;
 
 })();

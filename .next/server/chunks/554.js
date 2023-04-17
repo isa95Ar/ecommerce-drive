@@ -53,6 +53,10 @@ const Order = new external_mongoose_.Schema({
         type: "string",
         unique: true
     },
+    name: {
+        type: "string",
+        unique: false
+    },
     products: [
         {
             code: "number",
@@ -97,6 +101,7 @@ Order.statics.getOrdersToPost = async function() {
             const newOrder = {
                 userId: order.userId,
                 email: order.email,
+                name: order.name,
                 product: product.name,
                 code: product.code,
                 cantidad: product.qty
@@ -115,6 +120,9 @@ Order.statics.updateOrder = async function(orderId, order) {
         new: true
     });
     return updatedOrder;
+};
+Order.statics.deleteOrder = async function(orderId) {
+    await this.findByIdAndRemove(orderId);
 };
 Order.statics.deleteAllOrders = async function() {
     await this.deleteMany({});
@@ -172,6 +180,13 @@ let OrderService = _class = _dec2(_class = _dec1(_class = _dec((_class = class O
         try {
             const updatedOrder = await models_Order.updateOrder(orderId, order);
             return updatedOrder;
+        } catch (e) {
+            throw new ApiExeption/* default */.Z(e);
+        }
+    }
+    async deleteOrder(orderId) {
+        try {
+            await models_Order.deleteOrder(orderId);
         } catch (e) {
             throw new ApiExeption/* default */.Z(e);
         }

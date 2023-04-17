@@ -38,6 +38,7 @@ function useCart(cartSSR) {
         });
         const newCart = {
             products,
+            balance: cart.balance,
             total: sumTotals(products)
         };
         setCart(newCart);
@@ -64,6 +65,7 @@ function useCart(cartSSR) {
         }
         const newCart = {
             products,
+            balance: cart.balance,
             total: sumTotals(products)
         };
         setCart(newCart);
@@ -73,9 +75,18 @@ function useCart(cartSSR) {
         );
         const newCart = {
             products,
+            balance: cart.balance,
             total: sumTotals(products)
         };
         setCart(newCart);
+    };
+    const clearProducts = ()=>{
+        const clearCart = {
+            products: [],
+            balance: cart.balance,
+            total: 0
+        };
+        setCart(clearCart);
     };
     const productExists = (code)=>cart.products.find((product)=>product.code === code
         )
@@ -84,7 +95,8 @@ function useCart(cartSSR) {
         ...cart,
         updateProduct,
         addProduct,
-        deleteProduct
+        deleteProduct,
+        clearProducts
     };
 }
 
@@ -93,21 +105,25 @@ function useCart(cartSSR) {
 
 
 const useCartController = (cart)=>{
-    const { total , products , updateProduct , addProduct , deleteProduct  } = useCart(cart);
+    const { total , balance , products , updateProduct , addProduct , deleteProduct , clearProducts  } = useCart(cart);
     return {
         total,
+        balance,
         products,
         updateProduct,
         addProduct,
-        deleteProduct
+        deleteProduct,
+        clearProducts
     };
 };
 const AppCtx = /*#__PURE__*/ (0,external_react_.createContext)({
     total: 0,
+    balance: 0,
     products: [],
     updateProduct: ()=>{},
     addProduct: ()=>{},
-    deleteProduct: ()=>{}
+    deleteProduct: ()=>{},
+    clearProducts: ()=>{}
 });
 const AppCtxProvider = ({ cart , children  })=>{
     return /*#__PURE__*/ jsx_runtime_.jsx(AppCtx.Provider, {

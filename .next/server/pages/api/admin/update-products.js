@@ -124,6 +124,7 @@ function serializingProducts(products, files) {
                 category: (0,slug/* slugify */.l)(product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN]),
                 categoryName: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
+                order: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
                 picture: fileInfo ? fileInfo.webViewLink : ""
             });
         }
@@ -217,7 +218,7 @@ async function updateProductsOnDb(req, res) {
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [96,684,74,419,5,102], () => (__webpack_exec__(8592)));
+var __webpack_exports__ = __webpack_require__.X(0, [684,96,74,419,5,102], () => (__webpack_exec__(8592)));
 module.exports = __webpack_exports__;
 
 })();

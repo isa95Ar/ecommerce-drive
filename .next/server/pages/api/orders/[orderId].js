@@ -66,7 +66,8 @@ async function updateOrder(req, res) {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z);
         const { orderId  } = req.query;
         const body = JSON.parse(req.body);
-        const { products , total  } = body;
+        const { products , balance , total  } = body;
+        const subtotal = total + balance;
         await orderService.updateOrder(orderId, {
             products,
             total
@@ -79,6 +80,8 @@ async function updateOrder(req, res) {
             subject: `Tu pedido fue guardado`,
             html: (0,_src_utils_Mail__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z)({
                 products,
+                balance,
+                subtotal,
                 total,
                 name
             }),
@@ -111,7 +114,7 @@ __webpack_async_result__();
 var __webpack_require__ = require("../../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [534,96,684,554,657], () => (__webpack_exec__(1482)));
+var __webpack_exports__ = __webpack_require__.X(0, [534,684,96,554,657], () => (__webpack_exec__(1482)));
 module.exports = __webpack_exports__;
 
 })();

@@ -20,6 +20,7 @@
         "OAUTH_REDIRECT_URL",
         "OAUTH_SCOPES",
         "PICTURES_FOLDERS_ID",
+        "MONGODB_CONNECTION",
         "IRON_SESSIONS_PASSWORD"
       ],
       "files": [

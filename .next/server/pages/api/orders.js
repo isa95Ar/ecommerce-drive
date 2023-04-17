@@ -65,7 +65,8 @@ async function postOrder(req, res) {
     try {
         const orderService = tsyringe__WEBPACK_IMPORTED_MODULE_1__.container.resolve(_src_services_OrderService__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z);
         const body = JSON.parse(req.body);
-        const { products , total  } = body;
+        const { products , balance , total  } = body;
+        const subtotal = total + balance;
         if (!products) {
             return res.status(400).json({
                 error: true,
@@ -78,6 +79,7 @@ async function postOrder(req, res) {
             userId: id,
             products,
             email,
+            name: name,
             total
         });
         // Enviar mail
@@ -87,6 +89,8 @@ async function postOrder(req, res) {
             subject: `Tu pedido fue guardado`,
             html: (0,_src_utils_Mail__WEBPACK_IMPORTED_MODULE_5__/* ["default"] */ .Z)({
                 products,
+                balance,
+                subtotal,
                 total,
                 name
             }),
@@ -120,7 +124,7 @@ __webpack_async_result__();
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [534,96,684,554,657], () => (__webpack_exec__(6448)));
+var __webpack_exports__ = __webpack_require__.X(0, [534,684,96,554,657], () => (__webpack_exec__(6448)));
 module.exports = __webpack_exports__;
 
 })();

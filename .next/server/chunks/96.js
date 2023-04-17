@@ -9,14 +9,16 @@ exports.modules = {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6896);
-/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1185);
-/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _constants_config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5684);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6896);
+/* harmony import */ var tsyringe__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(tsyringe__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1185);
+/* harmony import */ var mongoose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(mongoose__WEBPACK_IMPORTED_MODULE_2__);
 var _class;
 
 
-var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__.singleton)();
+
+var _dec = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:paramtypes", []), _dec1 = typeof Reflect !== "undefined" && typeof Reflect.metadata === "function" && Reflect.metadata("design:type", Function), _dec2 = (0,tsyringe__WEBPACK_IMPORTED_MODULE_1__.singleton)();
 let BaseService = _class = _dec2(_class = _dec1(_class = _dec((_class = class BaseService {
     constructor(){
         this.mongoInit().catch((e)=>console.log(e, "error on mongo connection")
@@ -26,7 +28,7 @@ let BaseService = _class = _dec2(_class = _dec1(_class = _dec((_class = class Ba
         return new Promise(async (resolve, reject)=>{
             try {
                 if (this.isDbConnected) return;
-                const db = await (0,mongoose__WEBPACK_IMPORTED_MODULE_1__.connect)("mongodb://localhost:27017/almargen");
+                const db = await (0,mongoose__WEBPACK_IMPORTED_MODULE_2__.connect)(_constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].MONGODB_CONNECTION */ .Z.MONGODB_CONNECTION);
                 this.isDbConnected = db.connections[0].readyState;
                 resolve(db.connections[0].readyState);
             } catch (e) {
