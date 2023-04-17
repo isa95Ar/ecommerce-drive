@@ -13,7 +13,7 @@ export function useCart(cartSSR: Cart) {
 			}
 			return product;
 		});
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products, balance: cart.balance, total: sumTotals(products) };
 		setCart(newCart);
 	};
 
@@ -32,17 +32,22 @@ export function useCart(cartSSR: Cart) {
 			products.push({ ...productToAdd, total: productToAdd.price * productToAdd.qty });
 		}
 
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products , balance:cart.balance , total: sumTotals(products) };
 		setCart(newCart);
 	};
 
 	const deleteProduct = (productToDelete: ProductCart) => {
 		const products = cart.products.filter(product => product.code !== productToDelete.code);
-		const newCart = { products, total: sumTotals(products) };
+		const newCart = { products , balance:cart.balance , total: sumTotals(products) };
 		setCart(newCart);
 	};
+	
+	const clearProducts = () =>{
+		const clearCart = { products: [] , balance:cart.balance , total: 0 };
+		setCart(clearCart);
+	}
 
 	const productExists = code => cart.products.find(product => product.code === code);
 
-	return { ...cart, updateProduct, addProduct, deleteProduct };
+	return { ...cart, updateProduct, addProduct, deleteProduct, clearProducts };
 }

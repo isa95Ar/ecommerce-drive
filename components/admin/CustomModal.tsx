@@ -7,7 +7,6 @@ type props = {
 };
 
 const CustomModal: FC<props> = ({ visible, close, onConfirm }) => {
-	console.log(visible);
 	return (
 		<Modal closeButton aria-labelledby="modal-title" open={visible} onClose={close}>
 			<Modal.Header>
