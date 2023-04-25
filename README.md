@@ -1,18 +1,9 @@
-# Al Margen E-Commerce
+This project was created by the Animus Young Team (los pibes de la cope):
 
-Este E-commerce usa la api de google para traer productos de un excel y los mete en un mongo.
+Matias Soto (El Mati),
+Juan Manuel Fallo (El Juanci),
+Isaias Diaz (El Isa).
 
-## Link para instalarse mongo.
+You can take a look on https://comprasalmargen.com.ar
 
-https://www.mongodb.com/try/download/community
-
-## Para ejecutar el proyecto hay que tener typescript y ts-node
-
-```
-npm install -g typescript
-npm install -g ts-node
-```
-
-## para el deploy
-
-./shell/deploy.sh
+![image](https://user-images.githubusercontent.com/38536964/234301960-81378d65-0495-4ec5-82ab-d8c05f5cb2ac.png)
