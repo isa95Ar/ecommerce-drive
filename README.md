@@ -6,4 +6,5 @@ Isaias Diaz (El Isa).
 
 You can take a look on https://comprasalmargen.com.ar
 
-![image](https://user-images.githubusercontent.com/38536964/234301960-81378d65-0495-4ec5-82ab-d8c05f5cb2ac.png)
+
+![b23836a7-e819-4a8a-a066-6ddff48281d8](https://user-images.githubusercontent.com/38536964/234303532-0233751a-4a48-4169-af80-73faba540ab5.png)
