@@ -2,16 +2,6 @@
 exports.__esModule = true;
 var dotEnv = require('dotenv');
 dotEnv.config();
-var dotEnv = require('dotenv');
-dotEnv.config();
-var dotEnv = require('dotenv');
-dotEnv.config();
-var dotEnv = require('dotenv');
-dotEnv.config();
-var dotEnv = require('dotenv');
-dotEnv.config();
-var dotEnv = require('dotenv');
-dotEnv.config();
 exports["default"] = {
     gapi: {
         SPREADSHEET_ID: process.env.SPREADSHEET_ID,
@@ -25,6 +15,7 @@ exports["default"] = {
         OAUTH_SCOPES: [process.env.OAUTH_SCOPES],
         PICTURES_FOLDERS_ID: process.env.PICTURES_FOLDERS_ID
     },
+    MONGODB_CONNECTION: process.env.MONGODB_CONNECTION,
     IRON_SESSIONS_PASSWORD: process.env.IRON_SESSIONS_PASSWORD,
     GOOGLE_SHEET_ROWS: {
         PRODUCTS: {
@@ -34,12 +25,14 @@ exports["default"] = {
             MINIUM_COLUMN: 3,
             PRICE_COLUMN: 4,
             CATEGORY_COLUMN: 5,
-            SELLER_COLUMN: 6
+            SELLER_COLUMN: 6,
+            SORT_COLUMN: 7
         },
         USERS: {
             ID_COLUMN: 0,
             EMAIL_COLUMN: 2,
-            IS_ADMIN_COLUMN: 3
+            IS_ADMIN_COLUMN: 3,
+            BALANCE_COLUMN: 4
         }
     }
 };
