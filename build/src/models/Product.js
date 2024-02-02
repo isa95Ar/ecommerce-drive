@@ -45,6 +45,7 @@ var Product = new mongoose_1.Schema({
     price: { type: 'number' },
     category: { type: 'string' },
     seller: { type: 'string' },
+    order: { type: 'number' },
     picture: { type: 'string' }
 });
 Product.index({ name: 'text' });
@@ -71,7 +72,7 @@ Product.statics.getProducts = function (category, page) {
                             .select({ _id: 0, __v: 0 })
                             .limit(limit)
                             .skip(limit * (page - 1))
-                            .sort({ code: 1 })];
+                            .sort({ order: 1 })];
                 case 5:
                     products = _b.sent();
                     totalPages = Math.ceil(productsCount / limit);

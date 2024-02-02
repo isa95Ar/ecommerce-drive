@@ -58,6 +58,7 @@ function serializingProducts(products, files) {
                 category: (0, slug_1.slugify)(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN]),
                 categoryName: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
+                order: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
                 picture: fileInfo ? fileInfo.webViewLink : ''
             });
         }
