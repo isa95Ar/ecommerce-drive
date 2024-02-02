@@ -30,7 +30,7 @@ class GoogleDriveFilesService extends GoogleAuthService {
 			NextPageToken = responseFileList.data.nextPageToken;
 			const filesFields: FileInfoType = responseFileList.data.files.map(file => {
 				const newName = file.name.replace(' ', '');
-				return { webViewLink: file.webContentLink, code: parseInt(newName.split('.')[0]) };
+				return { webViewLink: newName, code: parseInt(newName.split('.')[0])};
 			});
 
 			return filesFields;
