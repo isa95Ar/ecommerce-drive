@@ -89,7 +89,7 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
             const filesFields = responseFileList.data.files.map((file)=>{
                 const newName = file.name.replace(" ", "");
                 return {
-                    webViewLink: file.webContentLink,
+                    webViewLink: newName,
                     code: parseInt(newName.split(".")[0])
                 };
             });
@@ -125,7 +125,7 @@ function serializingProducts(products, files) {
                 categoryName: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
                 order: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
-                picture: fileInfo ? fileInfo.webViewLink : ""
+                picture: fileInfo ? `/img/${fileInfo.webViewLink}` : ""
             });
         }
     });
