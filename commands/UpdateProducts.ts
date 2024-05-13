@@ -4,17 +4,14 @@ import CategoryService from '../src/services/CategoryService';
 import GoogleSheetService from '../src/services/GoogleSheetService';
 import { slugify } from '../helpers/slug';
 import GoogleDriveFilesService from '../src/services/GoogleDriveFilesService';
-import { FileInfoType, productType } from '../src/global/types';
+import { productType } from '../src/global/types';
 import config from '../constants/config';
 
-function serializingProducts(products: Array<Array<string>>, files: FileInfoType): Array<productType> {
+function serializingProducts(products: Array<Array<string>>): Array<productType> {
 	const serializeProducts = [];
 
 	products.map((product, i) => {
 		if (i !== 0) {
-			const fileInfo = files.find(
-				file => file.code === parseInt(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN])
-			);
 			serializeProducts.push({
 				stock: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == '1',
 				code: parseInt(product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
@@ -25,7 +22,7 @@ function serializingProducts(products: Array<Array<string>>, files: FileInfoType
 				categoryName: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
 				seller: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
 				order: product[config.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
-				picture: fileInfo ? `/img/${fileInfo.webViewLink}` : ''
+				picture: `/img/${product[config.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]}.png`
 			});
 		}
 	});
@@ -90,7 +87,7 @@ export async function updateProducts(): Promise<object> {
 		const GDservice = new GoogleDriveFilesService();
 		const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
 
-		const productsFormated: Array<productType> = serializingProducts(products, filesInfo);
+		const productsFormated: Array<productType> = serializingProducts(products);
 		await saveProductsOnMongo(productsFormated);
 		await saveCategories(productsFormated);
 
