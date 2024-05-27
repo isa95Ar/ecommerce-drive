@@ -85,7 +85,7 @@ export async function updateProducts(): Promise<object> {
 		const products: Array<Array<string>> = await googleSheetInstance.getGoogleSheetData();
 
 		const GDservice = new GoogleDriveFilesService();
-		const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
+		//const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
 
 		const productsFormated: Array<productType> = serializingProducts(products);
 		await saveProductsOnMongo(productsFormated);
