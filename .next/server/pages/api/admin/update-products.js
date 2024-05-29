@@ -123,7 +123,7 @@ function serializingProducts(products) {
                 categoryName: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
                 order: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
-                picture: `/img/${product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]}.png`
+                picture: `/img/${product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]}.jpg`
             });
         }
     });
