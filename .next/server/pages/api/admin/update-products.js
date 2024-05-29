@@ -109,12 +109,10 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
 
 
 
-function serializingProducts(products, files) {
+function serializingProducts(products) {
     const serializeProducts = [];
     products.map((product, i)=>{
         if (i !== 0) {
-            const fileInfo = files.find((file)=>file.code === parseInt(product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN])
-            );
             serializeProducts.push({
                 stock: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == "1",
                 code: parseInt(product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
@@ -125,7 +123,7 @@ function serializingProducts(products, files) {
                 categoryName: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
                 order: product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
-                picture: fileInfo ? `/img/${fileInfo.webViewLink}` : ""
+                picture: `/img/${product[config/* default.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN */.Z.GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]}.png`
             });
         }
     });
@@ -180,8 +178,8 @@ async function updateProducts() {
         const googleSheetInstance = new GoogleSheetService/* default */.Z("products");
         const products = await googleSheetInstance.getGoogleSheetData();
         const GDservice = new services_GoogleDriveFilesService();
-        const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
-        const productsFormated = serializingProducts(products, filesInfo);
+        //const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
+        const productsFormated = serializingProducts(products);
         await saveProductsOnMongo(productsFormated);
         await saveCategories(productsFormated);
         return {
