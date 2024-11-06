@@ -44,11 +44,10 @@ var GoogleSheetService_1 = require("../src/services/GoogleSheetService");
 var slug_1 = require("../helpers/slug");
 var GoogleDriveFilesService_1 = require("../src/services/GoogleDriveFilesService");
 var config_1 = require("../constants/config");
-function serializingProducts(products, files) {
+function serializingProducts(products) {
     var serializeProducts = [];
     products.map(function (product, i) {
         if (i !== 0) {
-            var fileInfo = files.find(function (file) { return file.code === parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]); });
             serializeProducts.push({
                 stock: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.STOCK_COLUMN] == '1',
                 code: parseInt(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN]),
@@ -59,7 +58,7 @@ function serializingProducts(products, files) {
                 categoryName: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CATEGORY_COLUMN],
                 seller: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SELLER_COLUMN],
                 order: product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.SORT_COLUMN],
-                picture: fileInfo ? fileInfo.webViewLink : ''
+                picture: "/img/".concat(product[config_1["default"].GOOGLE_SHEET_ROWS.PRODUCTS.CODE_COLUMN], ".jpg")
             });
         }
     });
@@ -144,32 +143,29 @@ function saveCategories(products) {
 }
 function updateProducts() {
     return __awaiter(this, void 0, void 0, function () {
-        var googleSheetInstance, products, GDservice, filesInfo, productsFormated, e_3;
+        var googleSheetInstance, products, GDservice, productsFormated, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
+                    _a.trys.push([0, 4, , 5]);
                     googleSheetInstance = new GoogleSheetService_1["default"]('products');
                     return [4 /*yield*/, googleSheetInstance.getGoogleSheetData()];
                 case 1:
                     products = _a.sent();
                     GDservice = new GoogleDriveFilesService_1["default"]();
-                    return [4 /*yield*/, GDservice.retrieveFilesFromPicturesFolder()];
-                case 2:
-                    filesInfo = _a.sent();
-                    productsFormated = serializingProducts(products, filesInfo);
+                    productsFormated = serializingProducts(products);
                     return [4 /*yield*/, saveProductsOnMongo(productsFormated)];
-                case 3:
+                case 2:
                     _a.sent();
                     return [4 /*yield*/, saveCategories(productsFormated)];
-                case 4:
+                case 3:
                     _a.sent();
                     return [2 /*return*/, { success: true }];
-                case 5:
+                case 4:
                     e_3 = _a.sent();
                     console.log(e_3, 'Error updating products');
                     return [2 /*return*/, { error: e_3 }];
-                case 6: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });

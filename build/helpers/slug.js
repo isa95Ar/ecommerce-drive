@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.slugify = void 0;
 var slugify = function (str) {
+    if (str === void 0) { str = ""; }
     var from = 'ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç', to = 'AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc', mapping = {};
     for (var i = 0, j = from.length; i < j; i++)
         mapping[from.charAt(i)] = to.charAt(i);
