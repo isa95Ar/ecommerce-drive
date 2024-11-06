@@ -1,4 +1,4 @@
-export const slugify = function (str) {
+export const slugify = function (str = "") {
 	var from = 'ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç',
 		to = 'AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc',
 		mapping = {};
