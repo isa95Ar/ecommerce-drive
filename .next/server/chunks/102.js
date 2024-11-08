@@ -9,7 +9,7 @@ exports.modules = {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "l": () => (/* binding */ slugify)
 /* harmony export */ });
-const slugify = function(str) {
+const slugify = function(str = "") {
     var from = "\xc3\xc0\xc1\xc4\xc2\xc8\xc9\xcb\xca\xcc\xcd\xcf\xce\xd2\xd3\xd6\xd4\xd9\xda\xdc\xdb\xe3\xe0\xe1\xe4\xe2\xe8\xe9\xeb\xea\xec\xed\xef\xee\xf2\xf3\xf6\xf4\xf9\xfa\xfc\xfb\xd1\xf1\xc7\xe7", to = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc", mapping = {};
     for(let i = 0, j = from.length; i < j; i++)mapping[from.charAt(i)] = to.charAt(i);
     const result = [];
