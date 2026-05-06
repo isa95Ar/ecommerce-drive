@@ -30,27 +30,37 @@ let GoogleAuthService = _class = _dec2(_class = _dec1(_class = _dec((_class = cl
         this.oAuth2Client = new google_auth_library__WEBPACK_IMPORTED_MODULE_1__.OAuth2Client(_constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.OAUTH_CLIENT_ID */ .Z.gapi.OAUTH_CLIENT_ID, _constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.OAUTH_CLIENT_KEY */ .Z.gapi.OAUTH_CLIENT_KEY, _constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.OAUTH_REDIRECT_URL */ .Z.gapi.OAUTH_REDIRECT_URL);
     }
     async startGoogleAuthentification() {
+        const ts = ()=>new Date().toISOString()
+        ;
+        console.log(`[${ts()}] [GoogleAuthService] Initiating Google authentication...`);
         try {
             const connection = await this.initConnection();
             this.GoogleClient = connection.googleClient;
             this.GoogleAuth = connection.googleAuth;
+            console.log(`[${ts()}] [GoogleAuthService] Google authentication successful`);
         } catch (e) {
+            console.error(`[${ts()}] [GoogleAuthService] Google authentication failed:`, e);
             throw new Error(`Client Google error ${e}`);
         }
     }
     async initConnection() {
+        const ts = ()=>new Date().toISOString()
+        ;
         return new Promise(async (resolve, reject)=>{
+            console.log(`[${ts()}] [GoogleAuthService] Loading credentials from google-credentials.json`);
             try {
                 const googleAuth = new google_auth_library__WEBPACK_IMPORTED_MODULE_1__.GoogleAuth({
                     keyFile: "./google-credentials.json",
                     scopes: _constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.SCOPES */ .Z.gapi.SCOPES
                 });
                 const googleClient = await googleAuth.getClient();
+                console.log(`[${ts()}] [GoogleAuthService] Google client initialized successfully`);
                 resolve({
                     googleClient,
                     googleAuth
                 });
             } catch (e) {
+                console.error(`[${ts()}] [GoogleAuthService] Failed to initialize Google client:`, e);
                 reject(e);
             }
         });

@@ -26,24 +26,33 @@ class GoogleSheetService extends _GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__
         });
     }
     async getGoogleSheetData() {
+        const ts = ()=>new Date().toISOString()
+        ;
         try {
             await this.startGoogleAuthentification();
             const sheetName = this.getSheetName();
+            console.log(`[${ts()}] [GoogleSheetService] Reading sheet "${sheetName}" from spreadsheet ${_constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.SPREADSHEET_ID */ .Z.gapi.SPREADSHEET_ID}`);
             const rows = await this.googleSheetService.spreadsheets.values.get({
                 auth: this.GoogleAuth,
                 spreadsheetId: _constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.SPREADSHEET_ID */ .Z.gapi.SPREADSHEET_ID,
                 range: sheetName
             });
+            const rowCount = rows.data.values ? rows.data.values.length : 0;
+            console.log(`[${ts()}] [GoogleSheetService] Successfully read ${rowCount} rows from sheet "${sheetName}"`);
             return rows.data.values;
         } catch (error) {
+            console.error(`[${ts()}] [GoogleSheetService] Error reading Google Sheet (module: ${this.module}):`, error);
             throw new Error(`Error on get Google Sheet Instance ${error}`);
         }
     }
     async insertOnGoogleSheet(data) {
+        const ts = ()=>new Date().toISOString()
+        ;
         return new Promise(async (resolve, reject)=>{
             try {
                 await this.startGoogleAuthentification();
                 const sheetName = this.getSheetName();
+                console.log(`[${ts()}] [GoogleSheetService] Inserting ${data.length} rows into sheet "${sheetName}"`);
                 const response = this.googleSheetService.spreadsheets.values.append({
                     spreadsheetId: _constants_config__WEBPACK_IMPORTED_MODULE_0__/* ["default"].gapi.SPREADSHEET_ID */ .Z.gapi.SPREADSHEET_ID,
                     auth: this.GoogleAuth,
@@ -54,11 +63,13 @@ class GoogleSheetService extends _GoogleAuthService__WEBPACK_IMPORTED_MODULE_1__
                         values: this.serializeGoogleRows(data)
                     }
                 });
+                console.log(`[${ts()}] [GoogleSheetService] Insert into sheet "${sheetName}" succeeded`);
                 resolve({
                     status: "success",
                     message: response
                 });
             } catch (e) {
+                console.error(`[${ts()}] [GoogleSheetService] Error inserting into Google Sheet (module: ${this.module}):`, e);
                 reject({
                     status: "Error",
                     message: e.message

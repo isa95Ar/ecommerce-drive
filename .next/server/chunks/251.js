@@ -180,27 +180,37 @@ let GoogleAuthService = _class = _dec2(_class = _dec1(_class = _dec((_class = cl
         this.oAuth2Client = new external_google_auth_library_.OAuth2Client(config/* default.gapi.OAUTH_CLIENT_ID */.Z.gapi.OAUTH_CLIENT_ID, config/* default.gapi.OAUTH_CLIENT_KEY */.Z.gapi.OAUTH_CLIENT_KEY, config/* default.gapi.OAUTH_REDIRECT_URL */.Z.gapi.OAUTH_REDIRECT_URL);
     }
     async startGoogleAuthentification() {
+        const ts = ()=>new Date().toISOString()
+        ;
+        console.log(`[${ts()}] [GoogleAuthService] Initiating Google authentication...`);
         try {
             const connection = await this.initConnection();
             this.GoogleClient = connection.googleClient;
             this.GoogleAuth = connection.googleAuth;
+            console.log(`[${ts()}] [GoogleAuthService] Google authentication successful`);
         } catch (e) {
+            console.error(`[${ts()}] [GoogleAuthService] Google authentication failed:`, e);
             throw new Error(`Client Google error ${e}`);
         }
     }
     async initConnection() {
+        const ts = ()=>new Date().toISOString()
+        ;
         return new Promise(async (resolve, reject)=>{
+            console.log(`[${ts()}] [GoogleAuthService] Loading credentials from google-credentials.json`);
             try {
                 const googleAuth = new external_google_auth_library_.GoogleAuth({
                     keyFile: "./google-credentials.json",
                     scopes: config/* default.gapi.SCOPES */.Z.gapi.SCOPES
                 });
                 const googleClient = await googleAuth.getClient();
+                console.log(`[${ts()}] [GoogleAuthService] Google client initialized successfully`);
                 resolve({
                     googleClient,
                     googleAuth
                 });
             } catch (e) {
+                console.error(`[${ts()}] [GoogleAuthService] Failed to initialize Google client:`, e);
                 reject(e);
             }
         });
@@ -272,24 +282,33 @@ class GoogleSheetService extends services_GoogleAuthService {
         });
     }
     async getGoogleSheetData() {
+        const ts = ()=>new Date().toISOString()
+        ;
         try {
             await this.startGoogleAuthentification();
             const sheetName = this.getSheetName();
+            console.log(`[${ts()}] [GoogleSheetService] Reading sheet "${sheetName}" from spreadsheet ${config/* default.gapi.SPREADSHEET_ID */.Z.gapi.SPREADSHEET_ID}`);
             const rows = await this.googleSheetService.spreadsheets.values.get({
                 auth: this.GoogleAuth,
                 spreadsheetId: config/* default.gapi.SPREADSHEET_ID */.Z.gapi.SPREADSHEET_ID,
                 range: sheetName
             });
+            const rowCount = rows.data.values ? rows.data.values.length : 0;
+            console.log(`[${ts()}] [GoogleSheetService] Successfully read ${rowCount} rows from sheet "${sheetName}"`);
             return rows.data.values;
         } catch (error) {
+            console.error(`[${ts()}] [GoogleSheetService] Error reading Google Sheet (module: ${this.module}):`, error);
             throw new Error(`Error on get Google Sheet Instance ${error}`);
         }
     }
     async insertOnGoogleSheet(data) {
+        const ts = ()=>new Date().toISOString()
+        ;
         return new Promise(async (resolve, reject)=>{
             try {
                 await this.startGoogleAuthentification();
                 const sheetName = this.getSheetName();
+                console.log(`[${ts()}] [GoogleSheetService] Inserting ${data.length} rows into sheet "${sheetName}"`);
                 const response = this.googleSheetService.spreadsheets.values.append({
                     spreadsheetId: config/* default.gapi.SPREADSHEET_ID */.Z.gapi.SPREADSHEET_ID,
                     auth: this.GoogleAuth,
@@ -300,11 +319,13 @@ class GoogleSheetService extends services_GoogleAuthService {
                         values: this.serializeGoogleRows(data)
                     }
                 });
+                console.log(`[${ts()}] [GoogleSheetService] Insert into sheet "${sheetName}" succeeded`);
                 resolve({
                     status: "success",
                     message: response
                 });
             } catch (e) {
+                console.error(`[${ts()}] [GoogleSheetService] Error inserting into Google Sheet (module: ${this.module}):`, e);
                 reject({
                     status: "Error",
                     message: e.message

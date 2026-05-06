@@ -69,12 +69,16 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
         super();
     }
     async retrieveFilesFromPicturesFolder() {
+        const ts = ()=>new Date().toISOString()
+        ;
+        console.log(`[${ts()}] [GoogleDriveFilesService] Connecting to Google Drive...`);
         try {
             await this.startGoogleAuthentification();
             this.googleFileService = external_googleapis_.google.drive({
                 version: "v3",
                 auth: this.GoogleAuth
             });
+            console.log(`[${ts()}] [GoogleDriveFilesService] Listing files from folder ${config/* default.gapi.PICTURES_FOLDERS_ID */.Z.gapi.PICTURES_FOLDERS_ID}`);
             let NextPageToken = "";
             const responseFileList = await this.googleFileService.files.list({
                 corpora: "allDrives",
@@ -93,8 +97,13 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
                     code: parseInt(newName.split(".")[0])
                 };
             });
+            console.log(`[${ts()}] [GoogleDriveFilesService] Retrieved ${filesFields.length} files from Drive folder`);
+            if (NextPageToken) {
+                console.log(`[${ts()}] [GoogleDriveFilesService] Warning: response has a nextPageToken — there may be more files beyond the 1000 limit`);
+            }
             return filesFields;
         } catch (e) {
+            console.error(`[${ts()}] [GoogleDriveFilesService] Error retrieving files from Google Drive folder ${config/* default.gapi.PICTURES_FOLDERS_ID */.Z.gapi.PICTURES_FOLDERS_ID}:`, e);
             throw new Error(e);
         }
     }
@@ -109,7 +118,11 @@ class GoogleDriveFilesService extends GoogleAuthService/* default */.Z {
 
 
 
+function timestamp() {
+    return new Date().toISOString();
+}
 function serializingProducts(products) {
+    console.log(`[${timestamp()}] [serializingProducts] Serializing ${products.length - 1} product rows from sheet`);
     const serializeProducts = [];
     products.map((product, i)=>{
         if (i !== 0) {
@@ -127,66 +140,83 @@ function serializingProducts(products) {
             });
         }
     });
+    const inStock = serializeProducts.filter((p)=>p.stock
+    ).length;
+    console.log(`[${timestamp()}] [serializingProducts] Serialized ${serializeProducts.length} products (${inStock} in stock)`);
     return serializeProducts;
 }
 async function saveProductsOnMongo(products) {
+    console.log(`[${timestamp()}] [saveProductsOnMongo] Saving products to MongoDB...`);
     try {
         const productService = external_tsyringe_.container.resolve(ProductService/* default */.Z);
+        console.log(`[${timestamp()}] [saveProductsOnMongo] Clearing existing products collection`);
         await productService.clearAll();
+        const inStockProducts = products.filter((p)=>p.stock
+        );
+        console.log(`[${timestamp()}] [saveProductsOnMongo] Inserting ${inStockProducts.length} in-stock products`);
         await Promise.all(products.map(async (product)=>{
             if (product.stock) {
                 await productService.saveProduct(product);
             }
         }));
-        console.log("Products saved succesfully");
+        console.log(`[${timestamp()}] [saveProductsOnMongo] Products saved successfully`);
         return {
             success: true
         };
     } catch (e) {
-        console.log("error saving products", e);
+        console.error(`[${timestamp()}] [saveProductsOnMongo] Error saving products to MongoDB:`, e);
         return {
             error: e
         };
     }
 }
 async function saveCategories(products) {
+    console.log(`[${timestamp()}] [saveCategories] Extracting and saving categories...`);
     try {
         const categoryService = external_tsyringe_.container.resolve(CategoryService/* default */.Z);
         const categories = [];
+        console.log(`[${timestamp()}] [saveCategories] Clearing existing categories collection`);
         await categoryService.clearAll();
         products.map((product)=>{
             if (!categories.includes(product.categoryName)) {
                 categories.push(product.categoryName);
             }
         });
+        console.log(`[${timestamp()}] [saveCategories] Found ${categories.length} unique categories: ${categories.join(", ")}`);
         Promise.all(categories.map(async (category)=>{
             await categoryService.saveCategory(category);
         }));
-        console.log("Categories saved succesfully");
+        console.log(`[${timestamp()}] [saveCategories] Categories saved successfully`);
         return {
             success: true
         };
     } catch (e) {
-        console.log("error saving categories", e);
+        console.error(`[${timestamp()}] [saveCategories] Error saving categories to MongoDB:`, e);
         return {
             error: e
         };
     }
 }
 async function updateProducts() {
+    console.log(`[${timestamp()}] [updateProducts] Starting full product update`);
     try {
+        console.log(`[${timestamp()}] [updateProducts] Connecting to Google Sheets (module: products)...`);
         const googleSheetInstance = new GoogleSheetService/* default */.Z("products");
         const products = await googleSheetInstance.getGoogleSheetData();
+        console.log(`[${timestamp()}] [updateProducts] Google Sheets data fetched — ${products.length} rows received`);
         const GDservice = new services_GoogleDriveFilesService();
         //const filesInfo = await GDservice.retrieveFilesFromPicturesFolder();
         const productsFormated = serializingProducts(products);
+        console.log(`[${timestamp()}] [updateProducts] Saving products to database...`);
         await saveProductsOnMongo(productsFormated);
+        console.log(`[${timestamp()}] [updateProducts] Saving categories to database...`);
         await saveCategories(productsFormated);
+        console.log(`[${timestamp()}] [updateProducts] Product update completed successfully`);
         return {
             success: true
         };
     } catch (e) {
-        console.log(e, "Error updating products");
+        console.error(`[${timestamp()}] [updateProducts] Error during product update:`, e);
         return {
             error: e
         };
