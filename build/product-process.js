@@ -58,32 +58,30 @@ function initExport() {
                                 console.log("[".concat(timestamp(), "] [initExport] Starting product export process"));
                                 _a.label = 1;
                             case 1:
-                                _a.trys.push([1, 6, , 7]);
+                                _a.trys.push([1, 4, , 5]);
                                 configService = tsyringe_1.container.resolve(ConfigService_1["default"]);
                                 console.log("[".concat(timestamp(), "] [initExport] Checking cart status..."));
                                 return [4 /*yield*/, configService.getCartStatus()];
                             case 2:
                                 cartStatus = _a.sent();
                                 console.log("[".concat(timestamp(), "] [initExport] Cart status: ").concat(cartStatus.status));
-                                if (!(cartStatus.status === 'open')) return [3 /*break*/, 4];
+                                //if (cartStatus.status === 'open') {
                                 console.log("[".concat(timestamp(), "] [initExport] Cart is open \u2014 proceeding with product update"));
                                 return [4 /*yield*/, (0, UpdateProducts_1.updateProducts)()];
                             case 3:
                                 _a.sent();
-                                return [3 /*break*/, 5];
-                            case 4:
-                                console.log("[".concat(timestamp(), "] [initExport] Cart is not open \u2014 skipping product update"));
-                                _a.label = 5;
-                            case 5:
+                                /*} else {
+                                    console.log(`[${timestamp()}] [initExport] Cart is not open — skipping product update`);
+                                }*/
                                 console.log("[".concat(timestamp(), "] [initExport] Export process finished successfully"));
                                 resolve({ status: 'success' });
-                                return [3 /*break*/, 7];
-                            case 6:
+                                return [3 /*break*/, 5];
+                            case 4:
                                 e_1 = _a.sent();
                                 console.error("[".concat(timestamp(), "] [initExport] Export process failed:"), e_1);
                                 reject(e_1);
-                                return [3 /*break*/, 7];
-                            case 7: return [2 /*return*/];
+                                return [3 /*break*/, 5];
+                            case 5: return [2 /*return*/];
                         }
                     });
                 }); })];
