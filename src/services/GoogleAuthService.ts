@@ -21,25 +21,33 @@ class GoogleAuthService extends BaseService {
 	}
 
 	async startGoogleAuthentification() {
+		const ts = () => new Date().toISOString();
+		console.log(`[${ts()}] [GoogleAuthService] Initiating Google authentication...`);
 		try {
 			const connection = await this.initConnection();
 			this.GoogleClient = connection.googleClient;
 			this.GoogleAuth = connection.googleAuth;
+			console.log(`[${ts()}] [GoogleAuthService] Google authentication successful`);
 		} catch (e) {
+			console.error(`[${ts()}] [GoogleAuthService] Google authentication failed:`, e);
 			throw new Error(`Client Google error ${e}`);
 		}
 	}
 
 	async initConnection(): Promise<any> {
+		const ts = () => new Date().toISOString();
 		return new Promise(async (resolve, reject) => {
+			console.log(`[${ts()}] [GoogleAuthService] Loading credentials from google-credentials.json`);
 			try {
 				const googleAuth = new GoogleAuth({
 					keyFile: './google-credentials.json',
 					scopes: config.gapi.SCOPES
 				});
 				const googleClient = await googleAuth.getClient();
+				console.log(`[${ts()}] [GoogleAuthService] Google client initialized successfully`);
 				resolve({ googleClient, googleAuth });
 			} catch (e) {
+				console.error(`[${ts()}] [GoogleAuthService] Failed to initialize Google client:`, e);
 				reject(e);
 			}
 		});

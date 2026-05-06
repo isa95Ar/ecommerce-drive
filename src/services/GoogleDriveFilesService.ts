@@ -11,11 +11,14 @@ class GoogleDriveFilesService extends GoogleAuthService {
 	}
 
 	public async retrieveFilesFromPicturesFolder(): Promise<FileInfoType> {
+		const ts = () => new Date().toISOString();
+		console.log(`[${ts()}] [GoogleDriveFilesService] Connecting to Google Drive...`);
 		try {
 			await this.startGoogleAuthentification();
 
 			this.googleFileService = google.drive({ version: 'v3', auth: this.GoogleAuth });
 
+			console.log(`[${ts()}] [GoogleDriveFilesService] Listing files from folder ${config.gapi.PICTURES_FOLDERS_ID}`);
 			let NextPageToken = '';
 			const responseFileList = await this.googleFileService.files.list({
 				corpora: 'allDrives',
@@ -33,8 +36,13 @@ class GoogleDriveFilesService extends GoogleAuthService {
 				return { webViewLink: newName, code: parseInt(newName.split('.')[0])};
 			});
 
+			console.log(`[${ts()}] [GoogleDriveFilesService] Retrieved ${filesFields.length} files from Drive folder`);
+			if (NextPageToken) {
+				console.log(`[${ts()}] [GoogleDriveFilesService] Warning: response has a nextPageToken — there may be more files beyond the 1000 limit`);
+			}
 			return filesFields;
 		} catch (e) {
+			console.error(`[${ts()}] [GoogleDriveFilesService] Error retrieving files from Google Drive folder ${config.gapi.PICTURES_FOLDERS_ID}:`, e);
 			throw new Error(e);
 		}
 	}
