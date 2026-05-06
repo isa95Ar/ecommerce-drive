@@ -42,6 +42,10 @@ var UpdateProducts_1 = require("./commands/UpdateProducts");
 var ConfigService_1 = require("./src/services/ConfigService");
 var tsyringe_1 = require("tsyringe");
 dotEnv.config();
+console.log("[".concat(new Date().toISOString(), "] [product-process] Process started"));
+function timestamp() {
+    return new Date().toISOString();
+}
 function initExport() {
     return __awaiter(this, void 0, void 0, function () {
         var _this = this;
@@ -51,24 +55,35 @@ function initExport() {
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                _a.trys.push([0, 4, , 5]);
-                                configService = tsyringe_1.container.resolve(ConfigService_1["default"]);
-                                return [4 /*yield*/, configService.getCartStatus()];
+                                console.log("[".concat(timestamp(), "] [initExport] Starting product export process"));
+                                _a.label = 1;
                             case 1:
-                                cartStatus = _a.sent();
-                                if (!(cartStatus.status === 'open')) return [3 /*break*/, 3];
-                                return [4 /*yield*/, (0, UpdateProducts_1.updateProducts)()];
+                                _a.trys.push([1, 6, , 7]);
+                                configService = tsyringe_1.container.resolve(ConfigService_1["default"]);
+                                console.log("[".concat(timestamp(), "] [initExport] Checking cart status..."));
+                                return [4 /*yield*/, configService.getCartStatus()];
                             case 2:
-                                _a.sent();
-                                _a.label = 3;
+                                cartStatus = _a.sent();
+                                console.log("[".concat(timestamp(), "] [initExport] Cart status: ").concat(cartStatus.status));
+                                if (!(cartStatus.status === 'open')) return [3 /*break*/, 4];
+                                console.log("[".concat(timestamp(), "] [initExport] Cart is open \u2014 proceeding with product update"));
+                                return [4 /*yield*/, (0, UpdateProducts_1.updateProducts)()];
                             case 3:
-                                resolve({ status: 'success' });
+                                _a.sent();
                                 return [3 /*break*/, 5];
                             case 4:
+                                console.log("[".concat(timestamp(), "] [initExport] Cart is not open \u2014 skipping product update"));
+                                _a.label = 5;
+                            case 5:
+                                console.log("[".concat(timestamp(), "] [initExport] Export process finished successfully"));
+                                resolve({ status: 'success' });
+                                return [3 /*break*/, 7];
+                            case 6:
                                 e_1 = _a.sent();
+                                console.error("[".concat(timestamp(), "] [initExport] Export process failed:"), e_1);
                                 reject(e_1);
-                                return [3 /*break*/, 5];
-                            case 5: return [2 /*return*/];
+                                return [3 /*break*/, 7];
+                            case 7: return [2 /*return*/];
                         }
                     });
                 }); })];
@@ -76,7 +91,7 @@ function initExport() {
     });
 }
 initExport()
-    .then(function (res) { return console.log("result of first exportation ".concat(res.status)); })["catch"](function (e) { return console.log(e); });
+    .then(function (res) { return console.log("[".concat(timestamp(), "] [initExport] First exportation result: ").concat(res.status)); })["catch"](function (e) { return console.error("[".concat(timestamp(), "] [initExport] First exportation error:"), e); });
 //our Cron on Node :v
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

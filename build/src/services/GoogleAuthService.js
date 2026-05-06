@@ -71,49 +71,62 @@ var GoogleAuthService = /** @class */ (function (_super) {
     }
     GoogleAuthService.prototype.startGoogleAuthentification = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var connection, e_1;
+            var ts, connection, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.initConnection()];
+                        ts = function () { return new Date().toISOString(); };
+                        console.log("[".concat(ts(), "] [GoogleAuthService] Initiating Google authentication..."));
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, this.initConnection()];
+                    case 2:
                         connection = _a.sent();
                         this.GoogleClient = connection.googleClient;
                         this.GoogleAuth = connection.googleAuth;
-                        return [3 /*break*/, 3];
-                    case 2:
+                        console.log("[".concat(ts(), "] [GoogleAuthService] Google authentication successful"));
+                        return [3 /*break*/, 4];
+                    case 3:
                         e_1 = _a.sent();
+                        console.error("[".concat(ts(), "] [GoogleAuthService] Google authentication failed:"), e_1);
                         throw new Error("Client Google error ".concat(e_1));
-                    case 3: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     GoogleAuthService.prototype.initConnection = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var ts;
             var _this = this;
             return __generator(this, function (_a) {
+                ts = function () { return new Date().toISOString(); };
                 return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
                         var googleAuth, googleClient, e_2;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    _a.trys.push([0, 2, , 3]);
+                                    console.log("[".concat(ts(), "] [GoogleAuthService] Loading credentials from google-credentials.json"));
+                                    _a.label = 1;
+                                case 1:
+                                    _a.trys.push([1, 3, , 4]);
                                     googleAuth = new google_auth_library_1.GoogleAuth({
                                         keyFile: './google-credentials.json',
                                         scopes: config_1["default"].gapi.SCOPES
                                     });
                                     return [4 /*yield*/, googleAuth.getClient()];
-                                case 1:
-                                    googleClient = _a.sent();
-                                    resolve({ googleClient: googleClient, googleAuth: googleAuth });
-                                    return [3 /*break*/, 3];
                                 case 2:
+                                    googleClient = _a.sent();
+                                    console.log("[".concat(ts(), "] [GoogleAuthService] Google client initialized successfully"));
+                                    resolve({ googleClient: googleClient, googleAuth: googleAuth });
+                                    return [3 /*break*/, 4];
+                                case 3:
                                     e_2 = _a.sent();
+                                    console.error("[".concat(ts(), "] [GoogleAuthService] Failed to initialize Google client:"), e_2);
                                     reject(e_2);
-                                    return [3 /*break*/, 3];
-                                case 3: return [2 /*return*/];
+                                    return [3 /*break*/, 4];
+                                case 4: return [2 /*return*/];
                             }
                         });
                     }); })];

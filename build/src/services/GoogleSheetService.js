@@ -67,35 +67,44 @@ var GoogleSheetService = /** @class */ (function (_super) {
     }
     GoogleSheetService.prototype.getGoogleSheetData = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var sheetName, rows, error_1;
+            var ts, sheetName, rows, rowCount, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.startGoogleAuthentification()];
+                        ts = function () { return new Date().toISOString(); };
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.startGoogleAuthentification()];
+                    case 2:
                         _a.sent();
                         sheetName = this.getSheetName();
+                        console.log("[".concat(ts(), "] [GoogleSheetService] Reading sheet \"").concat(sheetName, "\" from spreadsheet ").concat(config_1["default"].gapi.SPREADSHEET_ID));
                         return [4 /*yield*/, this.googleSheetService.spreadsheets.values.get({
                                 auth: this.GoogleAuth,
                                 spreadsheetId: config_1["default"].gapi.SPREADSHEET_ID,
                                 range: sheetName
                             })];
-                    case 2:
-                        rows = _a.sent();
-                        return [2 /*return*/, rows.data.values];
                     case 3:
+                        rows = _a.sent();
+                        rowCount = rows.data.values ? rows.data.values.length : 0;
+                        console.log("[".concat(ts(), "] [GoogleSheetService] Successfully read ").concat(rowCount, " rows from sheet \"").concat(sheetName, "\""));
+                        return [2 /*return*/, rows.data.values];
+                    case 4:
                         error_1 = _a.sent();
+                        console.error("[".concat(ts(), "] [GoogleSheetService] Error reading Google Sheet (module: ").concat(this.module, "):"), error_1);
                         throw new Error("Error on get Google Sheet Instance ".concat(error_1));
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
     };
     GoogleSheetService.prototype.insertOnGoogleSheet = function (data) {
         return __awaiter(this, void 0, void 0, function () {
+            var ts;
             var _this = this;
             return __generator(this, function (_a) {
+                ts = function () { return new Date().toISOString(); };
                 return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
                         var sheetName, response, e_1;
                         return __generator(this, function (_a) {
@@ -106,6 +115,7 @@ var GoogleSheetService = /** @class */ (function (_super) {
                                 case 1:
                                     _a.sent();
                                     sheetName = this.getSheetName();
+                                    console.log("[".concat(ts(), "] [GoogleSheetService] Inserting ").concat(data.length, " rows into sheet \"").concat(sheetName, "\""));
                                     response = this.googleSheetService.spreadsheets.values.append({
                                         spreadsheetId: config_1["default"].gapi.SPREADSHEET_ID,
                                         auth: this.GoogleAuth,
@@ -113,10 +123,12 @@ var GoogleSheetService = /** @class */ (function (_super) {
                                         valueInputOption: 'RAW',
                                         requestBody: { range: sheetName, values: this.serializeGoogleRows(data) }
                                     });
+                                    console.log("[".concat(ts(), "] [GoogleSheetService] Insert into sheet \"").concat(sheetName, "\" succeeded"));
                                     resolve({ status: 'success', message: response });
                                     return [3 /*break*/, 3];
                                 case 2:
                                     e_1 = _a.sent();
+                                    console.error("[".concat(ts(), "] [GoogleSheetService] Error inserting into Google Sheet (module: ").concat(this.module, "):"), e_1);
                                     reject({ status: 'Error', message: e_1.message });
                                     return [3 /*break*/, 3];
                                 case 3: return [2 /*return*/];

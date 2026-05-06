@@ -61,15 +61,20 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
     }
     GoogleDriveFilesService.prototype.retrieveFilesFromPicturesFolder = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var NextPageToken, responseFileList, filesFields, e_1;
+            var ts, NextPageToken, responseFileList, filesFields, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.startGoogleAuthentification()];
+                        ts = function () { return new Date().toISOString(); };
+                        console.log("[".concat(ts(), "] [GoogleDriveFilesService] Connecting to Google Drive..."));
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 4, , 5]);
+                        return [4 /*yield*/, this.startGoogleAuthentification()];
+                    case 2:
                         _a.sent();
                         this.googleFileService = googleapis_1.google.drive({ version: 'v3', auth: this.GoogleAuth });
+                        console.log("[".concat(ts(), "] [GoogleDriveFilesService] Listing files from folder ").concat(config_1["default"].gapi.PICTURES_FOLDERS_ID));
                         NextPageToken = '';
                         return [4 /*yield*/, this.googleFileService.files.list({
                                 corpora: 'allDrives',
@@ -80,18 +85,23 @@ var GoogleDriveFilesService = /** @class */ (function (_super) {
                                 q: "'".concat(config_1["default"].gapi.PICTURES_FOLDERS_ID, "' in parents"),
                                 fields: 'nextPageToken, files(id, name, webContentLink)'
                             })];
-                    case 2:
+                    case 3:
                         responseFileList = _a.sent();
                         NextPageToken = responseFileList.data.nextPageToken;
                         filesFields = responseFileList.data.files.map(function (file) {
                             var newName = file.name.replace(' ', '');
                             return { webViewLink: newName, code: parseInt(newName.split('.')[0]) };
                         });
+                        console.log("[".concat(ts(), "] [GoogleDriveFilesService] Retrieved ").concat(filesFields.length, " files from Drive folder"));
+                        if (NextPageToken) {
+                            console.log("[".concat(ts(), "] [GoogleDriveFilesService] Warning: response has a nextPageToken \u2014 there may be more files beyond the 1000 limit"));
+                        }
                         return [2 /*return*/, filesFields];
-                    case 3:
+                    case 4:
                         e_1 = _a.sent();
+                        console.error("[".concat(ts(), "] [GoogleDriveFilesService] Error retrieving files from Google Drive folder ").concat(config_1["default"].gapi.PICTURES_FOLDERS_ID, ":"), e_1);
                         throw new Error(e_1);
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });

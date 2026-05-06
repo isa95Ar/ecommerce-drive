@@ -44,7 +44,11 @@ var GoogleSheetService_1 = require("../src/services/GoogleSheetService");
 var slug_1 = require("../helpers/slug");
 var GoogleDriveFilesService_1 = require("../src/services/GoogleDriveFilesService");
 var config_1 = require("../constants/config");
+function timestamp() {
+    return new Date().toISOString();
+}
 function serializingProducts(products) {
+    console.log("[".concat(timestamp(), "] [serializingProducts] Serializing ").concat(products.length - 1, " product rows from sheet"));
     var serializeProducts = [];
     products.map(function (product, i) {
         if (i !== 0) {
@@ -62,20 +66,28 @@ function serializingProducts(products) {
             });
         }
     });
+    var inStock = serializeProducts.filter(function (p) { return p.stock; }).length;
+    console.log("[".concat(timestamp(), "] [serializingProducts] Serialized ").concat(serializeProducts.length, " products (").concat(inStock, " in stock)"));
     return serializeProducts;
 }
 function saveProductsOnMongo(products) {
     return __awaiter(this, void 0, void 0, function () {
-        var productService_1, e_1;
+        var productService_1, inStockProducts, e_1;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, , 4]);
-                    productService_1 = tsyringe_1.container.resolve(ProductService_1["default"]);
-                    return [4 /*yield*/, productService_1.clearAll()];
+                    console.log("[".concat(timestamp(), "] [saveProductsOnMongo] Saving products to MongoDB..."));
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 4, , 5]);
+                    productService_1 = tsyringe_1.container.resolve(ProductService_1["default"]);
+                    console.log("[".concat(timestamp(), "] [saveProductsOnMongo] Clearing existing products collection"));
+                    return [4 /*yield*/, productService_1.clearAll()];
+                case 2:
                     _a.sent();
+                    inStockProducts = products.filter(function (p) { return p.stock; });
+                    console.log("[".concat(timestamp(), "] [saveProductsOnMongo] Inserting ").concat(inStockProducts.length, " in-stock products"));
                     return [4 /*yield*/, Promise.all(products.map(function (product) { return __awaiter(_this, void 0, void 0, function () {
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
@@ -89,15 +101,15 @@ function saveProductsOnMongo(products) {
                                 }
                             });
                         }); }))];
-                case 2:
-                    _a.sent();
-                    console.log('Products saved succesfully');
-                    return [2 /*return*/, { success: true }];
                 case 3:
+                    _a.sent();
+                    console.log("[".concat(timestamp(), "] [saveProductsOnMongo] Products saved successfully"));
+                    return [2 /*return*/, { success: true }];
+                case 4:
                     e_1 = _a.sent();
-                    console.log('error saving products', e_1);
+                    console.error("[".concat(timestamp(), "] [saveProductsOnMongo] Error saving products to MongoDB:"), e_1);
                     return [2 /*return*/, { error: e_1 }];
-                case 4: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });
@@ -109,17 +121,22 @@ function saveCategories(products) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    console.log("[".concat(timestamp(), "] [saveCategories] Extracting and saving categories..."));
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
                     categoryService_1 = tsyringe_1.container.resolve(CategoryService_1["default"]);
                     categories_1 = [];
+                    console.log("[".concat(timestamp(), "] [saveCategories] Clearing existing categories collection"));
                     return [4 /*yield*/, categoryService_1.clearAll()];
-                case 1:
+                case 2:
                     _a.sent();
                     products.map(function (product) {
                         if (!categories_1.includes(product.categoryName)) {
                             categories_1.push(product.categoryName);
                         }
                     });
+                    console.log("[".concat(timestamp(), "] [saveCategories] Found ").concat(categories_1.length, " unique categories: ").concat(categories_1.join(', ')));
                     Promise.all(categories_1.map(function (category) { return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
@@ -130,13 +147,13 @@ function saveCategories(products) {
                             }
                         });
                     }); }));
-                    console.log('Categories saved succesfully');
+                    console.log("[".concat(timestamp(), "] [saveCategories] Categories saved successfully"));
                     return [2 /*return*/, { success: true }];
-                case 2:
+                case 3:
                     e_2 = _a.sent();
-                    console.log('error saving categories', e_2);
+                    console.error("[".concat(timestamp(), "] [saveCategories] Error saving categories to MongoDB:"), e_2);
                     return [2 /*return*/, { error: e_2 }];
-                case 3: return [2 /*return*/];
+                case 4: return [2 /*return*/];
             }
         });
     });
@@ -147,25 +164,33 @@ function updateProducts() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
+                    console.log("[".concat(timestamp(), "] [updateProducts] Starting full product update"));
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 5, , 6]);
+                    console.log("[".concat(timestamp(), "] [updateProducts] Connecting to Google Sheets (module: products)..."));
                     googleSheetInstance = new GoogleSheetService_1["default"]('products');
                     return [4 /*yield*/, googleSheetInstance.getGoogleSheetData()];
-                case 1:
+                case 2:
                     products = _a.sent();
+                    console.log("[".concat(timestamp(), "] [updateProducts] Google Sheets data fetched \u2014 ").concat(products.length, " rows received"));
                     GDservice = new GoogleDriveFilesService_1["default"]();
                     productsFormated = serializingProducts(products);
+                    console.log("[".concat(timestamp(), "] [updateProducts] Saving products to database..."));
                     return [4 /*yield*/, saveProductsOnMongo(productsFormated)];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, saveCategories(productsFormated)];
                 case 3:
                     _a.sent();
-                    return [2 /*return*/, { success: true }];
+                    console.log("[".concat(timestamp(), "] [updateProducts] Saving categories to database..."));
+                    return [4 /*yield*/, saveCategories(productsFormated)];
                 case 4:
+                    _a.sent();
+                    console.log("[".concat(timestamp(), "] [updateProducts] Product update completed successfully"));
+                    return [2 /*return*/, { success: true }];
+                case 5:
                     e_3 = _a.sent();
-                    console.log(e_3, 'Error updating products');
+                    console.error("[".concat(timestamp(), "] [updateProducts] Error during product update:"), e_3);
                     return [2 /*return*/, { error: e_3 }];
-                case 5: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });
