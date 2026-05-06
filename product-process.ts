@@ -27,12 +27,12 @@ async function initExport(): Promise<exportResult> {
 			const cartStatus = await configService.getCartStatus();
 			console.log(`[${timestamp()}] [initExport] Cart status: ${cartStatus.status}`);
 
-			if (cartStatus.status === 'open') {
+			//if (cartStatus.status === 'open') {
 				console.log(`[${timestamp()}] [initExport] Cart is open — proceeding with product update`);
 				await updateProducts();
-			} else {
+			/*} else {
 				console.log(`[${timestamp()}] [initExport] Cart is not open — skipping product update`);
-			}
+			}*/
 
 			console.log(`[${timestamp()}] [initExport] Export process finished successfully`);
 			resolve({ status: 'success' });

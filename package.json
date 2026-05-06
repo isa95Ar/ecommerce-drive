@@ -8,7 +8,7 @@
 		"build-command": "tsc product-process.ts --experimentalDecorators true --outDir ./build",
 		"start": "next start",
 		"lint": "next lint",
-		"update-products": "node build/product-process.js",
+		"update-products": "node -r dotenv/config build/product-process.js",
 		"prettier": "prettier --write ./**/*.{js,json,ts,tsx}"
 	},
 	"dependencies": {
